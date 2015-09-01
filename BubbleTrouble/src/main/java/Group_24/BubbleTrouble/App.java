@@ -4,14 +4,15 @@ import java.awt.EventQueue;
 import javax.swing.*;
 
 /**
- * Hello world!
+ * Application running the game.
  *
  */
+@SuppressWarnings("serial")
 public class App extends JFrame
 {
 	public App() {
 
-        add(new Board());
+        add(new Room());
         
         setResizable(false);
         pack();
@@ -26,8 +27,8 @@ public class App extends JFrame
         
         EventQueue.invokeLater(new Runnable() {
             public void run() {                
-                JFrame ex = new App();
-                ex.setVisible(true);                
+                JFrame app = new App();
+                app.setVisible(true);                
             }
         });
     }

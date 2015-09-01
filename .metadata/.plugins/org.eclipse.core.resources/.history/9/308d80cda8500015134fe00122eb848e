@@ -1,0 +1,48 @@
+package Group_24.BubbleTrouble;
+
+import java.awt.event.*;
+
+public class Player {
+	private int x;
+	private int dx;
+	
+	public Player(){
+		this.x = x;
+	}
+	
+	public void move(){
+		x += dx;
+	}
+	
+	public int getX(){
+		return x;
+	}
+	
+	public void keyPressed(KeyEvent e) {
+		
+		int key = e.getKeyCode();
+		
+		if (key == KeyEvent.VK_LEFT) {
+            dx = -1;
+        }
+
+        if (key == KeyEvent.VK_RIGHT) {
+            dx = 1;
+        }
+        
+	}
+	
+	public void keyReleased(KeyEvent e) {
+	        
+        int key = e.getKeyCode();
+
+        if (key == KeyEvent.VK_LEFT) {
+            dx = 0;
+        }
+
+        if (key == KeyEvent.VK_RIGHT) {
+            dx = 0;
+        }
+	
+	}
+}
