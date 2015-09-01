@@ -1,0 +1,9 @@
+2015-09-01 10:53:20,293 [Worker-6] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Collecting project info '/pom.xml' C:\Users\chris\Documents\GitHub\sem\SEMtex\pom.xml
+2015-09-01 10:53:24,944 [Worker-6] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: Group_24:SEMtex:0.0.1-SNAPSHOT @ C:\Users\chris\Documents\GitHub\sem\SEMtex\pom.xml.
+2015-09-01 10:53:26,378 [Worker-6] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /SEMtex/src/main/java
+2015-09-01 10:53:26,388 [Worker-6] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /SEMtex/src/test/java
+2015-09-01 10:53:28,206 [Worker-6] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Imported and configured 1 project(s) in 7 sec
+2015-09-01 10:53:30,192 [Worker-7] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-09-01 10:53:30,193 [Worker-7] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\chris\Documents\GitHub\sem\SEMtex\src\main\resources
+2015-09-01 10:53:30,199 [Worker-7] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-09-01 10:53:30,199 [Worker-7] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\chris\Documents\GitHub\sem\SEMtex\src\test\resources
