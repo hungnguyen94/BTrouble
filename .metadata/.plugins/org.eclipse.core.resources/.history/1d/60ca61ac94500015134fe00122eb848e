@@ -1,0 +1,10 @@
+package Group_24.BubbleTrouble;
+
+import javax.swing.*;
+import java.event.awt.*;
+
+public class Board extends JPanel implements ActionListener{
+	
+	
+	
+}

@@ -1,0 +1,74 @@
+package Group_24.BubbleTrouble;
+
+import javax.swing.*;
+import java.awt.event.*;
+import java.awt.*;
+
+@SuppressWarnings("serial")
+public class Board extends JPanel implements ActionListener{
+	
+	private Player player;
+	private Timer timer;
+	private final int DELAY = 10;
+	
+	private final int SCREEN_WIDTH = 300;
+	private final int SCREEN_HEIGHT = 300;
+	
+	public Board(){
+		addKeyListener(new TAdapter());
+		setBackground(Color.black);
+		setFocusable(true);
+		
+		player = new Player();
+		
+		timer = new Timer(DELAY, this);
+        timer.start();
+		
+		setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
+	}
+	
+	@Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        
+        doDrawing(g);
+        
+        Toolkit.getDefaultToolkit().sync();
+    }
+
+	private void doDrawing(Graphics g) {
+		
+		Graphics2D g2d = (Graphics2D) g;
+   
+		g2d.setColor(Color.white);
+		g2d.drawRect(10, player.getX(), 50, 50);
+	}
+	
+	public void actionPerformed(ActionEvent e) {
+        
+        player.move();
+        repaint();  
+    }
+}
+
+class TAdapter extends KeyAdapter {
+
+	@Override
+    public void keyPressed(KeyEvent e) {
+
+        int key = e.getKeyCode();
+
+        if ((key == KeyEvent.VK_LEFT)) {
+        	
+        }
+
+        if ((key == KeyEvent.VK_RIGHT)) {
+        	
+        }
+
+        if ((key == KeyEvent.VK_SPACE)) {
+            // TODO add shooting option
+        }
+    }
+}
+

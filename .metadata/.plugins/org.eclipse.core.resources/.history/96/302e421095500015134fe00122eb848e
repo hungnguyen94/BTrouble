@@ -1,0 +1,16 @@
+package Group_24.BubbleTrouble;
+
+import javax.swing.*;
+import java.awt.event.*;
+
+@SuppressWarnings("serial")
+public class Board extends JPanel implements ActionListener{
+
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+	
+}
