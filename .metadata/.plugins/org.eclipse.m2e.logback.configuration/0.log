@@ -7,3 +7,17 @@
 2015-09-01 10:53:30,193 [Worker-7] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\chris\Documents\GitHub\sem\SEMtex\src\main\resources
 2015-09-01 10:53:30,199 [Worker-7] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
 2015-09-01 10:53:30,199 [Worker-7] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\chris\Documents\GitHub\sem\SEMtex\src\test\resources
+2015-09-01 11:45:44,171 [Worker-28] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: Group_24:SEMtex:0.0.1-SNAPSHOT @ C:\Users\chris\Documents\GitHub\sem\SEMtex\pom.xml.
+2015-09-01 11:45:44,793 [Worker-28] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-09-01 11:45:44,793 [Worker-28] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\chris\Documents\GitHub\sem\SEMtex\src\main\resources
+2015-09-01 11:45:44,797 [Worker-28] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-09-01 11:45:44,797 [Worker-28] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\chris\Documents\GitHub\sem\SEMtex\src\test\resources
+2015-09-01 11:46:55,900 [Worker-26] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Collecting project info '/pom.xml' C:\Users\chris\Documents\GitHub\sem\BubbleTrouble\pom.xml
+2015-09-01 11:46:57,537 [Worker-26] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: Group_24:BubbleTrouble:0.0.1-SNAPSHOT @ C:\Users\chris\Documents\GitHub\sem\BubbleTrouble\pom.xml.
+2015-09-01 11:46:58,156 [Worker-26] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /BubbleTrouble/src/main/java
+2015-09-01 11:46:58,165 [Worker-26] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /BubbleTrouble/src/test/java
+2015-09-01 11:46:58,274 [Worker-26] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Imported and configured 1 project(s) in 2 sec
+2015-09-01 11:46:58,660 [Worker-26] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-09-01 11:46:58,660 [Worker-26] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\chris\Documents\GitHub\sem\BubbleTrouble\src\main\resources
+2015-09-01 11:46:58,664 [Worker-26] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-09-01 11:46:58,665 [Worker-26] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\chris\Documents\GitHub\sem\BubbleTrouble\src\test\resources
