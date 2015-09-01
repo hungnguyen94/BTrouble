@@ -957,3 +957,7 @@ java.io.FileNotFoundException: C:\Users\chris\Documents\GitHub\BTrouble\.metadat
 2015-09-01 17:16:07,826 [Worker-89] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\chris\Documents\GitHub\BTrouble\BubbleTrouble\src\main\resources
 2015-09-01 17:16:07,828 [Worker-89] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
 2015-09-01 17:16:07,829 [Worker-89] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\chris\Documents\GitHub\BTrouble\BubbleTrouble\src\test\resources
+2015-09-01 17:16:38,100 [Worker-108] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-09-01 17:16:38,100 [Worker-108] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\chris\Documents\GitHub\BTrouble\BubbleTrouble\src\main\resources
+2015-09-01 17:16:38,102 [Worker-108] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-09-01 17:16:38,102 [Worker-108] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\chris\Documents\GitHub\BTrouble\BubbleTrouble\src\test\resources
