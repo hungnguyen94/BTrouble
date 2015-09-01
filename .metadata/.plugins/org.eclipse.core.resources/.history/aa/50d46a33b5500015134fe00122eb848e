@@ -1,0 +1,50 @@
+package Group_24.BubbleTrouble;
+
+public class Bubble {
+	private int size;
+	private double x;
+	private double y;
+	
+	private double vx;
+	private double vy;
+	
+	private double ay;
+	
+	private final double g = .01; 
+	
+	public Bubble(int size, double x, double y) {
+		this.size = size;
+		this.x = x;
+		this.y = y;
+		
+		this.ay = g;
+		this.vx = .5;
+	}
+
+	public int getSize() {
+		return size;
+	}
+
+	public int getX() {
+		return (int) x;
+	}
+
+	public int getY() {
+		return (int) y;
+	}
+	
+	public void move() {
+		vy += ay;
+		
+		x += vx;
+		y += vy;
+	}
+	
+	public static final int FLOOR_COLLISION = 0;
+	public void collide(int type){
+		switch(type){
+			case FLOOR_COLLISION: vy = -vy; break;
+			default: return;
+		}
+	}
+}
