@@ -454,3 +454,70 @@
 2015-09-01 15:19:02,292 [Worker-70] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\chris\Documents\GitHub\BTrouble\BubbleTrouble\src\main\resources
 2015-09-01 15:19:02,294 [Worker-70] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
 2015-09-01 15:19:02,294 [Worker-70] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\chris\Documents\GitHub\BTrouble\BubbleTrouble\src\test\resources
+2015-09-01 15:28:51,590 [Worker-71] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-09-01 15:28:51,590 [Worker-71] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\chris\Documents\GitHub\BTrouble\BubbleTrouble\src\main\resources
+2015-09-01 15:28:51,591 [Worker-71] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-09-01 15:28:51,592 [Worker-71] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\chris\Documents\GitHub\BTrouble\BubbleTrouble\src\test\resources
+2015-09-01 15:32:39,584 [Worker-71] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-09-01 15:32:39,585 [Worker-71] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\chris\Documents\GitHub\BTrouble\BubbleTrouble\src\main\resources
+2015-09-01 15:32:39,586 [Worker-71] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-09-01 15:32:39,587 [Worker-71] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\chris\Documents\GitHub\BTrouble\BubbleTrouble\src\test\resources
+2015-09-01 15:35:46,190 [Worker-73] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-09-01 15:35:46,191 [Worker-73] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\chris\Documents\GitHub\BTrouble\BubbleTrouble\src\main\resources
+2015-09-01 15:35:46,192 [Worker-73] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-09-01 15:35:46,193 [Worker-73] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\chris\Documents\GitHub\BTrouble\BubbleTrouble\src\test\resources
+2015-09-01 15:35:54,113 [Worker-79] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: Group_24:BubbleTrouble:0.0.1-SNAPSHOT @ C:\Users\chris\Documents\GitHub\BTrouble\BubbleTrouble\pom.xml.
+2015-09-01 15:35:54,316 [Worker-79] ERROR o.e.m.c.i.i.nexus.NexusIndexManager - Unable to add Group_24/BubbleTrouble/0.0.1-SNAPSHOT/BubbleTrouble-0.0.1-SNAPSHOT.pom
+java.io.FileNotFoundException: C:\Users\chris\Documents\GitHub\BTrouble\.metadata\.plugins\org.eclipse.m2e.core\nexus\830bc118332e77292949ed1e6d2fabe0\_0_1.del (The system cannot find the file specified)
+	at java.io.RandomAccessFile.open0(Native Method) ~[na:1.8.0_51]
+	at java.io.RandomAccessFile.open(Unknown Source) ~[na:1.8.0_51]
+	at java.io.RandomAccessFile.<init>(Unknown Source) ~[na:1.8.0_51]
+	at org.apache.lucene.store.FSDirectory$FSIndexInput$Descriptor.<init>(FSDirectory.java:552) ~[lucene-core-2.4.1.jar:2.4.1 750176 - 2009-03-04 21:56:52]
+	at org.apache.lucene.store.FSDirectory$FSIndexInput.<init>(FSDirectory.java:582) ~[lucene-core-2.4.1.jar:2.4.1 750176 - 2009-03-04 21:56:52]
+	at org.apache.lucene.store.FSDirectory.openInput(FSDirectory.java:488) ~[lucene-core-2.4.1.jar:2.4.1 750176 - 2009-03-04 21:56:52]
+	at org.apache.lucene.store.FSDirectory.openInput(FSDirectory.java:482) ~[lucene-core-2.4.1.jar:2.4.1 750176 - 2009-03-04 21:56:52]
+	at org.apache.lucene.util.BitVector.<init>(BitVector.java:199) ~[lucene-core-2.4.1.jar:2.4.1 750176 - 2009-03-04 21:56:52]
+	at org.apache.lucene.index.SegmentReader.loadDeletedDocs(SegmentReader.java:402) ~[lucene-core-2.4.1.jar:2.4.1 750176 - 2009-03-04 21:56:52]
+	at org.apache.lucene.index.SegmentReader.initialize(SegmentReader.java:368) ~[lucene-core-2.4.1.jar:2.4.1 750176 - 2009-03-04 21:56:52]
+	at org.apache.lucene.index.SegmentReader.get(SegmentReader.java:306) ~[lucene-core-2.4.1.jar:2.4.1 750176 - 2009-03-04 21:56:52]
+	at org.apache.lucene.index.SegmentReader.get(SegmentReader.java:236) ~[lucene-core-2.4.1.jar:2.4.1 750176 - 2009-03-04 21:56:52]
+	at org.apache.lucene.index.DocumentsWriter.applyDeletes(DocumentsWriter.java:915) ~[lucene-core-2.4.1.jar:2.4.1 750176 - 2009-03-04 21:56:52]
+	at org.apache.lucene.index.IndexWriter.applyDeletes(IndexWriter.java:4339) ~[lucene-core-2.4.1.jar:2.4.1 750176 - 2009-03-04 21:56:52]
+	at org.apache.lucene.index.IndexWriter.doFlush(IndexWriter.java:3579) ~[lucene-core-2.4.1.jar:2.4.1 750176 - 2009-03-04 21:56:52]
+	at org.apache.lucene.index.IndexWriter.flush(IndexWriter.java:3450) ~[lucene-core-2.4.1.jar:2.4.1 750176 - 2009-03-04 21:56:52]
+	at org.apache.lucene.index.IndexWriter.prepareCommit(IndexWriter.java:3363) ~[lucene-core-2.4.1.jar:2.4.1 750176 - 2009-03-04 21:56:52]
+	at org.apache.lucene.index.IndexWriter.commit(IndexWriter.java:3408) ~[lucene-core-2.4.1.jar:2.4.1 750176 - 2009-03-04 21:56:52]
+	at org.apache.maven.index.DefaultIndexerEngine.update(DefaultIndexerEngine.java:84) ~[org.eclipse.m2e.maven.indexer_1.6.0.20150526-2031/:na]
+	at org.apache.maven.index.DefaultNexusIndexer.addArtifactToIndex(DefaultNexusIndexer.java:338) ~[org.eclipse.m2e.maven.indexer_1.6.0.20150526-2031/:na]
+	at org.eclipse.m2e.core.internal.index.nexus.NexusIndexManager.addDocument(NexusIndexManager.java:580) [org.eclipse.m2e.core_1.6.0.20150526-2032.jar:na]
+	at org.eclipse.m2e.core.internal.index.nexus.NexusIndexManager.mavenProjectChanged(NexusIndexManager.java:758) [org.eclipse.m2e.core_1.6.0.20150526-2032.jar:na]
+	at org.eclipse.m2e.core.internal.project.registry.ProjectRegistryManager.notifyProjectChangeListeners(ProjectRegistryManager.java:783) [org.eclipse.m2e.core_1.6.0.20150526-2032.jar:na]
+	at org.eclipse.m2e.core.internal.project.registry.ProjectRegistryManager.applyMutableProjectRegistry(ProjectRegistryManager.java:919) [org.eclipse.m2e.core_1.6.0.20150526-2032.jar:na]
+	at org.eclipse.m2e.core.internal.project.registry.ProjectRegistryManager.refresh(ProjectRegistryManager.java:299) [org.eclipse.m2e.core_1.6.0.20150526-2032.jar:na]
+	at org.eclipse.m2e.core.internal.builder.MavenBuilder$BuildMethod.getProjectFacade(MavenBuilder.java:154) [org.eclipse.m2e.core_1.6.0.20150526-2032.jar:na]
+	at org.eclipse.m2e.core.internal.builder.MavenBuilder$BuildMethod$1.call(MavenBuilder.java:89) [org.eclipse.m2e.core_1.6.0.20150526-2032.jar:na]
+	at org.eclipse.m2e.core.internal.embedder.MavenExecutionContext.executeBare(MavenExecutionContext.java:176) [org.eclipse.m2e.core_1.6.0.20150526-2032.jar:na]
+	at org.eclipse.m2e.core.internal.embedder.MavenExecutionContext.execute(MavenExecutionContext.java:151) [org.eclipse.m2e.core_1.6.0.20150526-2032.jar:na]
+	at org.eclipse.m2e.core.internal.embedder.MavenExecutionContext.execute(MavenExecutionContext.java:99) [org.eclipse.m2e.core_1.6.0.20150526-2032.jar:na]
+	at org.eclipse.m2e.core.internal.builder.MavenBuilder$BuildMethod.execute(MavenBuilder.java:86) [org.eclipse.m2e.core_1.6.0.20150526-2032.jar:na]
+	at org.eclipse.m2e.core.internal.builder.MavenBuilder.build(MavenBuilder.java:200) [org.eclipse.m2e.core_1.6.0.20150526-2032.jar:na]
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:734) [org.eclipse.core.resources_3.10.0.v20150423-0755.jar:na]
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42) [org.eclipse.equinox.common_3.7.0.v20150402-1709.jar:na]
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:205) [org.eclipse.core.resources_3.10.0.v20150423-0755.jar:na]
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:245) [org.eclipse.core.resources_3.10.0.v20150423-0755.jar:na]
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:300) [org.eclipse.core.resources_3.10.0.v20150423-0755.jar:na]
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42) [org.eclipse.equinox.common_3.7.0.v20150402-1709.jar:na]
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:303) [org.eclipse.core.resources_3.10.0.v20150423-0755.jar:na]
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:359) [org.eclipse.core.resources_3.10.0.v20150423-0755.jar:na]
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:382) [org.eclipse.core.resources_3.10.0.v20150423-0755.jar:na]
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:144) [org.eclipse.core.resources_3.10.0.v20150423-0755.jar:na]
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:235) [org.eclipse.core.resources_3.10.0.v20150423-0755.jar:na]
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55) [org.eclipse.core.jobs_3.7.0.v20150330-2103.jar:na]
+2015-09-01 15:35:54,391 [Worker-79] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-09-01 15:35:54,391 [Worker-79] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\chris\Documents\GitHub\BTrouble\BubbleTrouble\src\main\resources
+2015-09-01 15:35:54,393 [Worker-79] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-09-01 15:35:54,393 [Worker-79] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\chris\Documents\GitHub\BTrouble\BubbleTrouble\src\test\resources
+2015-09-01 15:35:55,541 [Worker-79] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-09-01 15:35:55,542 [Worker-79] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\chris\Documents\GitHub\BTrouble\BubbleTrouble\src\main\resources
+2015-09-01 15:35:55,544 [Worker-79] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-09-01 15:35:55,544 [Worker-79] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\chris\Documents\GitHub\BTrouble\BubbleTrouble\src\test\resources
