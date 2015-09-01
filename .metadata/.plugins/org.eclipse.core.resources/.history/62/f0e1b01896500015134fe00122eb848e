@@ -1,0 +1,27 @@
+package Group_24.BubbleTrouble;
+
+import javax.swing.*;
+import java.awt.event.*;
+import java.awt.*;
+
+@SuppressWarnings("serial")
+public class Board extends JPanel implements ActionListener{
+
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	private final int SCREEN_WIDTH = 300;
+	private final int SCREEN_HEIGHT = 300;
+	
+	public Board(){
+		addKeyListener(new KeyAdapter());
+		setBackground(Color.white);
+		setFocusable(true);
+		
+		setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
+		initGame();
+	}
+	
+}
