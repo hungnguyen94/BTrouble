@@ -1,12 +1,13 @@
 package Group_24.BubbleTrouble;
 
-public class Bubble {
+import java.awt.Color;
+import java.awt.Graphics2D;
+
+public class Bubble extends Object {
 	private int size;
-	private double game_size;
 	
-	// location
-	private double x;
-	private double y;
+	// actual size of a level one bubble in the game in pixels.
+	private final double GAME_SIZE = 10;
 	
 	// speed (pixels / step)
 	private double vx;
@@ -16,58 +17,59 @@ public class Bubble {
 	private double ay;
 	
 	// gravity
-	private final double g = .01;
+	private final double G = .01;
 	// starting speed in horizontal direction
-	private final double speed = .5;
+	private final double INITIAL_HORIZONTAL_SPEED = .5;
 	
 	/**
 	 * Bubble class, containing all the data about the bubble.
 	 * 
 	 * @param size of the bubble.
-	 * @param game_size actual size of a level one bubble in the game.
 	 * @param x horizontal starting position of the bubble in the room
 	 * @param y vertical starting position of the bubble in the room
 	 */
-	public Bubble(int size, double game_size, double x, double y) {
-		this.size = size;
-		this.game_size = game_size;
-		this.x = x;
-		this.y = y;
+	public Bubble(int size, int x, int y) {
+		super(x, y);
 		
-		this.ay = g;
-		this.vx = speed;
+		this.size = size;
+		this.ay = G;
+		this.vx = INITIAL_HORIZONTAL_SPEED;
 	}
 
 	public int getSize() {
 		return size;
 	}
 	
-	public int getRealSize() {
-		return (int) (size * game_size);
+	@Override
+	public int getWidth() {
+		return (int) (size * GAME_SIZE);
 	}
-
-	public int getX() {
-		return (int) x;
-	}
-
-	public int getY() {
-		return (int) y;
+	
+	@Override
+	public int getHeight() {
+		return this.getWidth();
 	}
 	
 	public void move() {
-		vy += ay;
+		this.vy += ay;
 		
-		x += vx;
-		y += vy;
+		this.x += vx;
+		this.y += vy;
 	}
 	
-	public static final int COLLISIONTYPE_FLOOR = 0;
-	public static final int COLLISIONTYPE_WALL = 1;
 	public void collide(int type){
 		switch(type){
-			case COLLISIONTYPE_FLOOR: vy = -vy; break;
-			case COLLISIONTYPE_WALL: vx = -vx; break;
+			case Collision.TYPE_FLOOR: vy = -vy; break;
+			case Collision.TYPE_WALL: vx = -vx; break;
+			case Collision.TYPE_ROPE: size--; break;
 			default: return;
 		}
+	}
+
+	@Override
+	public void drawObject(Graphics2D g, Room r) {
+		//g.drawOval(this.getX(), this.getY(), this.getWidth(), this.getWidth());
+		g.setColor(Color.white);
+		g.fillOval(this.getX(), this.getY(), this.getWidth(), this.getWidth());
 	}
 }

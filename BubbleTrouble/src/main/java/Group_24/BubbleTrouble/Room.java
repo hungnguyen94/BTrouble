@@ -2,6 +2,7 @@ package Group_24.BubbleTrouble;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import java.awt.*;
 
 /**
@@ -15,7 +16,6 @@ public class Room extends JPanel implements ActionListener{
 	private Bubble bubble;
 	private Timer timer;
     private final int DELAY = 10;
-    private Color drawingcolor = Color.white;
 	
 	private final int ROOM_WIDTH = 300;
 	private final int ROOM_HEIGHT = 300;
@@ -25,8 +25,8 @@ public class Room extends JPanel implements ActionListener{
 		setBackground(Color.black);
 		setFocusable(true);
 		
-		player = new Player();
-		bubble = new Bubble(10, 5, 100, 100);
+		player = new Player(10, ROOM_HEIGHT-65);
+		bubble = new Bubble(5, 100, 50);
 		
 		setPreferredSize(new Dimension(ROOM_WIDTH, ROOM_HEIGHT));
 		
@@ -47,40 +47,73 @@ public class Room extends JPanel implements ActionListener{
 		
 		Graphics2D g2d = (Graphics2D) g;
    
-		g2d.setColor(drawingcolor);
-		g2d.drawRect(player.getX(), ROOM_HEIGHT-player.getHeight(), player.getWidth(), player.getHeight());
-		g2d.setColor(drawingcolor);
-		g2d.drawOval(bubble.getX(), bubble.getY(), bubble.getRealSize(), bubble.getRealSize());
+		player.drawObject(g2d, this);
+		bubble.drawObject(g2d, this);
+		player.drawRopes(g2d, this);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
         
         // collision detection for bubble against floor
-        if(bubble.getY() + bubble.getRealSize() >= ROOM_HEIGHT){
-        	bubble.collide(Bubble.COLLISIONTYPE_FLOOR);
+        if(bubble.getY() + bubble.getWidth() >= ROOM_HEIGHT){
+        	bubble.collide(Collision.TYPE_FLOOR);
         }
         // collision detection for bubble against left wall
         if(bubble.getX() <= 0){
-        	bubble.collide(Bubble.COLLISIONTYPE_WALL);
+        	bubble.collide(Collision.TYPE_WALL);
         }
         // collision detection for bubble against right wall
-        if(bubble.getX() + bubble.getRealSize() >= ROOM_WIDTH){
-        	bubble.collide(Bubble.COLLISIONTYPE_WALL);
+        if(bubble.getX() + bubble.getWidth() >= ROOM_WIDTH){
+        	bubble.collide(Collision.TYPE_WALL);
         }
         
         // collision detection for bubble against player
-        double dist_x = Math.abs(bubble.getX() + .5 * bubble.getRealSize() - (player.getX() + .5 * player.getWidth())) - .5 * bubble.getRealSize() - .5 * player.getWidth();
-        double dist_y = Math.abs(bubble.getY() + (.5 * bubble.getRealSize()) - ROOM_HEIGHT + player.getHeight()) - .5 * bubble.getRealSize();
-        
-        if(dist_x <= 0 && dist_y <= 0){
-        	drawingcolor = Color.red;
+        if(player.collidesWith(bubble)){
+        	JOptionPane.showMessageDialog(this, "Game over...");
         	timer.stop();
         }
         
+        for(Rope rope: player.getRopes()){
+        	if(bubble.collidesWith(rope)){
+        		bubble.collide(Collision.TYPE_ROPE);
+        		player.resetRope();
+        	}
+        }
+        
         // calculate movements and repaint
-        player.move();
-        bubble.move();
+        updateRopes();
+    	updateBubble();
+    	updatePlayer();
+        
         repaint();
+    }
+	
+	private void updateRopes() {
+
+        ArrayList<Rope> ropes = player.getRopes();
+
+        for (int i = 0; i < ropes.size(); i++) {
+
+            Rope rope = (Rope) ropes.get(i);
+
+            if (rope.isVisible()) {
+
+            	rope.move();
+            } else {
+
+            	ropes.remove(i);
+            }
+        }
+    }
+
+    private void updatePlayer() {
+
+        player.move();
+    }
+    
+    private void updateBubble() {
+
+        bubble.move();
     }
 	
 	private class TAdapter extends KeyAdapter {
