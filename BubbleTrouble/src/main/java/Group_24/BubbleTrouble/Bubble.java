@@ -91,16 +91,20 @@ public class Bubble extends Object {
 	public void split() {
         // reduce size
         size--;
-        // give upward speed
-        vy = -ay * HIT_SPEED_FACTOR;
-        // casting to integers
-        int newSize = (int) size;
-        int newX = (int) x;
-        int newY = (int) y;
-        int newVx = (int) -vx;
-        int newVy = (int) vy;
-        // add an extra bubble to the game
-        Room.addBubble(newSize, newX, newY, newVx, newVy);
+        if(size != 0) {
+            // give upward speed
+            vy = -ay * HIT_SPEED_FACTOR;
+            // casting to integers
+            int newSize = (int) size;
+            int newX = (int) x;
+            int newY = (int) y;
+            int newVx = (int) -vx;
+            int newVy = (int) vy;
+            // add an extra bubble to the game
+            Room.addBubble(newSize, newX, newY, newVx, newVy);
+        } else {
+            Room.removeBubble(this);
+        }
 	}
 
 	@Override

@@ -15,6 +15,7 @@ public class Room extends JPanel implements ActionListener{
 	private Player player;
 	private ArrayList<Bubble> bubbles;
     public static ArrayList<Bubble> newBubbles;
+    public static ArrayList<Bubble> oldBubbles;
 	private Timer timer;
     private final int DELAY = 10;
 	
@@ -29,7 +30,8 @@ public class Room extends JPanel implements ActionListener{
 		player = new Player(10, ROOM_HEIGHT-65);
 		bubbles = new ArrayList<Bubble>();
         newBubbles = new ArrayList<Bubble>();
-        Bubble initBubble = new Bubble(5, 100, 50);
+        oldBubbles = new ArrayList<Bubble>();
+        Bubble initBubble = new Bubble(1, 100, 50);
 		bubbles.add(initBubble);
 		
 		setPreferredSize(new Dimension(ROOM_WIDTH, ROOM_HEIGHT));
@@ -75,8 +77,7 @@ public class Room extends JPanel implements ActionListener{
 
             // collision detection for bubble against player
             if (player.collidesWith(bubble)) {
-                JOptionPane.showMessageDialog(this, "Game over...");
-                timer.stop();
+                endGame("Game over...");
             }
 
             for (Rope rope : player.getRopes()) {
@@ -120,6 +121,11 @@ public class Room extends JPanel implements ActionListener{
             bubbles.add(bubble);
         }
         newBubbles.clear();
+        for(Bubble bubble: oldBubbles) {
+            bubbles.remove(bubble);
+        }
+        oldBubbles.clear();
+        if (bubbles.isEmpty()) endGame("You won the game!");
         for(Bubble bubble: bubbles)
             bubble.move();
     }
@@ -135,6 +141,15 @@ public class Room extends JPanel implements ActionListener{
     public static void addBubble(int size, int x, int y, int vx, int vy) {
         Bubble newBubble = new Bubble(size, x, y, vx, vy);
         newBubbles.add(newBubble);
+    }
+
+    public static void removeBubble(Bubble bubble) {
+        oldBubbles.add(bubble);
+    }
+
+    private void endGame(String message) {
+        JOptionPane.showMessageDialog(this, message);
+        timer.stop();
     }
 	
 	private class TAdapter extends KeyAdapter {
