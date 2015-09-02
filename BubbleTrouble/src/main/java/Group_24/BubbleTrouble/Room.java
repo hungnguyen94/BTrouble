@@ -10,12 +10,12 @@ import java.awt.*;
  *
  */
 @SuppressWarnings("serial")
-public class Room extends JPanel implements ActionListener{
-	
+public class Room extends JPanel implements ActionListener {
+
 	private Player player;
 	private ArrayList<Bubble> bubbles;
-    public static ArrayList<Bubble> newBubbles;
-    public static ArrayList<Bubble> oldBubbles;
+    private static ArrayList<Bubble> newBubbles;
+    private static ArrayList<Bubble> oldBubbles;
 	private Timer timer;
     private final int DELAY = 10;
 	
