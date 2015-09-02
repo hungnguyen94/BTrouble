@@ -1,9 +1,0 @@
-package Group_24.BubbleTrouble;
-
-public class Bubble {
-	private int size;
-	private int x;
-	private int y;
-	
-	
-}
