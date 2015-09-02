@@ -100,8 +100,7 @@ public class Room extends JPanel implements ActionListener{
 
             	rope.move();
             } else {
-
-            	ropes.remove(i);
+                ropes.clear();
             }
         }
     }

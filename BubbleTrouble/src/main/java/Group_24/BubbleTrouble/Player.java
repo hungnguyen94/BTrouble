@@ -9,71 +9,102 @@ import java.util.ArrayList;
  *
  */
 public class Player extends Sprite{
-	private int dx;
-	
-	private ArrayList<Rope> ropes;
-	
-	public Player(int x, int y){
-		super(x, y);
-		init("Sprites/Player.png");
+  private int dx;
 
-	}
-	
-	@Override
-	protected void init(String img) {
-		loadImage(img);
-		
-		ropes = new ArrayList<Rope>();
-		getImageDimensions();
-	}
+  private ArrayList<Rope> ropes;
 
-	public ArrayList<Rope> getRopes() {
-		return ropes;
-	}
-	
-	public void move(){
-		x += dx;
-	}
-	
-    public void fire() {
-        ropes.add(new Rope((this.getX() + this.getWidth() / 2), this.getY()));
-    }
+  /**
+   * Constructor for the Player class.
+   * @param x x value for the Player from the sprite class.
+   * @param y y value for the Player from the sprite class.
+   */
+  public Player(int x, int y){
+    super(x, y);
+    init("Sprites/Player.png");
+  }
+
+  @Override
+  protected void init(String img) {
+    loadImage(img);
+
+    ropes = new ArrayList<Rope>();
+    getImageDimensions();
+  }
+
+  public ArrayList<Rope> getRopes() {
+    return ropes;
+  }
+
+  /**
+   * Function which allows the Player to move.
+   */
+  public void move() {
+    x += dx;
+  }
+
+  /**
+   * Function which allows the player to fire.
+   */
+  public void fire() {
+    int yvalue = this.getY();
     
-    public void drawRopes(Graphics2D g, Room room){
-    	ArrayList<Rope> rs = this.getRopes();
-
-        for (Object r1 : rs) {
-            Rope r = (Rope) r1;
-            g.drawImage(r.getImage(), r.getX() - r.getWidth() / 2,
-                    r.getY(), room);
-        }   
+    for (int i = 32; i < 321; i += 32) {
+      ropes.add(new Rope((this.getX() + this.getWidth() / 2), yvalue));
+      yvalue += 32;
     }
-	
-	public void keyPressed(KeyEvent e) {
-		
-		int key = e.getKeyCode();
-		
-		switch(key){
-			case KeyEvent.VK_SPACE: fire(); break;
-			case KeyEvent.VK_LEFT: dx = -1; break;
-			case KeyEvent.VK_RIGHT: dx = 1; break;
-			default: return;
-		}
-	}
-	
-	public void keyReleased(KeyEvent e) {
-	        
-        int key = e.getKeyCode();
+  }
+  
+  /**
+   * Function which draws all the ropes from the ArrayList.
+   * @param graphics Graphics2D element.
+   * @param room The room to draw to.
+   */
+  public void drawRopes(Graphics2D graphics, Room room) {
+    ArrayList<Rope> rs = this.getRopes();
 
-		switch(key){
-			case KeyEvent.VK_LEFT: dx = 0; break;
-			case KeyEvent.VK_RIGHT: dx = 0; break;
-			default: return;
-		}
-	
-	}
+    for (Object r1 : rs) {
+      Rope rope = (Rope) r1;
+      graphics.drawImage(rope.getImage(), rope.getX() - rope.getWidth() / 2,
+          rope.getY(), room);
+    }   
+  }
 
-	public void resetRope() {
-		ropes = new ArrayList<Rope>();
-	}
+  /**
+   * This function handles the keyboard control.
+   * @param e KeyEvent to handle the keyboard.
+   */
+  public void keyPressed(KeyEvent e) {
+
+    int key = e.getKeyCode();
+
+    switch (key) {
+      case KeyEvent.VK_SPACE: fire(); break;
+      case KeyEvent.VK_LEFT: dx = -1; break;
+      case KeyEvent.VK_RIGHT: dx = 1; break;
+      default: return;
+    }
+  }
+  
+  /**
+   * This functions handles the release of keys.
+   * @param e the KeyEvent to handle the keyboard.
+   */
+  public void keyReleased(KeyEvent e) {
+
+    int key = e.getKeyCode();
+
+    switch (key) {
+      case KeyEvent.VK_LEFT: dx = 0; break;
+      case KeyEvent.VK_RIGHT: dx = 0; break;
+      default: return;
+    }
+
+  }
+  
+  /**
+   * This functions deletes all the rope elements from the room.
+   */
+  public void resetRope() {
+    ropes = new ArrayList<Rope>();
+  }
 }
