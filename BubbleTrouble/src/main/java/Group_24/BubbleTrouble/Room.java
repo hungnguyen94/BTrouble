@@ -31,7 +31,7 @@ public class Room extends JPanel implements ActionListener{
 		bubbles = new ArrayList<Bubble>();
         newBubbles = new ArrayList<Bubble>();
         oldBubbles = new ArrayList<Bubble>();
-        Bubble initBubble = new Bubble(1, 100, 50);
+        Bubble initBubble = new Bubble(3, 100, 50);
 		bubbles.add(initBubble);
 		
 		setPreferredSize(new Dimension(ROOM_WIDTH, ROOM_HEIGHT));
