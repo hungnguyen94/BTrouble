@@ -44,3 +44,6 @@ local.properties
 # Maven
 log/
 target/
+
+# IntelliJ IDEA
+.idea/

@@ -36,6 +36,14 @@ public class Bubble extends Object {
 		this.vx = INITIAL_HORIZONTAL_SPEED;
 	}
 
+    public Bubble(int size, int x, int y, int vx) {
+        super(x, y);
+
+        this.size = size;
+        this.ay = G;
+        this.vx = vx;
+    }
+
 	public int getSize() {
 		return size;
 	}
@@ -61,9 +69,21 @@ public class Bubble extends Object {
 		switch(type){
 			case Collision.TYPE_FLOOR: vy = -vy; break;
 			case Collision.TYPE_WALL: vx = -vx; break;
-			case Collision.TYPE_ROPE: size--; break;
+			case Collision.TYPE_ROPE: split(); break;
 			default: return;
 		}
+	}
+
+	/**
+	 * Splits the bubble in two with a smaller size of each
+	 */
+	public void split() {
+        size--;
+        int newSize = (int) size;
+        int newX = (int) x;
+        int newY = (int) y;
+        int newVx = (int) -vx;
+        Room.addBubble(newSize, newX, newY, newVx);
 	}
 
 	@Override

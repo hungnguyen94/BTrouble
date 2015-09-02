@@ -13,12 +13,13 @@ import java.awt.*;
 public class Room extends JPanel implements ActionListener{
 	
 	private Player player;
-	private Bubble bubble;
+	private ArrayList<Bubble> bubbles;
+    public static ArrayList<Bubble> newBubbles;
 	private Timer timer;
     private final int DELAY = 10;
 	
-	private final int ROOM_WIDTH = 300;
-	private final int ROOM_HEIGHT = 300;
+	private final int ROOM_WIDTH = 800;
+	private final int ROOM_HEIGHT = 500;
 	
 	public Room(){
 		addKeyListener(new TAdapter());
@@ -26,7 +27,10 @@ public class Room extends JPanel implements ActionListener{
 		setFocusable(true);
 		
 		player = new Player(10, ROOM_HEIGHT-65);
-		bubble = new Bubble(5, 100, 50);
+		bubbles = new ArrayList<Bubble>();
+        newBubbles = new ArrayList<Bubble>();
+        Bubble initBubble = new Bubble(5, 100, 50);
+		bubbles.add(initBubble);
 		
 		setPreferredSize(new Dimension(ROOM_WIDTH, ROOM_HEIGHT));
 		
@@ -48,36 +52,39 @@ public class Room extends JPanel implements ActionListener{
 		Graphics2D g2d = (Graphics2D) g;
    
 		player.drawObject(g2d, this);
-		bubble.drawObject(g2d, this);
+        for(Bubble bubble: bubbles)
+		    bubble.drawObject(g2d, this);
 		player.drawRopes(g2d, this);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-        
-        // collision detection for bubble against floor
-        if(bubble.getY() + bubble.getWidth() >= ROOM_HEIGHT){
-        	bubble.collide(Collision.TYPE_FLOOR);
-        }
-        // collision detection for bubble against left wall
-        if(bubble.getX() <= 0){
-        	bubble.collide(Collision.TYPE_WALL);
-        }
-        // collision detection for bubble against right wall
-        if(bubble.getX() + bubble.getWidth() >= ROOM_WIDTH){
-        	bubble.collide(Collision.TYPE_WALL);
-        }
-        
-        // collision detection for bubble against player
-        if(player.collidesWith(bubble)){
-        	JOptionPane.showMessageDialog(this, "Game over...");
-        	timer.stop();
-        }
-        
-        for(Rope rope: player.getRopes()){
-        	if(bubble.collidesWith(rope)){
-        		bubble.collide(Collision.TYPE_ROPE);
-        		player.resetRope();
-        	}
+
+        for(Bubble bubble: bubbles) {
+            // collision detection for bubble against floor
+            if (bubble.getY() + bubble.getWidth() >= ROOM_HEIGHT) {
+                bubble.collide(Collision.TYPE_FLOOR);
+            }
+            // collision detection for bubble against left wall
+            if (bubble.getX() <= 0) {
+                bubble.collide(Collision.TYPE_WALL);
+            }
+            // collision detection for bubble against right wall
+            if (bubble.getX() + bubble.getWidth() >= ROOM_WIDTH) {
+                bubble.collide(Collision.TYPE_WALL);
+            }
+
+            // collision detection for bubble against player
+            if (player.collidesWith(bubble)) {
+                JOptionPane.showMessageDialog(this, "Game over...");
+                timer.stop();
+            }
+
+            for (Rope rope : player.getRopes()) {
+                if (bubble.collidesWith(rope)) {
+                    bubble.collide(Collision.TYPE_ROPE);
+                    player.resetRope();
+                }
+            }
         }
         
         // calculate movements and repaint
@@ -97,7 +104,6 @@ public class Room extends JPanel implements ActionListener{
             Rope rope = (Rope) ropes.get(i);
 
             if (rope.isVisible()) {
-
             	rope.move();
             } else {
                 ropes.clear();
@@ -106,13 +112,21 @@ public class Room extends JPanel implements ActionListener{
     }
 
     private void updatePlayer() {
-
         player.move();
     }
     
     private void updateBubble() {
+        for(Bubble bubble: newBubbles) {
+            bubbles.add(bubble);
+        }
+        newBubbles.clear();
+        for(Bubble bubble: bubbles)
+            bubble.move();
+    }
 
-        bubble.move();
+    public static void addBubble(int size, int x, int y, int vx) {
+        Bubble newBubble = new Bubble(size, x, y, vx);
+        newBubbles.add(newBubble);
     }
 	
 	private class TAdapter extends KeyAdapter {
