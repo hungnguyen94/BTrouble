@@ -10,6 +10,7 @@ import java.util.ArrayList;
  */
 public class Player extends Sprite{
   private int dx;
+  private final int PLAYER_SPEED = 5;
 
   private ArrayList<Rope> ropes;
 
@@ -79,8 +80,8 @@ public class Player extends Sprite{
 
     switch (key) {
       case KeyEvent.VK_SPACE: fire(); break;
-      case KeyEvent.VK_LEFT: dx = -1; break;
-      case KeyEvent.VK_RIGHT: dx = 1; break;
+      case KeyEvent.VK_LEFT: dx = -1 * PLAYER_SPEED; break;
+      case KeyEvent.VK_RIGHT: dx = 1 * PLAYER_SPEED; break;
       default: return;
     }
   }

@@ -17,9 +17,11 @@ public class Bubble extends Object {
 	private double ay;
 	
 	// gravity
-	private final double G = .01;
+	private final double G = .05;
 	// starting speed in horizontal direction
 	private final double INITIAL_HORIZONTAL_SPEED = .5;
+    // factor of acceleration that the bubbles go up with when hit with a rope
+    private final int HIT_SPEED_FACTOR = 50;
 	
 	/**
 	 * Bubble class, containing all the data about the bubble.
@@ -36,12 +38,21 @@ public class Bubble extends Object {
 		this.vx = INITIAL_HORIZONTAL_SPEED;
 	}
 
-    public Bubble(int size, int x, int y, int vx) {
+    /**
+     * Bubble constructor with the ability to give initial speed as a variable
+     * @param size of the bubble.
+     * @param x horizontal starting position of the bubble in the room
+     * @param y vertical starting position of the bubble in the room
+     * @param vx horizontal starting speed of the bubble
+     * @param vy vertical starting speed of the bubble
+     */
+    public Bubble(int size, int x, int y, int vx, int vy) {
         super(x, y);
 
         this.size = size;
         this.ay = G;
         this.vx = vx;
+        this.vy = vy;
     }
 
 	public int getSize() {
@@ -75,15 +86,21 @@ public class Bubble extends Object {
 	}
 
 	/**
-	 * Splits the bubble in two with a smaller size of each
+	 * splits the bubble in two with a smaller size of each
 	 */
 	public void split() {
+        // reduce size
         size--;
+        // give upward speed
+        vy = -ay * HIT_SPEED_FACTOR;
+        // casting to integers
         int newSize = (int) size;
         int newX = (int) x;
         int newY = (int) y;
         int newVx = (int) -vx;
-        Room.addBubble(newSize, newX, newY, newVx);
+        int newVy = (int) vy;
+        // add an extra bubble to the game
+        Room.addBubble(newSize, newX, newY, newVx, newVy);
 	}
 
 	@Override

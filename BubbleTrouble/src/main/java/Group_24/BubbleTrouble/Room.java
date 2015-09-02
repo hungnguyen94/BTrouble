@@ -124,8 +124,16 @@ public class Room extends JPanel implements ActionListener{
             bubble.move();
     }
 
-    public static void addBubble(int size, int x, int y, int vx) {
-        Bubble newBubble = new Bubble(size, x, y, vx);
+    /**
+     * adds a bubble to the game
+     * @param size size of the bubble
+     * @param x horizontal position of the bubble
+     * @param y vertical position of the bubble
+     * @param vx horizontal speed of the bubble
+     * @param vy vertical speed of the bubble
+     */
+    public static void addBubble(int size, int x, int y, int vx, int vy) {
+        Bubble newBubble = new Bubble(size, x, y, vx, vy);
         newBubbles.add(newBubble);
     }
 	
