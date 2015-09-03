@@ -138,11 +138,15 @@ public class Room extends JPanel implements ActionListener {
      * @param vx horizontal speed of the bubble
      * @param vy vertical speed of the bubble
      */
-    public static void addBubble(int size, int x, int y, int vx, int vy) {
+    public static void addBubble(int size, int x, int y, double vx, double vy) {
         Bubble newBubble = new Bubble(size, x, y, vx, vy);
         newBubbles.add(newBubble);
     }
 
+    /**
+     * removes a bubble from the game
+     * @param bubble the bubble to remove
+     */
     public static void removeBubble(Bubble bubble) {
         oldBubbles.add(bubble);
     }

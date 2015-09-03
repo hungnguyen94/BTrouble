@@ -46,7 +46,7 @@ public class Bubble extends Object {
      * @param vx horizontal starting speed of the bubble
      * @param vy vertical starting speed of the bubble
      */
-    public Bubble(int size, int x, int y, int vx, int vy) {
+    public Bubble(int size, int x, int y, double vx, double vy) {
         super(x, y);
 
         this.size = size;
@@ -98,10 +98,8 @@ public class Bubble extends Object {
             int newSize = (int) size;
             int newX = (int) x;
             int newY = (int) y;
-            int newVx = (int) -vx;
-            int newVy = (int) vy;
             // add an extra bubble to the game
-            Room.addBubble(newSize, newX, newY, newVx, newVy);
+            Room.addBubble(newSize, newX, newY, -vx, vy);
         } else {
             Room.removeBubble(this);
         }
