@@ -2,11 +2,8 @@ package Group_24.BubbleTrouble;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.BasicGame;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.SlickException;
+
+import org.newdawn.slick.*;
 
 /**
  * Application running the game.
@@ -15,20 +12,25 @@ import org.newdawn.slick.SlickException;
 @SuppressWarnings("serial")
 public class App extends BasicGame
 {
+
+    private Image player = null;
+
 	public App(String gamename) {
         super(gamename);
     }
 
-    @Override
-    public void init(GameContainer gc) throws SlickException {}
+    public void init(GameContainer gc) throws SlickException {
+        player = new Image("sprites/Player.png");
+    }
 
-    @Override
-    public void update(GameContainer gc, int i) throws SlickException {}
+    public void update(GameContainer gc, int delta) throws SlickException {
 
-    @Override
+    }
+
     public void render(GameContainer gc, Graphics g) throws SlickException
     {
-        g.drawString("Test", 10, 10);
+        g.drawString("Test", 10, 30);
+        player.draw(100, 300);
     }
 
 
@@ -38,6 +40,8 @@ public class App extends BasicGame
             AppGameContainer appgc;
             appgc = new AppGameContainer(new App("Bubble Trouble"));
             appgc.setDisplayMode(800, 500, false);
+            appgc.setShowFPS(false);
+            appgc.setAlwaysRender(true);
             appgc.start();
         }
         catch (SlickException ex)
