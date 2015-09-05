@@ -10,8 +10,11 @@ import java.util.ArrayList;
  */
 public class Player extends Sprite{
   private int dx;
-  private final int PLAYER_SPEED = 5;
-
+  private int lives;
+  
+  private static final int PLAYER_SPEED = 5;
+  private static final int INITIAL_LIVES = 2;
+  
   private ArrayList<Rope> ropes;
 
   /**
@@ -22,6 +25,7 @@ public class Player extends Sprite{
   public Player(int x, int y){
     super(x, y);
     init("Sprites/Player.png");
+    lives = INITIAL_LIVES;
   }
 
   @Override
@@ -35,7 +39,23 @@ public class Player extends Sprite{
   public ArrayList<Rope> getRopes() {
     return ropes;
   }
-
+  
+  public void addLife(){
+	  lives ++;
+  }
+  
+  public void loseLife(){
+	  lives --;
+  }
+  
+  public boolean hasLives(){
+	  return lives >= 0; 
+  }
+  
+  public int getLives(){
+	  return lives;
+  }
+  
   /**
    * Function which allows the Player to move.
    */
@@ -108,4 +128,9 @@ public class Player extends Sprite{
   public void resetRope() {
     ropes = new ArrayList<Rope>();
   }
+
+	public void moveTo(int x) {
+		this.x = x;
+		this.dx = 0;
+	}
 }

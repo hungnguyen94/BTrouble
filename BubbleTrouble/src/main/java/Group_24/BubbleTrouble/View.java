@@ -19,7 +19,7 @@ public class View extends JPanel implements ActionListener {
 	
 	private Timer timer;
     private final int DELAY = 10;
-    private boolean running;
+    private boolean active;
 	
 	public View(){
 		addKeyListener(new TAdapter());
@@ -29,12 +29,12 @@ public class View extends JPanel implements ActionListener {
 		setPreferredSize(new Dimension(Model.getRoomWidth(), Model.getRoomHeight()));
 		
 		timer = new Timer(DELAY, this);
-		running = false;
-        startGame();
+		active = false;
+        start();
 	}
 	
-	public boolean isRunning() {
-		return running;
+	public boolean isActive() {
+		return active;
 	}
 
 	@Override
@@ -52,10 +52,12 @@ public class View extends JPanel implements ActionListener {
 		
 		for(Player player : Model.getPlayers()){
 			player.drawObject(g2d, this);
-	        for(Bubble bubble: Model.getBubbles())
-			    bubble.drawObject(g2d, this);
 			player.drawRopes(g2d, this);
 		}
+		for(Bubble bubble: Model.getBubbles())
+		    bubble.drawObject(g2d, this);
+		
+		g2d.drawString("lives: " + Model.getPlayers().get(0).getLives(), 5, 15);
 	}
 	
 	public void showMessage(String message) {
@@ -80,13 +82,13 @@ public class View extends JPanel implements ActionListener {
 		repaint();
 	}
 	
-	public void stopGame(){
+	public void pause(){
 		timer.stop();
-		running = false;
+		active = false;
 	}
 	
-	public void startGame(){
+	public void start(){
 		timer.start();
-		running = true;
+		active = true;
 	}
 }

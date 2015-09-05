@@ -7,21 +7,40 @@ import java.util.ArrayList;
  *
  */
 public class Room {
+	
+	private RoomData data;
+	private boolean active;
+	private int startingposition;
 
-	private ArrayList<Player> players;
 	private ArrayList<Bubble> bubbles;
 	
 	public Room(RoomData data){
-		players = data.getPlayers();
-		bubbles = data.getBubbles();
-	}
-
-	public ArrayList<Player> getPlayers(){
-		return players;
+		this.data = data;
+		this.reload();
 	}
 	
 	public ArrayList<Bubble> getBubbles() {
 		return bubbles;
+	}
+	
+	public boolean isActive(){
+		return active;
+	}
+	
+	public void activate(){
+		this.active = true;
+	}
+	
+	public void deactivate(){
+		this.active = false;
+	}
+
+	public void reload() {
+		for(Player player: Model.getPlayers()){
+			player.moveTo(startingposition);
+		}
+		startingposition = data.getStartingposition();
+		bubbles = data.getBubbles();
 	}
 
 }
