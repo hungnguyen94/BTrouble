@@ -99,14 +99,14 @@ public class Bubble extends Object {
             int newX = (int) x;
             int newY = (int) y;
             // add an extra bubble to the game
-            Room.addBubble(newSize, newX, newY, -vx, vy);
+            Controller.addBubble(newSize, newX, newY, -vx, vy);
         } else {
-            Room.removeBubble(this);
+        	Controller.removeBubble(this);
         }
 	}
 
 	@Override
-	public void drawObject(Graphics2D g, Room r) {
+	public void drawObject(Graphics2D g, View v) {
 		//g.drawOval(this.getX(), this.getY(), this.getWidth(), this.getWidth());
 		g.setColor(Color.white);
 		g.fillOval(this.getX(), this.getY(), this.getWidth(), this.getWidth());
