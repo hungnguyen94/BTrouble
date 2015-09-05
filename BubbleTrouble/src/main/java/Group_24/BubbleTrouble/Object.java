@@ -50,5 +50,5 @@ public abstract class Object {
 		return xCol && yCol;
 	}
 
-	public abstract void drawObject(Graphics2D g, Room r);
+	public abstract void drawObject(Graphics2D g, View v);
 }

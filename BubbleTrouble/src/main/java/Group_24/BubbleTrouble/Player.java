@@ -58,15 +58,15 @@ public class Player extends Sprite{
   /**
    * Function which draws all the ropes from the ArrayList.
    * @param graphics Graphics2D element.
-   * @param room The room to draw to.
+   * @param view The room to draw to.
    */
-  public void drawRopes(Graphics2D graphics, Room room) {
+  public void drawRopes(Graphics2D graphics, View view) {
     ArrayList<Rope> rs = this.getRopes();
 
     for (Object r1 : rs) {
       Rope rope = (Rope) r1;
       graphics.drawImage(rope.getImage(), rope.getX() - rope.getWidth() / 2,
-          rope.getY(), room);
+          rope.getY(), view);
     }   
   }
 

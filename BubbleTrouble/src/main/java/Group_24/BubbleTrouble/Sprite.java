@@ -41,7 +41,7 @@ public abstract class Sprite extends Object{
     }
 
 	@Override
-	public void drawObject(Graphics2D g, Room r) {
-		g.drawImage(this.getImage(), this.getX(), this.getY(), r);
+	public void drawObject(Graphics2D g, View view) {
+		g.drawImage(this.getImage(), this.getX(), this.getY(), view);
 	}
 }

@@ -11,8 +11,9 @@ import javax.swing.*;
 public class App extends JFrame
 {
 	public App() {
-
-        add(new Room());
+		
+		Controller.init();
+        add(Controller.getView());
         
         setResizable(false);
         pack();
