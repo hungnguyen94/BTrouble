@@ -1,6 +1,8 @@
 package Group_24.BubbleTrouble;
 
 import java.awt.EventQueue;
+import java.awt.event.WindowEvent;
+
 import javax.swing.*;
 
 /**

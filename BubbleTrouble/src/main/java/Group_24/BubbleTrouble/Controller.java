@@ -38,7 +38,7 @@ public class Controller {
             for(Player player : Model.getPlayers()){
 	            // collision detection for bubble against player
 	            if (player.collidesWith(bubble)) {
-	                endGame("Game over...");
+	                loseLife(player);
 	            }
 	
 	            for (Rope rope : player.getRopes()) {
@@ -54,6 +54,18 @@ public class Controller {
         updateRopes();
     	updateBubble();
     	updatePlayer();
+	}
+	
+	private static void loseLife(Player player) {
+		player.loseLife();
+        if(!player.hasLives()){
+        	endGame("Game over...");
+        } else {
+        	Model.restartRoom();
+        	player.resetRope();
+        	view.start();
+        }
+		
 	}
 	
 	private static void updateBubble() {
@@ -115,24 +127,31 @@ public class Controller {
     }
 	
     public static void startGame(){
-    	if(view == null || view.isRunning()){
+    	if(view == null || view.isActive()){
     		view = new View();
     		
     		Model.init();
-    		ArrayList<Player> players = new ArrayList<Player>();
-    		players.add(new Player(10, Model.getRoomHeight()-65));
     		ArrayList<Bubble> bubbles = new ArrayList<Bubble>();
     		bubbles.add(new Bubble(3, 100, 50));
-    		RoomData data = new RoomData(players, bubbles);
+    		RoomData data = new RoomData(bubbles);
     		Model.addRoom(new Room(data));
+    		Model.addPlayer(new Player(10, Model.getRoomHeight()-65));
     	}
     	
     }
     
 	public static void endGame(String message) {
-		view.stopGame();
+		view.pause();
 		view.showMessage(message);
     }
+	
+	public static void pauseGame(){
+		if(view.isActive()){
+			view.pause();
+			view.showMessage("game paused");
+			view.start();
+		}
+	}
 
 	public static void keyReleased(KeyEvent e) {
 		for(Player player: Model.getPlayers()){
@@ -143,6 +162,16 @@ public class Controller {
 	public static void keyPressed(KeyEvent e) {
 		for(Player player: Model.getPlayers()){
 			player.keyPressed(e);
+		}
+		
+		int key = e.getKeyCode();
+
+	    switch (key) {
+		case KeyEvent.VK_PAUSE: pauseGame();
+			break;
+
+		default:
+			break;
 		}
 	}
 }
