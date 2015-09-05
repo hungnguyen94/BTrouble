@@ -92,7 +92,7 @@ public class Room extends JPanel implements ActionListener {
         updateRopes();
     	updateBubble();
     	updatePlayer();
-        
+
         repaint();
     }
 	
