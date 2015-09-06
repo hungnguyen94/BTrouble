@@ -39,7 +39,7 @@ public class Model {
 	public static int getRoomWidth() {
 		return ROOM_WIDTH;
 	}
-
+	
 	public static void restartRoom() {
 		getCurrentRoom().reload();
 	}

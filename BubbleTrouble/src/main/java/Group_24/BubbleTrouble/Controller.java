@@ -67,7 +67,7 @@ public class Controller {
         }
 		
 	}
-
+	
 	private static void updateBubble() {
         for(Bubble bubble: newBubbles) {
             Model.getBubbles().add(bubble);
