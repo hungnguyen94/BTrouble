@@ -54,21 +54,36 @@ public class Bubble extends Object {
         this.vx = vx;
         this.vy = vy;
     }
-
+    
+    /**
+     * Returns the size of the bubble in steps.
+     * @return returns an integer representing the size of the bubble in steps.
+     */
 	public int getSize() {
 		return size;
 	}
 	
+	/**
+     * Returns the actual diameter of the bubble, overrides the superclass method.
+     * @return returns an integer representing the actual diameter of the bubble.
+     */
 	@Override
 	public int getWidth() {
 		return (int) (size * GAME_SIZE);
 	}
 	
+	/**
+     * Returns the actual diameter of the bubble, overrides the superclass method.
+     * @return returns an integer representing the actual diameter of the bubble.
+     */
 	@Override
 	public int getHeight() {
 		return this.getWidth();
 	}
 	
+	/**
+	 * Calculates the next location of the Bubble.
+	 */
 	public void move() {
 		this.vy += ay;
 		
@@ -76,17 +91,21 @@ public class Bubble extends Object {
 		this.y += vy;
 	}
 	
+	/**
+	 * Should be called when a Bubble collides.
+	 * @param type should be a integer holding the collision type, contained by Collision.[type]. 
+	 */
 	public void collide(int type){
 		switch(type){
-			case Collision.TYPE_FLOOR: vy = -vy; break;
-			case Collision.TYPE_WALL: vx = -vx; break;
-			case Collision.TYPE_ROPE: split(); break;
+			case CollisionEvent.TYPE_FLOOR: vy = -vy; break;
+			case CollisionEvent.TYPE_WALL: vx = -vx; break;
+			case CollisionEvent.TYPE_ROPE: split(); break;
 			default: return;
 		}
 	}
 
 	/**
-	 * splits the bubble in two with a smaller size of each
+	 * Splits the bubble in two with a smaller size of each
 	 */
 	public void split() {
         // reduce size
@@ -104,7 +123,10 @@ public class Bubble extends Object {
         	Controller.removeBubble(this);
         }
 	}
-
+	
+	/**
+	 * Draws the object.
+	 */
 	@Override
 	public void drawObject(Graphics2D g, View v) {
 		//g.drawOval(this.getX(), this.getY(), this.getWidth(), this.getWidth());

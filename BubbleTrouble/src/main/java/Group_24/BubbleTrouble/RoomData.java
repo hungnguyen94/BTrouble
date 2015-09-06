@@ -2,6 +2,10 @@ package Group_24.BubbleTrouble;
 
 import java.util.ArrayList;
 
+/**
+ * RoomData contains all the initial data of a room. Getting the data gives you a copy of the original data.
+ *
+ */
 public class RoomData {
 	private ArrayList<Bubble> bubbles;
 	private int startingposition;

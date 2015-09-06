@@ -10,9 +10,12 @@ import javax.swing.*;
 @SuppressWarnings("serial")
 public class App extends JFrame
 {
+	/**
+	 * Constructs a new Application, running the game
+	 */
 	public App() {
 		
-		Controller.init();
+		Controller.startNewGame();
         add(Controller.getView());
         
         setResizable(false);

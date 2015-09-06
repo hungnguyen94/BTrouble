@@ -102,7 +102,7 @@ public class Player extends Sprite{
   }
 
   /**
-   * This function handles the keyboard control.
+   * Handles the keyboard control.
    * @param e KeyEvent to handle the keyboard.
    */
   public void keyPressed(KeyEvent e) {
@@ -118,7 +118,7 @@ public class Player extends Sprite{
   }
   
   /**
-   * This functions handles the release of keys.
+   * Handles the release of keys.
    * @param e the KeyEvent to handle the keyboard.
    */
   public void keyReleased(KeyEvent e) {
