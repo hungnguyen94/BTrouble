@@ -57,7 +57,7 @@ public class View extends JPanel implements ActionListener {
 		for(Bubble bubble: Model.getBubbles())
 		    bubble.drawObject(g2d, this);
 		
-		g2d.drawString("lives: " + Model.getPlayers().get(0).getLives(), 5, 15);
+		g2d.drawString("lives: [ " + Model.getPlayers().get(0).getLives() + " ], score: [ " + Model.getPlayers().get(0).getScore() + " ]", 5, 15);
 	}
 	
 	public void showMessage(String message) {

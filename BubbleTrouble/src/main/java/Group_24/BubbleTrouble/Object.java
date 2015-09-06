@@ -37,6 +37,7 @@ public abstract class Object {
 		return (int) height;
 	}
 	
+	// TODO dit zou cleaner kunnen met bijvoorbeeld een bounding box
 	public boolean collidesWith(Object that){
 		boolean xCol = Math.abs(
 				(that.getX() + .5 * that.getWidth()) - 

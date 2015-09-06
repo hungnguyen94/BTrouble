@@ -11,9 +11,11 @@ import java.util.ArrayList;
 public class Player extends Sprite{
   private int dx;
   private int lives;
+  private int score;
   
   private static final int PLAYER_SPEED = 5;
   private static final int INITIAL_LIVES = 2;
+  private static final int INITIAL_SCORE = 0;
   
   private ArrayList<Rope> ropes;
 
@@ -26,6 +28,7 @@ public class Player extends Sprite{
     super(x, y);
     init("Sprites/Player.png");
     lives = INITIAL_LIVES;
+    score = INITIAL_SCORE;
   }
 
   @Override
@@ -56,6 +59,14 @@ public class Player extends Sprite{
 	  return lives;
   }
   
+	public int getScore() {
+		return score;
+	}
+	
+	public void increaseScore(int amount) {
+		score += amount;
+	}
+	  
   /**
    * Function which allows the Player to move.
    */

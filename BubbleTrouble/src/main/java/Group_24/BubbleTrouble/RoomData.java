@@ -14,7 +14,11 @@ public class RoomData {
 	public RoomData(String file){
 		// TODO load roomdata from file
 	}
-
+	
+	/**
+	 * getBubbles creates a list with a copy of every oiginal bubble, so that it doesn't touch the original data. 
+	 * @return returns a copy of the list of bubbles.
+	 */
 	public ArrayList<Bubble> getBubbles() {
 		ArrayList<Bubble> res = new ArrayList<Bubble>();
 		for(Bubble bubble: bubbles){
@@ -22,7 +26,11 @@ public class RoomData {
 		}
 		return res;
 	}
-
+	
+	/**
+	 * Get the horizontal starting position of the player in the room.
+	 * @return returns the horizontal starting position of the player.
+	 */
 	public int getStartingposition() {
 		return startingposition;
 	}

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class Controller {
 	
+	private static final int REWARD_BUBBLE = 100;
 	private static View view;
 	private static ArrayList<Bubble> newBubbles;
     private static ArrayList<Bubble> oldBubbles;
@@ -13,7 +14,7 @@ public class Controller {
 		newBubbles = new ArrayList<Bubble>();
 		oldBubbles = new ArrayList<Bubble>();
 		
-		startGame();
+		startNewGame();
 	}
 	
 	public static View getView() {
@@ -44,6 +45,7 @@ public class Controller {
 	            for (Rope rope : player.getRopes()) {
 	                if (bubble.collidesWith(rope)) {
 	                    bubble.collide(Collision.TYPE_ROPE);
+	                    player.increaseScore(REWARD_BUBBLE);
 	                    player.resetRope();
 	                }
 	            }
@@ -126,15 +128,18 @@ public class Controller {
         }
     }
 	
-    public static void startGame(){
-    	if(view == null || view.isActive()){
+    public static void startNewGame(){
+    	// checks if the view is inactive
+    	if(view == null || !view.isActive()){
     		view = new View();
     		
+    		// TODO could write data import from file
     		Model.init();
     		ArrayList<Bubble> bubbles = new ArrayList<Bubble>();
     		bubbles.add(new Bubble(3, 100, 50));
     		RoomData data = new RoomData(bubbles);
     		Model.addRoom(new Room(data));
+    		
     		Model.addPlayer(new Player(10, Model.getRoomHeight()-65));
     	}
     	
@@ -174,4 +179,5 @@ public class Controller {
 			break;
 		}
 	}
+	
 }
