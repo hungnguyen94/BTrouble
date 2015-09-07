@@ -12,7 +12,7 @@ public class RoomData {
 	
 	public RoomData(ArrayList<Bubble> bubbles){
 		this.bubbles = bubbles;
-		this.startingposition = 10;
+		this.startingposition = 50;
 	}
 	
 	public RoomData(String file){

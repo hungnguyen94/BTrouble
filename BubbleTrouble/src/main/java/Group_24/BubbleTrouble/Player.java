@@ -72,6 +72,10 @@ public class Player extends Sprite{
    */
   public void move() {
     x += dx;
+    for(Floor floor: Model.getCurrentRoom().getFloors()) {
+    	if(!this.collidesWith(floor)) 
+    		y += 1;
+    }
   }
 
   /**
@@ -143,5 +147,19 @@ public class Player extends Sprite{
 	public void moveTo(int x) {
 		this.x = x;
 		this.dx = 0;
+	}
+
+	/**
+	 * @return the dx
+	 */
+	public int getDx() {
+		return dx;
+	}
+
+	/**
+	 * @param dx the dx to set
+	 */
+	public void setDx(int dx) {
+		this.dx = dx;
 	}
 }
