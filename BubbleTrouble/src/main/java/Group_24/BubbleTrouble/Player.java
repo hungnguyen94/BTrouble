@@ -123,32 +123,14 @@ public class Player extends Object {
      * Handles the keyboard control.
      * @param e KeyEvent to handle the keyboard.
      */
-    public void keyPressed(KeyEvent e) {
-
-        int key = e.getKeyCode();
-
-        switch (key) {
-            case KeyEvent.VK_SPACE: fire(); break;
-            case KeyEvent.VK_LEFT: dx = -1 * PLAYER_SPEED; break;
-            case KeyEvent.VK_RIGHT: dx = 1 * PLAYER_SPEED; break;
+    public void action(int action) {
+        switch (action) {
+            case -1: dx = -1 * PLAYER_SPEED; break;
+            case 0: fire(); break;
+            case 1: dx = 1 * PLAYER_SPEED; break;
+            case 2: dx = 0; break;
             default: return;
         }
-    }
-
-    /**
-     * Handles the release of keys.
-     * @param e the KeyEvent to handle the keyboard.
-     */
-    public void keyReleased(KeyEvent e) {
-
-        int key = e.getKeyCode();
-
-        switch (key) {
-            case KeyEvent.VK_LEFT: dx = 0; break;
-            case KeyEvent.VK_RIGHT: dx = 0; break;
-            default: return;
-        }
-
     }
 
     /**

@@ -1,6 +1,7 @@
 package Group_24.BubbleTrouble;
 
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import java.awt.event.KeyEvent;
@@ -38,6 +39,7 @@ public class Controller {
 	 * Updates the model, should be done on request of the view.
 	 */
 	public static void update(){
+
 		for(Bubble bubble: Model.getBubbles()) {
 			
 			for(Floor floor: Model.getCurrentRoom().getFloors())
@@ -172,7 +174,17 @@ public class Controller {
      * Updates the player, calculates the new position.
      */
     private static void updatePlayer() {
+        Input input = gc.getInput();
+
         for(Player player: Model.getPlayers()){
+            if(input.isKeyDown(Input.KEY_LEFT))
+                player.action(-1);
+            else if (input.isKeyDown(Input.KEY_RIGHT))
+                player.action(1);
+            else if (input.isKeyDown(Input.KEY_SPACE))
+                player.action(0);
+            else
+                player.action(2);
         	player.move();
         }
     }
@@ -191,25 +203,12 @@ public class Controller {
 	public static void pauseGame(){
 		gc.pause();
 	}
-
-	/**
-	 * Decides which actions should be performed when a key is released.  
-	 * @param e should be a KeyEvent which represents a released key.
-	 */
-	public static void keyReleased(KeyEvent e) {
-		for(Player player: Model.getPlayers()){
-			player.keyReleased(e);
-		}
-	}
 	
 	/**
 	 * Decides which actions should be performed when a key is pressed.  
 	 * @param e should be a KeyEvent which represents a pressed key.
 	 */
 	public static void keyPressed(KeyEvent e) {
-		for(Player player: Model.getPlayers()){
-			player.keyPressed(e);
-		}
 		
 		int key = e.getKeyCode();
 
