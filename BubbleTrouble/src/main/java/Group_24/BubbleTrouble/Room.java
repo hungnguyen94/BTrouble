@@ -11,6 +11,9 @@ public class Room {
 	private RoomData data;
 	private int startingposition;
 
+	private ArrayList<Wall> walls;
+	private ArrayList<Floor> floors;
+	
 	private ArrayList<Bubble> bubbles;
 	
 	/**
@@ -19,6 +22,13 @@ public class Room {
 	 */
 	public Room(RoomData data){
 		this.data = data;
+		
+		walls = new ArrayList<Wall>();
+		walls.add(new Wall(10, 0, 10, 800));
+		walls.add(new Wall(790, 0, 10, 800));
+		
+		floors = new ArrayList<Floor>();
+		floors.add(new Floor(0, 400, 800, 2 ));
 		this.reload();
 	}
 	
@@ -39,6 +49,20 @@ public class Room {
 		}
 		startingposition = data.getStartingposition();
 		bubbles = data.getBubbles();
+	}
+
+	/**
+	 * @return the walls
+	 */
+	public ArrayList<Wall> getWalls() {
+		return walls;
+	}
+
+	/**
+	 * @return the floor
+	 */
+	public ArrayList<Floor> getFloors() {
+		return floors;
 	}
 
 }
