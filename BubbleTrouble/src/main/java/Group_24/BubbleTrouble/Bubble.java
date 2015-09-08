@@ -1,13 +1,16 @@
 package Group_24.BubbleTrouble;
 
+import org.newdawn.slick.geom.Circle;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 
 public class Bubble extends Object {
 	private int size;
+    private Circle sprite;
 	
 	// actual size of a level one bubble in the game in pixels.
-	private final double GAME_SIZE = 10;
+	private final float GAME_SIZE = 10;
 	
 	// speed (pixels / step)
 	private double vx;
@@ -36,6 +39,7 @@ public class Bubble extends Object {
 		this.size = size;
 		this.ay = G;
 		this.vx = INITIAL_HORIZONTAL_SPEED;
+        sprite = new Circle(x,y,size*GAME_SIZE);
 	}
 
     /**
@@ -53,6 +57,7 @@ public class Bubble extends Object {
         this.ay = G;
         this.vx = vx;
         this.vy = vy;
+        sprite = new Circle(x,y,size*GAME_SIZE);
     }
     
     /**
@@ -80,6 +85,13 @@ public class Bubble extends Object {
 	public int getHeight() {
 		return this.getWidth();
 	}
+
+    /**
+     * Returns the circle shape for the bubble
+     */
+    public Circle getSprite() {
+        return sprite;
+    }
 	
 	/**
 	 * Calculates the next location of the Bubble.
@@ -89,6 +101,8 @@ public class Bubble extends Object {
 		
 		this.x += vx;
 		this.y += vy;
+        sprite.setCenterX(x);
+        sprite.setCenterY(y);
 	}
 	
 	/**

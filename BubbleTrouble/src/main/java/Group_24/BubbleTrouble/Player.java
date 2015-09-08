@@ -92,7 +92,7 @@ public class Player extends Object {
     /**
      * Function which allows the player to fire.
      */
-    public void fire() {
+    public void fire() throws SlickException {
         int yvalue = this.getY();
 
         for (int i = 32; i < 321; i += 32) {
@@ -101,29 +101,27 @@ public class Player extends Object {
         }
     }
 
-    public void draw() {
+    public void draw() throws SlickException {
         sprite.draw(x, y);
+        drawRopes();
     }
 
     /**
      * Function which draws all the ropes from the ArrayList.
-     * @param graphics Graphics2D element.
-     * @param view The room to draw to.
      */
-    public void drawRopes() {
+    public void drawRopes() throws SlickException {
         ArrayList<Rope> rs = this.getRopes();
 
-        for (Object r1 : rs) {
-            Rope rope = (Rope) r1;
-            //r1.draw();
+        for (Rope rope : rs) {
+            rope.draw();
         }
     }
 
     /**
      * Handles the keyboard control.
-     * @param e KeyEvent to handle the keyboard.
+     * @param action the action to take; -1 is left, 0 is fire, 1 is right and 2 is do nothing
      */
-    public void action(int action) {
+    public void action(int action) throws SlickException {
         switch (action) {
             case -1: dx = -1 * PLAYER_SPEED; break;
             case 0: fire(); break;

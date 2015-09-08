@@ -38,7 +38,7 @@ public class Controller {
 	/**
 	 * Updates the model, should be done on request of the view.
 	 */
-	public static void update(){
+	public static void update() throws SlickException {
 
 		for(Bubble bubble: Model.getBubbles()) {
 			
@@ -153,7 +153,7 @@ public class Controller {
     /**
      * Updates the ropes, calculates the new position of the rope and removes the rope if it hits the ceiling. 
      */
-    private static void updateRopes() {
+    private static void updateRopes() throws SlickException {
     	for(Player player: Model.getPlayers()){
 	        ArrayList<Rope> ropes = player.getRopes();
 	
@@ -173,7 +173,7 @@ public class Controller {
     /**
      * Updates the player, calculates the new position.
      */
-    private static void updatePlayer() {
+    private static void updatePlayer() throws SlickException {
         Input input = gc.getInput();
 
         for(Player player: Model.getPlayers()){
