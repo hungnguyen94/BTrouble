@@ -24,7 +24,7 @@ public class Player extends Object {
     private Animation walkAnimation;
     private Image playerIdle;
     private float x = 100f;
-    private float y = 448f;
+    private float y = 421f;
     private boolean facingLeft = true;
     private boolean idle = true;
     
@@ -41,8 +41,8 @@ public class Player extends Object {
      */
     public Player(int x, int y) throws SlickException {
         super(x, y);
-        playerIdle = new Image("Sprites/playerIdle.png");
-        walkSheet = new SpriteSheet("Sprites/PlayerWalk.png", 102, 148);
+        playerIdle = new Image("Sprites/idle.png");
+        walkSheet = new SpriteSheet("Sprites/walkAnimation.png", 100, 175);
         walkAnimation = new Animation(walkSheet, 150);
         ropes = new ArrayList<Rope>();
         lives = INITIAL_LIVES;
