@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 //import org.mockito.Mock;
-//import org.mockito.runners.MockitoJunitRunner;
+//import org.mockito.runners.MockitoJUnitRunner;
 
 //@RunWith(Parameterized.class)
 //@RunWith(MockitoJUnitRunner.class)
