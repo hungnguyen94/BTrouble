@@ -32,7 +32,7 @@ public class Controller {
     		RoomData data = new RoomData(bubbles);
     		Model.addRoom(new Room(data));
     		
-    		Model.addPlayer(new Player(10, Model.getRoomHeight()-65));
+    		Model.addPlayer(new Player(100, Model.getRoomHeight()/2));
     	}
 	}
 	
@@ -49,20 +49,41 @@ public class Controller {
 	 */
 	public static void update(){
 		for(Bubble bubble: Model.getBubbles()) {
+			
+			for(Floor floor: Model.getCurrentRoom().getFloors())
+				if(bubble.getY() + bubble.getWidth() >= floor.getY())
+					bubble.collide(CollisionEvent.TYPE_FLOOR);
+			
             // CollisionEvent detection for bubble against floor
             if (bubble.getY() + bubble.getWidth() >= Model.getRoomHeight()) {
                 bubble.collide(CollisionEvent.TYPE_FLOOR);
             }
-            // CollisionEvent detection for bubble against left wall
+            
+            // Collision detection for walls
+            for(Wall wall: Model.getCurrentRoom().getWalls()) {
+            	if(bubble.getX() <= (wall.getX() + wall.getWidth()))
+            		bubble.collide(CollisionEvent.TYPE_WALL);
+            	if(bubble.getX() + bubble.getWidth() >= wall.getX())
+            		bubble.collide(CollisionEvent.TYPE_WALL);
+            }
+            
+            // CollisionEvent detection for bubble against room left
             if (bubble.getX() <= 0) {
                 bubble.collide(CollisionEvent.TYPE_WALL);
             }
-            // CollisionEvent detection for bubble against right wall
+            // CollisionEvent detection for bubble against room right
             if (bubble.getX() + bubble.getWidth() >= Model.getRoomWidth()) {
                 bubble.collide(CollisionEvent.TYPE_WALL);
             }
             
             for(Player player : Model.getPlayers()){
+            	
+            	// Collision detection on walls.
+            	for(Wall wall: Model.getCurrentRoom().getWalls()) {
+            		if(player.collidesWith(wall)) 
+            			player.setDx(-1*player.getDx());
+            	}
+            	
 	            // CollisionEvent detection for bubble against player
 	            if (player.collidesWith(bubble)) {
 	                loseLife(player);

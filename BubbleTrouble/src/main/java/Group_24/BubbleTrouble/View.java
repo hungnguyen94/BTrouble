@@ -73,6 +73,12 @@ public class View extends JPanel implements ActionListener {
 		for(Bubble bubble: Model.getBubbles())
 		    bubble.drawObject(g2d, this);
 		
+		for(Wall wall: Model.getCurrentRoom().getWalls())
+			wall.drawObject(g2d, this);
+		
+		for(Floor floor: Model.getCurrentRoom().getFloors())
+			floor.drawObject(g2d, this);
+		
 		g2d.drawString("lives: [ " + Model.getPlayers().get(0).getLives() + " ], score: [ " + Model.getPlayers().get(0).getScore() + " ]", 5, 15);
 	}
 	
