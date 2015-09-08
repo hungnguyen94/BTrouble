@@ -94,7 +94,7 @@ public class Controller {
         // calculate movements
         updateRopes();
     	updateBubble();
-    	updatePlayer();
+    	//updatePlayer();
 	}
 	
 	/**
@@ -173,21 +173,12 @@ public class Controller {
     /**
      * Updates the player, calculates the new position.
      */
-    private static void updatePlayer() {
-        Input input = gc.getInput();
-
-        for(Player player: Model.getPlayers()){
-            if(input.isKeyDown(Input.KEY_LEFT))
-                player.action(-1);
-            else if (input.isKeyDown(Input.KEY_RIGHT))
-                player.action(1);
-            else if (input.isKeyDown(Input.KEY_SPACE))
-                player.action(0);
-            else
-                player.action(2);
-        	player.move();
-        }
-    }
+//    private static void updatePlayer() {
+//
+//        for(Player player: Model.getPlayers()){
+//        	player.move();
+//        }
+//    }
     
     /**
      * Ends the game by stopping the view, shows a message. 

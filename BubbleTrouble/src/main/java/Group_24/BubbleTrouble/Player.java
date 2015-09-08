@@ -1,6 +1,8 @@
 package Group_24.BubbleTrouble;
 
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import java.awt.Graphics2D;
@@ -79,17 +81,6 @@ public class Player extends Object {
     }
 
     /**
-     * Function which allows the Player to move.
-     */
-    public void move() {
-        x += dx;
-        for(Floor floor: Model.getCurrentRoom().getFloors()) {
-            if(!this.collidesWith(floor))
-                y += 1;
-        }
-    }
-
-    /**
      * Function which allows the player to fire.
      */
     public void fire() {
@@ -123,14 +114,32 @@ public class Player extends Object {
      * Handles the keyboard control.
      * @param e KeyEvent to handle the keyboard.
      */
-    public void action(int action) {
-        switch (action) {
-            case -1: dx = -1 * PLAYER_SPEED; break;
-            case 0: fire(); break;
-            case 1: dx = 1 * PLAYER_SPEED; break;
-            case 2: dx = 0; break;
-            default: return;
-        }
+//    public void action(int action) {
+//        switch (action) {
+//            case -1: dx = -1 * PLAYER_SPEED; break;
+//            case 0: fire(); break;
+//            case 1: dx = 1 * PLAYER_SPEED; break;
+//            case 2: dx = 0; break;
+//            default: return;
+//        }
+//    }
+    
+    public void move(GameContainer container, int delta) {
+      Input input = container.getInput();
+      
+      for(Floor floor: Model.getCurrentRoom().getFloors()) {
+        if(!this.collidesWith(floor))
+            y += 1;
+      }
+      
+      if (input.isKeyDown(Input.KEY_LEFT))
+      {
+          x -= delta * 0.1f;
+      }
+      else if (input.isKeyDown(Input.KEY_RIGHT))
+      {
+          x += delta * 0.1f;
+      }
     }
 
     /**

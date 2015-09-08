@@ -26,6 +26,9 @@ public class SlickApp extends BasicGame
 
     public void update(GameContainer gc, int delta) throws SlickException {
         Controller.update();
+        for(Player player: Model.getPlayers()) {
+          player.move(gc, delta);
+      }
     }
 
     public void render(GameContainer gc, Graphics g) throws SlickException
