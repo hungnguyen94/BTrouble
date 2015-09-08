@@ -1,9 +1,11 @@
 package Group_24.BubbleTrouble;
 
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.SpriteSheet;
 
 import java.awt.Graphics2D;
 import java.awt.event.*;
@@ -17,8 +19,15 @@ public class Player extends Object {
     private int dx;
     private int lives;
     private int score;
-    private Image sprite;
 
+    private SpriteSheet walkSheet;
+    private Animation walkAnimation;
+    private Image playerIdle;
+    private float x = 100f;
+    private float y = 350f;
+    private boolean facingLeft = true;
+    private boolean idle = true;
+    
     private static final int PLAYER_SPEED = 5;
     private static final int INITIAL_LIVES = 2;
     private static final int INITIAL_SCORE = 0;
@@ -32,7 +41,9 @@ public class Player extends Object {
      */
     public Player(int x, int y) throws SlickException {
         super(x, y);
-        sprite = new Image("Sprites/Player.png");
+        playerIdle = new Image("Sprites/playerIdle.png");
+        walkSheet = new SpriteSheet("Sprites/PlayerWalk.png", 102, 148);
+        walkAnimation = new Animation(walkSheet, 150);
         ropes = new ArrayList<Rope>();
         lives = INITIAL_LIVES;
         score = INITIAL_SCORE;
@@ -93,7 +104,11 @@ public class Player extends Object {
     }
 
     public void draw() {
-        sprite.draw(x, y);
+      if (!idle) {
+        walkAnimation.getCurrentFrame().getFlippedCopy(facingLeft, false).draw(x, y);
+    } else {
+        playerIdle.getFlippedCopy(facingLeft, false).draw(x, y);
+    }
     }
 
     /**
@@ -109,36 +124,30 @@ public class Player extends Object {
             //r1.draw();
         }
     }
-
-    /**
-     * Handles the keyboard control.
-     * @param e KeyEvent to handle the keyboard.
-     */
-//    public void action(int action) {
-//        switch (action) {
-//            case -1: dx = -1 * PLAYER_SPEED; break;
-//            case 0: fire(); break;
-//            case 1: dx = 1 * PLAYER_SPEED; break;
-//            case 2: dx = 0; break;
-//            default: return;
-//        }
-//    }
     
     public void move(GameContainer container, int delta) {
       Input input = container.getInput();
       
-      for(Floor floor: Model.getCurrentRoom().getFloors()) {
-        if(!this.collidesWith(floor))
-            y += 1;
-      }
+//      for(Floor floor: Model.getCurrentRoom().getFloors()) {
+//        if(!this.collidesWith(floor))
+//            y += 1;
+//      }
       
       if (input.isKeyDown(Input.KEY_LEFT))
       {
+        idle = false;
+        facingLeft = true;
+        walkAnimation.update(delta);
           x -= delta * 0.1f;
       }
       else if (input.isKeyDown(Input.KEY_RIGHT))
       {
+        idle = false;
+        facingLeft = false;
+        walkAnimation.update(delta);
           x += delta * 0.1f;
+      } else {
+        idle = true;
       }
     }
 

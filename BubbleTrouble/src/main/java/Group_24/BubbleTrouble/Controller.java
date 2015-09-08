@@ -94,7 +94,6 @@ public class Controller {
         // calculate movements
         updateRopes();
     	updateBubble();
-    	//updatePlayer();
 	}
 	
 	/**
@@ -169,16 +168,6 @@ public class Controller {
 	        }
     	}
     }
-    
-    /**
-     * Updates the player, calculates the new position.
-     */
-//    private static void updatePlayer() {
-//
-//        for(Player player: Model.getPlayers()){
-//        	player.move();
-//        }
-//    }
     
     /**
      * Ends the game by stopping the view, shows a message. 
