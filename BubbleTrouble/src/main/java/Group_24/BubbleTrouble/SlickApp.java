@@ -32,6 +32,7 @@ public class SlickApp extends BasicGame
     {
         for(Player player: Model.getPlayers()) {
             player.draw();
+            g.drawString("[Score " + player.getScore() + ", Lives " + player.getLives() + "]", 10, 30);
         }
         for(Bubble bubble: Model.getBubbles()) {
             g.setColor(Color.white);
@@ -39,7 +40,6 @@ public class SlickApp extends BasicGame
             g.draw(bubble.getSprite());
         }
     }
-
 
     public static void main(String[] args) {
         try
