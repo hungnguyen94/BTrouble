@@ -1,47 +1,37 @@
 package Group_24.BubbleTrouble;
 
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.SlickException;
+
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 /**
  * Controller, recalculates the Model, on request of the view.
- *
  */
 public class Controller {
 	
 	private static final int REWARD_BUBBLE = 100;
-	private static View view;
 	private static ArrayList<Bubble> newBubbles;
     private static ArrayList<Bubble> oldBubbles;
+    private static GameContainer gc;
 
     /**
      * Starts a new game by loading data into the room and adding the players.
      */
-    public static void startNewGame(){
+    public static void startNewGame(GameContainer container) throws SlickException {
     	newBubbles = new ArrayList<Bubble>();
 		oldBubbles = new ArrayList<Bubble>();
-    	
-    	// checks if the view is inactive
-    	if(view == null || !view.isActive()){
-    		view = new View();
+        gc = container;
+
+    	// TODO could add import RoomData from file
+    	Model.init();
+    	ArrayList<Bubble> bubbles = new ArrayList<Bubble>();
+		bubbles.add(new Bubble(3, 100, 50));
+    	RoomData data = new RoomData(bubbles);
+    	Model.addRoom(new Room(data));
     		
-    		// TODO could add import RoomData from file
-    		Model.init();
-    		ArrayList<Bubble> bubbles = new ArrayList<Bubble>();
-    		bubbles.add(new Bubble(3, 100, 50));
-    		RoomData data = new RoomData(bubbles);
-    		Model.addRoom(new Room(data));
-    		
-    		Model.addPlayer(new Player(100, Model.getRoomHeight()/2));
-    	}
-	}
-	
-    /**
-     * Returns the current view
-     * @return returns the current view
-     */
-	public static View getView() {
-		return view;
+    	Model.addPlayer(new Player(100, Model.getRoomHeight()/2));
 	}
 	
 	/**
@@ -116,7 +106,6 @@ public class Controller {
         } else {
         	Model.restartRoom();
         	player.resetRope();
-        	view.start();
         }
 		
 	}
@@ -193,19 +182,14 @@ public class Controller {
      * @param message should be a String containing the message which is shown.
      */
 	public static void endGame(String message) {
-		view.pause();
-		view.showMessage(message);
+		gc.exit();
     }
 	
 	/**
 	 * Pauses the game by pausing the view, shows a message. When the message is removed by the player, the game continues.
 	 */
 	public static void pauseGame(){
-		if(view.isActive()){
-			view.pause();
-			view.showMessage("game paused");
-			view.start();
-		}
+		gc.pause();
 	}
 
 	/**

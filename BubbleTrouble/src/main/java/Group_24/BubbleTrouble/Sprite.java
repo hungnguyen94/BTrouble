@@ -5,7 +5,7 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
-public abstract class Sprite extends Object{
+public abstract class Sprite extends Object {
     protected boolean visible;
     protected Image image;
     
@@ -67,14 +67,4 @@ public abstract class Sprite extends Object{
     public void setVisible(Boolean visible) {
         this.visible = visible;
     }
-    
-    /**
-	 * Draws the object using the image loaded into the Sprite.
-	 * @param g should be the graphics object in which the Object is drawn.
-	 * @param v should be the view in which the Object is drawn.
-	 */
-	@Override
-	public void drawObject(Graphics2D g, View view) {
-		g.drawImage(this.getImage(), this.getX(), this.getY(), view);
-	}
 }

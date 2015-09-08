@@ -108,29 +108,19 @@ public class Bubble extends Object {
 	 * Splits the bubble in two with a smaller size of each
 	 */
 	public void split() {
-        // reduce size
-        size--;
-        if(size != 0) {
-            // give upward speed
-            vy = -ay * HIT_SPEED_FACTOR;
-            // casting to integers
-            int newSize = (int) size;
-            int newX = (int) x;
-            int newY = (int) y;
-            // add an extra bubble to the game
-            Controller.addBubble(newSize, newX, newY, -vx, vy);
-        } else {
-        	Controller.removeBubble(this);
-        }
-	}
-	
-	/**
-	 * Draws the object.
-	 */
-	@Override
-	public void drawObject(Graphics2D g, View v) {
-		//g.drawOval(this.getX(), this.getY(), this.getWidth(), this.getWidth());
-		g.setColor(Color.white);
-		g.fillOval(this.getX(), this.getY(), this.getWidth(), this.getWidth());
+		// reduce size
+		size--;
+		if (size != 0) {
+			// give upward speed
+			vy = -ay * HIT_SPEED_FACTOR;
+			// casting to integers
+			int newSize = (int) size;
+			int newX = (int) x;
+			int newY = (int) y;
+			// add an extra bubble to the game
+			Controller.addBubble(newSize, newX, newY, -vx, vy);
+		} else {
+			Controller.removeBubble(this);
+		}
 	}
 }
