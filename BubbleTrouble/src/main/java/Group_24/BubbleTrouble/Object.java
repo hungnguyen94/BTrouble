@@ -7,8 +7,8 @@ import java.awt.Graphics2D;
  *
  */
 public abstract class Object {
-	protected double x;
-    protected double y;
+	protected float x;
+    protected float y;
     
     protected double width;
     protected double height;
@@ -87,11 +87,4 @@ public abstract class Object {
 		
 		return xCol && yCol;
 	}
-	
-	/**
-	 * Draws the object, should be implemented by the child classes.
-	 * @param g should be the graphics object in which the Object is drawn.
-	 * @param v should be the view in which the Object is drawn.
-	 */
-	public abstract void drawObject(Graphics2D g, View v);
 }

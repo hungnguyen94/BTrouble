@@ -1,23 +1,21 @@
 package Group_24.BubbleTrouble;
 
-import java.awt.*;
+import org.newdawn.slick.geom.*;
 
 /**
  * Created by hung.
  */
 public class Floor extends Object {
 
+    private Rectangle sprite;
+
     public Floor(int x, int y, int width, int height) {
         super(x, y, width, height);
+        sprite = new Rectangle(x, y, width, height);
     }
 
+    public Rectangle getSprite() {
+        return sprite;
+    }
 
-	/**
-     * Draw the floor with a rectangle.
-     */
- 	@Override
-	public void drawObject(Graphics2D g, View v) {
-		g.setColor(Color.blue);
-		g.fillRect(this.getX(), this.getY(), this.getWidth(), this.getHeight());
-	}
 }
