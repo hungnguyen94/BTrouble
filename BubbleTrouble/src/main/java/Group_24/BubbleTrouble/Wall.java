@@ -1,11 +1,13 @@
 package Group_24.BubbleTrouble;
 
-import java.awt.*;
+import org.newdawn.slick.geom.*;
 
 /**
  * Created by hung.
  */
 public class Wall extends Object {
+
+    private Rectangle sprite;
 
     /**
      * Constructor for Wall class
@@ -16,6 +18,11 @@ public class Wall extends Object {
      */
     public Wall(int x, int y, int width, int height) {
         super(x, y, width, height);
+        sprite = new Rectangle(x, y, width, height);
+    }
+
+    public Rectangle getSprite() {
+        return sprite;
     }
 
 }
