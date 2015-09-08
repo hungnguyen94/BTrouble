@@ -105,10 +105,10 @@ public class Player extends Object {
 
     public void draw() {
       if (!idle) {
-        walkAnimation.getCurrentFrame().getFlippedCopy(facingLeft, false).draw(x, y);
-    } else {
-        playerIdle.getFlippedCopy(facingLeft, false).draw(x, y);
-    }
+          walkAnimation.getCurrentFrame().getFlippedCopy(facingLeft, false).draw(x, y);
+      } else {
+          playerIdle.getFlippedCopy(facingLeft, false).draw(x, y);
+      }
     }
 
     /**
@@ -138,14 +138,14 @@ public class Player extends Object {
         idle = false;
         facingLeft = true;
         walkAnimation.update(delta);
-          x -= delta * 0.1f;
+          x -= delta * 0.15f;
       }
       else if (input.isKeyDown(Input.KEY_RIGHT))
       {
         idle = false;
         facingLeft = false;
         walkAnimation.update(delta);
-          x += delta * 0.1f;
+          x += delta * 0.15f;
       } else {
         idle = true;
       }
