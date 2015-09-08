@@ -7,6 +7,7 @@ import Group_24.BubbleTrouble.Object;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.newdawn.slick.SlickException;
 
 public abstract class ObjectTest {
 	
@@ -17,7 +18,7 @@ public abstract class ObjectTest {
 	private int width;
 	
 	@Before
-	public abstract void setUp();
+	public abstract void setUp() throws SlickException;
 	
 	public void setObject(Object o) {
 		object = o;
