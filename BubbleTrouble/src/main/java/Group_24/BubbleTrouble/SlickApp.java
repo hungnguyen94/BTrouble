@@ -15,6 +15,8 @@ import javax.swing.*;
 @SuppressWarnings("serial")
 public class SlickApp extends BasicGame
 {
+  
+  private Image background;
 
 	public SlickApp(String gamename) {
         super(gamename);
@@ -22,6 +24,7 @@ public class SlickApp extends BasicGame
 
     public void init(GameContainer gc) throws SlickException {
         Controller.startNewGame(gc);
+        background = new Image("Sprites/background.png");
     }
 
     public void update(GameContainer gc, int delta) throws SlickException {
@@ -33,6 +36,8 @@ public class SlickApp extends BasicGame
 
     public void render(GameContainer gc, Graphics g) throws SlickException
     {
+        background.draw(0,0);
+        
         for(Player player: Model.getPlayers()) {
             player.draw();
         }
@@ -44,7 +49,7 @@ public class SlickApp extends BasicGame
         {
             AppGameContainer appgc;
             appgc = new AppGameContainer(new SlickApp("Bubble Trouble"));
-            appgc.setDisplayMode(800, 500, false);
+            appgc.setDisplayMode(843, 596, false);
             //appgc.setShowFPS(false);
             appgc.setAlwaysRender(true);
             appgc.start();

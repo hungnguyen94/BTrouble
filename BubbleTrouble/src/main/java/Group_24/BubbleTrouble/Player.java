@@ -24,7 +24,7 @@ public class Player extends Object {
     private Animation walkAnimation;
     private Image playerIdle;
     private float x = 100f;
-    private float y = 350f;
+    private float y = 448f;
     private boolean facingLeft = true;
     private boolean idle = true;
     
