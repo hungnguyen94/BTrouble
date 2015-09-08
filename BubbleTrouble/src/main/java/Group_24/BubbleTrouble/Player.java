@@ -43,7 +43,7 @@ public class Player extends Object {
         super(x, y);
         playerIdle = new Image("Sprites/idle.png");
         walkSheet = new SpriteSheet("Sprites/walkAnimation.png", 100, 175);
-        walkAnimation = new Animation(walkSheet, 150);
+        walkAnimation = new Animation(walkSheet, 100);
         ropes = new ArrayList<Rope>();
         lives = INITIAL_LIVES;
         score = INITIAL_SCORE;
@@ -93,11 +93,12 @@ public class Player extends Object {
 
     /**
      * Function which allows the player to fire.
+     * @throws SlickException 
      */
-    public void fire() {
+    public void fire() throws SlickException {
         int yvalue = this.getY();
 
-        for (int i = 32; i < 321; i += 32) {
+        for (int i = 32; i < 597; i += 32) {
             ropes.add(new Rope((this.getX() + this.getWidth() / 2), yvalue));
             yvalue += 32;
         }
@@ -109,6 +110,7 @@ public class Player extends Object {
       } else {
           playerIdle.getFlippedCopy(facingLeft, false).draw(x, y);
       }
+      drawRopes();
     }
 
     /**
@@ -121,11 +123,11 @@ public class Player extends Object {
 
         for (Object r1 : rs) {
             Rope rope = (Rope) r1;
-            //r1.draw();
+            rope.draw();
         }
     }
     
-    public void move(GameContainer container, int delta) {
+    public void move(GameContainer container, int delta) throws SlickException {
       Input input = container.getInput();
       
 //      for(Floor floor: Model.getCurrentRoom().getFloors()) {
@@ -146,6 +148,11 @@ public class Player extends Object {
         facingLeft = false;
         walkAnimation.update(delta);
           x += delta * 0.15f;
+      } 
+      else if (input.isKeyDown(Input.KEY_SPACE))
+      {
+        idle = true;
+        fire();
       } else {
         idle = true;
       }
