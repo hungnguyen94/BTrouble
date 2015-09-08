@@ -11,18 +11,19 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-//import org.mockito.Mock;
-//import org.mockito.runners.MockitoJunitRunner;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
+import static org.mockito.Mockito.verify;
 
 //@RunWith(Parameterized.class)
-//@RunWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 public class BubbleTest extends ObjectTest{
 	
-	//@Mock private Room room;
-	private Bubble bubble = new Bubble(1, 1, 1);
+	@Mock private Controller controller;
+	private Bubble bubble = new Bubble(3, 1, 1);
 	private int x = 1;
 	private int y = 1;
-	private int size = 1;
+	private int size = 3;
 
 	/*public BubbleTest(Bubble bubble, int x, int y, int size) {
 		this.bubble = new Bubble(1, 1, 1);
@@ -56,11 +57,14 @@ public class BubbleTest extends ObjectTest{
 		assertEquals(bubble.getSize(), size);
 	}
 	
-	@Test
-	public void splitSizeTest() {
-		//bubble.split();
-		//assertEquals(bubble.getSize(), size--);
-	}
+	/*@Test
+	public void moveXTest() {
+		bubble.move();
+		System.out.println(bubble.getX());
+		System.out.println(x);
+		System.out.println(bubble.getVX());
+		assertEquals(bubble.getX() - bubble.getVX(), x, 0);
+	}*/
 	
 	/*@Parameters
 	public static Collection<Object[]> data() {
