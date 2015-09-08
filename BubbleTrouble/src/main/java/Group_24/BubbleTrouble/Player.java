@@ -96,35 +96,21 @@ public class Player extends Object {
      * @throws SlickException 
      */
     public void fire() throws SlickException {
-        int yvalue = this.getY();
-
-        for (int i = 32; i < 597; i += 32) {
-            ropes.add(new Rope((this.getX() + this.getWidth() / 2), yvalue));
-            yvalue += 32;
-        }
+      if (ropes.size() == 0) {
+        Rope rope = new Rope((int)x, 596);
+        ropes.add(rope);
+      }
     }
 
-    public void draw() {
+    public void draw() throws SlickException {
       if (!idle) {
           walkAnimation.getCurrentFrame().getFlippedCopy(facingLeft, false).draw(x, y);
       } else {
           playerIdle.getFlippedCopy(facingLeft, false).draw(x, y);
       }
-      drawRopes();
-    }
-
-    /**
-     * Function which draws all the ropes from the ArrayList.
-     * @param graphics Graphics2D element.
-     * @param view The room to draw to.
-     */
-    public void drawRopes() {
-        ArrayList<Rope> rs = this.getRopes();
-
-        for (Object r1 : rs) {
-            Rope rope = (Rope) r1;
-            rope.draw();
-        }
+      for (int i = 0; i < ropes.size(); i++) {
+        ropes.get(i).draw();
+      }
     }
     
     public void move(GameContainer container, int delta) throws SlickException {
@@ -149,7 +135,7 @@ public class Player extends Object {
         walkAnimation.update(delta);
           x += delta * 0.15f;
       } 
-      else if (input.isKeyDown(Input.KEY_SPACE))
+      else if (input.isKeyPressed(Input.KEY_SPACE))
       {
         idle = true;
         fire();

@@ -41,6 +41,11 @@ public class SlickApp extends BasicGame
         for(Player player: Model.getPlayers()) {
             player.draw();
         }
+        
+        for(Bubble bubble: Model.getBubbles()) {
+            g.drawOval(bubble.getX(), bubble.getY(), bubble.getWidth(), bubble.getHeight());
+            g.fillOval(bubble.getX(), bubble.getY(), bubble.getWidth(), bubble.getHeight());
+        }
     }
 
 

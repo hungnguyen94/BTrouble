@@ -24,11 +24,11 @@ public class Room {
 		this.data = data;
 		
 		walls = new ArrayList<Wall>();
-		walls.add(new Wall(10, 0, 10, 800));
-		walls.add(new Wall(790, 0, 10, 800));
+		walls.add(new Wall(0, 0, 10, 800));
+		walls.add(new Wall(843, 0, 10, 800));
 		
 		floors = new ArrayList<Floor>();
-		floors.add(new Floor(0, 400, 800, 2 ));
+		floors.add(new Floor(0, 596, 800, 2 ));
 		this.reload();
 	}
 	

@@ -17,7 +17,7 @@ public class Bubble extends Object {
 	private double ay;
 	
 	// gravity
-	private final double G = .05;
+	private final double G = .005;
 	// starting speed in horizontal direction
 	private final double INITIAL_HORIZONTAL_SPEED = .5;
     // factor of acceleration that the bubbles go up with when hit with a rope
