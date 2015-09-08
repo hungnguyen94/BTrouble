@@ -59,6 +59,7 @@ public class SlickApp extends BasicGame
             appgc = new AppGameContainer(new SlickApp("Bubble Trouble"));
             appgc.setDisplayMode(800, 500, false);
             //appgc.setShowFPS(false);
+            appgc.setVSync(true);
             appgc.setAlwaysRender(true);
             appgc.start();
         }
