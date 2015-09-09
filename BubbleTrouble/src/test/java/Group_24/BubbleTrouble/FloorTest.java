@@ -1,57 +1,29 @@
 package Group_24.BubbleTrouble;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
-
-import static org.mockito.Mockito.verify;
+import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.newdawn.slick.geom.Rectangle;
 
-/**
- * Class which tests the floor.
- * @author Martin
- *
- */
-@RunWith(MockitoJUnitRunner.class)
 public class FloorTest extends ObjectTest {
-	
-	@Mock Graphics2D graphics;
-	@Mock View view;
-	private Floor floor = new Floor(1, 1, 1, 1);
-	private int x;
-	private int y;
-	private int width;
-	private int height;
 
-	/**
-	 * Set up the variables in the object test class
-	 */
+	private Floor floor;
+	
 	@Before
 	public void setUp() {
-		x = floor.getX();
-		y = floor.getY();
-		width = floor.getWidth();
-		height = floor.getHeight();
+		this.floor = new Floor(1, 1, 1, 1);
 		setObject(floor);
-		setX(x);
-		setY(y);
-		setWidth(height);
-		setHeight(width);
+		setX(1);
+		setY(1);
+		setWidth(1);
+		setHeight(1);
 	}
 	
-	/**
-	 * Test the drawObject method.
-	 */
 	@Test
-	public void drawObjectTest() {
-		floor.drawObject(graphics, view);
-		verify(graphics).setColor(Color.blue);
-		verify(graphics).fillRect(floor.getX(), floor.getY(), floor.getWidth(), floor.getHeight());
+	public void getSpriteTest() {
+		//assertTrue(floor.getSprite().equals(new Rectangle(1, 1, 1, 1)));
+
 	}
 
 }

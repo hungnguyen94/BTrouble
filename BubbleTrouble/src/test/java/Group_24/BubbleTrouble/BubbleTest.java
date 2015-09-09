@@ -13,9 +13,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import static org.mockito.Mockito.verify;
 
-//@RunWith(Parameterized.class)
 @RunWith(MockitoJUnitRunner.class)
 public class BubbleTest extends ObjectTest{
 	
@@ -23,20 +21,17 @@ public class BubbleTest extends ObjectTest{
 	private Bubble bubble = new Bubble(3, 1, 1);
 	private int x = 1;
 	private int y = 1;
-	private int size = 3;
+	private double vy = 0;
+	private double vx;
+	private int size = 1;
 
-	/*public BubbleTest(Bubble bubble, int x, int y, int size) {
-		this.bubble = new Bubble(1, 1, 1);
-		this.x = x;
-		this.y = y;
-		this.size = size;
-	}*/
 	
 	@Before
 	public void setUp() {
 		setObject(bubble);
 		setX(x);
 		setY(y);
+		vx = bubble.getVX();
 	}
 	
 	
@@ -56,23 +51,49 @@ public class BubbleTest extends ObjectTest{
 	public void getSizeTest() {
 		assertEquals(bubble.getSize(), size);
 	}
+
+	@Test
+	public void collideFloorTest() {
+		bubble.collide(0);
+		assertEquals(bubble.getVY(), -vy, 0);
+	}
+	
+	@Test
+	public void collideWallTest() {
+		bubble.collide(1);
+		assertEquals(bubble.getVX(), -vx, 0);
+	}
 	
 	/*@Test
-	public void moveXTest() {
-		bubble.move();
-		System.out.println(bubble.getX());
-		System.out.println(x);
-		System.out.println(bubble.getVX());
-		assertEquals(bubble.getX() - bubble.getVX(), x, 0);
+	public void collideDefaultTest() {
+		bubble.collide(3);
+		assertEquals(bubble, new Bubble(size, x, y));
 	}*/
 	
-	/*@Parameters
-	public static Collection<Object[]> data() {
-		Object[][] values = {
-				{new Bubble(2, 1, 1), 1, 1, 2},
-				{new Bubble(2, 0, 0, 1, 1), 0, 0, 2}
-		};
-		return Arrays.asList(values);
+	/*@Test
+	public void collideRopeTest() {
+		bubble.collide(2);
+		assertEquals(size--, bubble.getSize());
 	}*/
+	
+	@Test
+	public void equalsTrueTest() {
+		Bubble bubble = new Bubble(1, 1, 1);
+		assertTrue(this.bubble.equals(bubble));
+	}
+	
+	
+	@Test
+	public void equalsFalseTest() {
+		Bubble bubble = new Bubble(1, 2, 1);
+		assertFalse(this.bubble.equals(bubble));
+	}
+	
+	@Test
+	public void equalsOtherTest() {
+		int bubble = 1;
+		assertFalse(this.bubble.equals(bubble));
+	}
+	
 
 }
