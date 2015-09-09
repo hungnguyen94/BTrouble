@@ -81,20 +81,19 @@ public class Controller {
 	                loseLife(player);
 	            }
 	
-	            for (Rope rope : player.getRopes()) {
-	                if (bubble.collidesWith(rope)) {
-	                    bubble.collide(CollisionEvent.TYPE_ROPE);
-	                    player.increaseScore(REWARD_BUBBLE);
-	                    player.resetRope();
-	                }
-	            }
+//	            for (Rope rope : player.getRopes()) {
+//	                if (bubble.collidesWith(rope)) {
+//	                    bubble.collide(CollisionEvent.TYPE_ROPE);
+//	                    player.increaseScore(REWARD_BUBBLE);
+//	                    player.resetRope();
+//	                }
+//	            }
             }
         }
         
         // calculate movements
         updateRopes();
     	updateBubble();
-    	updatePlayer();
 	}
 	
 	/**
@@ -155,38 +154,13 @@ public class Controller {
      */
     private static void updateRopes() throws SlickException {
     	for(Player player: Model.getPlayers()){
-	        ArrayList<Rope> ropes = player.getRopes();
-	
-	        for (int i = 0; i < ropes.size(); i++) {
-	
-	            Rope rope = (Rope) ropes.get(i);
-	
-	            if (rope.isVisible()) {
-	            	rope.move();
-	            } else {
-	                ropes.clear();
-	            }
-	        }
-    	}
-    }
-    
-    /**
-     * Updates the player, calculates the new position.
-     */
-    private static void updatePlayer() throws SlickException {
-        Input input = gc.getInput();
-
-        for(Player player: Model.getPlayers()){
-            if(input.isKeyDown(Input.KEY_LEFT))
-                player.action(-1);
-            else if (input.isKeyDown(Input.KEY_RIGHT))
-                player.action(1);
-            else if (input.isKeyDown(Input.KEY_SPACE))
-                player.action(0);
-            else
-                player.action(2);
-        	player.move();
-        }
+    	    for (int i = 0; i < player.getRopes().size(); i++) {
+    	      player.getRopes().get(i).move();
+    	      if (player.getRopes().get(i).getY() <= 0) {
+    	        player.getRopes().remove(i);
+    	      }
+    	    }
+	    }
     }
     
     /**

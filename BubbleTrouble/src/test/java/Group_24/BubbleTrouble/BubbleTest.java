@@ -11,14 +11,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-//import org.mockito.Mock;
-//import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
-//@RunWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 public class BubbleTest extends ObjectTest{
 	
-	//@Mock private Room room;
-	private Bubble bubble = new Bubble(1, 1, 1);
+	@Mock private Controller controller;
+	private Bubble bubble = new Bubble(3, 1, 1);
 	private int x = 1;
 	private int y = 1;
 	private double vy = 0;
@@ -51,7 +51,7 @@ public class BubbleTest extends ObjectTest{
 	public void getSizeTest() {
 		assertEquals(bubble.getSize(), size);
 	}
-	
+
 	@Test
 	public void collideFloorTest() {
 		bubble.collide(0);

@@ -23,6 +23,7 @@ public class FloorTest extends ObjectTest {
 	@Test
 	public void getSpriteTest() {
 		//assertTrue(floor.getSprite().equals(new Rectangle(1, 1, 1, 1)));
+
 	}
 
 }
