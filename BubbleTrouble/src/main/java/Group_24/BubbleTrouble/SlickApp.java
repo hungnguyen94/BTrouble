@@ -15,6 +15,8 @@ import javax.swing.*;
 @SuppressWarnings("serial")
 public class SlickApp extends BasicGame
 {
+  
+  private Image background;
 
 	public SlickApp(String gamename) {
         super(gamename);
@@ -22,14 +24,20 @@ public class SlickApp extends BasicGame
 
     public void init(GameContainer gc) throws SlickException {
         Controller.startNewGame(gc);
+        background = new Image("Sprites/background.png");
     }
 
     public void update(GameContainer gc, int delta) throws SlickException {
         Controller.update();
+        for(Player player: Model.getPlayers()) {
+          player.move(gc, delta);
+      }
     }
 
     public void render(GameContainer gc, Graphics g) throws SlickException
     {
+        background.draw(0,0);
+        
         for(Player player: Model.getPlayers()) {
             player.draw();
             g.setColor(Color.white);
@@ -50,6 +58,11 @@ public class SlickApp extends BasicGame
             g.fill(floor.getSprite());
             g.draw(floor.getSprite());
         }
+        
+        for(Bubble bubble: Model.getBubbles()) {
+            g.drawOval(bubble.getX(), bubble.getY(), bubble.getWidth(), bubble.getHeight());
+            g.fillOval(bubble.getX(), bubble.getY(), bubble.getWidth(), bubble.getHeight());
+        }
     }
 
     public static void main(String[] args) {
@@ -57,7 +70,7 @@ public class SlickApp extends BasicGame
         {
             AppGameContainer appgc;
             appgc = new AppGameContainer(new SlickApp("Bubble Trouble"));
-            appgc.setDisplayMode(800, 500, false);
+            appgc.setDisplayMode(843, 596, false);
             //appgc.setShowFPS(false);
             appgc.setVSync(true);
             appgc.setAlwaysRender(true);

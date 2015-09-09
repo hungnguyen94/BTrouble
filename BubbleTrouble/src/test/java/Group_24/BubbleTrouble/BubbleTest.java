@@ -57,14 +57,14 @@ public class BubbleTest extends ObjectTest{
 		assertEquals(bubble.getSize(), size);
 	}
 	
-	@Test
+	/*@Test
 	public void moveXTest() {
 		bubble.move();
 		System.out.println(bubble.getX());
 		System.out.println(x);
 		System.out.println(bubble.getVX());
 		assertEquals(bubble.getX() - bubble.getVX(), x, 0);
-	}
+	}*/
 	
 	/*@Parameters
 	public static Collection<Object[]> data() {
