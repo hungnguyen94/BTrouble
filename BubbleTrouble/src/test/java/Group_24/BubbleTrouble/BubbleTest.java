@@ -23,7 +23,7 @@ public class BubbleTest extends ObjectTest{
 	private int y = 1;
 	private double vy = 0;
 	private double vx;
-	private int size = 1;
+	private int size = 3;
 
 	
 	@Before

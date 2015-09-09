@@ -8,9 +8,14 @@ import Group_24.BubbleTrouble.Model;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class ModelTest {
 
+	@Mock Player player;
 	private ArrayList<Room> rooms;
 	
 	@Before
@@ -26,6 +31,14 @@ public class ModelTest {
 	@Test
 	public void getRoomWidthTest() {
 		assertEquals(Model.getRoomWidth(), 800);
+	}
+	
+	@Test
+	public void addPlayerTest() {
+		Model.addPlayer(player);
+		ArrayList<Player> playerlist = new ArrayList<Player>();
+		playerlist.add(player);
+		assertEquals(Model.getPlayers(), playerlist);
 	}
 
 

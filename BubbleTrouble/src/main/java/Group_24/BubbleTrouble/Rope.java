@@ -2,6 +2,7 @@ package Group_24.BubbleTrouble;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import java.lang.Object;
 
 public class Rope {
 	private int dy;
@@ -16,6 +17,15 @@ public class Rope {
         this.y = y;
         this.dy = INITIAL_ROPESPEED;
         sprite = new Image("Sprites/rope.png");
+    }
+    
+    public boolean equals(Object other) {
+    	boolean res = false;
+    	if(other instanceof Rope) {
+    		Rope that = (Rope) other;
+    		if(this.x == that.x && this.y == that.y && this.dy == that.dy && this.exists == that.exists) res = true;
+    	}
+    	return res;
     }
     
     public void draw() {
