@@ -3,30 +3,42 @@ package Group_24.BubbleTrouble;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-public class Rope extends Object {
+public class Rope {
 	private int dy;
-    private Image sprite;
-	private final int INITIAL_ROPESPEED = 3;
-
+	private int x;
+	private int y;
+	private boolean exists = false;
+	private final int INITIAL_ROPESPEED = 2;
+	private Image sprite;
+	
     public Rope(int x, int y) throws SlickException {
-        super(x, y);
-        sprite = new Image("Sprites/Rope.gif");
+        this.x = x;
+        this.y = y;
         this.dy = INITIAL_ROPESPEED;
+        sprite = new Image("Sprites/rope.png");
     }
-
-    public void move() throws SlickException {
-        y -= dy;
-        
-        if (y <= 0) {
-            sprite.destroy();
-        }
-    }
-
-    public boolean isVisible() {
-        return !sprite.isDestroyed();
-    }
-
+    
     public void draw() {
-        sprite.draw(x, y);
+      sprite.draw(x, y);
+    }
+    
+    public void setExists(boolean exist) {
+      this.exists = exist;
+    }
+    
+    public boolean getExists(boolean exist) {
+      return this.exists;
+    }
+    
+    public int getY() {
+      return this.y;
+    }
+
+    public void move() {
+        this.y -= dy;
+        
+        if (this.y <= 0) {
+            dy = 0;
+        }
     }
 }

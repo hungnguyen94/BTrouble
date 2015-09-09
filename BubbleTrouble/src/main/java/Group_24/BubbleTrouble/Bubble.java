@@ -20,7 +20,7 @@ public class Bubble extends Object {
 	private double ay;
 	
 	// gravity
-	private final double G = .05;
+	private final double G = .005;
 	// starting speed in horizontal direction
 	private final double INITIAL_HORIZONTAL_SPEED = .5;
     // factor of acceleration that the bubbles go up with when hit with a rope
@@ -92,6 +92,18 @@ public class Bubble extends Object {
     public Circle getSprite() {
         return sprite;
     }
+    
+    public double getVX() {
+    	return vx;
+    }
+    
+    public double getVY() {
+    	return vy;
+    }
+    
+    public double getAY() {
+    	return ay;
+    }
 	
 	/**
 	 * Calculates the next location of the Bubble.
@@ -136,5 +148,16 @@ public class Bubble extends Object {
 		} else {
 			Controller.removeBubble(this);
 		}
+	}
+	
+	public boolean equals(Object other) {
+		boolean res = false;
+		if(other instanceof Bubble) {
+			Bubble that = (Bubble) other;
+			if(this.x == that.x && this.y == that.y && this.vx == that.vx && this.vy == that.vy) {
+				res = true;
+			}
+		}
+		return res;
 	}
 }
