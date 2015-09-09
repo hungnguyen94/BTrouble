@@ -13,7 +13,7 @@ public class PlayerTest extends ObjectTest{
 	
 	@Before
 	public void setUp() throws SlickException {
-		player = new Player(1, 1);
+		//player = new Player(1, 1);
 		setObject(player);
 		setX(1);
 		setY(1);

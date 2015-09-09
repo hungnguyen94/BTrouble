@@ -37,6 +37,17 @@ public abstract class Object {
 		this.height = height;
 	}
 	
+    public boolean equals(Object other) {
+    	boolean res = false;
+    	if(other instanceof Wall) {
+    		Wall that = (Wall) other;
+    		if(this.x == that.x && this.y == that.y && this.width == that.width && this.height == that.height) {
+    			res = true;
+    		}
+    	}
+    	return res;
+    }
+	
 	/**
 	 * Returns the horizontal position of the object
 	 * @return returns an integer representing the horizontal position of the object

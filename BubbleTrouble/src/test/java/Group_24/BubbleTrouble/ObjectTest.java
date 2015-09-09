@@ -66,6 +66,11 @@ public abstract class ObjectTest {
 		assertTrue(collider.collidesWith(object));
 	}
 	
+	@Test
+	public void equalsTrueTest() {
+		assertTrue(object.equals(object));
+	}
+	
 	/*@Test
 	public void collidesWithFalseTest() {
 		Object collider = object;

@@ -1,6 +1,7 @@
 package Group_24.BubbleTrouble;
 
 import java.util.ArrayList;
+import java.lang.Object;
 
 /**
  * Room contains all objects within the room (except for the players), and draws them on the screen.
@@ -30,6 +31,18 @@ public class Room {
 		floors = new ArrayList<Floor>();
 		floors.add(new Floor(0, 596, 800, 2 ));
 		this.reload();
+	}
+	
+	public boolean equals(Object other) {
+		boolean res = false;
+		if(other instanceof Room) {
+			Room that = (Room) other;
+			if(this.data.equals(that.data) && this.startingposition == that.startingposition && this.walls.equals(that.walls) &&
+					 this.floors.equals(that.floors) && this.bubbles.equals(that.bubbles)) {
+				res = true;
+			}
+		}
+		return res;
 	}
 	
 	/**

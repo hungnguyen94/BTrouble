@@ -64,13 +64,25 @@ public class BubbleTest extends ObjectTest{
 		assertEquals(bubble.getVX(), -vx, 0);
 	}
 	
+	@Test
+	public void moveVYTest() {
+		bubble.move();
+		assertEquals(bubble.getVY(), bubble.getAY() + vy, 0);
+	}
+	
+	/*@Test
+	public void moveXTest() {
+		bubble.move();
+		assertEquals(bubble.getX(), bubble.getVX() + x, 0);
+	}*/
+	
 	/*@Test
 	public void collideDefaultTest() {
 		bubble.collide(3);
 		assertEquals(bubble, new Bubble(size, x, y));
-	}*/
+	}
 	
-	/*@Test
+	@Test
 	public void collideRopeTest() {
 		bubble.collide(2);
 		assertEquals(size--, bubble.getSize());
@@ -78,20 +90,45 @@ public class BubbleTest extends ObjectTest{
 	
 	@Test
 	public void equalsTrueTest() {
-		Bubble bubble = new Bubble(1, 1, 1);
+		Bubble bubble = new Bubble(3, 1, 1);
 		assertTrue(this.bubble.equals(bubble));
 	}
 	
 	
 	@Test
-	public void equalsFalseTest() {
-		Bubble bubble = new Bubble(1, 2, 1);
+	public void equalsFalseXTest() {
+		Bubble bubble = new Bubble(3, 2, 1);
 		assertFalse(this.bubble.equals(bubble));
 	}
 	
 	@Test
+	public void equalsFalseYTest() {
+		Bubble bubble = new Bubble(3, 1, 2);
+		assertFalse(this.bubble.equals(bubble));
+	}
+	
+	@Test
+	public void equalsFalseSizeTest() {
+		Bubble bubble = new Bubble(2, 1, 1);
+		assertFalse(this.bubble.equals(bubble));
+	}
+	
+	@Test
+	public void equalsFalseVXTest() {
+		Bubble bubble = new Bubble(2, 1, 1, 1, 0);
+		assertFalse(this.bubble.equals(bubble));
+	}
+	
+	@Test
+	public void equalsFalseVYTest() {
+		Bubble bubble = new Bubble(2, 1, 1, .5, 1);
+		assertFalse(this.bubble.equals(bubble));
+	}
+	
+	
+	@Test
 	public void equalsOtherTest() {
-		int bubble = 1;
+		String bubble = new String("bubble");
 		assertFalse(this.bubble.equals(bubble));
 	}
 	

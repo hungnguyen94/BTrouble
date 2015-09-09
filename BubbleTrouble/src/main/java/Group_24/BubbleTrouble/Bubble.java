@@ -150,11 +150,12 @@ public class Bubble extends Object {
 		}
 	}
 	
+	@Override
 	public boolean equals(Object other) {
 		boolean res = false;
 		if(other instanceof Bubble) {
 			Bubble that = (Bubble) other;
-			if(this.x == that.x && this.y == that.y && this.vx == that.vx && this.vy == that.vy) {
+			if(this.x == that.x && this.y == that.y && this.vx == that.vx && this.vy == that.vy && this.size == that.size) {
 				res = true;
 			}
 		}

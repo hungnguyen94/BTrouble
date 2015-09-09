@@ -1,6 +1,7 @@
 package Group_24.BubbleTrouble;
 
 import java.util.ArrayList;
+import java.lang.Object;
 
 /**
  * RoomData contains all the initial data of a room. Getting the data gives you a copy of the original data.
@@ -17,6 +18,17 @@ public class RoomData {
 	
 	public RoomData(String file){
 		// TODO load roomdata from file
+	}
+	
+	public boolean equals(Object other) {
+		boolean res = false;
+		if(other instanceof RoomData) {
+			RoomData that = (RoomData) other;
+			if(this.bubbles.equals(that.bubbles) && this.startingposition == that.startingposition) {
+				res = true;
+			}
+		}
+		return res;
 	}
 	
 	/**
