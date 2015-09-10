@@ -1,55 +1,56 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <groupId>Group_24</groupId>
-  <artifactId>BubbleTrouble</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <packaging>jar</packaging>
+    <groupId>Group_24</groupId>
+    <artifactId>BubbleTrouble</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
-  <name>BubbleTrouble</name>
-  <url>http://maven.apache.org</url>
+    <name>BubbleTrouble</name>
+    <url>http://maven.apache.org</url>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
-  <dependencies>
-    <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>4.12</version>
-    </dependency>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.18.1</version>
+                <configuration>
+                    <argLine>-Djava.library.path=${project.basedir}/libs</argLine>
+                		<environmentVariables> 
+							<!--<PATH>${basedir}\..;${java.library.path}</PATH> -->
+					    </environmentVariables>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
-    <dependency>
-        <groupId>org.mockito</groupId>
-        <artifactId>mockito-core</artifactId>
-        <version>2.0.5-beta</version>
-    </dependency>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
 
-    <dependency>
-        <groupId>org.slick2d</groupId>
-        <artifactId>slick2d-core</artifactId>
-        <version>1.0.1</version>
-    </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>2.0.5-beta</version>
+        </dependency>
 
-    <!--<dependency>-->
-        <!--<groupId>org.lwjgl.lwjgl</groupId>-->
-        <!--<artifactId>lwjgl</artifactId>-->
-        <!--<version>2.9.1</version>-->
-    <!--</dependency>-->
+        <dependency>
+            <groupId>org.slick2d</groupId>
+            <artifactId>slick2d-core</artifactId>
+            <version>1.0.1</version>
+        </dependency>
 
-    <!--<dependency>-->
-        <!--<groupId>org.lwjgl.lwjgl</groupId>-->
-        <!--<artifactId>lwjgl_util</artifactId>-->
-        <!--<version>2.9.1</version>-->
-    <!--</dependency>-->
+    </dependencies>
 
-    <!--<dependency>-->
-        <!--<groupId>net.java.jinput</groupId>-->
-        <!--<artifactId>jinput</artifactId>-->
-        <!--<version>2.0.6</version>-->
-    <!--</dependency>-->
-      
-  </dependencies>
+
+
 </project>
