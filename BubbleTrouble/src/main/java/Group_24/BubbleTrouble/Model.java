@@ -11,8 +11,8 @@ public class Model {
 	private static ArrayList<Player> players;
 	private static int room_current;
 	
-	private static final int ROOM_WIDTH = 800;
-	private static final int ROOM_HEIGHT = 500;
+	private static final int ROOM_WIDTH = 1123;
+	private static final int ROOM_HEIGHT = 921;
 	
 	/**
 	 * Initializes the model. Should be done before any calls to its methods are done.

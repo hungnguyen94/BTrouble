@@ -29,7 +29,7 @@ public class SlickApp extends BasicGame
 
     public void init(GameContainer gc) throws SlickException {
         Controller.startNewGame(gc);
-        background = new Image("Sprites/background.png");
+        background = new Image("Sprites/background.jpg");
         timers = Controller.getTimers();
         timerBar = new Rectangle(50, gc.getHeight() - 20 , gc.getWidth() - 100, 5);
         timers.restartTimer();
@@ -44,8 +44,7 @@ public class SlickApp extends BasicGame
         }
     }
 
-    public void render(GameContainer gc, Graphics g) throws SlickException
-    {
+    public void render(GameContainer gc, Graphics g) throws SlickException {
         background.draw(0, 0);
 
         // Draw countdown timer
@@ -89,9 +88,10 @@ public class SlickApp extends BasicGame
         {
             AppGameContainer appgc;
             appgc = new AppGameContainer(new SlickApp("Bubble Trouble"));
-            appgc.setDisplayMode(843, 596, false);
+            appgc.setDisplayMode(1123, 921, false);
             //appgc.setShowFPS(false);
             appgc.setVSync(true);
+            appgc.setTargetFrameRate(60);
             appgc.setAlwaysRender(true);
             appgc.start();
         }
