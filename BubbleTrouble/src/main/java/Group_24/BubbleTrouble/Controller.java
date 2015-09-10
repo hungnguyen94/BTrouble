@@ -3,6 +3,7 @@ package Group_24.BubbleTrouble;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.*;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -42,20 +43,18 @@ public class Controller {
 
 		for(Bubble bubble: Model.getBubbles()) {
 			
-			for(Floor floor: Model.getCurrentRoom().getFloors())
-				if(bubble.getY() + bubble.getWidth() >= floor.getY())
+			for(Rectangle floor: Model.getCurrentRoom().getFloors())
+				if(bubble.intersects(floor))
 					bubble.collide(CollisionEvent.TYPE_FLOOR);
 			
             // CollisionEvent detection for bubble against floor
-            if (bubble.getY() + bubble.getWidth() >= Model.getRoomHeight()) {
+            if (bubble.getY() + bubble.getWidth()/2 >= Model.getRoomHeight()) {
                 bubble.collide(CollisionEvent.TYPE_FLOOR);
             }
             
             // Collision detection for walls
-            for(Wall wall: Model.getCurrentRoom().getWalls()) {
-            	if(bubble.getX() <= (wall.getX() + wall.getWidth()))
-            		bubble.collide(CollisionEvent.TYPE_WALL);
-            	if(bubble.getX() + bubble.getWidth() >= wall.getX())
+            for(Rectangle wall: Model.getCurrentRoom().getWalls()) {
+            	if(bubble.intersects(wall))
             		bubble.collide(CollisionEvent.TYPE_WALL);
             }
             
@@ -64,20 +63,20 @@ public class Controller {
                 bubble.collide(CollisionEvent.TYPE_WALL);
             }
             // CollisionEvent detection for bubble against room right
-            if (bubble.getX() + bubble.getWidth() >= Model.getRoomWidth()) {
+            if (bubble.getX() + bubble.getWidth()/2 >= Model.getRoomWidth()) {
                 bubble.collide(CollisionEvent.TYPE_WALL);
             }
             
             for(Player player : Model.getPlayers()){
             	
             	// Collision detection on walls.
-            	for(Wall wall: Model.getCurrentRoom().getWalls()) {
-            		if(player.collidesWith(wall)) 
+            	for(Rectangle wall: Model.getCurrentRoom().getWalls()) {
+            		if(player.intersects(wall))
             			player.setDx(-1*player.getDx());
             	}
             	
 	            // CollisionEvent detection for bubble against player
-	            if (player.collidesWith(bubble)) {
+	            if (player.intersects(bubble)) {
 	                loseLife(player);
 	            }
 	
@@ -136,7 +135,7 @@ public class Controller {
      * @param vx horizontal speed of the bubble
      * @param vy vertical speed of the bubble
      */
-    public static void addBubble(int size, int x, int y, double vx, double vy) {
+    public static void addBubble(int size, float x, float y, float vx, float vy) {
         Bubble newBubble = new Bubble(size, x, y, vx, vy);
         newBubbles.add(newBubble);
     }

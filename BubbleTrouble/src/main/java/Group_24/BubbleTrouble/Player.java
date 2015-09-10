@@ -6,16 +6,15 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
+import org.newdawn.slick.geom.Rectangle;
 
-import java.awt.Graphics2D;
-import java.awt.event.*;
 import java.util.ArrayList;
 
 /**
  * Player class, containing all the data about the player.
  *
  */
-public class Player extends Object {
+public class Player extends Rectangle {
     private int dx;
     private int lives;
     private int score;
@@ -23,8 +22,6 @@ public class Player extends Object {
     private SpriteSheet walkSheet;
     private Animation walkAnimation;
     private Image playerIdle;
-    private float x = 100f;
-    private float y = 421f;
     private boolean facingLeft = true;
     private boolean idle = true;
     
@@ -39,8 +36,8 @@ public class Player extends Object {
      * @param x x value for the Player from the sprite class.
      * @param y y value for the Player from the sprite class.
      */
-    public Player(int x, int y) throws SlickException {
-        super(x, y);
+    public Player(float x, float y) throws SlickException {
+        super(x, y, 100f, 175f);
         playerIdle = new Image("Sprites/idle.png");
         walkSheet = new SpriteSheet("Sprites/walkAnimation.png", 100, 175);
         walkAnimation = new Animation(walkSheet, 100);
@@ -96,30 +93,12 @@ public class Player extends Object {
      * @throws SlickException 
      */
     public void fire() throws SlickException {
-        int yvalue = this.getY();
+        float yvalue = super.getY();
 
         for (int i = 32; i < 321; i += 32) {
-            ropes.add(new Rope((this.getX() + this.getWidth() / 2), yvalue));
+            ropes.add(new Rope((getX() + getWidth() / 2), yvalue));
             yvalue += 32;
         }
-    }
-
-    /**
-     * Handles the keyboard control.
-     * @param action the action to take; -1 is left, 0 is fire, 1 is right and 2 is do nothing
-     */
-    public void action(int action) throws SlickException {
-        switch (action) {
-            case -1: dx = -1 * PLAYER_SPEED; break;
-            case 0: fire(); break;
-            case 1: dx = 1 * PLAYER_SPEED; break;
-            case 2: dx = 0; break;
-            default: return;
-        }
-      if (ropes.size() == 0) {
-        Rope rope = new Rope((int)x, 596);
-        ropes.add(rope);
-      }
     }
 
     public void draw() throws SlickException {
@@ -146,14 +125,14 @@ public class Player extends Object {
         idle = false;
         facingLeft = true;
         walkAnimation.update(delta);
-          x -= delta * 0.15f;
+          super.setX(super.getX() - delta * 0.15f);
       }
       else if (input.isKeyDown(Input.KEY_RIGHT))
       {
         idle = false;
         facingLeft = false;
         walkAnimation.update(delta);
-          x += delta * 0.15f;
+          super.setX(super.getX() + delta * 0.15f);
       } 
       else if (input.isKeyPressed(Input.KEY_SPACE))
       {
@@ -172,7 +151,7 @@ public class Player extends Object {
     }
 
     public void moveTo(int x) {
-        this.x = x;
+        super.setX(x);
         this.dx = 0;
     }
 }

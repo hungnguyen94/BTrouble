@@ -1,5 +1,7 @@
 package Group_24.BubbleTrouble;
 
+import org.newdawn.slick.geom.Rectangle;
+
 import java.util.ArrayList;
 
 /**
@@ -11,8 +13,8 @@ public class Room {
 	private RoomData data;
 	private int startingposition;
 
-	private ArrayList<Wall> walls;
-	private ArrayList<Floor> floors;
+	private ArrayList<Rectangle> walls;
+	private ArrayList<Rectangle> floors;
 	
 	private ArrayList<Bubble> bubbles;
 	
@@ -23,12 +25,12 @@ public class Room {
 	public Room(RoomData data){
 		this.data = data;
 		
-		walls = new ArrayList<Wall>();
-		walls.add(new Wall(0, 0, 10, 800));
-		walls.add(new Wall(843, 0, 10, 800));
+		walls = new ArrayList<Rectangle>();
+		walls.add(new Rectangle(0, 0, 10, 800));
+		walls.add(new Rectangle(843, 0, 10, 800));
 		
-		floors = new ArrayList<Floor>();
-		floors.add(new Floor(0, 596, 800, 2 ));
+		floors = new ArrayList<Rectangle>();
+		floors.add(new Rectangle(0, 596, 800, 2 ));
 		this.reload();
 	}
 	
@@ -54,14 +56,14 @@ public class Room {
 	/**
 	 * @return the walls
 	 */
-	public ArrayList<Wall> getWalls() {
+	public ArrayList<Rectangle> getWalls() {
 		return walls;
 	}
 
 	/**
 	 * @return the floor
 	 */
-	public ArrayList<Floor> getFloors() {
+	public ArrayList<Rectangle> getFloors() {
 		return floors;
 	}
 

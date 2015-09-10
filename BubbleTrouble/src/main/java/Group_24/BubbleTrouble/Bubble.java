@@ -1,28 +1,27 @@
 package Group_24.BubbleTrouble;
 
-import org.newdawn.slick.geom.Circle;
+import org.newdawn.slick.geom.*;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-public class Bubble extends Object {
+public class Bubble extends Circle {
 	private int size;
-    private Circle sprite;
 	
 	// actual size of a level one bubble in the game in pixels.
 	private final float GAME_SIZE = 10;
 	
 	// speed (pixels / step)
-	private double vx;
-	private double vy;
+	private float vx;
+	private float vy;
 	
 	// acceleration (pixels / step^2)
-	private double ay;
+	private float ay;
 	
 	// gravity
-	private final double G = .005;
+	private final float G = .005f;
 	// starting speed in horizontal direction
-	private final double INITIAL_HORIZONTAL_SPEED = .5;
+	private final float INITIAL_HORIZONTAL_SPEED = .5f;
     // factor of acceleration that the bubbles go up with when hit with a rope
     private final int HIT_SPEED_FACTOR = 50;
 	
@@ -33,13 +32,12 @@ public class Bubble extends Object {
 	 * @param x horizontal starting position of the bubble in the room
 	 * @param y vertical starting position of the bubble in the room
 	 */
-	public Bubble(int size, int x, int y) {
-		super(x, y);
+	public Bubble(int size, float x, float y) {
+		super(x, y, size*10);
 		
 		this.size = size;
 		this.ay = G;
 		this.vx = INITIAL_HORIZONTAL_SPEED;
-        sprite = new Circle(x,y,size*GAME_SIZE);
 	}
 
     /**
@@ -50,14 +48,13 @@ public class Bubble extends Object {
      * @param vx horizontal starting speed of the bubble
      * @param vy vertical starting speed of the bubble
      */
-    public Bubble(int size, int x, int y, double vx, double vy) {
-        super(x, y);
+    public Bubble(int size, float x, float y, float vx, float vy) {
+        super(x, y, size*10);
 
         this.size = size;
         this.ay = G;
         this.vx = vx;
         this.vy = vy;
-        sprite = new Circle(x,y,size*GAME_SIZE);
     }
     
     /**
@@ -67,31 +64,6 @@ public class Bubble extends Object {
 	public int getSize() {
 		return size;
 	}
-	
-	/**
-     * Returns the actual diameter of the bubble, overrides the superclass method.
-     * @return returns an integer representing the actual diameter of the bubble.
-     */
-	@Override
-	public int getWidth() {
-		return (int) (size * GAME_SIZE);
-	}
-	
-	/**
-     * Returns the actual diameter of the bubble, overrides the superclass method.
-     * @return returns an integer representing the actual diameter of the bubble.
-     */
-	@Override
-	public int getHeight() {
-		return this.getWidth();
-	}
-
-    /**
-     * Returns the circle shape for the bubble
-     */
-    public Circle getSprite() {
-        return sprite;
-    }
     
     public double getVX() {
     	return vx;
@@ -100,10 +72,6 @@ public class Bubble extends Object {
     public double getVY() {
     	return vy;
     }
-    
-    public double getAY() {
-    	return ay;
-    }
 	
 	/**
 	 * Calculates the next location of the Bubble.
@@ -111,10 +79,10 @@ public class Bubble extends Object {
 	public void move() {
 		this.vy += ay;
 		
-		this.x += vx;
-		this.y += vy;
-        sprite.setCenterX(x);
-        sprite.setCenterY(y);
+		float x = super.getX() + vx;
+		float y = super.getY() + vy;
+        super.setCenterX(x);
+        super.setCenterY(y);
 	}
 	
 	/**
@@ -135,29 +103,25 @@ public class Bubble extends Object {
 	 */
 	public void split() {
 		// reduce size
+        float scaleTrasform = (float) (size-1)/size;
+        Transform resize = Transform.createScaleTransform(scaleTrasform, scaleTrasform);
+        super.transform(resize);
 		size--;
 		if (size != 0) {
 			// give upward speed
 			vy = -ay * HIT_SPEED_FACTOR;
-			// casting to integers
-			int newSize = (int) size;
-			int newX = (int) x;
-			int newY = (int) y;
 			// add an extra bubble to the game
-			Controller.addBubble(newSize, newX, newY, -vx, vy);
+			Controller.addBubble(size, super.getX(), super.getY(), -vx, vy);
 		} else {
 			Controller.removeBubble(this);
 		}
 	}
 	
-	public boolean equals(Object other) {
-		boolean res = false;
+	public boolean equals(Shape other) {
 		if(other instanceof Bubble) {
 			Bubble that = (Bubble) other;
-			if(this.x == that.x && this.y == that.y && this.vx == that.vx && this.vy == that.vy) {
-				res = true;
-			}
+			return (super.equals(other) && this.vx == that.vx && this.vy == that.vy);
 		}
-		return res;
+		return false;
 	}
 }
