@@ -47,20 +47,20 @@ public class Controller {
 
 		for(Bubble bubble: Model.getBubbles()) {
 			
-			for(Rectangle floor: Model.getCurrentRoom().getFloors())
-				if(bubble.intersects(floor))
+			for (Rectangle floor: Model.getCurrentRoom().getFloors())
+				if (bubble.intersects(floor))
 					bubble.collide(CollisionEvent.TYPE_FLOOR);
             
             // Collision detection for walls
-            for(Rectangle wall: Model.getCurrentRoom().getWalls()) {
-            	if(bubble.intersects(wall))
+            for (Rectangle wall: Model.getCurrentRoom().getWalls()) {
+            	if (bubble.intersects(wall))
             		bubble.collide(CollisionEvent.TYPE_WALL);
             }
 
             for(Player player : Model.getPlayers()){
 
                 // Check if timer has run out.
-                if(getTimers().getLevelTimeLeft() <= 0) {
+                if (getTimers().getLevelTimeLeft() <= 0) {
                     loseLife(player);
                 }
             	
@@ -68,6 +68,16 @@ public class Controller {
 	            if (player.intersects(bubble)) {
 	                loseLife(player);
 	            }
+
+                // Collision detection for walls
+                for (Rectangle wall: Model.getCurrentRoom().getWalls()) {
+                    if (player.intersects(wall)) {
+                        if (player.getX() > wall.getX())
+                            player.setLeftBlocked(true);
+                        else
+                            player.setRightBlocked(true);
+                    }
+                }
 
 	            for (Rope rope : player.getRopes()) {
 	                if (bubble.intersects(rope)) {
@@ -97,7 +107,6 @@ public class Controller {
         	player.resetRope();
             Controller.getTimers().restartTimer();
         }
-		
 	}
 	
 	/**
