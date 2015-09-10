@@ -2,11 +2,8 @@ package Group_24.BubbleTrouble;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.*;
 
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 /**
@@ -15,7 +12,7 @@ import java.util.ArrayList;
 public class Controller {
 	
 	private static final int REWARD_BUBBLE = 100;
-	private static ArrayList<Bubble> newBubbles;
+    private static ArrayList<Bubble> newBubbles;
     private static ArrayList<Bubble> oldBubbles;
     private static GameContainer gc;
     private static Timers timers;
@@ -33,7 +30,7 @@ public class Controller {
     	// TODO could add import RoomData from file
     	Model.init();
     	ArrayList<Bubble> bubbles = new ArrayList<Bubble>();
-		bubbles.add(new Bubble(3, 100, 50));
+		bubbles.add(new Bubble(3, 100, 100));
     	RoomData data = new RoomData(bubbles);
     	Model.addRoom(new Room(data));
     	Model.addPlayer(new Player(100, Model.getRoomHeight() / 2));
@@ -50,58 +47,30 @@ public class Controller {
 
 		for(Bubble bubble: Model.getBubbles()) {
 			
-			for(Floor floor: Model.getCurrentRoom().getFloors())
-				if(bubble.getY() + bubble.getWidth() >= floor.getY())
+			for(Rectangle floor: Model.getCurrentRoom().getFloors())
+				if(bubble.intersects(floor))
 					bubble.collide(CollisionEvent.TYPE_FLOOR);
-			
-            // CollisionEvent detection for bubble against floor
-            if (bubble.getY() + bubble.getWidth() >= Model.getRoomHeight()) {
-                bubble.collide(CollisionEvent.TYPE_FLOOR);
-            }
             
             // Collision detection for walls
-            for(Wall wall: Model.getCurrentRoom().getWalls()) {
-            	if(bubble.getX() <= (wall.getX() + wall.getWidth()))
+            for(Rectangle wall: Model.getCurrentRoom().getWalls()) {
+            	if(bubble.intersects(wall))
             		bubble.collide(CollisionEvent.TYPE_WALL);
-            	if(bubble.getX() + bubble.getWidth() >= wall.getX())
-            		bubble.collide(CollisionEvent.TYPE_WALL);
-            }
-            
-            // CollisionEvent detection for bubble against room left
-            if (bubble.getX() <= 0) {
-                bubble.collide(CollisionEvent.TYPE_WALL);
-            }
-            // CollisionEvent detection for bubble against room right
-            if (bubble.getX() + bubble.getWidth() >= Model.getRoomWidth()) {
-                bubble.collide(CollisionEvent.TYPE_WALL);
             }
 
-            if(getTimers().getLevelTimeLeft() <= 0) {
-                for(Player p: Model.getPlayers()) {
-                    loseLife(p);
-                }
-            }
-            
             for(Player player : Model.getPlayers()){
             	
-            	// Collision detection on walls.
-            	for(Wall wall: Model.getCurrentRoom().getWalls()) {
-            		if(player.collidesWith(wall)) 
-            			player.setDx(-1*player.getDx());
-            	}
-            	
 	            // CollisionEvent detection for bubble against player
-	            if (player.collidesWith(bubble)) {
+	            if (player.intersects(bubble)) {
 	                loseLife(player);
 	            }
-	
-//	            for (Rope rope : player.getRopes()) {
-//	                if (bubble.collidesWith(rope)) {
-//	                    bubble.collide(CollisionEvent.TYPE_ROPE);
-//	                    player.increaseScore(REWARD_BUBBLE);
-//	                    player.resetRope();
-//	                }
-//	            }
+
+	            for (Rope rope : player.getRopes()) {
+	                if (bubble.intersects(rope)) {
+	                    bubble.collide(CollisionEvent.TYPE_ROPE);
+	                    player.increaseScore(REWARD_BUBBLE);
+	                    player.resetRope();
+	                }
+	            }
             }
         }
         
@@ -145,15 +114,10 @@ public class Controller {
 
     /**
      * adds a bubble to the game
-     * @param size size of the bubble
-     * @param x horizontal position of the bubble
-     * @param y vertical position of the bubble
-     * @param vx horizontal speed of the bubble
-     * @param vy vertical speed of the bubble
+     * @param bubble Bubble to add to the room
      */
-    public static void addBubble(int size, int x, int y, double vx, double vy) {
-        Bubble newBubble = new Bubble(size, x, y, vx, vy);
-        newBubbles.add(newBubble);
+    public static void addBubble(Bubble bubble) {
+        newBubbles.add(bubble);
     }
 
     /**
@@ -185,29 +149,5 @@ public class Controller {
 	public static void endGame(String message) {
 		gc.exit();
     }
-	
-	/**
-	 * Pauses the game by pausing the view, shows a message. When the message is removed by the player, the game continues.
-	 */
-	public static void pauseGame(){
-		gc.pause();
-	}
-	
-	/**
-	 * Decides which actions should be performed when a key is pressed.  
-	 * @param e should be a KeyEvent which represents a pressed key.
-	 */
-	public static void keyPressed(KeyEvent e) {
-		
-		int key = e.getKeyCode();
-
-	    switch (key) {
-		case KeyEvent.VK_PAUSE: pauseGame();
-			break;
-
-		default:
-			break;
-		}
-	}
 	
 }

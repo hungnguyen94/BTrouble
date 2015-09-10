@@ -68,24 +68,19 @@ public class SlickApp extends BasicGame
             g.drawString("[Score " + player.getScore() + ", Lives " + player.getLives() + "]", 10, 30);
         }
         for(Bubble bubble: Model.getBubbles()) {
-            g.setColor(Color.white);
-            g.fill(bubble.getSprite());
-            g.draw(bubble.getSprite());
+            g.setColor(Color.black);
+            g.fill(bubble);
+            g.draw(bubble);
         }
-        for(Wall wall: Model.getCurrentRoom().getWalls()) {
+        for(Rectangle wall: Model.getCurrentRoom().getWalls()) {
             g.setColor(Color.green);
-            g.fill(wall.getSprite());
-            g.draw(wall.getSprite());
+            g.fill(wall);
+            g.draw(wall);
         }
-        for(Floor floor: Model.getCurrentRoom().getFloors()) {
+        for(Rectangle floor: Model.getCurrentRoom().getFloors()) {
             g.setColor(Color.blue);
-            g.fill(floor.getSprite());
-            g.draw(floor.getSprite());
-        }
-        
-        for(Bubble bubble: Model.getBubbles()) {
-            g.drawOval(bubble.getX(), bubble.getY(), bubble.getWidth(), bubble.getHeight());
-            g.fillOval(bubble.getX(), bubble.getY(), bubble.getWidth(), bubble.getHeight());
+            g.fill(floor);
+            g.draw(floor);
         }
     }
 
