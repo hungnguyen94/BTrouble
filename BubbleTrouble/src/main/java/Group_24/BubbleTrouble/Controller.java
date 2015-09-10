@@ -72,10 +72,13 @@ public class Controller {
                 // Collision detection for walls
                 for (Rectangle wall: Model.getCurrentRoom().getWalls()) {
                     if (player.intersects(wall)) {
-                        if (player.getX() > wall.getX())
+                        int playerX = (int) player.getX() + ((int)(player.getWidth()/2));
+                        if (playerX > wall.getX()) {
                             player.setLeftBlocked(true);
-                        else
+                        } else
+                        if (playerX <= wall.getX()) {
                             player.setRightBlocked(true);
+                        }
                     }
                 }
 
