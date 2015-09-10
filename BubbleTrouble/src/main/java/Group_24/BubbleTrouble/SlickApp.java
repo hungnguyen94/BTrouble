@@ -25,7 +25,7 @@ public class SlickApp extends BasicGame
 
     public void init(GameContainer gc) throws SlickException {
         Controller.startNewGame(gc);
-        background = new Image("Sprites/background.png");
+        background = new Image("Sprites/background.jpg");
     }
 
     public void update(GameContainer gc, int delta) throws SlickException {
@@ -66,9 +66,10 @@ public class SlickApp extends BasicGame
         {
             AppGameContainer appgc;
             appgc = new AppGameContainer(new SlickApp("Bubble Trouble"));
-            appgc.setDisplayMode(843, 596, false);
+            appgc.setDisplayMode(1123, 921, false);
             //appgc.setShowFPS(false);
             appgc.setVSync(true);
+            appgc.setTargetFrameRate(60);
             appgc.setAlwaysRender(true);
             appgc.start();
         }

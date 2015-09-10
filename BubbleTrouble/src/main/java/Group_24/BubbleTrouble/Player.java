@@ -42,8 +42,8 @@ public class Player extends Rectangle {
     public Player(float x, float y) throws SlickException {
         super(x, y, 100f, 175f);
         playerIdle = new Image("Sprites/idle.png");
-        walkSheet = new SpriteSheet("Sprites/walkAnimation.png", 100, 175);
-        walkAnimation = new Animation(walkSheet, 100);
+        walkSheet = new SpriteSheet("Sprites/player_spritesheet.png", 100, 175);
+        walkAnimation = new Animation(walkSheet, 40);
         ropes = new ArrayList<Rope>();
         lives = INITIAL_LIVES;
         score = INITIAL_SCORE;

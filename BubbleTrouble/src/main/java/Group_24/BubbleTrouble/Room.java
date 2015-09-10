@@ -26,11 +26,11 @@ public class Room {
 		this.data = data;
 		
 		walls = new ArrayList<Rectangle>();
-		walls.add(new Rectangle(0, 0, 10, 800));
-		walls.add(new Rectangle(843, 0, 10, 800));
+		walls.add(new Rectangle(0, 0, 1, 800));
+		walls.add(new Rectangle(1123, 0, 1, 800));
 		
 		floors = new ArrayList<Rectangle>();
-		floors.add(new Rectangle(0, 596, 800, 2 ));
+		floors.add(new Rectangle(0, 794, 1123, 1));
 		this.reload();
 	}
 	
