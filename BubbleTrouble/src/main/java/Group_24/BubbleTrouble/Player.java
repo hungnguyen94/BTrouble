@@ -45,8 +45,8 @@ public class Player extends Rectangle {
     public Player(float x, float y) throws SlickException {
         super(x, y, 100f, 175f);
         playerIdle = new Image("Sprites/idle.png");
-        walkSheet = new SpriteSheet("Sprites/walkAnimation.png", 100, 175);
-        walkAnimation = new Animation(walkSheet, 40);
+        walkSheet = new SpriteSheet("Sprites/player_spritesheet.png", 100, 175);
+        walkAnimation = new Animation(walkSheet, 20);
         ropes = new ArrayList<Rope>();
         lives = INITIAL_LIVES;
         score = INITIAL_SCORE;
@@ -104,7 +104,6 @@ public class Player extends Rectangle {
 
     public void move(GameContainer container, int delta) throws SlickException {
         Input input = container.getInput();
-
         for(Rectangle floor: Model.getCurrentRoom().getFloors()) {
             if(!this.intersects(floor)) {
                 y += vy;
@@ -114,6 +113,7 @@ public class Player extends Rectangle {
             }
         }
 
+        idle = true;
         if (input.isKeyDown(Input.KEY_LEFT) && !leftBlocked)
         {
             rightBlocked = false;
@@ -138,8 +138,6 @@ public class Player extends Rectangle {
         {
             idle = true;
             fire();
-        } else {
-            idle = true;
         }
     }
 

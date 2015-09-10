@@ -8,7 +8,10 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.util.ResourceLoader;
 
+import java.awt.Font;
+import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,6 +25,7 @@ public class SlickApp extends BasicGame
     private Image background;
     private Timers timers;
     private Rectangle timerBar;
+    private TrueTypeFont font;
 
 	public SlickApp(String gamename) {
         super(gamename);
@@ -33,6 +37,18 @@ public class SlickApp extends BasicGame
         timers = Controller.getTimers();
         timerBar = new Rectangle(200, gc.getHeight() - 113 , gc.getWidth() - 400, 25);
         timers.restartTimer();
+
+        // load font from a .ttf file
+        try {
+            InputStream inputStream	= ResourceLoader.getResourceAsStream("Sprites/Hetilica.ttf");
+
+            Font awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+            awtFont = awtFont.deriveFont(24f); // set font size
+            font = new TrueTypeFont(awtFont, false);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void update(GameContainer gc, int delta) throws SlickException {
@@ -45,12 +61,12 @@ public class SlickApp extends BasicGame
     }
 
     public void render(GameContainer gc, Graphics g) throws SlickException {
+        g.setFont(font);
         background.draw(0, 0);
-
         // Draw countdown timer
         if(timers.getCountdownRunning()) {
             g.drawString("Game starts in " + (timers.getCountdownTimeLeft() / 1000) + " seconds",
-                    gc.getWidth() / 2, gc.getHeight() / 2);
+                    gc.getWidth() / 2 - 200, gc.getHeight() / 2 - 100);
         }
 
         // Draw timer progress bar
@@ -64,23 +80,24 @@ public class SlickApp extends BasicGame
         for(Player player: Model.getPlayers()) {
             player.draw();
             g.setColor(Color.red);
-            g.drawString("[Score " + player.getScore() + ", Lives " + player.getLives() + "]", 10, 30);
+            g.drawString("[Score " + player.getScore() + ", Lives " + player.getLives() + "]", 30, 30);
         }
         for(Bubble bubble: Model.getBubbles()) {
+            g.setAntiAlias(true);
             g.setColor(Color.black);
             g.fill(bubble);
             g.draw(bubble);
         }
-        for(Rectangle wall: Model.getCurrentRoom().getWalls()) {
-            g.setColor(Color.green);
-            g.fill(wall);
-            g.draw(wall);
-        }
-        for(Rectangle floor: Model.getCurrentRoom().getFloors()) {
-            g.setColor(Color.blue);
-            g.fill(floor);
-            g.draw(floor);
-        }
+//        for(Rectangle wall: Model.getCurrentRoom().getWalls()) {
+//            g.setColor(Color.green);
+//            g.fill(wall);
+//            g.draw(wall);
+//        }
+//        for(Rectangle floor: Model.getCurrentRoom().getFloors()) {
+//            g.setColor(Color.blue);
+//            g.fill(floor);
+//            g.draw(floor);
+//        }
     }
 
     public static void main(String[] args) {
@@ -89,7 +106,7 @@ public class SlickApp extends BasicGame
             AppGameContainer appgc;
             appgc = new AppGameContainer(new SlickApp("Bubble Trouble"));
             appgc.setDisplayMode(1123, 921, false);
-            //appgc.setShowFPS(false);
+            appgc.setShowFPS(false);
             appgc.setVSync(true);
             appgc.setTargetFrameRate(60);
             appgc.setAlwaysRender(true);
