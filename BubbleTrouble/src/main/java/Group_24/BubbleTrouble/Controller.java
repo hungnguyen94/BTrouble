@@ -1,9 +1,11 @@
 package Group_24.BubbleTrouble;
 
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
@@ -16,11 +18,14 @@ public class Controller {
 	private static ArrayList<Bubble> newBubbles;
     private static ArrayList<Bubble> oldBubbles;
     private static GameContainer gc;
+    private static Timers timers;
 
     /**
      * Starts a new game by loading data into the room and adding the players.
      */
     public static void startNewGame(GameContainer container) throws SlickException {
+        timers = new Timers(100);
+
     	newBubbles = new ArrayList<Bubble>();
 		oldBubbles = new ArrayList<Bubble>();
         gc = container;
@@ -31,10 +36,13 @@ public class Controller {
 		bubbles.add(new Bubble(3, 100, 50));
     	RoomData data = new RoomData(bubbles);
     	Model.addRoom(new Room(data));
-    		
-    	Model.addPlayer(new Player(100, Model.getRoomHeight()/2));
-	}
-	
+    	Model.addPlayer(new Player(100, Model.getRoomHeight() / 2));
+    }
+
+    public static Timers getTimers() {
+        return timers;
+    }
+
 	/**
 	 * Updates the model, should be done on request of the view.
 	 */
@@ -66,6 +74,12 @@ public class Controller {
             // CollisionEvent detection for bubble against room right
             if (bubble.getX() + bubble.getWidth() >= Model.getRoomWidth()) {
                 bubble.collide(CollisionEvent.TYPE_WALL);
+            }
+
+            if(getTimers().getLevelTimeLeft() <= 0) {
+                for(Player p: Model.getPlayers()) {
+                    loseLife(p);
+                }
             }
             
             for(Player player : Model.getPlayers()){
@@ -107,6 +121,7 @@ public class Controller {
         } else {
         	Model.restartRoom();
         	player.resetRope();
+            Controller.getTimers().restartTimer();
         }
 		
 	}
