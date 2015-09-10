@@ -19,11 +19,11 @@ public class Bubble extends Circle {
 	private float ay;
 	
 	// gravity
-	private final float G = .1f;
+	private final float G = .2f;
 	// starting speed in horizontal direction
-	private final float INITIAL_HORIZONTAL_SPEED = .5f;
+	private final float INITIAL_HORIZONTAL_SPEED = 2f;
     // factor of acceleration that the bubbles go up with when hit with a rope
-    private final int HIT_SPEED_FACTOR = 50;
+    private final int HIT_SPEED_FACTOR = 30;
 	
 	/**
 	 * Bubble class, containing all the data about the bubble.
@@ -104,10 +104,8 @@ public class Bubble extends Circle {
 	 */
 	public void split() {
 		// reduce size
-        float scaleTrasform = (float) (size-1)/size;
-        Transform resize = Transform.createScaleTransform(scaleTrasform, scaleTrasform);
-        super.transform(resize);
 		size--;
+		setRadius(size*10f);
 		if (size != 0) {
 			// give upward speed
 			vy = -ay * HIT_SPEED_FACTOR;
