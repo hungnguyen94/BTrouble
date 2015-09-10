@@ -29,7 +29,7 @@ public class RoomDataTest {
 	
 	@Test
 	public void getStartingPosition() {
-		assertEquals(50, data.getStartingposition());
+		assertEquals(50, data.getStartingPositionX());
 	}
 
 }

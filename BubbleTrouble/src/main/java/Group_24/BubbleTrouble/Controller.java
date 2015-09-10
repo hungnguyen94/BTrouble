@@ -1,11 +1,9 @@
 package Group_24.BubbleTrouble;
 
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.*;
 
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 /**
@@ -17,11 +15,14 @@ public class Controller {
     private static ArrayList<Bubble> newBubbles;
     private static ArrayList<Bubble> oldBubbles;
     private static GameContainer gc;
+    private static Timers timers;
 
     /**
      * Starts a new game by loading data into the room and adding the players.
      */
     public static void startNewGame(GameContainer container) throws SlickException {
+        timers = new Timers(100);
+
     	newBubbles = new ArrayList<Bubble>();
 		oldBubbles = new ArrayList<Bubble>();
         gc = container;
@@ -32,10 +33,13 @@ public class Controller {
 		bubbles.add(new Bubble(3, 100, 100));
     	RoomData data = new RoomData(bubbles);
     	Model.addRoom(new Room(data));
-    		
-    	Model.addPlayer(new Player(100, Model.getRoomHeight()/2));
-	}
-	
+    	Model.addPlayer(new Player(100, Model.getRoomHeight() / 2));
+    }
+
+    public static Timers getTimers() {
+        return timers;
+    }
+
 	/**
 	 * Updates the model, should be done on request of the view.
 	 */
@@ -43,22 +47,37 @@ public class Controller {
 
 		for(Bubble bubble: Model.getBubbles()) {
 			
-			for(Rectangle floor: Model.getCurrentRoom().getFloors())
-				if(bubble.intersects(floor))
+			for (Rectangle floor: Model.getCurrentRoom().getFloors())
+				if (bubble.intersects(floor))
 					bubble.collide(CollisionEvent.TYPE_FLOOR);
             
             // Collision detection for walls
-            for(Rectangle wall: Model.getCurrentRoom().getWalls()) {
-            	if(bubble.intersects(wall))
+            for (Rectangle wall: Model.getCurrentRoom().getWalls()) {
+            	if (bubble.intersects(wall))
             		bubble.collide(CollisionEvent.TYPE_WALL);
             }
-            
+
             for(Player player : Model.getPlayers()){
+
+                // Check if timer has run out.
+                if (getTimers().getLevelTimeLeft() <= 0) {
+                    loseLife(player);
+                }
             	
 	            // CollisionEvent detection for bubble against player
 	            if (player.intersects(bubble)) {
 	                loseLife(player);
 	            }
+
+                // Collision detection for walls
+                for (Rectangle wall: Model.getCurrentRoom().getWalls()) {
+                    if (player.intersects(wall)) {
+                        if (player.getX() > wall.getX())
+                            player.setLeftBlocked(true);
+                        else
+                            player.setRightBlocked(true);
+                    }
+                }
 
 	            for (Rope rope : player.getRopes()) {
 	                if (bubble.intersects(rope)) {
@@ -86,8 +105,8 @@ public class Controller {
         } else {
         	Model.restartRoom();
         	player.resetRope();
+            Controller.getTimers().restartTimer();
         }
-		
 	}
 	
 	/**

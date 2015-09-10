@@ -24,6 +24,9 @@ public class Player extends Rectangle {
     private boolean facingLeft = true;
     private boolean idle = true;
 
+    private boolean leftBlocked;
+    private boolean rightBlocked;
+
     // Gravity attributes
     private float vy;
     private float ay = .5f;
@@ -48,6 +51,8 @@ public class Player extends Rectangle {
         lives = INITIAL_LIVES;
         score = INITIAL_SCORE;
         vy = 2;
+        rightBlocked = false;
+        leftBlocked = false;
     }
 
     public ArrayList<Rope> getRopes() {
@@ -109,22 +114,20 @@ public class Player extends Rectangle {
             }
         }
 
-//        boolean stuck = false;
-//        for(Rectangle wall: Model.getCurrentRoom().getWalls()) {
-//            if(this.intersects(wall))
-//                stuck = true;
-//        }
-
-        if (input.isKeyDown(Input.KEY_LEFT))
+        if (input.isKeyDown(Input.KEY_LEFT) && !leftBlocked)
         {
+            rightBlocked = false;
+            leftBlocked = false;
             idle = false;
             facingLeft = true;
             walkAnimation.update(delta);
             //if(!stuck)
                 x -= delta * 0.15f * PLAYER_SPEED;
         }
-        else if (input.isKeyDown(Input.KEY_RIGHT))
+        else if (input.isKeyDown(Input.KEY_RIGHT) && !rightBlocked)
         {
+            rightBlocked = false;
+            leftBlocked = false;
             idle = false;
             facingLeft = false;
             walkAnimation.update(delta);
@@ -140,6 +143,14 @@ public class Player extends Rectangle {
         }
     }
 
+    public void setLeftBlocked(boolean leftBlocked) {
+        this.leftBlocked = leftBlocked;
+    }
+
+    public void setRightBlocked(boolean rightBlocked) {
+        this.rightBlocked = rightBlocked;
+    }
+
     /**
      * This functions deletes all the rope elements from the room.
      */
@@ -147,7 +158,8 @@ public class Player extends Rectangle {
         ropes = new ArrayList<Rope>();
     }
 
-    public void moveTo(int x) {
+    public void moveTo(int x, int y) {
         this.x = x;
+        this.y = y;
     }
 }

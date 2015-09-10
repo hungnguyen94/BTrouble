@@ -8,11 +8,13 @@ import java.util.ArrayList;
  */
 public class RoomData {
 	private ArrayList<Bubble> bubbles;
-	private int startingposition;
+	private int startingPositionX;
+	private int startingPositionY;
 	
 	public RoomData(ArrayList<Bubble> bubbles){
 		this.bubbles = bubbles;
-		this.startingposition = 50;
+		this.startingPositionX = 50;
+		this.startingPositionY = 350;
 	}
 	
 	public RoomData(String file){
@@ -30,12 +32,20 @@ public class RoomData {
 		}
 		return res;
 	}
-	
+
 	/**
 	 * Get the horizontal starting position of the player in the room.
 	 * @return returns the horizontal starting position of the player.
 	 */
-	public int getStartingposition() {
-		return startingposition;
+	public int getStartingPositionX() {
+		return startingPositionX;
+	}
+
+	/**
+	 * Get the vertical starting position of the player in the room.
+	 * @return - returns the vertical starting position of the player.
+	 */
+	public int getStartingPositionY() {
+		return startingPositionY;
 	}
 }
