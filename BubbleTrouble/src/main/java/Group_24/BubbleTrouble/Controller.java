@@ -58,6 +58,10 @@ public class Controller {
             }
 
             for(Player player : Model.getPlayers()){
+
+                if(getTimers().getLevelTimeLeft() <= 0) {
+                    loseLife(player);
+                }
             	
 	            // CollisionEvent detection for bubble against player
 	            if (player.intersects(bubble)) {
