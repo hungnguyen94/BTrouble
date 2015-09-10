@@ -15,9 +15,9 @@ public class Timers {
     private int levelTimerCounter;
     private int countdownCounter;
     // Max duration in seconds * 10
-    private final int levelMaxDuration = 20;
+    private final int levelMaxDuration = 300;
     // Countdown delay before level starts in seconds * 10
-    private final int countdownMaxDuration = 10;
+    private final int countdownMaxDuration = 30;
     private final int timerSpeed = 100;
 
     /**
