@@ -45,7 +45,7 @@ public class Player extends Rectangle {
     public Player(float x, float y) throws SlickException {
         super(x, y, 100f, 175f);
         playerIdle = new Image("Sprites/idle.png");
-        walkSheet = new SpriteSheet("Sprites/player_spritesheet.png", 100, 175);
+        walkSheet = new SpriteSheet("Sprites/walkAnimation.png", 100, 175);
         walkAnimation = new Animation(walkSheet, 40);
         ropes = new ArrayList<Rope>();
         lives = INITIAL_LIVES;
@@ -134,7 +134,7 @@ public class Player extends Rectangle {
             //if(!stuck)
                 x += delta * 0.15f * PLAYER_SPEED;
         }
-        else if (input.isKeyPressed(Input.KEY_SPACE))
+        if (input.isKeyPressed(Input.KEY_SPACE))
         {
             idle = true;
             fire();
