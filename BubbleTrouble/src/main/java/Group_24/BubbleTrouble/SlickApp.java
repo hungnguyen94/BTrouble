@@ -44,8 +44,7 @@ public class SlickApp extends BasicGame
         }
     }
 
-    public void render(GameContainer gc, Graphics g) throws SlickException
-    {
+    public void render(GameContainer gc, Graphics g) throws SlickException {
         background.draw(0, 0);
 
         // Draw countdown timer

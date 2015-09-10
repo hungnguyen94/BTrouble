@@ -59,6 +59,7 @@ public class Controller {
 
             for(Player player : Model.getPlayers()){
 
+                // Check if timer has run out.
                 if(getTimers().getLevelTimeLeft() <= 0) {
                     loseLife(player);
                 }

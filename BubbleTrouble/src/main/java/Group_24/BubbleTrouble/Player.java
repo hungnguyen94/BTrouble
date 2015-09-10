@@ -147,7 +147,8 @@ public class Player extends Rectangle {
         ropes = new ArrayList<Rope>();
     }
 
-    public void moveTo(int x) {
+    public void moveTo(int x, int y) {
         this.x = x;
+        this.y = y;
     }
 }

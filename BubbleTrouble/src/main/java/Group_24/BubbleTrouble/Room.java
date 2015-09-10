@@ -11,7 +11,8 @@ import java.util.ArrayList;
 public class Room {
 	
 	private RoomData data;
-	private int startingposition;
+    private int startingPositionX;
+    private int startingPositionY;
 
 	private ArrayList<Rectangle> walls;
 	private ArrayList<Rectangle> floors;
@@ -46,10 +47,11 @@ public class Room {
 	 * Reloads the room, loads the initial data into the Room and places the Players in the room without touching the Players themself. 
 	 */
 	public void reload() {
+        startingPositionX = data.getStartingPositionX();
+        startingPositionY = data.getStartingPositionY();
 		for(Player player: Model.getPlayers()){
-			player.moveTo(startingposition);
+			player.moveTo(startingPositionX, startingPositionY);
 		}
-		startingposition = data.getStartingposition();
 		bubbles = data.getBubbles();
 	}
 
