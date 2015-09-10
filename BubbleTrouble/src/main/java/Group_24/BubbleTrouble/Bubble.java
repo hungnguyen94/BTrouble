@@ -33,7 +33,7 @@ public class Bubble extends Circle {
 	 * @param y vertical starting position of the bubble in the room
 	 */
 	public Bubble(int size, float x, float y) {
-		super(x, y, size*10);
+		super(x, y, size*10f);
 		
 		this.size = size;
 		this.ay = G;
@@ -49,7 +49,7 @@ public class Bubble extends Circle {
      * @param vy vertical starting speed of the bubble
      */
     public Bubble(int size, float x, float y, float vx, float vy) {
-        super(x, y, size*10);
+        super(x, y, size*10f);
 
         this.size = size;
         this.ay = G;

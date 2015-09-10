@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Controller {
 	
 	private static final int REWARD_BUBBLE = 100;
-	private static ArrayList<Bubble> newBubbles;
+    private static ArrayList<Bubble> newBubbles;
     private static ArrayList<Bubble> oldBubbles;
     private static GameContainer gc;
 

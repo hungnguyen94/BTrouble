@@ -95,10 +95,7 @@ public class Player extends Rectangle {
     public void fire() throws SlickException {
         float yvalue = super.getY();
 
-        for (int i = 32; i < 321; i += 32) {
-            ropes.add(new Rope((getX() + getWidth() / 2), yvalue));
-            yvalue += 32;
-        }
+        ropes.add(new Rope((getX() + getWidth() / 2), yvalue));
     }
 
     public void draw() throws SlickException {
