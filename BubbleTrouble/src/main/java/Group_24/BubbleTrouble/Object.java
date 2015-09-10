@@ -37,9 +37,9 @@ public abstract class Object {
 		this.height = height;
 	}
 	
-    public boolean equals(Object other) {
+    public boolean equals(java.lang.Object other) {
     	boolean res = false;
-    	if(other instanceof Wall) {
+    	if(other instanceof Object) {
     		Wall that = (Wall) other;
     		if(this.x == that.x && this.y == that.y && this.width == that.width && this.height == that.height) {
     			res = true;

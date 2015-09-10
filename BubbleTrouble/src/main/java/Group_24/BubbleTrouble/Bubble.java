@@ -151,7 +151,7 @@ public class Bubble extends Object {
 	}
 	
 	@Override
-	public boolean equals(Object other) {
+	public boolean equals(java.lang.Object other) {
 		boolean res = false;
 		if(other instanceof Bubble) {
 			Bubble that = (Bubble) other;
