@@ -30,10 +30,10 @@ public class Controller {
     	// TODO could add import RoomData from file
     	Model.init();
     	ArrayList<Bubble> bubbles = new ArrayList<Bubble>();
-		bubbles.add(new Bubble(3, 100, 100));
+		bubbles.add(new Bubble(3, Model.getRoomWidth()-100, 100));
     	RoomData data = new RoomData(bubbles);
     	Model.addRoom(new Room(data));
-    	Model.addPlayer(new Player(100, Model.getRoomHeight() / 2));
+    	Model.addPlayer(new Player(100, Model.getRoomHeight() / 2+100));
     }
 
     public static Timers getTimers() {
