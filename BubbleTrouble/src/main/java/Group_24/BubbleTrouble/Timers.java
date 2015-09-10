@@ -121,7 +121,7 @@ public class Timers {
      */
     class CountdownTimerActionListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            System.out.println("countdownTimerCounter: " + countdownCounter);
+//            System.out.println("countdownTimerCounter: " + countdownCounter);
             countdownCounter--;
             if(countdownCounter <= 0) {
                 levelTimer.restart();
