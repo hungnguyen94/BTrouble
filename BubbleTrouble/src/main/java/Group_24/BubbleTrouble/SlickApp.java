@@ -45,7 +45,7 @@ public class SlickApp extends BasicGame
             g.drawString("[Score " + player.getScore() + ", Lives " + player.getLives() + "]", 10, 30);
         }
         for(Bubble bubble: Model.getBubbles()) {
-            g.setColor(Color.white);
+            g.setColor(Color.black);
             g.fill(bubble);
             g.draw(bubble);
         }

@@ -19,7 +19,7 @@ public class Bubble extends Circle {
 	private float ay;
 	
 	// gravity
-	private final float G = .005f;
+	private final float G = .1f;
 	// starting speed in horizontal direction
 	private final float INITIAL_HORIZONTAL_SPEED = .5f;
     // factor of acceleration that the bubbles go up with when hit with a rope
@@ -79,10 +79,11 @@ public class Bubble extends Circle {
 	public void move() {
 		this.vy += ay;
 		
-		float x = super.getX() + vx;
-		float y = super.getY() + vy;
-        super.setCenterX(x);
-        super.setCenterY(y);
+		float newX = getCenterX() + vx;
+		float newY = getCenterY() + vy;
+
+        setCenterX(newX);
+        setCenterY(newY);
 	}
 	
 	/**
@@ -111,7 +112,8 @@ public class Bubble extends Circle {
 			// give upward speed
 			vy = -ay * HIT_SPEED_FACTOR;
 			// add an extra bubble to the game
-			Controller.addBubble(size, super.getX(), super.getY(), -vx, vy);
+            Bubble newBubble = new Bubble(size, x, y, -vx, vy);
+			Controller.addBubble(newBubble);
 		} else {
 			Controller.removeBubble(this);
 		}

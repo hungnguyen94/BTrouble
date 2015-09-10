@@ -7,7 +7,7 @@ import org.newdawn.slick.geom.Rectangle;
 public class Rope extends Rectangle {
 	private int dy;
 	private boolean exists = false;
-	private final int INITIAL_ROPESPEED = 2;
+	private final int INITIAL_ROPESPEED = 5;
 	private Image sprite;
 	
     public Rope(float x, float y) throws SlickException {

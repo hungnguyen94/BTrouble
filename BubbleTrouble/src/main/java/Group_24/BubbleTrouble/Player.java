@@ -15,7 +15,6 @@ import java.util.ArrayList;
  *
  */
 public class Player extends Rectangle {
-    private int dx;
     private int lives;
     private int score;
 
@@ -24,8 +23,12 @@ public class Player extends Rectangle {
     private Image playerIdle;
     private boolean facingLeft = true;
     private boolean idle = true;
-    
-    private static final int PLAYER_SPEED = 5;
+
+    // Gravity attributes
+    private float vy;
+    private float ay = .5f;
+
+    private static final int PLAYER_SPEED = 3;
     private static final int INITIAL_LIVES = 2;
     private static final int INITIAL_SCORE = 0;
 
@@ -44,6 +47,7 @@ public class Player extends Rectangle {
         ropes = new ArrayList<Rope>();
         lives = INITIAL_LIVES;
         score = INITIAL_SCORE;
+        vy = 2;
     }
 
     public ArrayList<Rope> getRopes() {
@@ -70,74 +74,70 @@ public class Player extends Rectangle {
         return score;
     }
 
-    /**
-     * @return the dx
-     */
-    public int getDx() {
-        return dx;
-    }
-
-    /**
-     * @param dx the dx to set
-     */
-    public void setDx(int dx) {
-        this.dx = dx;
-    }
-
     public void increaseScore(int amount) {
         score += amount;
     }
 
     /**
      * Function which allows the player to fire.
-     * @throws SlickException 
+     * @throws SlickException
      */
     public void fire() throws SlickException {
-        float yvalue = super.getY();
-
-        ropes.add(new Rope((getX() + getWidth() / 2), yvalue));
+        ropes.add(new Rope(getX(), getY()));
     }
 
     public void draw() throws SlickException {
-      if (!idle) {
-          walkAnimation.getCurrentFrame().getFlippedCopy(facingLeft, false).draw(x, y);
-      } else {
-          playerIdle.getFlippedCopy(facingLeft, false).draw(x, y);
-      }
-      for (int i = 0; i < ropes.size(); i++) {
-        ropes.get(i).draw();
-      }
+        if (!idle) {
+            walkAnimation.getCurrentFrame().getFlippedCopy(facingLeft, false).draw(x, y);
+        } else {
+            playerIdle.getFlippedCopy(facingLeft, false).draw(x, y);
+        }
+        for (int i = 0; i < ropes.size(); i++) {
+            ropes.get(i).draw();
+        }
     }
-    
+
     public void move(GameContainer container, int delta) throws SlickException {
-      Input input = container.getInput();
-      
-//      for(Floor floor: Model.getCurrentRoom().getFloors()) {
-//        if(!this.collidesWith(floor))
-//            y += 1;
-//      }
-      
-      if (input.isKeyDown(Input.KEY_LEFT))
-      {
-        idle = false;
-        facingLeft = true;
-        walkAnimation.update(delta);
-          super.setX(super.getX() - delta * 0.15f);
-      }
-      else if (input.isKeyDown(Input.KEY_RIGHT))
-      {
-        idle = false;
-        facingLeft = false;
-        walkAnimation.update(delta);
-          super.setX(super.getX() + delta * 0.15f);
-      } 
-      else if (input.isKeyPressed(Input.KEY_SPACE))
-      {
-        idle = true;
-        fire();
-      } else {
-        idle = true;
-      }
+        Input input = container.getInput();
+
+        for(Rectangle floor: Model.getCurrentRoom().getFloors()) {
+            if(!this.intersects(floor)) {
+                y += vy;
+                this.vy += ay;
+            } else {
+                vy = 0;
+            }
+        }
+
+//        boolean stuck = false;
+//        for(Rectangle wall: Model.getCurrentRoom().getWalls()) {
+//            if(this.intersects(wall))
+//                stuck = true;
+//        }
+
+        if (input.isKeyDown(Input.KEY_LEFT))
+        {
+            idle = false;
+            facingLeft = true;
+            walkAnimation.update(delta);
+            //if(!stuck)
+                x -= delta * 0.15f * PLAYER_SPEED;
+        }
+        else if (input.isKeyDown(Input.KEY_RIGHT))
+        {
+            idle = false;
+            facingLeft = false;
+            walkAnimation.update(delta);
+            //if(!stuck)
+                x += delta * 0.15f * PLAYER_SPEED;
+        }
+        else if (input.isKeyPressed(Input.KEY_SPACE))
+        {
+            idle = true;
+            fire();
+        } else {
+            idle = true;
+        }
     }
 
     /**
@@ -148,7 +148,6 @@ public class Player extends Rectangle {
     }
 
     public void moveTo(int x) {
-        super.setX(x);
-        this.dx = 0;
+        this.x = x;
     }
 }
