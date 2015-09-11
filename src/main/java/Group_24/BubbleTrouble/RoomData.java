@@ -34,11 +34,11 @@ public class RoomData {
 	 * @return returns a copy of the list of bubbles.
 	 */
 	public ArrayList<Bubble> getBubbles() {
-		ArrayList<Bubble> res = new ArrayList<Bubble>();
-		for(Bubble bubble: bubbles){
-			res.add(new Bubble(bubble.getSize(), bubble.getX(), bubble.getY()));
-		}
-		return res;
+//		ArrayList<Bubble> res = new ArrayList<Bubble>();
+//		for(Bubble bubble: bubbles){
+//			res.add(new Bubble(bubble.getSize(), bubble.getX(), bubble.getY()));
+//		}
+		return bubbles;
 	}
 
 	/**

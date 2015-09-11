@@ -16,20 +16,40 @@ public class RoomDataTest {
 	public void setUp() {
 		bubbles = new ArrayList<Bubble>();
 		Bubble bubble = new Bubble(1, 1, 1);
-		Bubble bubble2 = new Bubble(2, 2, 2);
 		bubbles.add(bubble);
-		bubbles.add(bubble2);
 		data = new RoomData(bubbles);
 	}
 	
-	/*@Test
+	@Test
 	public void getBubblesTest() {
-		assertTrue(bubbles.equals(data.getBubbles()));
-	}*/
+		assertEquals(bubbles, data.getBubbles());
+	}
 	
 	@Test
-	public void getStartingPosition() {
+	public void getStartingPositionXTest() {
 		assertEquals(50, data.getStartingPositionX());
+	}
+	
+	@Test
+	public void getStartingPositionYTest() {
+		assertEquals(350, data.getStartingPositionY());
+	}
+	
+	@Test
+	public void equalsTrueTest() {
+		assertTrue(data.equals(data));
+	}
+	
+	@Test
+	public void equalsFalseBubbleTest() {
+		ArrayList<Bubble> bubbles2 = new ArrayList<Bubble>();
+		assertFalse(data.equals(new RoomData(bubbles2)));
+	}
+	
+	@Test
+	public void equalsOtherTest() {
+		String string = new String("RoomData");
+		assertFalse(data.equals(string));
 	}
 
 }
