@@ -17,6 +17,9 @@ To run the game, you will need to include `libs/` to the `java.library.path`. Th
 -Djava.library.path=libs/
 ```
 
+### Coverage report
+To get the coverage report, run `mvn site` and open the resulting report in `target/site/project-reports.html`
+
 ### Keybindings
 
 - **Left arrow**: Move player to the left
