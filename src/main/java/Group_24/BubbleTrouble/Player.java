@@ -14,190 +14,7 @@ import java.util.ArrayList;
  * Player class, containing all the data about the player.
  *
  */
-@SuppressWarnings("serial")
 public class Player extends Rectangle {
-<<<<<<< HEAD
-  private int lives;
-  private int score;
-
-  private SpriteSheet walkSheet;
-  private Animation walkAnimation;
-  private Image playerIdle;
-  private boolean facingLeft = true;
-  private boolean idle = true;
-
-  private boolean leftBlocked;
-  private boolean rightBlocked;
-
-  // Gravity attributes
-  private float vy;
-  private float ay = .5f;
-
-  private static final int PLAYER_SPEED = 3;
-  private static final int INITIAL_LIVES = 5;
-  private static final int INITIAL_SCORE = 0;
-
-  private ArrayList<Rope> ropes;
-
-  /**
-   * Constructor for the Player class.
-   * 
-   * @param xpos
-   *          x value for the Player from the sprite class.
-   * @param ypos
-   *          y value for the Player from the sprite class.
-   */
-  public Player(float xpos, float ypos) throws SlickException {
-    super(xpos, ypos, 60f, 175f);
-    playerIdle = new Image("Sprites/idle.png");
-    walkSheet = new SpriteSheet("Sprites/player_spritesheet.png", 100, 175);
-    walkAnimation = new Animation(walkSheet, 20);
-    ropes = new ArrayList<Rope>();
-    lives = INITIAL_LIVES;
-    score = INITIAL_SCORE;
-    vy = 2;
-    rightBlocked = false;
-    leftBlocked = false;
-  }
-
-  @Override
-  public boolean equals(Object other) {
-    if (other instanceof Player) {
-      Player that = (Player) other;
-      return (this.ropes.equals(that.ropes) && this.facingLeft == that.facingLeft
-          && this.idle == that.idle && this.lives == that.lives && this.score == that.score
-          && this.vy == that.vy && this.rightBlocked == that.rightBlocked
-          && this.leftBlocked == that.leftBlocked);
-    }
-    return false;
-  }
-
-  public ArrayList<Rope> getRopes() {
-    return ropes;
-  }
-
-  public void addLife() {
-    lives++;
-  }
-
-  public void loseLife() {
-    lives--;
-  }
-
-  public boolean hasLives() {
-    return lives >= 0;
-  }
-
-  public int getLives() {
-    return lives;
-  }
-
-  public int getScore() {
-    return score;
-  }
-
-  public void increaseScore(int amount) {
-    score += amount;
-  }
-
-  /**
-   * Function which allows the player to fire.
-   * 
-   * @throws SlickException
-   *           when an image for a rope is not found
-   */
-  public void fire() throws SlickException {
-    if (ropes.size() <= 0) {
-      ropes.add(new Rope(getX() + (int) (getWidth() / 2), getY()));
-    }
-  }
-
-  /**
-   * Draws the player.
-   * 
-   * @throws SlickException
-   *           when the image of the player or its ropes is not found.
-   */
-  public void draw() throws SlickException {
-    // Render the sprite at an offset.
-    int playerX = (int) (x
-        - ((walkSheet.getWidth() / walkSheet.getHorizontalCount()) - getWidth()) / 2);
-    if (!idle) {
-      walkAnimation.getCurrentFrame().getFlippedCopy(facingLeft, false).draw(playerX, y);
-    } else {
-      playerIdle.getFlippedCopy(facingLeft, false).draw(playerX, y);
-    }
-    for (int i = 0; i < ropes.size(); i++) {
-      ropes.get(i).draw();
-    }
-  }
-
-  /**
-   * Moves the player to it's next position.
-   * 
-   * @param container
-   *          should be the GameContainer of the game
-   * @param delta
-   *          should be an integer representing the horizontal movement of the
-   *          player
-   * @throws SlickException
-   *           when the image of the player is not found
-   */
-  public void move(GameContainer container, int delta) throws SlickException {
-    Input input = container.getInput();
-    for (Rectangle floor : Model.getCurrentRoom().getFloors()) {
-      if (!this.intersects(floor)) {
-        y += vy;
-        this.vy += ay;
-      } else {
-        vy = 0;
-      }
-    }
-
-    idle = true;
-    if (input.isKeyDown(Input.KEY_LEFT) && !leftBlocked) {
-      rightBlocked = false;
-      leftBlocked = false;
-      idle = false;
-      facingLeft = true;
-      walkAnimation.update(delta);
-      // if(!stuck)
-      x -= delta * 0.15f * PLAYER_SPEED;
-    } else if (input.isKeyDown(Input.KEY_RIGHT) && !rightBlocked) {
-      rightBlocked = false;
-      leftBlocked = false;
-      idle = false;
-      facingLeft = false;
-      walkAnimation.update(delta);
-      // if(!stuck)
-      x += delta * 0.15f * PLAYER_SPEED;
-    }
-    if (input.isKeyPressed(Input.KEY_SPACE)) {
-      idle = true;
-      fire();
-    }
-  }
-
-  public void setLeftBlocked(boolean leftBlocked) {
-    this.leftBlocked = leftBlocked;
-  }
-
-  public void setRightBlocked(boolean rightBlocked) {
-    this.rightBlocked = rightBlocked;
-  }
-
-  /**
-   * This functions deletes all the rope elements from the room.
-   */
-  public void resetRope() {
-    ropes = new ArrayList<Rope>();
-  }
-
-  public void moveTo(int xpos, int ypos) {
-    this.x = xpos;
-    this.y = ypos;
-  }
-=======
     private int lives;
     private int score;
 
@@ -236,12 +53,12 @@ public class Player extends Rectangle {
     }
     
     public boolean equals(Object other) {
-    	if(other instanceof Player) {
-    		Player that = (Player) other;
-    		return(this.x == that.x && this.y == that.y && this.ropes.equals(that.ropes) && this.facingLeft == that.facingLeft && this.idle == that.idle && this.lives == that.lives &&
-    				this.score == that.score && this.vy == that.vy && this.rightBlocked == that.rightBlocked && this.leftBlocked == that.leftBlocked);
-    	}
-    	return false;
+      if(other instanceof Player) {
+        Player that = (Player) other;
+        return(this.x == that.x && this.y == that.y && this.ropes.equals(that.ropes) && this.facingLeft == that.facingLeft && this.idle == that.idle && this.lives == that.lives &&
+            this.score == that.score && this.vy == that.vy && this.rightBlocked == that.rightBlocked && this.leftBlocked == that.leftBlocked);
+      }
+      return false;
     }
 
     public ArrayList<Rope> getRopes() {
@@ -355,5 +172,4 @@ public class Player extends Rectangle {
         this.x = x;
         this.y = y;
     }
->>>>>>> master
 }
