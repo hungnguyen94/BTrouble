@@ -120,7 +120,7 @@ public class Bubble extends Circle {
 	public boolean equals(Shape other) {
 		if(other instanceof Bubble) {
 			Bubble that = (Bubble) other;
-			return (super.equals(other) && this.vx == that.vx && this.vy == that.vy);
+			return (this.size == that.size && this.x == that.x && this.y == that.y && this.vx == that.vx && this.vy == that.vy);
 		}
 		return false;
 	}

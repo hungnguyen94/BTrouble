@@ -35,6 +35,15 @@ public class Room {
 		this.reload();
 	}
 	
+	public boolean equals(Object other) {
+		if(other instanceof Room) {
+			Room that = (Room) other;
+			return(this.data.equals(that.data) && this.bubbles.equals(that.bubbles) && this.startingPositionX == that.startingPositionX &&
+			this.startingPositionY == that.startingPositionY);
+		}
+		return false;
+	}
+	
 	/**
 	 * Returns the collection of bubbles within this Room.
 	 * @return returns the collection of bubbles within this Room.

@@ -16,6 +16,14 @@ public class Rope extends Rectangle {
         sprite = new Image("Sprites/rope.png");
     }
     
+    public boolean equals(Object other) {
+    	if(other instanceof Rope) {
+    		Rope that = (Rope) other;
+    		return(this.x == that.x && this.y == that.y && this.exists == that.exists);
+    	}
+    	return false;
+    }
+    
     public void draw() {
       sprite.draw(x - (int)(sprite.getWidth() / 2), y);
     }

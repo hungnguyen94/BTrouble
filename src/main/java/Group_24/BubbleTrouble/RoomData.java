@@ -21,6 +21,14 @@ public class RoomData {
 		// TODO load roomdata from file
 	}
 	
+	public boolean equals(Object other) {
+		if(other instanceof RoomData) {
+			RoomData that = (RoomData) other;
+			return(this.bubbles.equals(that.bubbles));
+		}
+		return false;
+	}
+	
 	/**
 	 * getBubbles creates a list with a copy of every oiginal bubble, so that it doesn't touch the original data. 
 	 * @return returns a copy of the list of bubbles.

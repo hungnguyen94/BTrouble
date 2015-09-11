@@ -54,6 +54,15 @@ public class Player extends Rectangle {
         rightBlocked = false;
         leftBlocked = false;
     }
+    
+    public boolean equals(Object other) {
+    	if(other instanceof Player) {
+    		Player that = (Player) other;
+    		return(this.ropes.equals(that.ropes) && this.facingLeft == that.facingLeft && this.idle == that.idle && this.lives == that.lives &&
+    				this.score == that.score && this.vy == that.vy && this.rightBlocked == that.rightBlocked && this.leftBlocked == that.leftBlocked);
+    	}
+    	return false;
+    }
 
     public ArrayList<Rope> getRopes() {
         return ropes;
