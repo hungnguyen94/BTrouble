@@ -1,5 +1,6 @@
 package Group_24.BubbleTrouble;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
@@ -115,7 +116,7 @@ public class ControllerTest {
 			Controller.update();
 			pos = (int) player.getX();
 		}
-		assertTrue(pos < Model.getRoomWidth());
+		assertFalse(pos < Model.getRoomWidth());
 	}
 	
 	@Test
