@@ -29,7 +29,7 @@ public class SlickApp extends BasicGame
         Controller.startNewGame(gc);
         background = new Image("Sprites/background.jpg");
         timers = Controller.getTimers();
-        timerBar = new Rectangle(200, gc.getHeight() - 113 , gc.getWidth() - 400, 25);
+        timerBar = new Rectangle(200, gc.getHeight() - 114 , gc.getWidth() - 400, 25);
         timers.restartTimer();
 
         // load font from a .ttf file
@@ -90,11 +90,11 @@ public class SlickApp extends BasicGame
 	}
 	
 	private void drawTimer(Graphics g) {
-        g.setColor(Color.white);
+        g.setColor(Color.darkGray);
         g.fillRect(timerBar.getX(), timerBar.getY(),
                 (int)(timerBar.getWidth() * timers.getLevelTimeLeft() / timers.getLevelMaxDuration()),
                 timerBar.getHeight());
-        g.setColor(Color.lightGray );
+        g.setColor(Color.lightGray);
         g.draw(timerBar);
 		
 	}
