@@ -101,7 +101,7 @@ public class Controller {
 	 * Lets the player lose a life
 	 * @param player should be the player who lost a life
 	 */
-	private static void loseLife(Player player) {
+	public static void loseLife(Player player) {
 		player.loseLife();
         if(!player.hasLives()){
         	endGame("Game over...");
