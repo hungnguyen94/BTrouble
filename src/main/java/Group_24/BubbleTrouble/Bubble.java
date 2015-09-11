@@ -19,9 +19,9 @@ public class Bubble extends Circle {
 	private float ay;
 	
 	// gravity
-	private final float G = .2f;
+	private final float G = .4f;
 	// starting speed in horizontal direction
-	private final float INITIAL_HORIZONTAL_SPEED = 2f;
+	private final float INITIAL_HORIZONTAL_SPEED = 3f;
     // factor of acceleration that the bubbles go up with when hit with a rope
     private final int HIT_SPEED_FACTOR = 30;
 	

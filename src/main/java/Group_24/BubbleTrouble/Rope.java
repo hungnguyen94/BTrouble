@@ -11,17 +11,17 @@ public class Rope extends Rectangle {
 	private Image sprite;
 	
     public Rope(float x, float y) throws SlickException {
-        super(x, y, 60f, 790f);
+        super(x, y, 2f, 790f);
         this.dy = INITIAL_ROPESPEED;
         sprite = new Image("Sprites/rope.png");
     }
     
     public void draw() {
-      sprite.draw(x, y);
+      sprite.draw(x - (int)(sprite.getWidth() / 2), y);
     }
 
     public void move() {
-        setY(getY()-dy);
+        setY(getY()-2*dy);
         
         if (getY() <= 0) {
             dy = 0;

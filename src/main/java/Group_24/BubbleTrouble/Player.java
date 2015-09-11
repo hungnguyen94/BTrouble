@@ -43,7 +43,7 @@ public class Player extends Rectangle {
      * @param y y value for the Player from the sprite class.
      */
     public Player(float x, float y) throws SlickException {
-        super(x, y, 100f, 175f);
+        super(x, y, 60f, 175f);
         playerIdle = new Image("Sprites/idle.png");
         walkSheet = new SpriteSheet("Sprites/player_spritesheet.png", 100, 175);
         walkAnimation = new Animation(walkSheet, 20);
@@ -88,14 +88,17 @@ public class Player extends Rectangle {
      * @throws SlickException
      */
     public void fire() throws SlickException {
-        ropes.add(new Rope(getX(), getY()));
+        if (ropes.size() <= 0)
+            ropes.add(new Rope(getX() + (int)(getWidth()/2), getY()));
     }
 
     public void draw() throws SlickException {
+        // Render the sprite at an offset.
+        int playerX = (int)(x - ((walkSheet.getWidth()/walkSheet.getHorizontalCount()) - getWidth()) / 2);
         if (!idle) {
-            walkAnimation.getCurrentFrame().getFlippedCopy(facingLeft, false).draw(x, y);
+            walkAnimation.getCurrentFrame().getFlippedCopy(facingLeft, false).draw(playerX, y);
         } else {
-            playerIdle.getFlippedCopy(facingLeft, false).draw(x, y);
+            playerIdle.getFlippedCopy(facingLeft, false).draw(playerX, y);
         }
         for (int i = 0; i < ropes.size(); i++) {
             ropes.get(i).draw();
