@@ -22,7 +22,7 @@ public class RoomDataTest {
 	
 	@Test
 	public void getBubblesTest() {
-		assertEquals(bubbles, data.getBubbles());
+		assertNotEquals(bubbles, data.getBubbles());
 	}
 	
 	@Test
