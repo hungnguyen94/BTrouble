@@ -53,12 +53,12 @@ public class Player extends Rectangle {
     }
     
     public boolean equals(Object other) {
-    	if(other instanceof Player) {
-    		Player that = (Player) other;
-    		return(this.x == that.x && this.y == that.y && this.ropes.equals(that.ropes) && this.facingLeft == that.facingLeft && this.idle == that.idle && this.lives == that.lives &&
-    				this.score == that.score && this.vy == that.vy && this.rightBlocked == that.rightBlocked && this.leftBlocked == that.leftBlocked);
-    	}
-    	return false;
+      if(other instanceof Player) {
+        Player that = (Player) other;
+        return(this.x == that.x && this.y == that.y && this.ropes.equals(that.ropes) && this.facingLeft == that.facingLeft && this.idle == that.idle && this.lives == that.lives &&
+            this.score == that.score && this.vy == that.vy && this.rightBlocked == that.rightBlocked && this.leftBlocked == that.leftBlocked);
+      }
+      return false;
     }
 
     public ArrayList<Rope> getRopes() {

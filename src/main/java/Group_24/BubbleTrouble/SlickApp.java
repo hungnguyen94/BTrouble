@@ -21,7 +21,7 @@ public class SlickApp extends BasicGame
     private Rectangle timerBar;
     private TrueTypeFont font;
 
-	public SlickApp(String gamename) {
+  public SlickApp(String gamename) {
         super(gamename);
     }
 
@@ -38,7 +38,7 @@ public class SlickApp extends BasicGame
 
         // load font from a .ttf file
         try {
-            InputStream inputStream	= ResourceLoader.getResourceAsStream("Sprites/IndieFlower.ttf");
+            InputStream inputStream = ResourceLoader.getResourceAsStream("Sprites/IndieFlower.ttf");
 
             Font awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
             awtFont = awtFont.deriveFont(24f); // set font size
@@ -89,62 +89,62 @@ public class SlickApp extends BasicGame
      * @param gc - gamecontainer
      * @param g - graphics handler
      */
-	private void drawCountDown(GameContainer gc, Graphics g) {
-		if(timers.getCountdownRunning()) {
+  private void drawCountDown(GameContainer gc, Graphics g) {
+    if(timers.getCountdownRunning()) {
             g.drawString("Game starts in " + (timers.getCountdownTimeLeft() / 1000) + " seconds",
                     gc.getWidth() / 2 - 200, gc.getHeight() / 2 - 100);
         }
-	}
+  }
 
     /**
      * Draw players on screen.
      * @param g - graphics handler
      */
-	private void drawPlayers(Graphics g) throws SlickException {
-		for(Player player: Model.getPlayers()) {
+  private void drawPlayers(Graphics g) throws SlickException {
+    for(Player player: Model.getPlayers()) {
             player.draw();
         }
-	}
+  }
 
     /**
      * Draw bubbles on screen.
      * @param g - graphics handler
      */
-	private void drawBubbles(Graphics g) {
-		for(Bubble bubble: Model.getBubbles()) {
+  private void drawBubbles(Graphics g) {
+    for(Bubble bubble: Model.getBubbles()) {
             g.setAntiAlias(true);
             g.setColor(Color.black);
             g.fill(bubble);
             g.draw(bubble);
         }
-	}
+  }
 
     /**
      * Draw timer progress bar.
      * @param g - Graphics handler
      */
-	private void drawTimer(Graphics g) {
+  private void drawTimer(Graphics g) {
         g.setColor(Color.darkGray);
         g.fillRect(timerBar.getX(), timerBar.getY(),
                 (int)(timerBar.getWidth() * timers.getLevelTimeLeft() / timers.getLevelMaxDuration()),
                 timerBar.getHeight());
         g.setColor(Color.lightGray);
         g.draw(timerBar);
-		
-	}
+    
+  }
 
     /**
      * Draw lives on screen
      * @param g - graphics handler
      * @throws SlickException
      */
-	private void drawLives(Graphics g) throws SlickException {
-    	SpriteSheet livesImage = new SpriteSheet("Sprites/lives_spritesheet.png", 381, 171);
-    	int lives = Model.getPlayers().get(0).getLives();
-    	if(lives >= 0){
-    		g.drawImage(livesImage.getSprite(lives, 0).getScaledCopy(109, 49), 225, 851);
-    	}
-	}
+  private void drawLives(Graphics g) throws SlickException {
+      SpriteSheet livesImage = new SpriteSheet("Sprites/lives_spritesheet.png", 381, 171);
+      int lives = Model.getPlayers().get(0).getLives();
+      if(lives >= 0){
+        g.drawImage(livesImage.getSprite(lives, 0).getScaledCopy(109, 49), 225, 851);
+      }
+  }
 
     /**
      * Draw score on screen.
@@ -152,9 +152,9 @@ public class SlickApp extends BasicGame
      * @throws SlickException
      */
     private void drawScore(Graphics g) throws SlickException {
-    	g.setColor(Color.white);
-    	String score = "" + Model.getPlayers().get(0).getScore();
-		g.drawString(score, 891-font.getWidth(score), 851);
+      g.setColor(Color.white);
+      String score = "" + Model.getPlayers().get(0).getScore();
+    g.drawString(score, 891-font.getWidth(score), 851);
     }
 
     public static void main(String[] args) {
