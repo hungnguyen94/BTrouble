@@ -32,7 +32,7 @@ public class Player extends Rectangle {
     private float ay = .5f;
 
     private static final int PLAYER_SPEED = 3;
-    private static final int INITIAL_LIVES = 2;
+    private static final int INITIAL_LIVES = 5;
     private static final int INITIAL_SCORE = 0;
 
     private ArrayList<Rope> ropes;

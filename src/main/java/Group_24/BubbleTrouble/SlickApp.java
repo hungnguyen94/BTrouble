@@ -34,7 +34,7 @@ public class SlickApp extends BasicGame
 
         // load font from a .ttf file
         try {
-            InputStream inputStream	= ResourceLoader.getResourceAsStream("Sprites/Hetilica.ttf");
+            InputStream inputStream	= ResourceLoader.getResourceAsStream("Sprites/IndieFlower.ttf");
 
             Font awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
             awtFont = awtFont.deriveFont(24f); // set font size
@@ -64,7 +64,7 @@ public class SlickApp extends BasicGame
         }
 
         // Draw timer progress bar
-        g.setColor(Color.red);
+        g.setColor(Color.white);
         g.fillRect(timerBar.getX(), timerBar.getY(),
                 (int)(timerBar.getWidth() * timers.getLevelTimeLeft() / timers.getLevelMaxDuration()),
                 timerBar.getHeight());
@@ -73,8 +73,8 @@ public class SlickApp extends BasicGame
 
         for(Player player: Model.getPlayers()) {
             player.draw();
-            g.setColor(Color.red);
-            g.drawString("[Score " + player.getScore() + ", Lives " + player.getLives() + "]", 30, 30);
+//            g.setColor(Color.red);
+//            g.drawString("[Score " + player.getScore() + ", Lives " + player.getLives() + "]", 30, 30);
         }
         for(Bubble bubble: Model.getBubbles()) {
             g.setAntiAlias(true);
@@ -82,6 +82,8 @@ public class SlickApp extends BasicGame
             g.fill(bubble);
             g.draw(bubble);
         }
+        drawLives(g);
+        drawScore(g);
 //        for(Rectangle wall: Model.getCurrentRoom().getWalls()) {
 //            g.setColor(Color.green);
 //            g.fill(wall);
@@ -92,6 +94,17 @@ public class SlickApp extends BasicGame
 //            g.fill(floor);
 //            g.draw(floor);
 //        }
+    }
+    
+    private void drawLives(Graphics g) throws SlickException {
+    	SpriteSheet livesImage = new SpriteSheet("Sprites/lives_spritesheet.png", 381, 171);
+		g.drawImage(livesImage.getSprite(Model.getPlayers().get(0).getLives(), 0).getScaledCopy(109, 49), 225, 851);
+	}
+    
+    private void drawScore(Graphics g) throws SlickException {
+    	g.setColor(Color.white);
+    	String score = "" + Model.getPlayers().get(0).getScore();
+		g.drawString(score, 891-font.getWidth(score), 851);
     }
 
     public static void main(String[] args) {
