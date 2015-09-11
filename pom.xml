@@ -4,11 +4,11 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 
     <groupId>Group_24</groupId>
     <artifactId>BubbleTrouble</artifactId>
-    <version>0.9.1-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>BubbleTrouble</name>
-    <url>http://maven.apache.org</url>
+    <url>https://github.com/hungnguyen94/BTrouble/</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -16,6 +16,34 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>2.14</version>
+                <configuration>
+                    <failOnViolation>false</failOnViolation>
+                    <configLocation>checkstyle.xml</configLocation>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.2</version>
+                <configuration>
+                    <format>xml</format>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>3.0.1</version>
+                <configuration>
+                    <failOnError>false</failOnError>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -79,4 +107,44 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
         </plugins>
     </reporting>
 
+    <developers>
+        <developer>
+            <id>hungnguyen94</id>
+            <name>Hung Nguyen</name>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
+        <developer>
+            <id>rubenwiersma</id>
+            <name>Ruben Wiersma</name>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
+        <developer>
+            <id>chrisberg</id>
+            <name>Chris Berg</name>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
+        <developer>
+            <id>trombomart</id>
+            <name>Martin Koster</name>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
+        <developer>
+            <id>cadw</id>
+            <name>Christian aan de Wiel</name>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
+    </developers>
+
+
+    <description>This is an improvement of the famous BubbleTrouble game. BubbleTrouble is an intensive hardcore 2D game, featuring several groundbraking game mechanics. These features include, but are not limited to, realistic simulation of gravity, invisible walls, gigantic bouncing balls and smooth animations.</description>
 </project>
