@@ -45,3 +45,10 @@ local.properties
 # Maven
 log/
 target/
+
+# intelliJ
+.idea
+*.iml
+
+# Meld
+*.orig

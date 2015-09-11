@@ -20,12 +20,12 @@ public class ModelTest {
 	
 	@Test
 	public void getRoomHeightTest() {
-		assertEquals(Model.getRoomHeight(), 500);
+		assertEquals(Model.getRoomHeight(), 921);
 	}
 	
 	@Test
 	public void getRoomWidthTest() {
-		assertEquals(Model.getRoomWidth(), 800);
+		assertEquals(Model.getRoomWidth(), 1123);
 	}
 
 
