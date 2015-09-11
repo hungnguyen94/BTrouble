@@ -32,7 +32,6 @@ public class SlickApp extends BasicGame
      */
     public void init(GameContainer gc) throws SlickException {
         Controller.startNewGame(gc);
-        background = new Image("Sprites/background.jpg");
         timers = Controller.getTimers();
         timerBar = new Rectangle(200, gc.getHeight() - 114 , gc.getWidth() - 400, 25);
         timers.restartTimer();
@@ -73,6 +72,7 @@ public class SlickApp extends BasicGame
      */
     public void render(GameContainer gc, Graphics g) throws SlickException {
         g.setFont(font);
+        background = new Image("Sprites/background.jpg");
         background.draw(0, 0);
         
         drawCountDown(gc, g);
