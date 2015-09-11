@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.newdawn.slick.geom.Rectangle;
 
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
@@ -68,9 +69,24 @@ public class RoomTest {
 		assertFalse(room.equals(new Room(data)));
 	}
 	
-	@Test public void equalsOtherTest() {
+	@Test 
+	public void equalsOtherTest() {
 		String string = new String("Room");
 		assertFalse(room.equals(string));
 	}
+	
+	@Test
+	public void getBubblesTest() {
+		assertEquals(room.getBubbles(), bubbles);
+	}
+	
+	/*@Test
+	public void getWallsTest() {
+		ArrayList<Rectangle> walls = new ArrayList<Rectangle>();
+		walls.add(new Rectangle(0, 0, 1, 800));
+		walls.add(new Rectangle(1123, 0, 1, 800));
+		assertEquals(walls, room.getWalls());
+		
+	}*/
 
 }
