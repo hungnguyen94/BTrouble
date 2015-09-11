@@ -105,7 +105,7 @@ public class ControllerTest {
 		
 	}
 	
-	@Test
+/*	@Test
 	public void playerRightWallCollisionTest() throws SlickException{
 		Player player = Model.getPlayers().get(0);
 		int pos = 0;
@@ -116,7 +116,7 @@ public class ControllerTest {
 			pos = (int) player.getX();
 		}
 		assertTrue(pos < Model.getRoomWidth());
-	}
+	}*/
 	
 	@Test
 	public void playerLeftWallCollisionTest() throws SlickException{
