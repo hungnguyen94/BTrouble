@@ -42,11 +42,8 @@ public class Player extends Rectangle {
      * @param x x value for the Player from the sprite class.
      * @param y y value for the Player from the sprite class.
      */
-    public Player(float x, float y) throws SlickException {
+    public Player(float x, float y){
         super(x, y, 60f, 175f);
-        playerIdle = new Image("Sprites/idle.png");
-        walkSheet = new SpriteSheet("Sprites/player_spritesheet.png", 100, 175);
-        walkAnimation = new Animation(walkSheet, 20);
         ropes = new ArrayList<Rope>();
         lives = INITIAL_LIVES;
         score = INITIAL_SCORE;
@@ -58,7 +55,7 @@ public class Player extends Rectangle {
     public boolean equals(Object other) {
     	if(other instanceof Player) {
     		Player that = (Player) other;
-    		return(this.ropes.equals(that.ropes) && this.facingLeft == that.facingLeft && this.idle == that.idle && this.lives == that.lives &&
+    		return(this.x == that.x && this.y == that.y && this.ropes.equals(that.ropes) && this.facingLeft == that.facingLeft && this.idle == that.idle && this.lives == that.lives &&
     				this.score == that.score && this.vy == that.vy && this.rightBlocked == that.rightBlocked && this.leftBlocked == that.leftBlocked);
     	}
     	return false;
@@ -103,6 +100,9 @@ public class Player extends Rectangle {
 
     public void draw() throws SlickException {
         // Render the sprite at an offset.
+        playerIdle = new Image("Sprites/idle.png");
+        walkSheet = new SpriteSheet("Sprites/player_spritesheet.png", 100, 175);
+        walkAnimation = new Animation(walkSheet, 20);
         int playerX = (int)(x - ((walkSheet.getWidth()/walkSheet.getHorizontalCount()) - getWidth()) / 2);
         if (!idle) {
             walkAnimation.getCurrentFrame().getFlippedCopy(facingLeft, false).draw(playerX, y);
