@@ -4,9 +4,9 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 
+@SuppressWarnings("serial")
 public class Rope extends Rectangle {
 	private int dy;
-	private boolean exists = false;
 	private final int INITIAL_ROPESPEED = 5;
 	private Image sprite;
 	

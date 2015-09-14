@@ -60,6 +60,7 @@ public class Room {
         startingPositionY = data.getStartingPositionY();
 		for(Player player: Model.getPlayers()){
 			player.moveTo(startingPositionX, startingPositionY);
+			player.resetRope();
 		}
 		bubbles = data.getBubbles();
 	}
