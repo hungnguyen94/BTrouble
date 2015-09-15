@@ -16,9 +16,7 @@ import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class RoomTest {
-	
-	@Mock private RoomData data;
-	@Mock private RoomData data2;
+
 	@Mock private Player player;
 	@Mock private Bubble bubble;
 	private Room room;
@@ -30,10 +28,10 @@ public class RoomTest {
 		Model.addPlayer(player);
 		bubbles = new ArrayList<Bubble>();
 		bubbles.add(bubble);
-		when(data.getStartingPositionX()).thenReturn(0);
-		when(data.getStartingPositionY()).thenReturn(0);
-		when(data.getBubbles()).thenReturn(bubbles);
-		room = new Room(data);
+		when(room.getSpawnPositionX()).thenReturn(0);
+		when(room.getSpawnPositionY()).thenReturn(0);
+		when(room.getBubbles()).thenReturn(bubbles);
+		room = new Room();
 	}
 
 	@Test
@@ -48,25 +46,25 @@ public class RoomTest {
 	
 	@Test
 	public void equalsFalseDataTest() {
-		assertFalse(room.equals(new Room(data2)));
+		assertFalse(room.equals(new Room()));
 	}
 	
 	@Test
 	public void equalsFalseBubblesTest() {
-		when(data.getBubbles()).thenReturn(new ArrayList<Bubble>());
-		assertFalse(room.equals(new Room(data)));
+		when(room.getBubbles()).thenReturn(new ArrayList<Bubble>());
+		assertFalse(room.equals(new Room()));
 	}
 	
 	@Test
 	public void equalsFalseXTest() {
-		when(data.getStartingPositionX()).thenReturn(1);
-		assertFalse(room.equals(new Room(data)));
+		when(room.getSpawnPositionX()).thenReturn(1);
+		assertFalse(room.equals(new Room()));
 	}
 	
 	@Test
 	public void equalsFalseYTest() {
-		when(data.getStartingPositionY()).thenReturn(1);
-		assertFalse(room.equals(new Room(data)));
+		when(room.getSpawnPositionY()).thenReturn(1);
+		assertFalse(room.equals(new Room()));
 	}
 	
 	@Test 
