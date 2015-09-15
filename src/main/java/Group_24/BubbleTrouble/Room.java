@@ -11,35 +11,29 @@ import java.util.ArrayList;
 public class Room {
 	
 	private RoomData data;
-    private int startingPositionX;
-    private int startingPositionY;
+
+    private int spawnPositionX;
+    private int spawnPositionY;
 
 	private ArrayList<Rectangle> walls;
 	private ArrayList<Rectangle> floors;
-	
 	private ArrayList<Bubble> bubbles;
 	
 	/**
-	 * Constructs a new Room using the data contained by a RoomData data container.
-	 * @param data should be a RoomData object containing the data which should be loaded into the Room.
+	 * Initializes the room with the objects
 	 */
-	public Room(RoomData data){
-		this.data = data;
-		
+	public Room(){
 		walls = new ArrayList<Rectangle>();
-		walls.add(new Rectangle(0, 0, 1, 800));
-		walls.add(new Rectangle(1123, 0, 1, 800));
-		
 		floors = new ArrayList<Rectangle>();
-		floors.add(new Rectangle(0, 794, 1123, 1));
-		this.reload();
+        bubbles = new ArrayList<Bubble>();
+		loadRoom();
 	}
 	
 	public boolean equals(Object other) {
 		if(other instanceof Room) {
 			Room that = (Room) other;
-			return(this.data.equals(that.data) && this.bubbles.equals(that.bubbles) && this.startingPositionX == that.startingPositionX &&
-			this.startingPositionY == that.startingPositionY);
+			return(this.data.equals(that.data) && this.bubbles.equals(that.bubbles) && this.spawnPositionX == that.spawnPositionX &&
+			this.spawnPositionY == that.spawnPositionY);
 		}
 		return false;
 	}
@@ -56,12 +50,7 @@ public class Room {
 	 * Reloads the room, loads the initial data into the Room and places the Players in the room without touching the Players themself. 
 	 */
 	public void reload() {
-        startingPositionX = data.getStartingPositionX();
-        startingPositionY = data.getStartingPositionY();
-		for(Player player: Model.getPlayers()){
-			player.moveTo(startingPositionX, startingPositionY);
-		}
-		bubbles = data.getBubbles();
+        loadRoom();
 	}
 
 	/**
@@ -78,6 +67,36 @@ public class Room {
 		return floors;
 	}
 
+    /**
+     * Return the x coordinate of the spawn position.
+     * @return - x coordinate of spawn position
+     */
+    public int getSpawnPositionX() {
+        return spawnPositionX;
+    }
+
+    /**
+     * Return the y coordinate of the spawn position.
+     * @return - y coordinate of spawn position
+     */
+    public int getSpawnPositionY() {
+        return spawnPositionY;
+    }
+
+    /**
+     * Method to load a room with default data
+     */
+    public void loadRoom() {
+        spawnPositionX = 50;
+        spawnPositionY = 350;
+        walls.clear();
+        walls.add(new Rectangle(0, 0, 1, 800));
+        walls.add(new Rectangle(1123, 0, 1, 800));
+        floors.clear();
+        floors.add(new Rectangle(0, 794, 1123, 1));
+        bubbles.clear();
+        bubbles.add(new Bubble(3, Model.getRoomWidth() - 100, 100));
+    }
 }
 
 

@@ -75,6 +75,9 @@ public class Model {
 	 * Restarts the currently active room, resets all the objects in the room but preserves the players and their scores.
 	 */
 	public static void restartRoom() {
+		for(Player p: players) {
+			p.moveTo(getCurrentRoom().getSpawnPositionX(), getCurrentRoom().getSpawnPositionY());
+		}
 		getCurrentRoom().reload();
 	}
 	

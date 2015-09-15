@@ -27,13 +27,10 @@ public class Controller {
 		oldBubbles = new ArrayList<Bubble>();
         gc = container;
 
-    	// TODO could add import RoomData from file
     	Model.init();
-    	ArrayList<Bubble> bubbles = new ArrayList<Bubble>();
-		bubbles.add(new Bubble(3, Model.getRoomWidth()-100, 100));
-    	RoomData data = new RoomData(bubbles);
-    	Model.addRoom(new Room(data));
+    	Model.addRoom(new Room());
     	Model.addPlayer(new Player(100, Model.getRoomHeight() / 2+100));
+        Model.restartRoom();
     }
 
     public static Timers getTimers() {

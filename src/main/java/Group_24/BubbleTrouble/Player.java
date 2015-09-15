@@ -168,6 +168,11 @@ public class Player extends Rectangle {
         ropes = new ArrayList<Rope>();
     }
 
+    /**
+     * Move the player to the specified coordinates.
+     * @param x - x-coordinate
+     * @param y - y-coordinate
+     */
     public void moveTo(int x, int y) {
         this.x = x;
         this.y = y;
