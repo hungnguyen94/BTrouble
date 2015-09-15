@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Date;
 
 public class Logger {
 
@@ -22,7 +23,10 @@ public class Logger {
     }
     
     public void log (String message) throws IOException {
-        bw.write(message);
+        Date date = new Date();
+        String currentDate = date.toString();
+        String temp = currentDate + " " + message;
+        bw.write(temp);
     }
     
 }
