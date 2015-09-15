@@ -50,6 +50,14 @@ public class Player extends Rectangle {
         vy = 2;
         rightBlocked = false;
         leftBlocked = false;
+        try {
+            playerIdle = new Image("Sprites/idle.png");
+            walkSheet = new SpriteSheet("Sprites/player_spritesheet.png", 100, 175);
+        } catch (SlickException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        walkAnimation = new Animation(walkSheet, 20);
     }
     
     public boolean equals(Object other) {
@@ -100,9 +108,7 @@ public class Player extends Rectangle {
 
     public void draw() throws SlickException {
         // Render the sprite at an offset.
-        playerIdle = new Image("Sprites/idle.png");
-        walkSheet = new SpriteSheet("Sprites/player_spritesheet.png", 100, 175);
-        walkAnimation = new Animation(walkSheet, 20);
+        
         int playerX = (int)(x - ((walkSheet.getWidth()/walkSheet.getHorizontalCount()) - getWidth()) / 2);
         if (!idle) {
             walkAnimation.getCurrentFrame().getFlippedCopy(facingLeft, false).draw(playerX, y);
