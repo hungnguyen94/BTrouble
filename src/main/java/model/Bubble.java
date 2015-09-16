@@ -92,7 +92,7 @@ public class Bubble extends Circle {
 	 * @param type should be a integer holding the collision type, contained by Collision.[type]. 
 	 */
 	public void bubbleEvent(BubbleEvent event){
-		switch(event.getType()){
+		switch(event.getId()){
 			case BubbleEvent.COLLISION_FLOOR: vy = -vy; break;
 			case BubbleEvent.COLLISION_WALL: vx = -vx; break;
 			case BubbleEvent.COLLISION_ROPE: split(); break;

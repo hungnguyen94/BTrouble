@@ -45,14 +45,14 @@ public class BubbleTest {
 	@Test
 	public void collideFloorTest() {
 		double vy = bubble1.getVY();
-		bubble1.bubbleEvent(new BubbleEvent(BubbleEvent.COLLISION_FLOOR));
+		bubble1.bubbleEvent(new BubbleEvent(bubble1, BubbleEvent.COLLISION_FLOOR, "Collided with floor"));
 		assertEquals(-vy, bubble1.getVY(), 0);
 	}
 	
 	@Test
 	public void collideWallTest() {
 		double vx = bubble1.getVX();
-		bubble1.bubbleEvent(new BubbleEvent(BubbleEvent.COLLISION_WALL));
+		bubble1.bubbleEvent(new BubbleEvent(bubble1, BubbleEvent.COLLISION_WALL, "Collided with wall"));
 		assertEquals(-vx, bubble1.getVX(), 0);
 	}
 	

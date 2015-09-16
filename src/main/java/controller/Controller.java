@@ -18,6 +18,7 @@ import model.Room;
 import model.RoomData;
 import model.Rope;
 import model.Timers;
+import view.SlickApp;
 
 /**
  * Controller, recalculates the Model, on request of the view.
@@ -49,7 +50,7 @@ public class Controller extends Observable {
     Model.addRoom(new Room(data));
     Model.addPlayer(new Player(100, Model.getRoomHeight() / 2 + 100));
     
-    fireEvent(new ControllerEvent(ControllerEvent.GAMEOVER));
+    fireEvent(new ControllerEvent(this, ControllerEvent.GAMESTART, "Game started"));
   }
 
   public Timers getTimers() {
@@ -65,15 +66,15 @@ public class Controller extends Observable {
       
       for (Rectangle floor : Model.getCurrentRoom().getFloors())
         if (bubble.intersects(floor)) {
-          fireEvent(new BubbleEvent(BubbleEvent.COLLISION_FLOOR));
-          bubble.bubbleEvent(new BubbleEvent(BubbleEvent.COLLISION_FLOOR));
+          fireEvent(new BubbleEvent(bubble, BubbleEvent.COLLISION_FLOOR, "Collided with floor"));
+          bubble.bubbleEvent(new BubbleEvent(bubble, BubbleEvent.COLLISION_FLOOR, "Collided with floor"));
         }
 
       // Collision detection for walls
       for (Rectangle wall : Model.getCurrentRoom().getWalls()) {
         if (bubble.intersects(wall)){
-          fireEvent(new BubbleEvent(BubbleEvent.COLLISION_WALL));
-          bubble.bubbleEvent(new BubbleEvent(BubbleEvent.COLLISION_WALL));
+          fireEvent(new BubbleEvent(bubble, BubbleEvent.COLLISION_WALL, "Collided with wall"));
+          bubble.bubbleEvent(new BubbleEvent(bubble, BubbleEvent.COLLISION_WALL, "Collided with wall"));
         }
       }
 
@@ -81,7 +82,7 @@ public class Controller extends Observable {
 
         // Check if timer has run out.
         if (this.getTimers().getLevelTimeLeft() <= 0) {
-          fireEvent(new ControllerEvent(ControllerEvent.OUTOFTIME));
+          fireEvent(new ControllerEvent(this, ControllerEvent.OUTOFTIME, "Out of time"));
           loseLife(player);
         }
 
@@ -95,10 +96,10 @@ public class Controller extends Observable {
           if (player.intersects(wall)) {
             int playerX = (int) player.getX() + ((int) (player.getWidth() / 2));
             if (playerX > wall.getX()) {
-              fireEvent(new PlayerEvent(PlayerEvent.COLLISION_LEFTWALL));
+              fireEvent(new PlayerEvent(player, PlayerEvent.COLLISION_LEFTWALL, "Collided with left wall"));
               player.setLeftBlocked(true);
             } else if (playerX <= wall.getX()) {
-              fireEvent(new PlayerEvent(PlayerEvent.COLLISION_RIGHTWALL));
+              fireEvent(new PlayerEvent(player, PlayerEvent.COLLISION_RIGHTWALL, "Collided with right wall"));
               player.setRightBlocked(true);
             }
           }
@@ -106,9 +107,9 @@ public class Controller extends Observable {
 
         for (Rope rope : player.getRopes()) {
           if (bubble.intersects(rope)) {
-            fireEvent(new BubbleEvent(BubbleEvent.COLLISION_ROPE));
-            bubble.bubbleEvent(new BubbleEvent(BubbleEvent.COLLISION_ROPE));
-            fireEvent(new PlayerEvent(PlayerEvent.POPBUBBLE));
+            fireEvent(new BubbleEvent(bubble, BubbleEvent.COLLISION_ROPE, "Collided with rope"));
+            bubble.bubbleEvent(new BubbleEvent(bubble, BubbleEvent.COLLISION_ROPE, "Collided with rope"));
+            fireEvent(new PlayerEvent(player, PlayerEvent.POPBUBBLE, "Popped a bubble"));
             player.increaseScore(REWARD_BUBBLE);
             player.resetRope();
           }
@@ -128,7 +129,7 @@ public class Controller extends Observable {
    *          should be the player who lost a life
    */
   public void loseLife(Player player) {
-    fireEvent(new PlayerEvent(PlayerEvent.LIFE_LOST));
+    fireEvent(new PlayerEvent(player, PlayerEvent.LIFE_LOST, "Lost a life"));
     player.loseLife();
     if (!player.hasLives()) {
       endGame("Game over...");
@@ -138,7 +139,7 @@ public class Controller extends Observable {
   }
 
   private void restartRoom() {
-    fireEvent(new ControllerEvent(ControllerEvent.RESTARTROOM));
+    fireEvent(new ControllerEvent(this, ControllerEvent.RESTARTROOM, "Room restarted"));
     Model.restartRoom();
     this.getTimers().restartTimer();
   }
@@ -209,7 +210,7 @@ public class Controller extends Observable {
    *          should be a String containing the message which is shown.
    */
   public void endGame(String message) {
-    fireEvent(new ControllerEvent(ControllerEvent.GAMEOVER));
+    fireEvent(new ControllerEvent(this, ControllerEvent.GAMEOVER, "Game over"));
     gc.exit();
   }
 

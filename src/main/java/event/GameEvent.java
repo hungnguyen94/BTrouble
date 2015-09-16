@@ -1,17 +1,29 @@
 package event;
 
 public abstract class GameEvent {
-  
-  private int type;
-  
-  public GameEvent(int type) {
-    this.type = type;
+
+  private Object subject;
+  private int id;
+  private String message;
+
+  public GameEvent(Object subject, int id, String message) {
+    this.subject = subject;
+    this.id = id;
+    this.message = message;
   }
-  
-  public int getType(){
-    return this.type;
+
+  public Object getSubject() {
+    return subject;
   }
-  
+
+  public int getId() {
+    return id;
+  }
+
+  public String getMessage() {
+    return message;
+  }
+
   public abstract String toString();
-  
+
 }

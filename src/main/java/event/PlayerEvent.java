@@ -1,5 +1,7 @@
 package event;
 
+import model.Player;
+
 public class PlayerEvent extends GameEvent {
 
   public static final int COLLISION_BUBBLE = 0;
@@ -9,37 +11,17 @@ public class PlayerEvent extends GameEvent {
   public static final int LIFE_LOST = 4;
   public static final int LIFE_GAINED = 5;
   
-  public PlayerEvent(int type) {
-    super(type);
+  public PlayerEvent(Object subject, int id, String message) {
+    super(subject, id, message);
+  }
+  
+  @Override
+  public Player getSubject() {
+    return (Player) super.getSubject();
   }
 
   @Override
   public String toString() {
-    String res = "<PlayerEvent: ";
-    switch(this.getType()){
-      case COLLISION_BUBBLE:
-        res += "Collided with bubble";
-        break;
-      case COLLISION_LEFTWALL:
-        res += "Collided with left wall";
-        break;
-      case COLLISION_RIGHTWALL:
-        res += "Collided with right wall";
-        break;
-      case POPBUBBLE:
-        res += "Popped a bubble";
-        break;
-      case LIFE_LOST:
-        res += "Lost a life";
-        break;
-      case LIFE_GAINED:
-        res += "Gained a life";
-        break;
-      default:
-        res += "Type unknown";
-    }
-    
-    return res + ">";
+    return "<PlayerEvent: " + this.getMessage() + ">";
   }
-
 }
