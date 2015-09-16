@@ -11,6 +11,12 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.newdawn.slick.geom.Rectangle;
 
+import model.Bubble;
+import model.Model;
+import model.Player;
+import model.Room;
+import model.RoomData;
+
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
 

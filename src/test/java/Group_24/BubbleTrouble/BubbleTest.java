@@ -4,6 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import event.BubbleEvent;
+import model.Bubble;
+
 public class BubbleTest {
 	
 	private Bubble bubble1 = new Bubble(1, 1, 1);
@@ -42,14 +45,14 @@ public class BubbleTest {
 	@Test
 	public void collideFloorTest() {
 		double vy = bubble1.getVY();
-		bubble1.collide(0);
+		bubble1.bubbleEvent(new BubbleEvent(bubble1, BubbleEvent.COLLISION_FLOOR, "Collided with floor"));
 		assertEquals(-vy, bubble1.getVY(), 0);
 	}
 	
 	@Test
 	public void collideWallTest() {
 		double vx = bubble1.getVX();
-		bubble1.collide(1);
+		bubble1.bubbleEvent(new BubbleEvent(bubble1, BubbleEvent.COLLISION_WALL, "Collided with wall"));
 		assertEquals(-vx, bubble1.getVX(), 0);
 	}
 	

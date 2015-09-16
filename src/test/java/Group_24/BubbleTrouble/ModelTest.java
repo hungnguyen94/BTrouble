@@ -5,12 +5,15 @@ import static org.junit.Assert.*;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import model.Bubble;
+import model.Model;
+import model.Player;
+import model.Room;
+
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
 
 import java.util.ArrayList;
-
-import Group_24.BubbleTrouble.Model;
 
 import org.junit.Before;
 import org.junit.Test;

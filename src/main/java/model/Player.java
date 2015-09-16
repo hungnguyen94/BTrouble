@@ -1,4 +1,4 @@
-package Group_24.BubbleTrouble;
+package model;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
@@ -14,6 +14,7 @@ import java.util.ArrayList;
  * Player class, containing all the data about the player.
  *
  */
+@SuppressWarnings("serial")
 public class Player extends Rectangle {
     private int lives;
     private int score;
