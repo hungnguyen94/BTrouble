@@ -1,4 +1,4 @@
-package Group_24.BubbleTrouble;
+package model;
 
 import org.newdawn.slick.geom.Rectangle;
 

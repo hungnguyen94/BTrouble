@@ -1,6 +1,9 @@
-package Group_24.BubbleTrouble;
+package model;
 
 import org.newdawn.slick.geom.Circle;
+
+import event.BubbleEvent;
+import view.SlickApp;
 
 @SuppressWarnings("serial")
 public class Bubble extends Circle {

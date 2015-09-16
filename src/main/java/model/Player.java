@@ -1,4 +1,4 @@
-package Group_24.BubbleTrouble;
+package model;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;

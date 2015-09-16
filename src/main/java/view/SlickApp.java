@@ -1,14 +1,21 @@
-package Group_24.BubbleTrouble;
+package view;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.util.ResourceLoader;
+
+import controller.Controller;
+import model.Bubble;
+import model.Model;
+import model.Player;
+import model.Timers;
 
 import static java.lang.System.out;
 
 import java.awt.Font;
 import java.io.InputStream;
 import java.util.Observable;
+import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,9 +44,11 @@ public class SlickApp extends BasicGame {
   public void init(GameContainer gc) throws SlickException {
     controller = new Controller(gc);
     
-    controller.addObserver((Observable obj, Object arg) -> { 
-        out.println("Log: " + arg.toString());
-    });
+    controller.addObserver(new Observer() {
+		public void update(Observable obj, Object arg) { 
+		    out.println("Log: " + arg.toString());
+		}
+	});
     
     timers = controller.getTimers();
     timerBar = new Rectangle(200, gc.getHeight() - 114, gc.getWidth() - 400, 25);

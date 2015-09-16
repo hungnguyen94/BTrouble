@@ -8,6 +8,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.newdawn.slick.SlickException;
 
+import model.Player;
+import model.Rope;
+
 public class PlayerTest {
 	
 	private Player player;

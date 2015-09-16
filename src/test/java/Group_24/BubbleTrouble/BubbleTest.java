@@ -4,6 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import event.BubbleEvent;
+import model.Bubble;
+
 public class BubbleTest {
 	
 	private Bubble bubble1 = new Bubble(1, 1, 1);

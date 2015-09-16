@@ -1,4 +1,4 @@
-package Group_24.BubbleTrouble;
+package event;
 
 public class ControllerEvent extends GameEvent{
 

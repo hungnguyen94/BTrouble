@@ -1,4 +1,4 @@
-package Group_24.BubbleTrouble;
+package controller;
 
 import java.util.ArrayList;
 import java.util.Observable;
@@ -6,6 +6,18 @@ import java.util.Observable;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
+
+import event.BubbleEvent;
+import event.ControllerEvent;
+import event.GameEvent;
+import event.PlayerEvent;
+import model.Bubble;
+import model.Model;
+import model.Player;
+import model.Room;
+import model.RoomData;
+import model.Rope;
+import model.Timers;
 
 /**
  * Controller, recalculates the Model, on request of the view.
