@@ -26,12 +26,14 @@ public class Room {
 		walls = new ArrayList<Rectangle>();
 		floors = new ArrayList<Rectangle>();
         bubbles = new ArrayList<Bubble>();
+        spawnPositionX = 0;
+        spawnPositionY = 0;
 	}
 	
 	public boolean equals(Object other) {
 		if(other instanceof Room) {
 			Room that = (Room) other;
-			return(this.data.equals(that.data) && this.bubbles.equals(that.bubbles) && this.spawnPositionX == that.spawnPositionX &&
+			return(this.bubbles.equals(that.bubbles) && this.spawnPositionX == that.spawnPositionX &&
 			this.spawnPositionY == that.spawnPositionY);
 		}
 		return false;
@@ -43,13 +45,6 @@ public class Room {
 	 */
 	public ArrayList<Bubble> getBubbles() {
 		return bubbles;
-	}
-	
-	/**
-	 * Reloads the room, loads the initial data into the Room and places the Players in the room without touching the Players themself. 
-	 */
-	public void reload() {
-        loadRoom();
 	}
 
 	/**
@@ -80,6 +75,13 @@ public class Room {
      */
     public int getSpawnPositionY() {
         return spawnPositionY;
+    }
+
+    /**
+     * Reloads the room, loads the initial data into the Room and places the Players in the room without touching the Players themself.
+     */
+    public void reload() {
+        loadRoom();
     }
 
     /**

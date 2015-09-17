@@ -24,67 +24,72 @@ public class RoomTest {
 	
 	@Before
 	public void setUp() {
+        room = new Room();
 		Model.init();
 		Model.addPlayer(player);
-		bubbles = new ArrayList<Bubble>();
-		bubbles.add(bubble);
-		when(room.getSpawnPositionX()).thenReturn(0);
-		when(room.getSpawnPositionY()).thenReturn(0);
-		when(room.getBubbles()).thenReturn(bubbles);
-		room = new Room();
+        Model.addRoom(room);
 	}
 
+    /**
+     * Test the getter of spawn position X
+     */
+    @Test
+    public void testGetSpawnPositionX() {
+        assertTrue(room.getSpawnPositionX() == 0);
+        Model.restartRoom();
+        assertFalse(room.getSpawnPositionX() == 0);
+    }
+
+    /**
+     * Test the getter of spawn position Y
+     */
+    @Test
+    public void testGetSpawnPositionY() {
+        assertTrue(room.getSpawnPositionY() == 0);
+        Model.restartRoom();
+        assertFalse(room.getSpawnPositionY() == 0);
+    }
+
+    /**
+     * Test the getter of the list of bubbles
+     */
+    @Test
+    public void testGetBubbles() {
+        assertTrue(room.getBubbles().isEmpty());
+        room.loadRoom();
+        assertFalse(room.getBubbles().isEmpty());
+    }
+
+    /**
+     * Test the getter of the list of walls
+     */
+    @Test
+    public void testGetWalls() {
+        assertTrue(room.getWalls().isEmpty());
+        room.loadRoom();
+        assertFalse(room.getWalls().isEmpty());
+    }
+
+    /**
+     * Test the getter of the list of floors
+     */
+    @Test
+    public void testGetFloors() {
+        assertTrue(room.getFloors().isEmpty());
+        room.loadRoom();
+        assertFalse(room.getFloors().isEmpty());
+    }
+
+    /**
+     * Test the reload method
+     */
 	@Test
 	public void reloadTest() {
-		verify(player).moveTo(0, 0);
-	}
-	
-	@Test
-	public void equalsTrueTest() {
-		assertTrue(room.equals(room));
-	}
-	
-	@Test
-	public void equalsFalseDataTest() {
-		assertFalse(room.equals(new Room()));
-	}
-	
-	@Test
-	public void equalsFalseBubblesTest() {
-		when(room.getBubbles()).thenReturn(new ArrayList<Bubble>());
-		assertFalse(room.equals(new Room()));
-	}
-	
-	@Test
-	public void equalsFalseXTest() {
-		when(room.getSpawnPositionX()).thenReturn(1);
-		assertFalse(room.equals(new Room()));
-	}
-	
-	@Test
-	public void equalsFalseYTest() {
-		when(room.getSpawnPositionY()).thenReturn(1);
-		assertFalse(room.equals(new Room()));
-	}
-	
-	@Test 
-	public void equalsOtherTest() {
-		String string = new String("Room");
-		assertFalse(room.equals(string));
-	}
-	
-	@Test
-	public void getBubblesTest() {
-		assertEquals(room.getBubbles(), bubbles);
-	}
-	
-	/*@Test
-	public void getWallsTest() {
-		ArrayList<Rectangle> walls = new ArrayList<Rectangle>();
-		walls.add(new Rectangle(0, 0, 1, 800));
-		walls.add(new Rectangle(1123, 0, 1, 800));
-		assertEquals(walls, room.getWalls());
-		
-	}*/
-
+        Room myRoom = new Room();
+        assertEquals(myRoom, room);
+        room.reload();
+        assertNotEquals(myRoom, room);
+        myRoom.reload();
+        assertEquals(myRoom, room);
+    }
 }
