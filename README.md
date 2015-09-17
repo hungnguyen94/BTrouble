@@ -1,4 +1,4 @@
-# BubbleTrouble ![Build](https://travis-ci.org/hungnguyen94/BTrouble.svg?branch=master)
+# BubbleTrouble [![Build Status](https://travis-ci.org/hungnguyen94/BTrouble.svg?branch=master)](https://travis-ci.org/hungnguyen94/BTrouble)
 
 This is an improvement of the famous BubbleTrouble game. BubbleTrouble is an intensive hardcore 2D game, featuring several groundbraking game mechanics. These features include, but are not limited to, realistic simulation of gravity, invisible walls, gigantic bouncing balls and smooth animations. 
 
