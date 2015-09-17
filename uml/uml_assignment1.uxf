@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.3">
+  <zoom_level>6</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>420</x>
+      <y>510</y>
+      <w>210</w>
+      <h>348</h>
+    </coordinates>
+    <panel_attributes>model::Player
+--
+-lives: int
+-score: int
+-walkSheet: SpriteSheet
+-walkAnimation: Animation
+-playerIdle: Image
+-facingLeft = true: boolean
+-idle = true: boolean
+-leftBlocked: boolean
+-rightBlocked: boolean
+-vy: float
+-ay = .5f: float
+-PLAYER_SPEED = 3: int
+-INITIAL_LIVES = 5: int
+-INITIAL_SCORE = 0: int
+-ropes: ArrayList&lt;Rope&gt;
+--
++Player(float x, float y): ctor
++equals(Object other): boolean
++getRopes(): ArrayList&lt;Rope&gt;
++addLife(): void
++loseLife(): void
++hasLives(): boolean
++getLives(): int
++getScore(): int
++increaseScore(int amount): void
++fire(): void
++draw(): void
++move(GameContainer container, int delta): void
++setLeftBlocked(boolean leftBlocked): void
++setRightBlocked(boolean rightBlocked): void
++resetRope(): void
++moveTo(int x, int y): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>18</x>
+      <y>726</y>
+      <w>234</w>
+      <h>210</h>
+    </coordinates>
+    <panel_attributes>model::Bubble
+--
+-size: int
+-GAME_SIZE = 10f: float
+-vx: float
+-vy: float
+-ay: float
+-G = .4f: float
+-INITIAL_HORIZONTAL_SPEED = 3f: float
+-HIT_SPEED_FACTOR = 30: int
+--
++Bubble(int size, float x, float y): ctor
++Bubble(int size, float x, float y, float vx, float vy): ctor
++getSize(): int
++getVX(): double
++getVY(): double
++move(): void
++bubbleEvent(BubbleEvent event): void
++split(): void
++equals(Object other): boolean
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>552</x>
+      <y>18</y>
+      <w>234</w>
+      <h>210</h>
+    </coordinates>
+    <panel_attributes>view::SlickApp
+--
+-background: Image
+-timers: Timers
+-timerBar: Rectangle
+-font: TrueTypeFont
+-controller: Controller
+--
++SlickApp(String gamename): ctor
++init(GameContainer gc): void
++update(GameContainer gc, int delta): void
++render(GameContainer gc, Graphics g): void
+-drawCountDown(GameContainer gc, Graphics g): void
+-drawPlayers(Graphics g): void
+-drawBubbles(Graphics g): void
+-drawTimer(Graphics g): void
+-drawLives(Graphics g): void
+-drawScore(Graphics g): void
++main(String[] args): void
++getController(): Controller
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>660</x>
+      <y>270</y>
+      <w>186</w>
+      <h>198</h>
+    </coordinates>
+    <panel_attributes>controller::Controller
+--
+-REWARD_BUBBLE = 100: int
+-newBubbles: ArrayList&lt;Bubble&gt;
+-oldBubbles: ArrayList&lt;Bubble&gt;
+-gc: GameContainer
+-timers: Timers
+--
++Controller(GameContainer container): ctor
++getTimers(): Timers
++update(): void
++loseLife(Player player): void
+-restartRoom(): void
+-fireEvent(GameEvent gameEvent): void
+-updateBubble(): void
++addBubble(Bubble bubble): void
++removeBubble(Bubble bubble): void
+-updateRopes(): void
++endGame(String message): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>450</x>
+      <y>282</y>
+      <w>150</w>
+      <h>198</h>
+    </coordinates>
+    <panel_attributes>model::Timers
+--
+-levelTimer: Timer
+-countdownTimer: Timer
+-levelTimerCounter: int
+-countdownCounter: int
+-levelMaxDuration = 300: int
+-countdownMaxDuration = 30: int
+-timerSpeed = 100: int
+--
++Timers(int delay): ctor
++restartTimer(): void
++getLevelTimeLeft(): int
++getLevelMaxDuration(): int
++getCountdownTimeLeft(): int
++getCountdownMaxDuration(): int
++getLevelTimerRunning(): boolean
++stopLevelTimer(): void
++getCountdownRunning(): boolean
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>252</x>
+      <y>282</y>
+      <w>144</w>
+      <h>174</h>
+    </coordinates>
+    <panel_attributes>model::Model
+--
+-rooms: ArrayList&lt;Room&gt;
+-players: ArrayList&lt;Player&gt;
+-room_current: int
+-ROOM_WIDTH = 1123: int
+-ROOM_HEIGHT = 921: int
+--
++init(): void
++addRoom(Room room): void
++getCurrentRoom(): Room
++getPlayers(): ArrayList&lt;Player&gt;
++getBubbles(): ArrayList&lt;Bubble&gt;
++getRoomHeight(): int
++getRoomWidth(): int
++restartRoom(): void
++addPlayer(Player player): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>60</x>
+      <y>510</y>
+      <w>150</w>
+      <h>156</h>
+    </coordinates>
+    <panel_attributes>model::Room
+--
+-data: RoomData
+-startingPositionX: int
+-startingPositionY: int
+-walls: ArrayList&lt;Rectangle&gt;
+-floors: ArrayList&lt;Rectangle&gt;
+-bubbles: ArrayList&lt;Bubble&gt;
+--
++Room(RoomData data): ctor
++equals(Object other): boolean
++getBubbles(): ArrayList&lt;Bubble&gt;
++reload(): void
++getWalls(): ArrayList&lt;Rectangle&gt;
++getFloors(): ArrayList&lt;Rectangle&gt;
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1176</x>
+      <y>528</y>
+      <w>282</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>event::ControllerEvent
+--
++GAMEOVER = 0: int
++GAMESTART = 1: int
++NEXTROOM = 2: int
++RESTARTROOM = 3: int
++OUTOFTIME = 4: int
++GAMEWON = 5: int
++GAMELOST = 6: int
+--
++ControllerEvent(Controller controller, int id, String message): ctor
++toString(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1176</x>
+      <y>390</y>
+      <w>240</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>event::PlayerEvent
+--
++COLLISION_BUBBLE = 0: int
++COLLISION_LEFTWALL = 1: int
++COLLISION_RIGHTWALL = 2: int
++POPBUBBLE = 3: int
++LIFE_LOST = 4: int
++LIFE_GAINED = 5: int
+--
++PlayerEvent(Object subject, int id, String message): ctor
++getSubject(): Player
++toString(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>912</x>
+      <y>294</y>
+      <w>240</w>
+      <h>114</h>
+    </coordinates>
+    <panel_attributes>/event::GameEvent/
+--
+-subject: Object
+-id: int
+-message: String
+--
++GameEvent(Object subject, int id, String message): ctor
++getSubject(): Object
++getId(): int
++getMessage(): String
++toString(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>456</x>
+      <y>882</y>
+      <w>138</w>
+      <h>114</h>
+    </coordinates>
+    <panel_attributes>model::Rope
+--
+-dy: int
+-INITIAL_ROPESPEED = 5: int
+-sprite: Image
+--
++Rope(float x, float y): ctor
++equals(Object other): boolean
++getDY(): int
++draw(): void
++move(): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1176</x>
+      <y>282</y>
+      <w>246</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>event::BubbleEvent
+--
++COLLISION_FLOOR = 0: int
++COLLISION_WALL = 1: int
++COLLISION_ROPE = 2: int
+--
++BubbleEvent(Bubble subject, int id, String message): ctor
++getSubject(): Bubble
++toString(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>540</x>
+      <y>0</y>
+      <w>264</w>
+      <h>234</h>
+    </coordinates>
+    <panel_attributes>View
+--
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>12</x>
+      <y>252</y>
+      <w>624</w>
+      <h>750</h>
+    </coordinates>
+    <panel_attributes>Model
+--
+bg=cyan</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>642</x>
+      <y>252</y>
+      <w>228</w>
+      <h>222</h>
+    </coordinates>
+    <panel_attributes>Controller
+--
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>894</x>
+      <y>252</y>
+      <w>576</w>
+      <h>420</h>
+    </coordinates>
+    <panel_attributes>Event
+--
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>126</x>
+      <y>660</y>
+      <w>18</w>
+      <h>78</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>126</x>
+      <y>450</y>
+      <w>192</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>300.0;10.0;300.0;70.0;10.0;70.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>522</x>
+      <y>228</y>
+      <w>96</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>140.0;10.0;140.0;40.0;10.0;40.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>342</x>
+      <y>450</y>
+      <w>192</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0;300.0;70.0;300.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>528</x>
+      <y>852</y>
+      <w>18</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1146</x>
+      <y>324</y>
+      <w>42</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;50.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1146</x>
+      <y>348</y>
+      <w>42</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;40.0;10.0;40.0;190.0;50.0;190.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1146</x>
+      <y>366</y>
+      <w>42</w>
+      <h>222</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;30.0;10.0;30.0;350.0;50.0;350.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>750</x>
+      <y>222</y>
+      <w>18</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>594</x>
+      <y>312</y>
+      <w>78</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>110.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>840</x>
+      <y>312</y>
+      <w>84</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>120.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>

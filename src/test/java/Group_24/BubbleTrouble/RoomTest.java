@@ -9,10 +9,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.newdawn.slick.geom.Rectangle;
 
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.verify;
+import model.Bubble;
+import model.Model;
+import model.Player;
+import model.Room;
 
 @RunWith(MockitoJUnitRunner.class)
 public class RoomTest {

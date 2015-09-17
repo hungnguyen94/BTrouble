@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import model.Timers;
+
 public class TimersTest {
 	
 	private Timers timer = new Timers(1);

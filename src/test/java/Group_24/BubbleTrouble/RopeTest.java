@@ -6,6 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.newdawn.slick.SlickException;
 
+import model.Rope;
+
 public class RopeTest {
 
 	private Rope rope;

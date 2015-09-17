@@ -1,4 +1,4 @@
-package Group_24.BubbleTrouble;
+package model;
 
 import org.newdawn.slick.geom.Rectangle;
 
@@ -20,8 +20,8 @@ public class Room {
 	 * Initializes the room with the objects
 	 */
 	public Room(){
-		walls = new ArrayList<Rectangle>();
-		floors = new ArrayList<Rectangle>();
+        walls = new ArrayList<Rectangle>();
+        floors = new ArrayList<Rectangle>();
         bubbles = new ArrayList<Bubble>();
         spawnPositionX = 0;
         spawnPositionY = 0;
@@ -75,14 +75,14 @@ public class Room {
     }
 
     /**
-     * Reloads the room, loads the initial data into the Room and places the Players in the room without touching the Players themself.
+     * Reloads the room, by calling the loadRoom method
      */
     public void reload() {
         loadRoom();
     }
 
     /**
-     * Method to load a room with default data
+     * Method to load a room with default hardcoded data
      */
     public void loadRoom() {
         spawnPositionX = 50;

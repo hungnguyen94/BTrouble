@@ -1,15 +1,16 @@
-package Group_24.BubbleTrouble;
+package model;
 
-import org.newdawn.slick.geom.*;
+import org.newdawn.slick.geom.Circle;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
+import event.BubbleEvent;
+import view.SlickApp;
 
+@SuppressWarnings("serial")
 public class Bubble extends Circle {
 	private int size;
 	
 	// actual size of a level one bubble in the game in pixels.
-	private final float GAME_SIZE = 10;
+	private static final float GAME_SIZE = 10f;
 	
 	// speed (pixels / step)
 	private float vx;
@@ -33,7 +34,7 @@ public class Bubble extends Circle {
 	 * @param y vertical starting position of the bubble in the room
 	 */
 	public Bubble(int size, float x, float y) {
-		super(x, y, size*10f);
+		super(x, y, size*GAME_SIZE);
 		
 		this.size = size;
 		this.ay = G;
@@ -90,11 +91,11 @@ public class Bubble extends Circle {
 	 * Should be called when a Bubble collides.
 	 * @param type should be a integer holding the collision type, contained by Collision.[type]. 
 	 */
-	public void collide(int type){
-		switch(type){
-			case CollisionEvent.TYPE_FLOOR: vy = -vy; break;
-			case CollisionEvent.TYPE_WALL: vx = -vx; break;
-			case CollisionEvent.TYPE_ROPE: split(); break;
+	public void bubbleEvent(BubbleEvent event){
+		switch(event.getId()){
+			case BubbleEvent.COLLISION_FLOOR: vy = -vy; break;
+			case BubbleEvent.COLLISION_WALL: vx = -vx; break;
+			case BubbleEvent.COLLISION_ROPE: split(); break;
 			default: return;
 		}
 	}
@@ -105,15 +106,15 @@ public class Bubble extends Circle {
 	public void split() {
 		// reduce size
 		size--;
-		setRadius(size*10f);
-		if (size != 0) {
+		setRadius(size*GAME_SIZE);
+		if (size > 0) {
 			// give upward speed
 			vy = -ay * HIT_SPEED_FACTOR;
 			// add an extra bubble to the game
             Bubble newBubble = new Bubble(size, x, y, -vx, vy);
-			Controller.addBubble(newBubble);
+			SlickApp.getController().addBubble(newBubble);
 		} else {
-			Controller.removeBubble(this);
+		  SlickApp.getController().removeBubble(this);
 		}
 	}
 	
