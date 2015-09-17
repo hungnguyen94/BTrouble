@@ -1,9 +1,9 @@
-package model;
+package com.sem.btrouble.model;
 
 import org.newdawn.slick.geom.Circle;
 
-import event.BubbleEvent;
-import view.SlickApp;
+import com.sem.btrouble.event.BubbleEvent;
+import com.sem.btrouble.view.SlickApp;
 
 @SuppressWarnings("serial")
 public class Bubble extends Circle {

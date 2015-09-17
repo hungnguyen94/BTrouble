@@ -1,12 +1,11 @@
-package Group_24.BubbleTrouble;
+package com.sem.btrouble;
 
 import static org.junit.Assert.*;
 
+import com.sem.btrouble.model.Rope;
 import org.junit.Before;
 import org.junit.Test;
 import org.newdawn.slick.SlickException;
-
-import model.Rope;
 
 public class RopeTest {
 

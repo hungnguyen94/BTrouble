@@ -1,4 +1,4 @@
-package Group_24.BubbleTrouble;
+package com.sem.btrouble;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

@@ -1,6 +1,6 @@
-package event;
+package com.sem.btrouble.event;
 
-import controller.Controller;
+import com.sem.btrouble.controller.Controller;
 
 public class ControllerEvent extends GameEvent{
 

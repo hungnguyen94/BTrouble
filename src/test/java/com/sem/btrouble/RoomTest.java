@@ -1,19 +1,19 @@
-package Group_24.BubbleTrouble;
+package com.sem.btrouble;
 
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
+import com.sem.btrouble.model.Bubble;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import model.Bubble;
-import model.Model;
-import model.Player;
-import model.Room;
+import com.sem.btrouble.model.Model;
+import com.sem.btrouble.model.Player;
+import com.sem.btrouble.model.Room;
 
 @RunWith(MockitoJUnitRunner.class)
 public class RoomTest {

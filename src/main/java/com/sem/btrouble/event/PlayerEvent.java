@@ -1,6 +1,6 @@
-package event;
+package com.sem.btrouble.event;
 
-import model.Player;
+import com.sem.btrouble.model.Player;
 
 public class PlayerEvent extends GameEvent {
 
