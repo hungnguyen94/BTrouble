@@ -1,7 +1,5 @@
 package com.sem.btrouble.model;
 
-import org.newdawn.slick.geom.Rectangle;
-
 import java.util.ArrayList;
 
 /**
@@ -12,16 +10,16 @@ public class Room {
     private int spawnPositionX;
     private int spawnPositionY;
 
-	private ArrayList<Rectangle> walls;
-	private ArrayList<Rectangle> floors;
+	private ArrayList<Wall> walls;
+	private ArrayList<Floor> floors;
 	private ArrayList<Bubble> bubbles;
 	
 	/**
 	 * Initializes the room with the objects
 	 */
 	public Room(){
-        walls = new ArrayList<Rectangle>();
-        floors = new ArrayList<Rectangle>();
+        walls = new ArrayList<Wall>();
+        floors = new ArrayList<Floor>();
         bubbles = new ArrayList<Bubble>();
         spawnPositionX = 0;
         spawnPositionY = 0;
@@ -47,14 +45,14 @@ public class Room {
 	/**
 	 * @return the walls
 	 */
-	public ArrayList<Rectangle> getWalls() {
+	public ArrayList<Wall> getWalls() {
 		return walls;
 	}
 
 	/**
 	 * @return the floor
 	 */
-	public ArrayList<Rectangle> getFloors() {
+	public ArrayList<Floor> getFloors() {
 		return floors;
 	}
 
@@ -88,10 +86,10 @@ public class Room {
         spawnPositionX = 50;
         spawnPositionY = 350;
         walls.clear();
-        walls.add(new Rectangle(0, 0, 1, 800));
-        walls.add(new Rectangle(1123, 0, 1, 800));
+        walls.add(new Wall(0, 0, 1, 800));
+        walls.add(new Wall(1123, 0, 1, 800));
         floors.clear();
-        floors.add(new Rectangle(0, 794, 1123, 1));
+        floors.add(new Floor(0, 794, 1123, 1));
         bubbles.clear();
         bubbles.add(new Bubble(3, Model.getRoomWidth() - 100, 100));
     }
