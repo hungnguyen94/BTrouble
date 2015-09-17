@@ -9,9 +9,6 @@ import java.util.ArrayList;
  *
  */
 public class Room {
-	
-	private RoomData data;
-
     private int spawnPositionX;
     private int spawnPositionY;
 
@@ -29,7 +26,7 @@ public class Room {
         spawnPositionX = 0;
         spawnPositionY = 0;
 	}
-	
+
 	public boolean equals(Object other) {
 		if(other instanceof Room) {
 			Room that = (Room) other;
