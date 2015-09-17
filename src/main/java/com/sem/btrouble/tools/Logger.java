@@ -1,4 +1,4 @@
-package Group_24.BubbleTrouble;
+package com.sem.btrouble.tools;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -8,10 +8,10 @@ import java.util.Date;
 
 public class Logger {
 
-    private FileWriter fw;
-    private BufferedWriter bw;
+    private static FileWriter fw;
+    private static BufferedWriter bw;
     
-    public void initLog () throws IOException {
+    public static void initLog () throws IOException {
         File file = new File("log.txt");
         
         if (!file.exists()) {
@@ -22,7 +22,7 @@ public class Logger {
         bw = new BufferedWriter(fw);
     }
     
-    public void log (String message) throws IOException {
+    public static void log (String message) throws IOException {
         Date date = new Date();
         String currentDate = date.toString();
         String temp = currentDate + " " + message;
