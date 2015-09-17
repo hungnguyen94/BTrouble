@@ -2,12 +2,15 @@ package com.sem.btrouble.controller;
 
 import java.util.ArrayList;
 import java.util.Observable;
+import java.util.Observer;
 
 import com.sem.btrouble.event.ControllerEvent;
 import com.sem.btrouble.event.GameEvent;
 import com.sem.btrouble.event.PlayerEvent;
 import com.sem.btrouble.model.Bubble;
 import com.sem.btrouble.model.Timers;
+import com.sem.btrouble.tools.GameObserver;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;

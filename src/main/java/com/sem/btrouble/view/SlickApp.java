@@ -1,23 +1,28 @@
 package com.sem.btrouble.view;
 
-import com.sem.btrouble.controller.Controller;
-import com.sem.btrouble.model.Bubble;
-import com.sem.btrouble.model.Model;
-import com.sem.btrouble.model.Timers;
-import org.newdawn.slick.*;
+import java.awt.Font;
+import java.io.InputStream;
+
+import org.newdawn.slick.AppGameContainer;
+import org.newdawn.slick.BasicGame;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.util.ResourceLoader;
 
+import com.sem.btrouble.controller.Controller;
+import com.sem.btrouble.event.ExceptionEvent;
+import com.sem.btrouble.model.Bubble;
+import com.sem.btrouble.model.Model;
 import com.sem.btrouble.model.Player;
+import com.sem.btrouble.model.Timers;
+import com.sem.btrouble.tools.GameObserver;
+import com.sem.btrouble.tools.Logger;
 
-import static java.lang.System.out;
-
-import java.awt.Font;
-import java.io.InputStream;
-import java.util.Observable;
-import java.util.Observer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Application running the game.
@@ -29,6 +34,7 @@ public class SlickApp extends BasicGame {
   private Rectangle timerBar;
   private TrueTypeFont font;
   private static Controller controller;
+  private GameObserver observer;
 
   public SlickApp(String gamename) {
     super(gamename);
@@ -43,12 +49,9 @@ public class SlickApp extends BasicGame {
    */
   public void init(GameContainer gc) throws SlickException {
     controller = new Controller(gc);
+    observer = new GameObserver(true);
     
-    controller.addObserver(new Observer() {
-		public void update(Observable obj, Object arg) { 
-		    out.println("Log: " + arg.toString());
-		}
-	});
+    controller.addObserver(observer);
     
     timers = controller.getTimers();
     timerBar = new Rectangle(200, gc.getHeight() - 114, gc.getWidth() - 400, 25);
@@ -174,11 +177,11 @@ public class SlickApp extends BasicGame {
    * @throws SlickException
    */
   private void drawLives(Graphics g) throws SlickException {
-    SpriteSheet livesImage = new SpriteSheet("Sprites/lives_spritesheet.png", 381, 171);
-    int lives = Model.getPlayers().get(0).getLives();
-    if (lives >= 0) {
-      g.drawImage(livesImage.getSprite(lives, 0).getScaledCopy(109, 49), 225, 851);
-    }
+//    SpriteSheet livesImage = new SpriteSheet("Sprites/lives_spritesheet.png", 381, 171);
+//    int lives = Model.getPlayers().get(0).getLives();
+//    if (lives >= 0) {
+//      g.drawImage(livesImage.getSprite(lives, 0).getScaledCopy(109, 49), 225, 851);
+//    }
   }
 
   /**
@@ -207,7 +210,7 @@ public class SlickApp extends BasicGame {
       appgc.start();
       
     } catch (SlickException ex) {
-      Logger.getLogger(SlickApp.class.getName()).log(Level.SEVERE, null, ex);
+      Logger.log(new ExceptionEvent(ex, "initialisation of the game failed."));
     }
   }
 
