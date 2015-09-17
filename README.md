@@ -6,7 +6,7 @@ This is an improvement of the famous BubbleTrouble game. BubbleTrouble is an int
 
 ### How to compile
 
-To compile the game, the easiest way is to use the pom.xml with maven. It is recommended to use Oracle JDK 8 or Oracle JDK 7. Using OpenJDK to compile will fail, since the JDK doesn't include `javax.jnlp`. To still use OpenJDK, include `javaws.jar` in the build path. 
+To compile the game, the easiest way is to use the pom.xml with maven. Import the project in your IDE, and compile it from there. Run `mvn clean package` to create the jar. It is recommended to use Oracle JDK 8 or Oracle JDK 7. Using OpenJDK to compile will fail, since the JDK doesn't include `javax.jnlp`. To still use OpenJDK, include `javaws.jar` in the build path. 
 
 If the above doesn't work, follow [this guide](http://slick.ninjacave.com/wiki/index.php?title=Setting_up_Slick2D_with_Eclipse) to import the Slick2D library manually. 
 

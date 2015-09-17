@@ -23,7 +23,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>com.SEM.BTrouble.view.SlickApp</mainClass>
+                            <mainClass>SlickApp</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -40,7 +40,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>com.SEM.BTrouble.view.SlickApp</mainClass>
+                            <mainClass>com.sem.btrouble.view.SlickApp</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
