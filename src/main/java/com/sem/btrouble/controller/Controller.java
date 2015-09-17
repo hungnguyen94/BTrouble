@@ -1,22 +1,22 @@
-package controller;
+package com.sem.btrouble.controller;
 
 import java.util.ArrayList;
 import java.util.Observable;
 
+import com.sem.btrouble.event.ControllerEvent;
+import com.sem.btrouble.event.GameEvent;
+import com.sem.btrouble.event.PlayerEvent;
+import com.sem.btrouble.model.Bubble;
+import com.sem.btrouble.model.Timers;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 
-import event.BubbleEvent;
-import event.ControllerEvent;
-import event.GameEvent;
-import event.PlayerEvent;
-import model.Bubble;
-import model.Model;
-import model.Player;
-import model.Room;
-import model.Rope;
-import model.Timers;
+import com.sem.btrouble.event.BubbleEvent;
+import com.sem.btrouble.model.Model;
+import com.sem.btrouble.model.Player;
+import com.sem.btrouble.model.Room;
+import com.sem.btrouble.model.Rope;
 
 /**
  * Controller, recalculates the Model, on request of the view.

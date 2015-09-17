@@ -1,10 +1,9 @@
-package Group_24.BubbleTrouble;
+package com.sem.btrouble;
 
 import static org.junit.Assert.*;
 
+import com.sem.btrouble.model.Timers;
 import org.junit.Test;
-
-import model.Timers;
 
 public class TimersTest {
 	

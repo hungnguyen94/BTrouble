@@ -1,4 +1,4 @@
-package model;
+package com.sem.btrouble.model;
 
 import java.util.ArrayList;
 

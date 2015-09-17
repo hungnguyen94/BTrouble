@@ -1,4 +1,4 @@
-package event;
+package com.sem.btrouble.event;
 
 public abstract class GameEvent {
 

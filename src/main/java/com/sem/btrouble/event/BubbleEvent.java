@@ -1,6 +1,6 @@
-package event;
+package com.sem.btrouble.event;
 
-import model.Bubble;
+import com.sem.btrouble.model.Bubble;
 
 /**
  * CollisionEvent, holds different kinds of collisions.

@@ -1,14 +1,14 @@
-package view;
+package com.sem.btrouble.view;
 
+import com.sem.btrouble.controller.Controller;
+import com.sem.btrouble.model.Bubble;
+import com.sem.btrouble.model.Model;
+import com.sem.btrouble.model.Timers;
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.util.ResourceLoader;
 
-import controller.Controller;
-import model.Bubble;
-import model.Model;
-import model.Player;
-import model.Timers;
+import com.sem.btrouble.model.Player;
 
 import static java.lang.System.out;
 

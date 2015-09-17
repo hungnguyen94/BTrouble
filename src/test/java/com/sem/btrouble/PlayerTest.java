@@ -1,4 +1,4 @@
-package Group_24.BubbleTrouble;
+package com.sem.btrouble;
 
 import static org.junit.Assert.*;
 
@@ -8,8 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.newdawn.slick.SlickException;
 
-import model.Player;
-import model.Rope;
+import com.sem.btrouble.model.Player;
+import com.sem.btrouble.model.Rope;
 
 public class PlayerTest {
 	

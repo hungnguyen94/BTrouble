@@ -1,11 +1,11 @@
-package Group_24.BubbleTrouble;
+package com.sem.btrouble;
 
 import static org.junit.Assert.*;
 
+import com.sem.btrouble.model.Bubble;
 import org.junit.Test;
 
-import event.BubbleEvent;
-import model.Bubble;
+import com.sem.btrouble.event.BubbleEvent;
 
 public class BubbleTest {
 	

@@ -1,4 +1,4 @@
-package model;
+package com.sem.btrouble.model;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
