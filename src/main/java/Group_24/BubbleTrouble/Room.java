@@ -26,7 +26,6 @@ public class Room {
 		walls = new ArrayList<Rectangle>();
 		floors = new ArrayList<Rectangle>();
         bubbles = new ArrayList<Bubble>();
-		loadRoom();
 	}
 	
 	public boolean equals(Object other) {

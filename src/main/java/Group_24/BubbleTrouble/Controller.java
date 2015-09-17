@@ -29,7 +29,7 @@ public class Controller {
 
     	Model.init();
     	Model.addRoom(new Room());
-    	Model.addPlayer(new Player(100, Model.getRoomHeight() / 2+100));
+    	Model.addPlayer(new Player(0, 0));
         Model.restartRoom();
     }
 
