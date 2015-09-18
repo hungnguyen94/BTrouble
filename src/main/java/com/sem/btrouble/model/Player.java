@@ -40,7 +40,7 @@ public class Player extends Rectangle {
 
   /**
    * Constructor for the Player class.
-   * 
+   *
    * @param xpos
    *          x value for the Player from the sprite class.
    * @param ypos
@@ -66,7 +66,7 @@ public class Player extends Rectangle {
 
   /**
    * Checks whether the provided Object is the same as this Player.
-   * 
+   *
    * @param other
    *          should be the Object to be checked for equality.
    * @return returns a boolean representing whether the provided Object is the
@@ -122,7 +122,7 @@ public class Player extends Rectangle {
 
   /**
    * Draws the player on the screen.
-   * 
+   *
    * @throws SlickException
    *           when the player could not be drawn.
    */
@@ -143,7 +143,7 @@ public class Player extends Rectangle {
 
   /**
    * Moves the Player the provided amount of pixels to the right.
-   * 
+   *
    * @param container
    *          should be a GameContainer containing the game.
    * @param delta
@@ -197,12 +197,12 @@ public class Player extends Rectangle {
    * This functions deletes all the rope elements from the room.
    */
   public void resetRope() {
-    ropes = new ArrayList<Rope>();
+    ropes.clear();
   }
 
   /**
    * Move the player to the specified coordinates.
-   * 
+   *
    * @param xpos
    *          - x-coordinate
    * @param ypos
