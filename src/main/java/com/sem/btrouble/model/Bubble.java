@@ -1,7 +1,7 @@
 package com.sem.btrouble.model;
 
 import com.sem.btrouble.event.BubbleEvent;
-import com.sem.btrouble.view.SlickApp;
+import com.sem.btrouble.SlickApp;
 import org.newdawn.slick.geom.Circle;
 
 
