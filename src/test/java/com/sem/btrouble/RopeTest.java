@@ -17,8 +17,8 @@ public class RopeTest {
 	}
 	
 	@Test
-	public void getDYTest() {
-		assertEquals(5, rope.getDY());
+	public void getDyTest() {
+		assertEquals(5, rope.getDy());
 	}
 	
 	@Test
@@ -59,14 +59,14 @@ public class RopeTest {
 	@Test
 	public void moveDYTest() {
 		rope.move();
-		assertEquals(0, rope.getDY());
+		assertEquals(0, rope.getDy());
 	}
 	
 	@Test
 	public void moveNoDYTest() {
 		Rope rope2 = new Rope(20, 20);
 		rope2.move();
-		assertEquals(5, rope2.getDY(), 0);
+		assertEquals(5, rope2.getDy(), 0);
 	}
 
 }

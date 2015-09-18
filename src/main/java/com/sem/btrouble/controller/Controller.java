@@ -1,22 +1,22 @@
 package com.sem.btrouble.controller;
 
-import java.util.ArrayList;
-import java.util.Observable;
-
+import com.sem.btrouble.event.BubbleEvent;
 import com.sem.btrouble.event.ControllerEvent;
 import com.sem.btrouble.event.GameEvent;
 import com.sem.btrouble.event.PlayerEvent;
 import com.sem.btrouble.model.Bubble;
+import com.sem.btrouble.model.Model;
+import com.sem.btrouble.model.Player;
+import com.sem.btrouble.model.Room;
+import com.sem.btrouble.model.Rope;
 import com.sem.btrouble.model.Timers;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 
-import com.sem.btrouble.event.BubbleEvent;
-import com.sem.btrouble.model.Model;
-import com.sem.btrouble.model.Player;
-import com.sem.btrouble.model.Room;
-import com.sem.btrouble.model.Rope;
+import java.util.ArrayList;
+import java.util.Observable;
+
 
 /**
  * Controller, recalculates the Model, on request of the view.
@@ -24,7 +24,7 @@ import com.sem.btrouble.model.Rope;
 public class Controller extends Observable {
 
   private static final int REWARD_BUBBLE = 100;
-  
+
   private ArrayList<Bubble> newBubbles;
   private ArrayList<Bubble> oldBubbles;
   private GameContainer gc;
@@ -57,18 +57,21 @@ public class Controller extends Observable {
   public void update() throws SlickException {
 
     for (Bubble bubble : Model.getBubbles()) {
-      
-      for (Rectangle floor : Model.getCurrentRoom().getFloors())
+
+      for (Rectangle floor : Model.getCurrentRoom().getFloors()) {
         if (bubble.intersects(floor)) {
           fireEvent(new BubbleEvent(bubble, BubbleEvent.COLLISION_FLOOR, "Collided with floor"));
-          bubble.bubbleEvent(new BubbleEvent(bubble, BubbleEvent.COLLISION_FLOOR, "Collided with floor"));
+          bubble.bubbleEvent(
+              new BubbleEvent(bubble, BubbleEvent.COLLISION_FLOOR, "Collided with floor"));
         }
+      }
 
       // Collision detection for walls
       for (Rectangle wall : Model.getCurrentRoom().getWalls()) {
-        if (bubble.intersects(wall)){
+        if (bubble.intersects(wall)) {
           fireEvent(new BubbleEvent(bubble, BubbleEvent.COLLISION_WALL, "Collided with wall"));
-          bubble.bubbleEvent(new BubbleEvent(bubble, BubbleEvent.COLLISION_WALL, "Collided with wall"));
+          bubble.bubbleEvent(
+              new BubbleEvent(bubble, BubbleEvent.COLLISION_WALL, "Collided with wall"));
         }
       }
 
@@ -90,10 +93,12 @@ public class Controller extends Observable {
           if (player.intersects(wall)) {
             int playerX = (int) player.getX() + ((int) (player.getWidth() / 2));
             if (playerX > wall.getX()) {
-              fireEvent(new PlayerEvent(player, PlayerEvent.COLLISION_LEFTWALL, "Collided with left wall"));
+              fireEvent(new PlayerEvent(player, PlayerEvent.COLLISION_LEFTWALL,
+                  "Collided with left wall"));
               player.setLeftBlocked(true);
             } else if (playerX <= wall.getX()) {
-              fireEvent(new PlayerEvent(player, PlayerEvent.COLLISION_RIGHTWALL, "Collided with right wall"));
+              fireEvent(new PlayerEvent(player, PlayerEvent.COLLISION_RIGHTWALL,
+                  "Collided with right wall"));
               player.setRightBlocked(true);
             }
           }
@@ -102,7 +107,8 @@ public class Controller extends Observable {
         for (Rope rope : player.getRopes()) {
           if (bubble.intersects(rope)) {
             fireEvent(new BubbleEvent(bubble, BubbleEvent.COLLISION_ROPE, "Collided with rope"));
-            bubble.bubbleEvent(new BubbleEvent(bubble, BubbleEvent.COLLISION_ROPE, "Collided with rope"));
+            bubble.bubbleEvent(
+                new BubbleEvent(bubble, BubbleEvent.COLLISION_ROPE, "Collided with rope"));
             fireEvent(new PlayerEvent(player, PlayerEvent.POPBUBBLE, "Popped a bubble"));
             player.increaseScore(REWARD_BUBBLE);
             player.resetRope();
@@ -117,7 +123,7 @@ public class Controller extends Observable {
   }
 
   /**
-   * Lets the player lose a life
+   * Lets the player lose a life.
    * 
    * @param player
    *          should be the player who lost a life
@@ -156,14 +162,16 @@ public class Controller extends Observable {
       Model.getBubbles().remove(bubble);
     }
     oldBubbles.clear();
-    if (Model.getBubbles().isEmpty())
+    if (Model.getBubbles().isEmpty()) {
       endGame("You won the game!");
-    for (Bubble bubble : Model.getBubbles())
+    }
+    for (Bubble bubble : Model.getBubbles()) {
       bubble.move();
+    }
   }
 
   /**
-   * adds a bubble to the game
+   * Adds a bubble to the game.
    * 
    * @param bubble
    *          Bubble to add to the room
@@ -173,7 +181,7 @@ public class Controller extends Observable {
   }
 
   /**
-   * removes a bubble from the game
+   * Removes a bubble from the game.
    * 
    * @param bubble
    *          the bubble to remove
