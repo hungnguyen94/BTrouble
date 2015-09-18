@@ -7,8 +7,12 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 
 /**
  * Player class, containing all the data about the player.
@@ -27,10 +31,12 @@ public class Player extends Rectangle {
 
   private boolean leftBlocked;
   private boolean rightBlocked;
+  private boolean alive;
+  private boolean falling;
 
   // Gravity attributes
   private float vy;
-  private float ay = .5f;
+  private float ay = .2f;
 
   private static final int PLAYER_SPEED = 3;
   private static final int INITIAL_LIVES = 5;
@@ -54,6 +60,8 @@ public class Player extends Rectangle {
     vy = 2;
     rightBlocked = false;
     leftBlocked = false;
+    alive = true;
+    falling = true;
     try {
       playerIdle = new Image("Sprites/idle.png");
       walkSheet = new SpriteSheet("Sprites/player_spritesheet.png", 100, 175);
@@ -81,6 +89,22 @@ public class Player extends Rectangle {
           && this.rightBlocked == that.rightBlocked && this.leftBlocked == that.leftBlocked);
     }
     return false;
+  }
+
+  public boolean isAlive() {
+    return alive;
+  }
+
+  public void setAlive(boolean alive) {
+    this.alive = alive;
+  }
+
+  public boolean isFalling() {
+    return falling;
+  }
+
+  public void setFalling(boolean falling) {
+    this.falling = falling;
   }
 
   public ArrayList<Rope> getRopes() {
@@ -112,12 +136,40 @@ public class Player extends Rectangle {
   }
 
   /**
-   * Function which allows the player to fire.
+   * Add a rope to the player
+   *
    */
-  public void fire() {
-    if (ropes.size() <= 0) {
-      ropes.add(new Rope(getX() + (int) (getWidth() / 2), getY()));
+  public void moveRopes() {
+    for(Rope r: ropes) {
+      r.move();
     }
+  }
+
+  /**
+   * Remove collided ropes
+   */
+  public Collection<Shape> removeCollidedRopes() {
+    LinkedHashSet<Shape> collidedRopes = new LinkedHashSet<Shape>();
+    for(Rope r: ropes) {
+      if(r.isCollided()) {
+        collidedRopes.add(r);
+      }
+    }
+    ropes.removeAll(collidedRopes);
+    return collidedRopes;
+  }
+
+  /**
+   * Function which allows the player to fire.
+   * True if the rope succesfully fires
+   * @param r - rope to be added
+   */
+  public boolean fire(Rope r) {
+    if (ropes.size() <= 0) {
+      ropes.add(r);
+      return true;
+    }
+    return false;
   }
 
   /**
@@ -128,9 +180,7 @@ public class Player extends Rectangle {
    */
   public void draw() throws SlickException {
     // Render the sprite at an offset.
-
-    int playerX = (int) (x
-        - ((walkSheet.getWidth() / walkSheet.getHorizontalCount()) - getWidth()) / 2);
+    int playerX = (int) (x - ((walkSheet.getWidth() / walkSheet.getHorizontalCount()) - getWidth()) / 2);
     if (!idle) {
       walkAnimation.getCurrentFrame().getFlippedCopy(facingLeft, false).draw(playerX, y);
     } else {
@@ -144,46 +194,46 @@ public class Player extends Rectangle {
   /**
    * Moves the Player the provided amount of pixels to the right.
    *
-   * @param container
-   *          should be a GameContainer containing the game.
-   * @param delta
-   *          should be the amount of pixels the player should be moved to the
-   *          right.
    */
-  public void move(GameContainer container, int delta) {
-    Input input = container.getInput();
-    for (Rectangle floor : Model.getCurrentRoom().getFloors()) {
-      if (!this.intersects(floor)) {
-        y += vy;
-        this.vy += ay;
-      } else {
-        vy = 0;
-      }
-    }
+  public void move() {
+    if(isFalling())
+      fall();
+    else
+      vy = 0;
 
     idle = true;
-    if (input.isKeyDown(Input.KEY_LEFT) && !leftBlocked) {
+  }
+
+  /**
+   * Move the player to the left
+   * @param delta - speed
+   */
+  public void moveLeft(int delta) {
+    if(!leftBlocked) {
       rightBlocked = false;
       leftBlocked = false;
       idle = false;
       facingLeft = true;
       walkAnimation.update(delta);
-      // if(!stuck)
       x -= delta * 0.15f * PLAYER_SPEED;
-    } else if (input.isKeyDown(Input.KEY_RIGHT) && !rightBlocked) {
+    }
+  }
+
+  /**
+   * Move the player to the right
+   * @param delta - speed
+   */
+  public void moveRight(int delta) {
+    if (!rightBlocked) {
       rightBlocked = false;
       leftBlocked = false;
       idle = false;
       facingLeft = false;
       walkAnimation.update(delta);
-      // if(!stuck)
       x += delta * 0.15f * PLAYER_SPEED;
     }
-    if (input.isKeyPressed(Input.KEY_SPACE)) {
-      idle = true;
-      fire();
-    }
   }
+
 
   public void setLeftBlocked(boolean leftBlocked) {
     this.leftBlocked = leftBlocked;
@@ -211,19 +261,15 @@ public class Player extends Rectangle {
   public void moveTo(int xpos, int ypos) {
     this.x = xpos;
     this.y = ypos;
+    falling = true;
   }
 
-  /**
-   * Stop moving vertically
-   */
-  public void stopFalling() {
-      vy = 0;
-  }
   /**
    * Slowly fall down vertically
    */
   public void fall() {
-      vy = 2;
+    y += vy;
+    vy += ay;
   }
 
 }

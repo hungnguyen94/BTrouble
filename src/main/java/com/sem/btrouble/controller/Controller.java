@@ -11,8 +11,8 @@ import com.sem.btrouble.model.Room;
 import com.sem.btrouble.model.Rope;
 import com.sem.btrouble.model.Timers;
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Rectangle;
 
 import java.util.ArrayList;
 import java.util.Observable;
@@ -28,22 +28,28 @@ public class Controller extends Observable {
   private ArrayList<Bubble> newBubbles;
   private ArrayList<Bubble> oldBubbles;
   private GameContainer gc;
-  private Timers timers;
+  private CollisionHandler collisionHandler;
+  private static Timers timers;
 
   /**
    * Starts a new game by loading data into the room and adding the players.
    */
   public Controller(GameContainer container) throws SlickException {
     timers = new Timers(100);
-
+    this.gc = container;
     newBubbles = new ArrayList<Bubble>();
     oldBubbles = new ArrayList<Bubble>();
-    gc = container;
 
+    collisionHandler = new CollisionHandler();
     Model.init();
-    Model.addRoom(new Room());
-    Model.addPlayer(new Player(0, 0));
+    Room r = new Room();
+    Model.addRoom(r);
+    r.loadRoom();
+    Player p = new Player(0, 0);
+    Model.addPlayer(p);
+    collisionHandler.addCollidable(p);
     Model.restartRoom();
+    collisionHandler.addCollidable(r.getCollidables());
     fireEvent(new ControllerEvent(this, ControllerEvent.GAMESTART, "Game started"));
   }
 
@@ -54,9 +60,27 @@ public class Controller extends Observable {
   /**
    * Updates the model, should be done on request of the view.
    */
-  public void update() throws SlickException {
+  public void update(int delta) throws SlickException {
+    // Create a shallow clone to prevent changes to the list while iterating.
+    ArrayList<Bubble> bubblesClone = new ArrayList<Bubble>(Model.getCurrentRoom().getBubbles());
+    for(Bubble bubble: bubblesClone) {
+      collisionHandler.checkCollision(bubble);
+    }
 
-    for (Bubble bubble : Model.getBubbles()) {
+    for(Player player: Model.getPlayers()) {
+      if(!collisionHandler.checkCollision(player))
+        player.setFalling(true);
+      if (!player.isAlive())
+        loseLife(player);
+      for(Rope rope: player.getRopes()) {
+        collisionHandler.checkCollision(rope);
+      }
+    }
+
+
+
+
+/*    for (Bubble bubble : Model.getBubbles()) {
 
       for (Rectangle floor : Model.getCurrentRoom().getFloors()) {
         if (bubble.intersects(floor)) {
@@ -115,11 +139,36 @@ public class Controller extends Observable {
           }
         }
       }
-    }
+    }*/
 
+    for (Player p: Model.getPlayers()) {
+      p.move();
+    }
+    processInput(delta);
     // calculate movements
     updateRopes();
     updateBubble();
+  }
+
+  /**
+   * Move the player on key presses
+   * @param delta - milliseconds between frames
+   */
+  public void processInput(int delta) {
+    Input input = gc.getInput();
+    Player p1 = Model.getPlayers().get(0);
+
+    if (input.isKeyDown(Input.KEY_LEFT)) {
+      p1.moveLeft(delta);
+    } else if (input.isKeyDown(Input.KEY_RIGHT)) {
+      p1.moveRight(delta);
+    }
+
+    if (input.isKeyPressed(Input.KEY_SPACE)) {
+      Rope r = new Rope(p1.getX() + (int) (p1.getWidth() / 2), p1.getY());
+      if(p1.fire(r))
+        collisionHandler.addCollidable(r);
+    }
   }
 
   /**
@@ -134,14 +183,17 @@ public class Controller extends Observable {
     if (!player.hasLives()) {
       endGame("Game over...");
     } else {
+      collisionHandler.removeCollidable(Model.getCurrentRoom().getCollidables());
       restartRoom();
+      player.setAlive(true);
     }
   }
 
   private void restartRoom() {
     fireEvent(new ControllerEvent(this, ControllerEvent.RESTARTROOM, "Room restarted"));
     Model.restartRoom();
-    this.getTimers().restartTimer();
+    getTimers().restartTimer();
+    collisionHandler.addCollidable(Model.getCurrentRoom().getCollidables());
   }
 
   private void fireEvent(GameEvent gameEvent) {
@@ -154,20 +206,10 @@ public class Controller extends Observable {
    * calculates the new position of each bubble.
    */
   private void updateBubble() {
-    for (Bubble bubble : newBubbles) {
-      Model.getBubbles().add(bubble);
-    }
-    newBubbles.clear();
-    for (Bubble bubble : oldBubbles) {
-      Model.getBubbles().remove(bubble);
-    }
-    oldBubbles.clear();
-    if (Model.getBubbles().isEmpty()) {
+    if (!Model.getCurrentRoom().hasBubbles()) {
       endGame("You won the game!");
     }
-    for (Bubble bubble : Model.getBubbles()) {
-      bubble.move();
-    }
+    Model.getCurrentRoom().moveBubbles();
   }
 
   /**
@@ -177,7 +219,8 @@ public class Controller extends Observable {
    *          Bubble to add to the room
    */
   public void addBubble(Bubble bubble) {
-    newBubbles.add(bubble);
+    Model.getCurrentRoom().addBubble(bubble);
+    collisionHandler.addCollidable(bubble);
   }
 
   /**
@@ -187,7 +230,8 @@ public class Controller extends Observable {
    *          the bubble to remove
    */
   public void removeBubble(Bubble bubble) {
-    oldBubbles.add(bubble);
+    Model.getCurrentRoom().removeBubble(bubble);
+    collisionHandler.removeCollidable(bubble);
   }
 
   /**
@@ -196,13 +240,10 @@ public class Controller extends Observable {
    */
   private void updateRopes() throws SlickException {
     for (Player player : Model.getPlayers()) {
-      for (int i = 0; i < player.getRopes().size(); i++) {
-        player.getRopes().get(i).move();
-        if (player.getRopes().get(i).getY() <= 0) {
-          player.getRopes().remove(i);
-        }
-      }
+      player.moveRopes();
+      collisionHandler.removeCollidable(player.removeCollidedRopes());
     }
+
   }
 
   /**

@@ -1,11 +1,15 @@
 package com.sem.btrouble.controller;
 
-import com.sem.btrouble.event.PlayerEvent;
-import com.sem.btrouble.model.*;
-import com.sun.javafx.sg.prism.NGShape;
+import com.sem.btrouble.model.Bubble;
+import com.sem.btrouble.model.Floor;
+import com.sem.btrouble.model.Player;
+import com.sem.btrouble.model.Wall;
+import com.sem.btrouble.model.Rope;
 import org.newdawn.slick.geom.Shape;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+
 
 /**
  * Class to handle collisions
