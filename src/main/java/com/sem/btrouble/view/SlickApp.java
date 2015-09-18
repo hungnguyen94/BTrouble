@@ -183,7 +183,7 @@ public class SlickApp extends BasicGame {
     SpriteSheet livesImage = new SpriteSheet("Sprites/lives_spritesheet.jpg", 381, 171);
     int lives = Model.getPlayers().get(0).getLives();
     if (lives >= 0) {
-      graphics.drawImage(livesImage.getSprite(0, 0).getScaledCopy(109, 49), 225, 851);
+      livesImage.getSprite(lives, 0).draw(225, 851, (float) 0.286);
     }
   }
 

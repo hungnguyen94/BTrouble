@@ -87,6 +87,9 @@ public class Model {
    * preserves the players and their scores.
    */
   public static void restartRoom() {
+    for (Player p : players) {
+      p.resetRope();
+    }
     getCurrentRoom().reload();
     for (Player p : players) {
       p.moveTo(getCurrentRoom().getSpawnPositionX(), getCurrentRoom().getSpawnPositionY());
