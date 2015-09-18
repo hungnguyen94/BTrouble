@@ -124,6 +124,7 @@ public class Bubble extends Circle {
    * Splits the bubble in two with a smaller size of each.
    */
   public void split() {
+
     // reduce size
     size--;
     setRadius(size * GAME_SIZE);
@@ -160,9 +161,9 @@ public class Bubble extends Circle {
    * Invert the y direction on collision
    */
   public void bounceY() {
-      vy = -vy;
+      vy = -Math.abs(vy);
   }
-  
+
   /**
    * Invert the x direction on collision
    */
@@ -170,4 +171,13 @@ public class Bubble extends Circle {
       vx = -vx;
   }
 
+  @Override
+  public String toString() {
+    return "Bubble{" +
+            "size=" + size +
+            ", vx=" + vx +
+            ", vy=" + vy +
+            ", ay=" + ay +
+            '}';
+  }
 }

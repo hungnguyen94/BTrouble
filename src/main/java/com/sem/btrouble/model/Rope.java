@@ -9,6 +9,7 @@ public class Rope extends Rectangle {
   private int dy;
   private static final int INITIAL_ROPESPEED = 5;
   private Image sprite;
+  private boolean collided;
 
   /**
    * Constructs a new rope at the given position.
@@ -18,6 +19,7 @@ public class Rope extends Rectangle {
   public Rope(float xpos, float ypos) {
     super(xpos, ypos, 2f, 790f);
     this.dy = INITIAL_ROPESPEED;
+    collided = false;
     // sprite = new Image("Sprites/rope.png");
   }
 
@@ -41,7 +43,15 @@ public class Rope extends Rectangle {
   public int getDy() {
     return dy;
   }
-  
+
+  public boolean isCollided() {
+    return collided;
+  }
+
+  public void setCollided(boolean collided) {
+    this.collided = collided;
+  }
+
   /**
    * Draws the Rope on the screen.
    * 
@@ -57,8 +67,10 @@ public class Rope extends Rectangle {
    * Calculates the next position of the Rope.
    */
   public void move() {
-    setY(getY() - 2 * dy);
+    if(collided)
+      return;
 
+    setY(getY() - 2 * dy);
     if (getY() <= 0) {
       dy = 0;
     }

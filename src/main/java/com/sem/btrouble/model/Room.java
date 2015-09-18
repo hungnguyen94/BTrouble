@@ -1,8 +1,11 @@
 package com.sem.btrouble.model;
 
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Room contains all objects within the room (except for the players), and draws
@@ -13,16 +16,16 @@ public class Room {
   private int spawnPositionX;
   private int spawnPositionY;
 
-  private ArrayList<Rectangle> walls;
-  private ArrayList<Rectangle> floors;
+  private ArrayList<Wall> walls;
+  private ArrayList<Floor> floors;
   private ArrayList<Bubble> bubbles;
 
   /**
    * Initializes the room with the objects.
    */
   public Room() {
-    walls = new ArrayList<Rectangle>();
-    floors = new ArrayList<Rectangle>();
+    walls = new ArrayList<Wall>();
+    floors = new ArrayList<Floor>();
     bubbles = new ArrayList<Bubble>();
     spawnPositionX = 0;
     spawnPositionY = 0;
@@ -46,6 +49,18 @@ public class Room {
   }
 
   /**
+   * Return all collidable objects in a room
+   * @return - all collidable objects in a room
+   */
+  public Collection<Shape> getCollidables() {
+    ArrayList<Shape> allCollidables = new ArrayList<Shape>();
+    allCollidables.addAll(walls);
+    allCollidables.addAll(floors);
+    allCollidables.addAll(bubbles);
+    return allCollidables;
+  }
+
+  /**
    * Returns the collection of bubbles within this Room.
    * 
    * @return returns the collection of bubbles within this Room.
@@ -54,12 +69,44 @@ public class Room {
     return bubbles;
   }
 
-  public ArrayList<Rectangle> getWalls() {
+  public ArrayList<Wall> getWalls() {
     return walls;
   }
 
-  public ArrayList<Rectangle> getFloors() {
+  public ArrayList<Floor> getFloors() {
     return floors;
+  }
+
+  /**
+   * Add a bubble object to the room
+   * @param b - bubble to be added
+   */
+  public void addBubble(Bubble b) {
+    bubbles.add(b);
+  }
+
+  /**
+   * Remove a bubble object from the room
+   * @param b - bubble to be removed
+   */
+  public void removeBubble(Bubble b) {
+    bubbles.remove(b);
+  }
+
+  /**
+   * Return true if the room contains no bubbles
+   */
+  public boolean hasBubbles() {
+    return !bubbles.isEmpty();
+  }
+
+  /**
+   * Move all the bubbles in the room
+   */
+  public void moveBubbles() {
+    for (Bubble b: bubbles) {
+      b.move();
+    }
   }
 
   /**
@@ -84,6 +131,8 @@ public class Room {
    * Reloads the room, by calling the loadRoom method.
    */
   public void reload() {
+    //bubbles.clear();
+    //addBubble(new Bubble(3, Model.getRoomWidth() - 100, 100));
     loadRoom();
   }
 
