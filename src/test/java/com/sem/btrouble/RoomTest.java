@@ -1,16 +1,17 @@
 package com.sem.btrouble;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-
-import com.sem.btrouble.model.Bubble;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import com.sem.btrouble.model.Bubble;
 import com.sem.btrouble.model.Model;
 import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Room;
@@ -21,7 +22,6 @@ public class RoomTest {
 	@Mock private Player player;
 	@Mock private Bubble bubble;
 	private Room room;
-	private ArrayList<Bubble> bubbles;
 	
 	@Before
 	public void setUp() {

@@ -1,7 +1,5 @@
 package com.sem.btrouble.event;
 
-import javax.security.auth.Subject;
-
 public class ExceptionEvent extends GameEvent {
 
   public ExceptionEvent(Object subject, String message) {
@@ -10,7 +8,8 @@ public class ExceptionEvent extends GameEvent {
 
   @Override
   public String toString() {
-    return "### <EXCEPTION: " + this.getSubject().getClass().getName() + "; " + this.getMessage() + " >";
+    return "### <EXCEPTION: " + this.getSubject().getClass().getName() + "; " + this.getMessage()
+        + " >";
   }
 
 }

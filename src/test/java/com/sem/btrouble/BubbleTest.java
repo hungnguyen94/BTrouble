@@ -23,37 +23,37 @@ public class BubbleTest {
 	}
 	
 	@Test
-	public void getVX1Test() {
-		assertEquals(3f, bubble1.getVX(), 0);
+	public void getVx1Test() {
+		assertEquals(3f, bubble1.getVx(), 0);
 	}
 	
 	@Test
-	public void getVX2Test() {
-		assertEquals(2, bubble2.getVX(), 0);
+	public void getVx2Test() {
+		assertEquals(2, bubble2.getVx(), 0);
 	}
 	
 	@Test
-	public void getVY1Test() {
-		assertEquals(0, bubble1.getVY(), 0);
+	public void getVy1Test() {
+		assertEquals(0, bubble1.getVy(), 0);
 	}
 	
 	@Test
-	public void getVY2Test() {
-		assertEquals(2, bubble2.getVY(), 0);
+	public void getVy2Test() {
+		assertEquals(2, bubble2.getVy(), 0);
 	}
 	
 	@Test
 	public void collideFloorTest() {
-		double vy = bubble1.getVY();
+		double vy = bubble1.getVy();
 		bubble1.bubbleEvent(new BubbleEvent(bubble1, BubbleEvent.COLLISION_FLOOR, "Collided with floor"));
-		assertEquals(-vy, bubble1.getVY(), 0);
+		assertEquals(-vy, bubble1.getVy(), 0);
 	}
 	
 	@Test
 	public void collideWallTest() {
-		double vx = bubble1.getVX();
+		double vx = bubble1.getVx();
 		bubble1.bubbleEvent(new BubbleEvent(bubble1, BubbleEvent.COLLISION_WALL, "Collided with wall"));
-		assertEquals(-vx, bubble1.getVX(), 0);
+		assertEquals(-vx, bubble1.getVx(), 0);
 	}
 	
 	@Test
