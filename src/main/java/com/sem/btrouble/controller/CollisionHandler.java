@@ -1,20 +1,24 @@
 package com.sem.btrouble.controller;
 
+import com.sem.btrouble.event.PlayerEvent;
 import com.sem.btrouble.model.*;
+import com.sun.javafx.sg.prism.NGShape;
 import org.newdawn.slick.geom.Shape;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Class to handle collisions
  */
 public class CollisionHandler {
 
-    private List<Shape> collidables;
+    private Collection<Shape> collidables;
 
+    /**
+     * Use set to prevent duplicates.
+     */
     public CollisionHandler() {
-        collidables = new ArrayList<Shape>();
+        collidables = new HashSet<Shape>();
     }
 
     /**
@@ -26,6 +30,22 @@ public class CollisionHandler {
     }
 
     /**
+     * Add collidable objects to the list
+     * @param c - list of collidable objects
+     */
+    public void addCollidable(Collection<Shape> c) {
+        collidables.addAll(c);
+    }
+
+    /**
+     * Remove all collidable objects that are in c
+     * @param c - list of collidable objects
+     */
+    public void removeCollidable(Collection<Shape> c) {
+        collidables.removeAll(c);
+    }
+
+    /**
      * Remove a collidable object from the list
      * @param c - collidable object
      */
@@ -33,16 +53,28 @@ public class CollisionHandler {
         collidables.remove(c);
     }
 
+
+
     /**
      * Check if you collide with any object
      * @param self - object that is checking for collision
      */
-    public void checkCollision(Shape self) {
-        for(Shape collidee: collidables) {
+    public boolean checkCollision(Shape self) {
+        boolean collided = false;
+        collidables.remove(null);
+
+        if(self == null)
+            return collided;
+
+        // Iterate over a shallow cloned set, since you can't change the set while iterating.
+        HashSet<Shape> collidablesClone = new HashSet<Shape>(collidables);
+        for(Shape collidee: collidablesClone) {
             if(self.intersects(collidee) && self != collidee) {
+                collided = true;
                 onCollide(self, collidee);
             }
         }
+        return collided;
     }
 
     /**
@@ -71,7 +103,7 @@ public class CollisionHandler {
      */
     private void playerCollide(Player player, Shape collidee) {
         if(collidee instanceof Bubble) {
-            player.loseLife();
+            player.setAlive(false);
         }
 
         if(collidee instanceof Wall) {
@@ -85,10 +117,7 @@ public class CollisionHandler {
         }
 
         if(collidee instanceof Floor) {
-            Floor that = (Floor) collidee;
-            player.stopFalling();
-        } else {
-            player.fall();
+            player.setFalling(false);
         }
     }
 
@@ -99,11 +128,9 @@ public class CollisionHandler {
      */
     private void bubbleCollide(Bubble bubble, Shape collidee) {
         if(collidee instanceof Wall) {
-            Wall that = (Wall) collidee;
             bubble.bounceX();
         }
         if(collidee instanceof Floor) {
-            Floor that = (Floor) collidee;
             bubble.bounceY();
         }
         if(collidee instanceof Rope) {
@@ -120,9 +147,11 @@ public class CollisionHandler {
     private void ropeCollide(Rope rope, Shape collidee) {
         if(collidee instanceof Wall) {
             Wall that = (Wall) collidee;
+            rope.setCollided(true);
         }
         if(collidee instanceof Bubble) {
             Bubble that = (Bubble) collidee;
+            rope.setCollided(true);
         }
     }
 
