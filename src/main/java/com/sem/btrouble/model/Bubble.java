@@ -86,6 +86,20 @@ public class Bubble extends Circle {
         setCenterX(newX);
         setCenterY(newY);
 	}
+
+    /**
+     * Invert the y direction on collision
+     */
+    public void bounceY() {
+        vy = -vy;
+    }
+
+    /**
+     * Invert the x direction on collision
+     */
+    public void bounceX() {
+        vx = -vx;
+    }
 	
 	/**
 	 * Should be called when a Bubble collides.

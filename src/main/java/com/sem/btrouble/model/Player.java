@@ -178,4 +178,19 @@ public class Player extends Rectangle {
         this.x = x;
         this.y = y;
     }
+
+    /**
+     * Stop moving vertically
+     */
+    public void stopFalling() {
+        vy = 0;
+    }
+
+    /**
+     * Slowly fall down vertically
+     */
+    public void fall() {
+        vy = 2;
+    }
+
 }
