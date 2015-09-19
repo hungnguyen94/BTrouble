@@ -9,10 +9,8 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Shape;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 
 
 /**
@@ -22,10 +20,10 @@ public class CollisionHandler {
 
     private Collection<Shape> collidables;
 
-    public Collection<Shape> getCollidables() {
-        return collidables;
-    }
-
+    /**
+     * Draw hitboxes of all objects in collidables
+     * @param g - graphics handler from Slick2D
+     */
     public void hitboxDraw(Graphics g) {
         for(Shape s: collidables) {
             g.setColor(Color.red);
@@ -174,6 +172,11 @@ public class CollisionHandler {
             Rope that = (Rope) collidee;
             bubble.split();
             that.setCollided(true);
+        }
+        if(collidee instanceof Bubble) {
+            Bubble that = (Bubble) collidee;
+            bubble.bounceX();
+            //that.bounceX();
         }
     }
 
