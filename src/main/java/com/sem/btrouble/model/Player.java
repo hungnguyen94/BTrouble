@@ -137,7 +137,6 @@ public class Player extends Rectangle {
 
   /**
    * Add a rope to the player
-   *
    */
   public void moveRopes() {
     for(Rope r: ropes) {

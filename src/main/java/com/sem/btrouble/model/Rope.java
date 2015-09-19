@@ -17,7 +17,7 @@ public class Rope extends Rectangle {
    * @param ypos should be a float representing the vertical position of the rope. 
    */
   public Rope(float xpos, float ypos) {
-    super(xpos, ypos, 2f, 790f);
+    super(xpos, ypos, 2f, 2f);
     this.dy = INITIAL_ROPESPEED;
     collided = false;
     // sprite = new Image("Sprites/rope.png");
@@ -69,10 +69,11 @@ public class Rope extends Rectangle {
   public void move() {
     if(collided)
       return;
-
-    setY(getY() - 2 * dy);
+    grow(0, (float)(1.5*dy));
+    y -= 1.5*dy;
     if (getY() <= 0) {
       dy = 0;
+      setCollided(true);
     }
   }
 }

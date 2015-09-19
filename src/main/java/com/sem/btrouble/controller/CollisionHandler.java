@@ -5,10 +5,14 @@ import com.sem.btrouble.model.Floor;
 import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Wall;
 import com.sem.btrouble.model.Rope;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Shape;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 
 
 /**
@@ -17,6 +21,17 @@ import java.util.HashSet;
 public class CollisionHandler {
 
     private Collection<Shape> collidables;
+
+    public Collection<Shape> getCollidables() {
+        return collidables;
+    }
+
+    public void hitboxDraw(Graphics g) {
+        for(Shape s: collidables) {
+            g.setColor(Color.red);
+            g.drawRect(s.getX(), s.getY(), s.getWidth(), s.getHeight());
+        }
+    }
 
     /**
      * Use set to prevent duplicates.
@@ -34,18 +49,18 @@ public class CollisionHandler {
     }
 
     /**
-     * Add collidable objects to the list
-     * @param c - list of collidable objects
+     * Add collection of collidable objects to the list
+     * @param c - collection of collidable objects
      */
-    public void addCollidable(Collection<Shape> c) {
+    public void addCollidable(Collection<? extends Shape> c) {
         collidables.addAll(c);
     }
 
     /**
      * Remove all collidable objects that are in c
-     * @param c - list of collidable objects
+     * @param c - collection of collidable objects
      */
-    public void removeCollidable(Collection<Shape> c) {
+    public void removeCollidable(Collection<? extends Shape> c) {
         collidables.removeAll(c);
     }
 
@@ -56,7 +71,6 @@ public class CollisionHandler {
     public void removeCollidable(Shape c) {
         collidables.remove(c);
     }
-
 
 
     /**
@@ -82,6 +96,25 @@ public class CollisionHandler {
     }
 
     /**
+     * Check collision for every shapes in the collection
+     * @param colliders - collection of shapes
+     * @return - true if collision
+     */
+    public boolean checkCollision(Collection<? extends Shape> colliders) {
+        boolean collided = false;
+        collidables.remove(null);
+
+        // Iterate over a shallow cloned set, since you can't change the set while iterating.
+        Collection<Shape> collidersClone = new HashSet<Shape>(colliders);
+        for(Shape self: collidersClone) {
+            if(checkCollision(self)) {
+                collided = true;
+            }
+        }
+        return collided;
+    }
+
+    /**
      * Actions on a collide
      * @param collider - the collider
      * @param collidee - the object being collided in
@@ -92,7 +125,7 @@ public class CollisionHandler {
         }
 
         if(collider instanceof Bubble) {
-            bubbleCollide((Bubble) collider, collidee);
+            bubbleCollide((Bubble)collider, collidee);
         }
 
         if(collider instanceof Rope) {
@@ -140,6 +173,7 @@ public class CollisionHandler {
         if(collidee instanceof Rope) {
             Rope that = (Rope) collidee;
             bubble.split();
+            that.setCollided(true);
         }
     }
 
@@ -153,10 +187,15 @@ public class CollisionHandler {
             Wall that = (Wall) collidee;
             rope.setCollided(true);
         }
+
+        if(collidee instanceof Floor) {
+            Floor that = (Floor) collidee;
+            rope.setCollided(true);
+        }
+
         if(collidee instanceof Bubble) {
             Bubble that = (Bubble) collidee;
             rope.setCollided(true);
         }
     }
-
 }

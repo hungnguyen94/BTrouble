@@ -1,5 +1,8 @@
 package com.sem.btrouble.model;
 
+import org.newdawn.slick.Color;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
@@ -65,7 +68,7 @@ public class Room {
    * 
    * @return returns the collection of bubbles within this Room.
    */
-  public ArrayList<Bubble> getBubbles() {
+  public Collection<Bubble> getBubbles() {
     return bubbles;
   }
 
@@ -143,12 +146,32 @@ public class Room {
     spawnPositionX = 50;
     spawnPositionY = 350;
     walls.clear();
-    walls.add(new Wall(0, 0, 1, 800));
-    walls.add(new Wall(1123, 0, 1, 800));
+    walls.add(new Wall(0, 0, 2, 800));
+    walls.add(new Wall(1123, 0, 2, 800));
     floors.clear();
-    floors.add(new Floor(0, 794, 1123, 1));
+    floors.add(new Floor(0, 794, 1123, 2));
+    floors.add(new Floor(0, 0, 1123, 2));
     bubbles.clear();
     bubbles.add(new Bubble(3, Model.getRoomWidth() - 100, 100));
+  }
+
+  /**
+   * Debug draw borders
+   * @param g - graphics
+   */
+  public void draw(Graphics g) {
+    for(Wall w: walls) {
+      g.setColor(Color.blue);
+      g.drawRect(w.getX(), w.getY(), w.getWidth(), w.getHeight());
+    }
+    for(Floor f: floors) {
+      g.setColor(Color.green);
+      g.drawRect(f.getX(), f.getY(), f.getWidth(), f.getHeight());
+    }
+    for(Bubble b: bubbles) {
+      g.setColor(Color.yellow);
+      g.drawRect(b.getX(), b.getY(), b.getWidth(), b.getHeight());
+    }
   }
 }
 

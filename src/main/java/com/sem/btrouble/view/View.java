@@ -1,14 +1,13 @@
 package com.sem.btrouble.view;
 
-import com.sem.btrouble.model.Bubble;
-import com.sem.btrouble.model.Model;
-import com.sem.btrouble.model.Player;
-import com.sem.btrouble.model.Timers;
+import com.sem.btrouble.SlickApp;
+import com.sem.btrouble.model.*;
 import org.newdawn.slick.*;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.util.ResourceLoader;
 
 import java.io.InputStream;
@@ -54,12 +53,13 @@ public class View {
     public void draw(Graphics graphics) throws SlickException {
         drawBackground(graphics);
         drawCountDown(graphics);
-        drawPlayers();
+        drawPlayers(graphics);
         drawBubbles(graphics);
         drawTimer(graphics);
 
         drawLives();
         drawScore(graphics);
+        drawDebug(graphics);
     }
 
     /**
@@ -86,7 +86,7 @@ public class View {
     /**
      * Draw players on screen.
      */
-    private void drawPlayers() throws SlickException {
+    private void drawPlayers(Graphics g) throws SlickException {
         for (Player player : Model.getPlayers()) {
             player.draw();
         }
@@ -97,11 +97,12 @@ public class View {
      * @param graphics Graphics object from Slick2D
      */
     private void drawBubbles(Graphics graphics) {
-        for (Bubble bubble : Model.getBubbles()) {
+        for (Bubble bubble : Model.getCurrentRoom().getBubbles()) {
             graphics.setAntiAlias(true);
             graphics.setColor(Color.black);
             graphics.fill(bubble);
             graphics.draw(bubble);
+            graphics.setColor(Color.red);
         }
     }
 
@@ -146,4 +147,10 @@ public class View {
         graphics.drawString(score, 891 - font.getWidth(score), 851);
     }
 
+    /**
+     * Draw hitboxes for testing.
+     */
+    private void drawDebug(Graphics g) {
+        SlickApp.getController().drawCollidables(g);
+    }
 }

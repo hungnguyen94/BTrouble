@@ -11,10 +11,14 @@ import com.sem.btrouble.model.Room;
 import com.sem.btrouble.model.Rope;
 import com.sem.btrouble.model.Timers;
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Shape;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Observable;
 
 
@@ -57,27 +61,37 @@ public class Controller extends Observable {
     return timers;
   }
 
+  public void drawCollidables(Graphics g) {
+    collisionHandler.hitboxDraw(g);
+  }
   /**
    * Updates the model, should be done on request of the view.
    */
   public void update(int delta) throws SlickException {
     // Create a shallow clone to prevent changes to the list while iterating.
-    ArrayList<Bubble> bubblesClone = new ArrayList<Bubble>(Model.getCurrentRoom().getBubbles());
-    for(Bubble bubble: bubblesClone) {
-      collisionHandler.checkCollision(bubble);
-    }
+    //ArrayList<Bubble> bubblesClone = new ArrayList<Bubble>(Model.getCurrentRoom().getBubbles());
+//    for(Bubble bubble: Model.getCurrentRoom().getBubbles()) {
+//      collisionHandler.checkCollision(bubble);
+//    }
+    collisionHandler.checkCollision(Model.getCurrentRoom().getBubbles());
 
     for(Player player: Model.getPlayers()) {
-      if(!collisionHandler.checkCollision(player))
+      if(!collisionHandler.checkCollision(player)) {
         player.setFalling(true);
-      if (!player.isAlive())
-        loseLife(player);
-      for(Rope rope: player.getRopes()) {
-        collisionHandler.checkCollision(rope);
       }
+
+      if (!player.isAlive()) {
+        loseLife(player);
+      }
+      collisionHandler.checkCollision(player.getRopes());
     }
 
-
+    // Check if timer has run out.
+    if (this.getTimers().getLevelTimeLeft() <= 0) {
+      fireEvent(new ControllerEvent(this, ControllerEvent.OUTOFTIME, "Out of time"));
+      for(Player p: Model.getPlayers())
+        loseLife(p);
+    }
 
 
 /*    for (Bubble bubble : Model.getBubbles()) {
@@ -165,7 +179,7 @@ public class Controller extends Observable {
     }
 
     if (input.isKeyPressed(Input.KEY_SPACE)) {
-      Rope r = new Rope(p1.getX() + (int) (p1.getWidth() / 2), p1.getY());
+      Rope r = new Rope(p1.getX() + (int) (p1.getWidth() / 2), (float)(p1.getY() + p1.getHeight()*0.9));
       if(p1.fire(r))
         collisionHandler.addCollidable(r);
     }
@@ -184,6 +198,7 @@ public class Controller extends Observable {
       endGame("Game over...");
     } else {
       collisionHandler.removeCollidable(Model.getCurrentRoom().getCollidables());
+      collisionHandler.removeCollidable(Model.getPlayers().get(0).getRopes());
       restartRoom();
       player.setAlive(true);
     }
