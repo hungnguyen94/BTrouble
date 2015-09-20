@@ -36,7 +36,7 @@ public class Player extends Rectangle {
 
   // Gravity attributes
   private float vy;
-  private float ay = .2f;
+  private float ay = .3f;
 
   private static final int PLAYER_SPEED = 3;
   private static final int INITIAL_LIVES = 5;

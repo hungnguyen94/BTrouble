@@ -78,7 +78,7 @@ public class View {
      */
     private void drawCountDown(Graphics graphics) {
         if (timers.getCountdownRunning()) {
-            graphics.drawString("Game starts in " + (timers.getCountdownTimeLeft() / 1000) + " seconds",
+            graphics.drawString("Game starts in " + (timers.getCountdownTimeLeft() / 1000 + 1) + " seconds",
                     gc.getWidth() / 2 - 200, gc.getHeight() / 2 - 100);
         }
     }
