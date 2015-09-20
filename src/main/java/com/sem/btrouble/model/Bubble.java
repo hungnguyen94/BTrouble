@@ -43,7 +43,6 @@ public class Bubble extends Circle {
     this.size = size;
     this.ay = GRAVITY;
     this.vx = INITIAL_HORIZONTAL_SPEED;
-    this.vy = 5f;
   }
 
   /**
