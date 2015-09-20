@@ -167,14 +167,21 @@ public class CollisionHandler {
      */
     private void bubbleCollide(Bubble bubble, Shape collidee) {
         if(collidee instanceof Wall) {
-            bubble.bounceX();
+            switch(checkSideX(bubble, collidee)) {
+                case sideLeft:
+                    bubble.bounceX(true);
+                    break;
+                case sideRight:
+                    bubble.bounceX(false);
+                    break;
+            }
         }
         if(collidee instanceof Floor) {
             Floor that = (Floor) collidee;
             // If floor is under bounce up with constant speed, else bounce normally
-            switch(checkSideY(bubble, that)) {
+            switch(checkSideY(bubble, collidee)) {
                 case sideTop:
-                    bubble.bounceYfloor();
+                    bubble.bounceYFloor();
                     break;
                 case sideBottom:
                     bubble.bounceY(false);

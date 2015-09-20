@@ -53,7 +53,7 @@ public class Player extends Rectangle {
    *          y value for the Player from the sprite class.
    */
   public Player(float xpos, float ypos) {
-    super(xpos, ypos, 60f, 175f);
+    super(xpos, ypos, 60f, 170f);
     ropes = new ArrayList<Rope>();
     lives = INITIAL_LIVES;
     score = INITIAL_SCORE;
@@ -181,9 +181,9 @@ public class Player extends Rectangle {
     // Render the sprite at an offset.
     int playerX = (int) (x - ((walkSheet.getWidth() / walkSheet.getHorizontalCount()) - getWidth()) / 2);
     if (!idle) {
-      walkAnimation.getCurrentFrame().getFlippedCopy(facingLeft, false).draw(playerX, y);
+      walkAnimation.getCurrentFrame().getFlippedCopy(facingLeft, false).draw(playerX, y-15);
     } else {
-      playerIdle.getFlippedCopy(facingLeft, false).draw(playerX, y);
+      playerIdle.getFlippedCopy(facingLeft, false).draw(playerX, y-15);
     }
     for (int i = 0; i < ropes.size(); i++) {
       ropes.get(i).draw();

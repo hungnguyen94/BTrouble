@@ -125,15 +125,15 @@ public class Bubble extends Circle {
    * Splits the bubble in two with a smaller size of each.
    */
   public void split() {
-
     // reduce size
     size--;
     setRadius(size * GAME_SIZE);
     if (size > 0) {
       // give upward speed
-      vy = -ay * HIT_SPEED_FACTOR;
+      vy = -Math.abs(ay) * HIT_SPEED_FACTOR;
+      vx = Math.abs(vx);
       // add an extra bubble to the game
-      Bubble newBubble = new Bubble(size, x, y, -vx, vy);
+      Bubble newBubble = new Bubble(size, x - (getWidth()/2), y, -vx, vy);
       SlickApp.getController().addBubble(newBubble);
     } else {
       SlickApp.getController().removeBubble(this);
@@ -162,7 +162,7 @@ public class Bubble extends Circle {
    * Invert the y direction on collision
    */
   public void bounceY() {
-      vy = -Math.abs(vy);
+      vy = -vy;
   }
 
   /**
@@ -195,9 +195,9 @@ public class Bubble extends Circle {
   }
 
   /**
-   * bounce to left direction on collision
+   * bounce up on collision with floor
    */
-  public void bounceYfloor() {
+  public void bounceYFloor() {
     vy = -Math.abs(11 + 2*(size));
   }
 
