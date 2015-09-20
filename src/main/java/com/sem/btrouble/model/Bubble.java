@@ -43,6 +43,7 @@ public class Bubble extends Circle {
     this.size = size;
     this.ay = GRAVITY;
     this.vx = INITIAL_HORIZONTAL_SPEED;
+    this.vy = 5f;
   }
 
   /**
@@ -132,7 +133,7 @@ public class Bubble extends Circle {
       // give upward speed
       vy = -ay * HIT_SPEED_FACTOR;
       // add an extra bubble to the game
-      Bubble newBubble = new Bubble(size, x-(getWidth()/2), y, -vx, vy);
+      Bubble newBubble = new Bubble(size, x, y, -vx, vy);
       SlickApp.getController().addBubble(newBubble);
     } else {
       SlickApp.getController().removeBubble(this);
@@ -168,13 +169,44 @@ public class Bubble extends Circle {
    * Invert the x direction on collision
    */
   public void bounceX() {
-      vx = -vx;
+    vx = -vx;
+  }
+
+  /**
+   * bounce to left or right direction on collision
+   * @param left - bounce to the left
+   */
+  public void bounceX(boolean left) {
+    if(left)
+      vx = -Math.abs(vx);
+    else
+      vx = Math.abs(vx);
+  }
+
+  /**
+   * bounce to up or down direction on collision
+   * @param up - bounce up
+   */
+  public void bounceY(boolean up) {
+    if(up)
+      vy = -Math.abs(vy);
+    else
+      vy = Math.abs(vy);
+  }
+
+  /**
+   * bounce to left direction on collision
+   */
+  public void bounceYfloor() {
+    vy = -Math.abs(11 + 2*(size));
   }
 
   @Override
   public String toString() {
     return "Bubble{" +
             "size=" + size +
+            ", x=" + x +
+            ", y=" + y +
             ", vx=" + vx +
             ", vy=" + vy +
             ", ay=" + ay +

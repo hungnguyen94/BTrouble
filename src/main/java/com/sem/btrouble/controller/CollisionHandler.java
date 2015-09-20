@@ -19,6 +19,10 @@ import java.util.HashSet;
 public class CollisionHandler {
 
     private Collection<Shape> collidables;
+    private final int sideLeft = 1;
+    private final int sideRight = 2;
+    private final int sideTop = 3;
+    private final int sideBottom = 4;
 
     /**
      * Draw hitboxes of all objects in collidables
@@ -166,7 +170,16 @@ public class CollisionHandler {
             bubble.bounceX();
         }
         if(collidee instanceof Floor) {
-            bubble.bounceY();
+            Floor that = (Floor) collidee;
+            // If floor is under bounce up with constant speed, else bounce normally
+            switch(checkSideY(bubble, that)) {
+                case sideTop:
+                    bubble.bounceYfloor();
+                    break;
+                case sideBottom:
+                    bubble.bounceY(false);
+                    break;
+            }
         }
         if(collidee instanceof Rope) {
             Rope that = (Rope) collidee;
@@ -175,8 +188,26 @@ public class CollisionHandler {
         }
         if(collidee instanceof Bubble) {
             Bubble that = (Bubble) collidee;
-            bubble.bounceX();
-            //that.bounceX();
+            switch(checkSideX(bubble, collidee)) {
+                case sideLeft:
+                    bubble.bounceX(true);
+                    that.bounceX(false);
+                    break;
+                case sideRight:
+                    bubble.bounceX(false);
+                    that.bounceX(true);
+                    break;
+            }
+            switch(checkSideY(bubble, collidee)) {
+                case sideTop:
+                    bubble.bounceY(true);
+                    that.bounceY(false);
+                    break;
+                case sideBottom:
+                    bubble.bounceY(true);
+                    that.bounceY(false);
+                    break;
+            }
         }
     }
 
@@ -200,5 +231,41 @@ public class CollisionHandler {
             Bubble that = (Bubble) collidee;
             rope.setCollided(true);
         }
+    }
+
+    /**
+     * Return which side the collision occurs for X-axis
+     * @param collider - mover
+     * @param collidee - colliding shape
+     * @return - integer representing the side
+     */
+    private int checkSideX(Shape collider, Shape collidee) {
+        // Collide on right side
+        if(collider.getCenterX() > collidee.getCenterX()) {
+            return sideRight;
+        }
+        // Collide on left side
+        if(collider.getCenterX() < collidee.getCenterX()) {
+            return sideLeft;
+        }
+        return 0;
+    }
+
+    /**
+     * Return which side the collision occurs for Y-axis
+     * @param collider - mover
+     * @param collidee - colliding shape
+     * @return - integer representing the side
+     */
+    private int checkSideY(Shape collider, Shape collidee) {
+        // Collide on top side
+        if(collider.getCenterY() < collidee.getCenterY()) {
+            return sideTop;
+        }
+        // Collide on bottom side
+        if(collider.getCenterY() > collidee.getCenterY()) {
+            return sideBottom;
+        }
+        return 0;
     }
 }
