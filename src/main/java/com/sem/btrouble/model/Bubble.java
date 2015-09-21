@@ -132,8 +132,11 @@ public class Bubble extends Circle {
       vy = -Math.abs(ay) * HIT_SPEED_FACTOR;
       vx = Math.abs(vx);
       // add an extra bubble to the game
-      Bubble newBubble = new Bubble(size, x - (getWidth()/2), y, -vx, vy);
-      SlickApp.getController().addBubble(newBubble);
+      Bubble leftBubble = new Bubble(size, x, y, -vx, vy);
+      Bubble rightBubble = new Bubble(size, x, y, vx, vy);
+      SlickApp.getController().addBubble(leftBubble);
+      SlickApp.getController().addBubble(rightBubble);
+      SlickApp.getController().removeBubble(this);
     } else {
       SlickApp.getController().removeBubble(this);
     }

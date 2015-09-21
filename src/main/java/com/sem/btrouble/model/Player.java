@@ -53,7 +53,7 @@ public class Player extends Rectangle {
    *          y value for the Player from the sprite class.
    */
   public Player(float xpos, float ypos) {
-    super(xpos, ypos, 60f, 170f);
+    super(xpos, ypos, 50f, 160f);
     ropes = new ArrayList<Rope>();
     lives = INITIAL_LIVES;
     score = INITIAL_SCORE;
@@ -164,7 +164,7 @@ public class Player extends Rectangle {
    * @param r - rope to be added
    */
   public boolean fire(Rope r) {
-    if (ropes.size() <= 0) {
+    if (ropes.size() <= 0){
       ropes.add(r);
       return true;
     }

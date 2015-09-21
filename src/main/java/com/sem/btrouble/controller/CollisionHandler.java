@@ -81,6 +81,7 @@ public class CollisionHandler {
      */
     public boolean checkCollision(Shape self) {
         boolean collided = false;
+        // Removes all null references. It's an hashset, so duplicates aren't possible.
         collidables.remove(null);
 
         if(self == null)
@@ -104,6 +105,7 @@ public class CollisionHandler {
      */
     public boolean checkCollision(Collection<? extends Shape> colliders) {
         boolean collided = false;
+        // Removes all null references. It's an hashset, so duplicates aren't possible.
         collidables.remove(null);
 
         // Iterate over a shallow cloned set, since you can't change the set while iterating.
@@ -122,7 +124,7 @@ public class CollisionHandler {
      * @param collidee - the object being collided in
      */
     private void onCollide(Shape collider, Shape collidee) {
-        if(collider instanceof Player) {
+        if (collider instanceof Player) {
             playerCollide((Player) collider, collidee);
         }
 
@@ -147,11 +149,13 @@ public class CollisionHandler {
 
         if(collidee instanceof Wall) {
             Wall that = (Wall) collidee;
-            int playerX = (int) player.getX() + ((int) (player.getWidth() / 2));
-            if (playerX > that.getX()) {
-                player.setLeftBlocked(true);
-            } else if (playerX <= that.getX()) {
-                player.setRightBlocked(true);
+            switch(checkSideX(player, collidee)) {
+                case sideLeft:
+                    player.setRightBlocked(true);
+                    break;
+                case sideRight:
+                    player.setLeftBlocked(true);
+                    break;
             }
         }
 
@@ -211,8 +215,8 @@ public class CollisionHandler {
                     that.bounceY(false);
                     break;
                 case sideBottom:
-                    bubble.bounceY(true);
-                    that.bounceY(false);
+                    bubble.bounceY(false);
+                    that.bounceY(true);
                     break;
             }
         }
