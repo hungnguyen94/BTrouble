@@ -141,8 +141,8 @@ public class Room {
    * Method to load a room with default hard coded data.
    */
   public void loadRoom() {
-    spawnPositionX = 50;
-    spawnPositionY = 350;
+    spawnPositionX = Model.getRoomWidth()/2;
+    spawnPositionY = 400;
     walls.clear();
     walls.add(new Wall(0, 0, 20, 800));
     walls.add(new Wall(1103, 0, 20, 800));
@@ -150,8 +150,7 @@ public class Room {
     floors.add(new Floor(0, 794, 1123, 50));
     floors.add(new Floor(0, 0, 1123, 50));
     bubbles.clear();
-    bubbles.add(new Bubble(3, Model.getRoomWidth() - 100, 100));
-    bubbles.add(new Bubble(3, Model.getRoomWidth() - 300, 200));
+    bubbles.add(new Bubble(5, Model.getRoomWidth()/2, 200));
   }
 }
 
