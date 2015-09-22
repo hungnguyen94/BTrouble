@@ -1,5 +1,6 @@
 package com.sem.btrouble.controller;
 
+import com.sem.btrouble.SlickApp;
 import com.sem.btrouble.event.BubbleEvent;
 import com.sem.btrouble.event.ControllerEvent;
 import com.sem.btrouble.event.GameEvent;
@@ -41,6 +42,16 @@ public class Controller extends GameObservable {
     this.gc = container;
 
     collisionHandler = new CollisionHandler();
+
+    collisionHandler.addObserver(new Observer() {
+
+      public void update(Observable o, Object arg) {
+        if (arg instanceof GameEvent) {
+          SlickApp.getController().fireEvent((GameEvent) arg);
+        }
+      }
+    });
+
     Model.init();
     Room r = new Room();
     Model.addRoom(r);
@@ -64,12 +75,6 @@ public class Controller extends GameObservable {
    * Updates the model, should be done on request of the view.
    */
   public void update(int delta) throws SlickException {
-    // Create a shallow clone to prevent changes to the list while iterating.
-    // ArrayList<Bubble> bubblesClone = new
-    // ArrayList<Bubble>(Model.getCurrentRoom().getBubbles());
-    // for(Bubble bubble: Model.getCurrentRoom().getBubbles()) {
-    // collisionHandler.checkCollision(bubble);
-    // }
     collisionHandler.checkCollision(Model.getCurrentRoom().getBubbles());
 
     for (Player player : Model.getPlayers()) {
@@ -83,16 +88,6 @@ public class Controller extends GameObservable {
       collisionHandler.checkCollision(player.getRopes());
     }
 
-    collisionHandler.addObserver(new Observer() {
-
-      public void update(Observable o, Object arg) {
-        if (arg instanceof GameEvent) {
-          fireEvent((GameEvent) arg);
-        }
-
-      }
-
-    });
 
     // Check if timer has run out.
     if (this.getTimers().getLevelTimeLeft() <= 0) {

@@ -179,6 +179,7 @@ public class CollisionHandler extends GameObservable {
     private void playerCollide(Player player, Shape collidee) {
         if (collidee instanceof Bubble) {
             fireEvent(new PlayerEvent(player, PlayerEvent.COLLISION_BUBBLE, "Collided with bubble"));
+            System.out.println("DOOD");
             player.setAlive(false);
         }
 
