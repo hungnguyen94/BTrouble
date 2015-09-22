@@ -77,6 +77,12 @@ public class CollisionHandler {
         collidables.remove(c);
     }
 
+    /**
+     * Get size of list of collidable objects
+     */
+    public int getSize() {
+        return collidables.size();
+    }
 
     /**
      * Check if you collide with any object
@@ -93,7 +99,7 @@ public class CollisionHandler {
         // Iterate over a shallow cloned set, since you can't change the set while iterating.
         HashSet<Shape> collidablesClone = new HashSet<Shape>(collidables);
         for(Shape collidee: collidablesClone) {
-            if(self.intersects(collidee) && self != collidee) {
+            if(self != collidee && self.intersects(collidee)) {
                 collided = true;
                 onCollide(self, collidee);
             }
