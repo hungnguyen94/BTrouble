@@ -1,5 +1,7 @@
 package com.sem.btrouble;
 
+import java.io.IOException;
+
 import com.sem.btrouble.controller.Controller;
 import com.sem.btrouble.event.ExceptionEvent;
 import com.sem.btrouble.model.Model;
@@ -15,6 +17,11 @@ import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
+import org.newdawn.slick.openal.Audio;
+import org.newdawn.slick.openal.AudioLoader;
+import org.newdawn.slick.openal.SoundStore;
+import org.newdawn.slick.util.ResourceLoader;
 
 /**
  * Application running the game.
@@ -26,6 +33,7 @@ public class SlickApp extends BasicGame {
   private static View view;
   private GameObserver observer;
   private SoundObserver soundObserver;
+  private Audio wavEffect;
 
   public SlickApp(String gamename) {
     super(gamename);
@@ -51,6 +59,14 @@ public class SlickApp extends BasicGame {
     timers.restartTimer();
 
     view = new View(gc, timers);
+    
+    try {
+	    wavEffect = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("Bubble_Trouble_Theme.wav"));
+        } catch (IOException e) {
+	    e.printStackTrace();
+	}
+	wavEffect.playAsSoundEffect(1.0f, 1.0f, true);
+	SoundStore.get().poll(0);
   }
 
   /**
