@@ -7,7 +7,9 @@ import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Timers;
 import com.sem.btrouble.tools.GameObserver;
 import com.sem.btrouble.tools.Logger;
+import com.sem.btrouble.tools.SoundObserver;
 import com.sem.btrouble.view.View;
+
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -23,6 +25,7 @@ public class SlickApp extends BasicGame {
   private static Controller controller;
   private static View view;
   private GameObserver observer;
+  private SoundObserver soundObserver;
 
   public SlickApp(String gamename) {
     super(gamename);
@@ -39,7 +42,9 @@ public class SlickApp extends BasicGame {
   public void init(GameContainer gc) throws SlickException {
     controller = new Controller(gc);
     observer = new GameObserver(true);
+    soundObserver = new SoundObserver();
 
+    controller.addObserver(soundObserver);
     controller.addObserver(observer);
 
     timers = controller.getTimers();

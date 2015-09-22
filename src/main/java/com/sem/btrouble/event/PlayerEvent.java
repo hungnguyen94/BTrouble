@@ -10,6 +10,7 @@ public class PlayerEvent extends GameEvent {
   public static final int POPBUBBLE = 3;
   public static final int LIFE_LOST = 4;
   public static final int LIFE_GAINED = 5;
+  public static final int SHOOT = 6; //TODO: Has to be fired.
   
   public PlayerEvent(Object subject, int id, String message) {
     super(subject, id, message);
