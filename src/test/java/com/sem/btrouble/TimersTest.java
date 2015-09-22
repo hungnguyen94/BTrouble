@@ -11,12 +11,12 @@ public class TimersTest {
 
 	@Test
 	public void getLevelTimeLeftTest() {
-		assertEquals(timer.getLevelTimeLeft(), 300*100);
+		assertEquals(timer.getLevelTimeLeft(), 500*100);
 	}
 	
 	@Test
 	public void getLevelMaxDuration() {
-		assertEquals(timer.getLevelMaxDuration(), 300*100);
+		assertEquals(timer.getLevelMaxDuration(), 500*100);
 	}
 	
 	@Test
