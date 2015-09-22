@@ -166,4 +166,19 @@ public class BubbleTest {
 	public void toStringTest() {
 		assertEquals("Bubble{size=1, x=-9.0, y=-9.0, vx=3.0, vy=0.0, ay=0.4}", bubble1.toString());
 	}
+	
+	@Test
+	public void moveXTest() {
+		double x = bubble1.getCenterX() + bubble1.getVx();
+		bubble1.move();
+		assertEquals(x-10, bubble1.getX(), 0);
+	}
+	
+	@Test
+	public void moveYTest() {
+		double y = bubble1.getCenterY() + bubble1.getVy() + .4f;
+		bubble1.move();
+		assertEquals(y-10, bubble1.getY(), 0.000001);
+	}
+	
 }
