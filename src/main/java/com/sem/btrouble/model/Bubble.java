@@ -1,7 +1,7 @@
 package com.sem.btrouble.model;
 
 import com.sem.btrouble.event.BubbleEvent;
-import com.sem.btrouble.SlickApp;
+import com.sem.btrouble.view.GameView;
 import org.newdawn.slick.geom.Circle;
 
 
@@ -131,9 +131,9 @@ public class Bubble extends Circle {
       vy = -ay * HIT_SPEED_FACTOR;
       // add an extra bubble to the game
       Bubble newBubble = new Bubble(size, x, y, -vx, vy);
-      SlickApp.getController().addBubble(newBubble);
+      GameView.getController().addBubble(newBubble);
     } else {
-      SlickApp.getController().removeBubble(this);
+      GameView.getController().removeBubble(this);
     }
   }
 
