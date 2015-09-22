@@ -56,10 +56,7 @@ public class GameView extends BasicGameState {
      */
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
         if (!timers.getCountdownRunning()) {
-            controller.update();
-            for (Player player : Model.getPlayers()) {
-                player.move(gc, delta);
-            }
+            controller.update(delta);
         }
     }
 
