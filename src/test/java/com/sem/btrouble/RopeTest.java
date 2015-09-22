@@ -53,7 +53,7 @@ public class RopeTest {
 	public void moveYTest() {
 		float y = rope.getY();
 		rope.move();
-		assertEquals((y-10), rope.getY(), 0);
+		assertEquals((y-15), rope.getY(), 0);
 	}
 	
 	@Test

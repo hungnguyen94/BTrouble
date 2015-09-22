@@ -61,7 +61,7 @@ public class Model {
    *         collection.
    */
   public static ArrayList<Bubble> getBubbles() {
-    return getCurrentRoom().getBubbles();
+    return new ArrayList<Bubble>(getCurrentRoom().getBubbles());
   }
 
   /**

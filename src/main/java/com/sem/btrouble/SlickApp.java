@@ -60,10 +60,7 @@ public class SlickApp extends BasicGame {
    */
   public void update(GameContainer gc, int delta) throws SlickException {
     if (!timers.getCountdownRunning()) {
-      controller.update();
-      for (Player player : Model.getPlayers()) {
-        player.move(gc, delta);
-      }
+      controller.update(delta);
     }
   }
 

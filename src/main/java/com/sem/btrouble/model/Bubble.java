@@ -4,6 +4,7 @@ import com.sem.btrouble.event.BubbleEvent;
 import com.sem.btrouble.SlickApp;
 import org.newdawn.slick.geom.Circle;
 
+import com.sem.btrouble.event.BubbleEvent;
 
 @SuppressWarnings("serial")
 public class Bubble extends Circle {
@@ -128,10 +129,14 @@ public class Bubble extends Circle {
     setRadius(size * GAME_SIZE);
     if (size > 0) {
       // give upward speed
-      vy = -ay * HIT_SPEED_FACTOR;
+      vy = -Math.abs(ay) * HIT_SPEED_FACTOR;
+      vx = Math.abs(vx);
       // add an extra bubble to the game
-      Bubble newBubble = new Bubble(size, x, y, -vx, vy);
-      SlickApp.getController().addBubble(newBubble);
+      Bubble leftBubble = new Bubble(size, x, y, -vx, vy);
+      Bubble rightBubble = new Bubble(size, x, y, vx, vy);
+      SlickApp.getController().addBubble(leftBubble);
+      SlickApp.getController().addBubble(rightBubble);
+      SlickApp.getController().removeBubble(this);
     } else {
       SlickApp.getController().removeBubble(this);
     }
@@ -153,5 +158,60 @@ public class Bubble extends Circle {
           && this.vy == that.vy);
     }
     return false;
+  }
+
+  /**
+   * Invert the y direction on collision
+   */
+  public void bounceY() {
+      vy = -vy;
+  }
+
+  /**
+   * Invert the x direction on collision
+   */
+  public void bounceX() {
+    vx = -vx;
+  }
+
+  /**
+   * bounce to left or right direction on collision
+   * @param left - bounce to the left
+   */
+  public void bounceX(boolean left) {
+    if(left)
+      vx = -Math.abs(vx);
+    else
+      vx = Math.abs(vx);
+  }
+
+  /**
+   * bounce to up or down direction on collision
+   * @param up - bounce up
+   */
+  public void bounceY(boolean up) {
+    if(up)
+      vy = -Math.abs(vy);
+    else
+      vy = Math.abs(vy);
+  }
+
+  /**
+   * bounce up on collision with floor
+   */
+  public void bounceYFloor() {
+    vy = -Math.abs(11 + 2*(size));
+  }
+
+  @Override
+  public String toString() {
+    return "Bubble{" +
+            "size=" + size +
+            ", x=" + x +
+            ", y=" + y +
+            ", vx=" + vx +
+            ", vy=" + vy +
+            ", ay=" + ay +
+            '}';
   }
 }
