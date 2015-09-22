@@ -1,10 +1,8 @@
 package com.sem.btrouble.model;
 
 import com.sem.btrouble.event.BubbleEvent;
-import com.sem.btrouble.SlickApp;
+import com.sem.btrouble.view.GameView;
 import org.newdawn.slick.geom.Circle;
-
-import com.sem.btrouble.event.BubbleEvent;
 
 @SuppressWarnings("serial")
 public class Bubble extends Circle {
@@ -134,11 +132,11 @@ public class Bubble extends Circle {
       // add an extra bubble to the game
       Bubble leftBubble = new Bubble(size, x, y, -vx, vy);
       Bubble rightBubble = new Bubble(size, x, y, vx, vy);
-      SlickApp.getController().addBubble(leftBubble);
-      SlickApp.getController().addBubble(rightBubble);
-      SlickApp.getController().removeBubble(this);
+      GameView.getController().addBubble(leftBubble);
+      GameView.getController().addBubble(rightBubble);
+      GameView.getController().removeBubble(this);
     } else {
-      SlickApp.getController().removeBubble(this);
+      GameView.getController().removeBubble(this);
     }
   }
 

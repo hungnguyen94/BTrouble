@@ -13,6 +13,7 @@ import com.sem.btrouble.model.Rope;
 import com.sem.btrouble.model.Timers;
 import com.sem.btrouble.tools.GameObservable;
 
+import com.sem.btrouble.view.GameView;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -49,7 +50,7 @@ public class Controller extends GameObservable {
 
       public void update(Observable o, Object arg) {
         if (arg instanceof GameEvent) {
-          SlickApp.getController().fireEvent((GameEvent) arg);
+          GameView.getController().fireEvent((GameEvent) arg);
         }
       }
     });
