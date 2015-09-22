@@ -55,6 +55,7 @@ public class Controller extends Observable {
    * Updates the model, should be done on request of the view.
    */
   public void update() throws SlickException {
+	 
 
     for (Bubble bubble : Model.getBubbles()) {
 
@@ -100,7 +101,9 @@ public class Controller extends Observable {
               fireEvent(new PlayerEvent(player, PlayerEvent.COLLISION_RIGHTWALL,
                   "Collided with right wall"));
               player.setRightBlocked(true);
-            }
+          }
+          } else if (player.getRopes().size() > 0) {
+          	fireEvent(new PlayerEvent(player, PlayerEvent.SHOOT, "Shot a rope"));
           }
         }
 

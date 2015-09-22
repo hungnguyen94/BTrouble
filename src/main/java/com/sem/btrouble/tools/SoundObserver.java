@@ -56,6 +56,11 @@ public class SoundObserver implements Observer {
 		if(arg instanceof PlayerEvent) {
 			PlayerEvent event = (PlayerEvent) arg;
 			if(event.getId() == PlayerEvent.SHOOT) {
+			    try {
+				    wavEffect = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("soundscrate-17-woosh2.wav"));
+			        } catch (IOException e) {
+				    e.printStackTrace();
+				}
 				wavEffect.playAsSoundEffect(1.0f, 1.0f, false);
 				SoundStore.get().poll(0);
 			}
