@@ -89,6 +89,13 @@ public class CollisionHandler extends GameObservable {
     collidables.remove(c);
   }
 
+    /**
+     * Get size of list of collidable objects
+     */
+    public int getSize() {
+        return collidables.size();
+    }
+
   /**
    * Check if you collide with any object
    * 
@@ -96,24 +103,23 @@ public class CollisionHandler extends GameObservable {
    *          - object that is checking for collision
    */
   public boolean checkCollision(Shape self) {
-    boolean collided = false;
-    // Removes all null references. It's an hashset, so duplicates aren't
-    // possible.
-    collidables.remove(null);
+      boolean collided = false;
+      // Removes all null references. It's an hashset, so duplicates aren't
+      // possible.
+      collidables.remove(null);
 
-    if (self == null)
-      return collided;
+      if (self == null)
+          return collided;
 
-    // Iterate over a shallow cloned set, since you can't change the set while
-    // iterating.
-    HashSet<Shape> collidablesClone = new HashSet<Shape>(collidables);
-    for (Shape collidee : collidablesClone) {
-      if (self.intersects(collidee) && self != collidee) {
-        collided = true;
-        onCollide(self, collidee);
+        // Iterate over a shallow cloned set, since you can't change the set while iterating.
+      HashSet<Shape> collidablesClone = new HashSet<Shape>(collidables);
+      for(Shape collidee: collidablesClone) {
+          if(self != collidee && self.intersects(collidee)) {
+              collided = true;
+              onCollide(self, collidee);
+          }
       }
-    }
-    return collided;
+      return collided;
   }
 
   /**
