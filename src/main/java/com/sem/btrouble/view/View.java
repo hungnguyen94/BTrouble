@@ -151,6 +151,6 @@ public class View {
      * Draw hitboxes for testing.
      */
     private void drawDebug(Graphics g) {
-        SlickApp.getController().drawCollidables(g);
+        GameView.getController().drawCollidables(g);
     }
 }
