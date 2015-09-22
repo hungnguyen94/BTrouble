@@ -1,15 +1,20 @@
 package com.sem.btrouble.view;
 
+import java.io.IOException;
 import com.sem.btrouble.controller.Controller;
-import com.sem.btrouble.model.Model;
-import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Timers;
 import com.sem.btrouble.tools.GameObserver;
+import com.sem.btrouble.tools.SoundObserver;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.Sound;
+import org.newdawn.slick.openal.Audio;
+import org.newdawn.slick.openal.AudioLoader;
+import org.newdawn.slick.openal.SoundStore;
+import org.newdawn.slick.util.ResourceLoader;
 
 /**
  * Created by rubenwiersma on 22-09-15.
@@ -19,6 +24,8 @@ public class GameView extends BasicGameState {
     private static Controller controller;
     private static View view;
     private GameObserver observer;
+    private SoundObserver soundObserver;
+    private Audio wavEffect;
 
     /**
      * Initialize method of the slick2d library.
@@ -33,13 +40,23 @@ public class GameView extends BasicGameState {
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         controller = new Controller(gc);
         observer = new GameObserver(true);
+        soundObserver = new SoundObserver();
 
+        controller.addObserver(soundObserver);
         controller.addObserver(observer);
 
         timers = controller.getTimers();
         timers.restartTimer();
 
         view = new View(gc, timers);
+
+        try {
+            wavEffect = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("Bubble_Trouble_Theme.wav"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        wavEffect.playAsSoundEffect(1.0f, 1.0f, true);
+        SoundStore.get().poll(0);
     }
 
     /**

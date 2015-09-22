@@ -31,6 +31,8 @@ import java.util.Observer;
  */
 public class Controller extends GameObservable {
 
+  private static final int REWARD_BUBBLE = 100;
+
   private GameContainer gc;
   private CollisionHandler collisionHandler;
   private static Timers timers;
@@ -87,8 +89,9 @@ public class Controller extends GameObservable {
         loseLife(player);
       }
       collisionHandler.checkCollision(player.getRopes());
+        if(player.getRopes().size() > 0)
+            fireEvent(new PlayerEvent(player, PlayerEvent.SHOOT, "Shot a rope"));
     }
-
 
     // Check if timer has run out.
     if (this.getTimers().getLevelTimeLeft() <= 0) {
@@ -198,7 +201,6 @@ public class Controller extends GameObservable {
       player.moveRopes();
       collisionHandler.removeCollidable(player.removeCollidedRopes());
     }
-
   }
 
   /**
