@@ -13,6 +13,10 @@ public class Wallet implements Observer {
 		value = 0;
 	}
 	
+	public int getValue() {
+		return value;
+	}
+	
 	public void increaseValue(int extra) {
 		value += extra;
 	}
