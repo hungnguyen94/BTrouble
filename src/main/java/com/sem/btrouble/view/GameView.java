@@ -5,6 +5,7 @@ import java.io.IOException;
 import com.sem.btrouble.controller.Controller;
 import com.sem.btrouble.model.PowerUp;
 import com.sem.btrouble.model.Timers;
+import com.sem.btrouble.model.Wallet;
 import com.sem.btrouble.tools.GameObserver;
 import com.sem.btrouble.tools.SoundObserver;
 
@@ -30,6 +31,7 @@ public class GameView extends BasicGameState {
     private SoundObserver soundObserver;
     private Audio wavEffect;
     private PowerUp powerObserver;
+    private Wallet wallet;
 
     /**
      * Initialize method of the slick2d library.
@@ -46,10 +48,12 @@ public class GameView extends BasicGameState {
         observer = new GameObserver(true);
         soundObserver = new SoundObserver();
         powerObserver = new PowerUp(3);
+        wallet = new Wallet();
 
         controller.addObserver(soundObserver);
         controller.addObserver(observer);
         controller.addObserver(powerObserver);
+        controller.addObserver(wallet);
 
         timers = controller.getTimers();
         timers.restartTimer();
