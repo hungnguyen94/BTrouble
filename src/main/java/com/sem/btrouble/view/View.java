@@ -59,7 +59,7 @@ public class View {
 
         drawLives();
         drawScore(graphics);
-        drawDebug(graphics);
+//        drawDebug(graphics);
     }
 
     /**

@@ -31,7 +31,10 @@ public class CollisionHandler {
     public void hitboxDraw(Graphics g) {
         for(Shape s: collidables) {
             g.setColor(Color.red);
-            g.drawRect(s.getX(), s.getY(), s.getWidth(), s.getHeight());
+            g.setLineWidth(2);
+            g.draw(s);
+            g.setLineWidth(1);
+//            g.drawRect(s.getX(), s.getY(), s.getWidth(), s.getHeight());
         }
     }
 

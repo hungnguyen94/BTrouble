@@ -150,7 +150,7 @@ public class Room {
     floors.add(new Floor(0, 794, 1123, 50));
     floors.add(new Floor(0, 0, 1123, 50));
     bubbles.clear();
-    bubbles.add(new Bubble(5, Model.getRoomWidth()/2, 200));
+    bubbles.add(new Bubble(4, Model.getRoomWidth()/2, 200));
   }
 }
 
