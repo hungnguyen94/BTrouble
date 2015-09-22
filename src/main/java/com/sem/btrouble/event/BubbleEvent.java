@@ -11,6 +11,7 @@ public class BubbleEvent extends GameEvent {
   public static final int COLLISION_FLOOR = 0;
   public static final int COLLISION_WALL = 1;
   public static final int COLLISION_ROPE = 2;
+  public static final int COLLISION_CEILING = 3;
 
   public BubbleEvent(Bubble subject, int id, String message) {
     super(subject, id, message);

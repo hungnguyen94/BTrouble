@@ -10,6 +10,8 @@ import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Room;
 import com.sem.btrouble.model.Rope;
 import com.sem.btrouble.model.Timers;
+import com.sem.btrouble.tools.GameObservable;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -20,17 +22,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Observable;
-
+import java.util.Observer;
 
 /**
  * Controller, recalculates the Model, on request of the view.
  */
-public class Controller extends Observable {
+public class Controller extends GameObservable {
 
-  private static final int REWARD_BUBBLE = 100;
-
-  private ArrayList<Bubble> newBubbles;
-  private ArrayList<Bubble> oldBubbles;
   private GameContainer gc;
   private CollisionHandler collisionHandler;
   private static Timers timers;
@@ -41,8 +39,6 @@ public class Controller extends Observable {
   public Controller(GameContainer container) throws SlickException {
     timers = new Timers(100);
     this.gc = container;
-    newBubbles = new ArrayList<Bubble>();
-    oldBubbles = new ArrayList<Bubble>();
 
     collisionHandler = new CollisionHandler();
     Model.init();
@@ -54,7 +50,6 @@ public class Controller extends Observable {
     collisionHandler.addCollidable(p);
     Model.restartRoom();
     collisionHandler.addCollidable(r.getCollidables());
-    fireEvent(new ControllerEvent(this, ControllerEvent.GAMESTART, "Game started"));
   }
 
   public Timers getTimers() {
@@ -64,19 +59,21 @@ public class Controller extends Observable {
   public void drawCollidables(Graphics g) {
     collisionHandler.hitboxDraw(g);
   }
+
   /**
    * Updates the model, should be done on request of the view.
    */
   public void update(int delta) throws SlickException {
     // Create a shallow clone to prevent changes to the list while iterating.
-    //ArrayList<Bubble> bubblesClone = new ArrayList<Bubble>(Model.getCurrentRoom().getBubbles());
-//    for(Bubble bubble: Model.getCurrentRoom().getBubbles()) {
-//      collisionHandler.checkCollision(bubble);
-//    }
+    // ArrayList<Bubble> bubblesClone = new
+    // ArrayList<Bubble>(Model.getCurrentRoom().getBubbles());
+    // for(Bubble bubble: Model.getCurrentRoom().getBubbles()) {
+    // collisionHandler.checkCollision(bubble);
+    // }
     collisionHandler.checkCollision(Model.getCurrentRoom().getBubbles());
 
-    for(Player player: Model.getPlayers()) {
-      if(!collisionHandler.checkCollision(player)) {
+    for (Player player : Model.getPlayers()) {
+      if (!collisionHandler.checkCollision(player)) {
         player.setFalling(true);
       }
 
@@ -86,76 +83,25 @@ public class Controller extends Observable {
       collisionHandler.checkCollision(player.getRopes());
     }
 
+    collisionHandler.addObserver(new Observer() {
+
+      public void update(Observable o, Object arg) {
+        if (arg instanceof GameEvent) {
+          fireEvent((GameEvent) arg);
+        }
+
+      }
+
+    });
+
     // Check if timer has run out.
     if (this.getTimers().getLevelTimeLeft() <= 0) {
       fireEvent(new ControllerEvent(this, ControllerEvent.OUTOFTIME, "Out of time"));
-      for(Player p: Model.getPlayers())
+      for (Player p : Model.getPlayers())
         loseLife(p);
     }
 
-
-/*    for (Bubble bubble : Model.getBubbles()) {
-
-      for (Rectangle floor : Model.getCurrentRoom().getFloors()) {
-        if (bubble.intersects(floor)) {
-          fireEvent(new BubbleEvent(bubble, BubbleEvent.COLLISION_FLOOR, "Collided with floor"));
-          bubble.bubbleEvent(
-              new BubbleEvent(bubble, BubbleEvent.COLLISION_FLOOR, "Collided with floor"));
-        }
-      }
-
-      // Collision detection for walls
-      for (Rectangle wall : Model.getCurrentRoom().getWalls()) {
-        if (bubble.intersects(wall)) {
-          fireEvent(new BubbleEvent(bubble, BubbleEvent.COLLISION_WALL, "Collided with wall"));
-          bubble.bubbleEvent(
-              new BubbleEvent(bubble, BubbleEvent.COLLISION_WALL, "Collided with wall"));
-        }
-      }
-
-      for (Player player : Model.getPlayers()) {
-
-        // Check if timer has run out.
-        if (this.getTimers().getLevelTimeLeft() <= 0) {
-          fireEvent(new ControllerEvent(this, ControllerEvent.OUTOFTIME, "Out of time"));
-          loseLife(player);
-        }
-
-        // BubbleEvent detection for bubble against player
-        if (player.intersects(bubble)) {
-          loseLife(player);
-        }
-
-        // Collision detection for walls
-        for (Rectangle wall : Model.getCurrentRoom().getWalls()) {
-          if (player.intersects(wall)) {
-            int playerX = (int) player.getX() + ((int) (player.getWidth() / 2));
-            if (playerX > wall.getX()) {
-              fireEvent(new PlayerEvent(player, PlayerEvent.COLLISION_LEFTWALL,
-                  "Collided with left wall"));
-              player.setLeftBlocked(true);
-            } else if (playerX <= wall.getX()) {
-              fireEvent(new PlayerEvent(player, PlayerEvent.COLLISION_RIGHTWALL,
-                  "Collided with right wall"));
-              player.setRightBlocked(true);
-            }
-          }
-        }
-
-        for (Rope rope : player.getRopes()) {
-          if (bubble.intersects(rope)) {
-            fireEvent(new BubbleEvent(bubble, BubbleEvent.COLLISION_ROPE, "Collided with rope"));
-            bubble.bubbleEvent(
-                new BubbleEvent(bubble, BubbleEvent.COLLISION_ROPE, "Collided with rope"));
-            fireEvent(new PlayerEvent(player, PlayerEvent.POPBUBBLE, "Popped a bubble"));
-            player.increaseScore(REWARD_BUBBLE);
-            player.resetRope();
-          }
-        }
-      }
-    }*/
-
-    for (Player p: Model.getPlayers()) {
+    for (Player p : Model.getPlayers()) {
       p.move();
     }
     processInput(delta);
@@ -166,7 +112,9 @@ public class Controller extends Observable {
 
   /**
    * Move the player on key presses
-   * @param delta - milliseconds between frames
+   * 
+   * @param delta
+   *          - milliseconds between frames
    */
   public void processInput(int delta) {
     Input input = gc.getInput();
@@ -179,8 +127,9 @@ public class Controller extends Observable {
     }
 
     if (input.isKeyPressed(Input.KEY_SPACE)) {
-      Rope r = new Rope(p1.getX() + (int) (p1.getWidth() / 2), (float)(p1.getY() + p1.getHeight()*0.9));
-      if(p1.fire(r))
+      Rope r = new Rope(p1.getX() + (int) (p1.getWidth() / 2),
+          (float) (p1.getY() + p1.getHeight() * 0.9));
+      if (p1.fire(r))
         collisionHandler.addCollidable(r);
     }
   }
@@ -209,11 +158,6 @@ public class Controller extends Observable {
     Model.restartRoom();
     getTimers().restartTimer();
     collisionHandler.addCollidable(Model.getCurrentRoom().getCollidables());
-  }
-
-  private void fireEvent(GameEvent gameEvent) {
-    setChanged();
-    notifyObservers(gameEvent);
   }
 
   /**
