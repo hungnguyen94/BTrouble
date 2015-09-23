@@ -53,72 +53,84 @@ public class Player extends Rectangle {
    *          y value for the Player from the sprite class.
    */
   public Player(float xpos, float ypos) {
-    super(xpos, ypos, 50f, 160f);
-    ropes = new ArrayList<Rope>();
-    lives = INITIAL_LIVES;
-    score = INITIAL_SCORE;
-    vy = 2;
-    rightBlocked = false;
-    leftBlocked = false;
-    alive = true;
-    falling = true;
-    try {
-      playerIdle = new Image("Sprites/idle.png");
-      walkSheet = new SpriteSheet("Sprites/player_spritesheet.png", 100, 175);
-    } catch (SlickException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-    walkAnimation = new Animation(walkSheet, 20);
-  }
+		super(xpos, ypos, 50f, 160f);
+		ropes = new ArrayList<Rope>();
+		lives = INITIAL_LIVES;
+		score = INITIAL_SCORE;
+		vy = 2;
+		rightBlocked = false;
+		leftBlocked = false;
+		alive = true;
+		falling = true;
 
-  /**
-   * Checks whether the provided Object is the same as this Player.
-   *
-   * @param other
-   *          should be the Object to be checked for equality.
-   * @return returns a boolean representing whether the provided Object is the
-   *         same as this Player.
-   */
-  public boolean equals(Object other) {
-    if (other instanceof Player) {
-      Player that = (Player) other;
-      return (this.x == that.x && this.y == that.y && this.ropes.equals(that.ropes)
-          && this.facingLeft == that.facingLeft && this.idle == that.idle
-          && this.lives == that.lives && this.score == that.score && this.vy == that.vy
-          && this.rightBlocked == that.rightBlocked && this.leftBlocked == that.leftBlocked);
-    }
-    return false;
-  }
+	}
 
-  public boolean isAlive() {
-    return alive;
-  }
+	/**
+	 * Checks whether the provided Object is the same as this Player.
+	 *
+	 * @param other
+	 *            should be the Object to be checked for equality.
+	 * @return returns a boolean representing whether the provided Object is the
+	 *         same as this Player.
+	 */
+	public boolean equals(Object other) {
+		if (other instanceof Player) {
+			Player that = (Player) other;
+			return (this.x == that.x && this.y == that.y
+					&& this.ropes.equals(that.ropes)
+					&& this.facingLeft == that.facingLeft
+					&& this.idle == that.idle && this.lives == that.lives
+					&& this.score == that.score && this.vy == that.vy
+					&& this.rightBlocked == that.rightBlocked && this.leftBlocked == that.leftBlocked);
+		}
+		return false;
+	}
+	
 
-  public void setAlive(boolean alive) {
-    this.alive = alive;
-  }
+	public boolean getRightBlocked() {
+		return rightBlocked;
+	}
+	
+	public boolean getLeftBlocked() {
+		return leftBlocked;
+	}
+	
+	public void setRightBlock(boolean block) {
+		this.rightBlocked = block;
+	}
+	
+	public void setLeftBlock(boolean block) {
+		this.leftBlocked = block;
+	}
 
-  public boolean isFalling() {
-    return falling;
-  }
+	public boolean isAlive() {
+		return alive;
+	}
 
-  public void setFalling(boolean falling) {
-    this.falling = falling;
-  }
+	public void setAlive(boolean alive) {
+		this.alive = alive;
+	}
 
-  public ArrayList<Rope> getRopes() {
-    return ropes;
-  }
+	public boolean isFalling() {
+		return falling;
+	}
 
-  public void addLife() {
-    lives++;
-  }
+	public void setFalling(boolean falling) {
+		this.falling = falling;
+	}
 
-  public void loseLife() {
-    lives--;
-  }
+	public ArrayList<Rope> getRopes() {
+		return ropes;
+	}
 
+	public void addLife() {
+		lives++;
+	}
+
+	public void loseLife() {
+		lives--;
+	}
+	
   public boolean hasLives() {
     return lives >= 0;
   }
@@ -133,6 +145,10 @@ public class Player extends Rectangle {
 
   public void increaseScore(int amount) {
     score += amount;
+  }
+  
+  public double getVy() {
+	  return vy;
   }
 
   /**
@@ -178,17 +194,28 @@ public class Player extends Rectangle {
    *           when the player could not be drawn.
    */
   public void draw() throws SlickException {
-    // Render the sprite at an offset.
-    int playerX = (int) (x - ((walkSheet.getWidth() / walkSheet.getHorizontalCount()) - getWidth()) / 2);
-    if (!idle) {
-      walkAnimation.getCurrentFrame().getFlippedCopy(facingLeft, false).draw(playerX, y-15);
-    } else {
-      playerIdle.getFlippedCopy(facingLeft, false).draw(playerX, y-15);
-    }
-    for (int i = 0; i < ropes.size(); i++) {
-      ropes.get(i).draw();
-    }
-  }
+		try {
+			playerIdle = new Image("Sprites/idle.png");
+			walkSheet = new SpriteSheet("Sprites/player_spritesheet.png", 100,
+					175);
+		} catch (SlickException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		walkAnimation = new Animation(walkSheet, 20);
+		// Render the sprite at an offset.
+		int playerX = (int) (x - ((walkSheet.getWidth() / walkSheet
+				.getHorizontalCount()) - getWidth()) / 2);
+		if (!idle) {
+			walkAnimation.getCurrentFrame().getFlippedCopy(facingLeft, false)
+					.draw(playerX, y - 15);
+		} else {
+			playerIdle.getFlippedCopy(facingLeft, false).draw(playerX, y - 15);
+		}
+		for (int i = 0; i < ropes.size(); i++) {
+			ropes.get(i).draw();
+		}
+	}
 
   /**
    * Moves the Player the provided amount of pixels to the right.
