@@ -45,6 +45,10 @@ public class Timers {
     countdownCounter = countdownMaxDuration;
     countdownTimer.restart();
   }
+  
+  public void setLevelTimerCounter(int duration) {
+	  levelTimer.setInitialDelay(duration);
+  }
 
   /**
    * Return the amount of time left in the level in milliseconds. Multiplies the

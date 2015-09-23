@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+import com.sem.btrouble.controller.Controller;
 import com.sem.btrouble.event.BubbleEvent;
+import com.sem.btrouble.view.GameView;
 
 public class PowerUp implements Observer {
 	
@@ -36,6 +38,7 @@ public class PowerUp implements Observer {
 			slowBubbles(.3f);
 			break;
 		case(2) :
+			GameView.getController().getTimers().setLevelTimerCounter(10000);
 			break;
 		default :
 			break;
@@ -61,6 +64,7 @@ public class PowerUp implements Observer {
 		case(1) :
 			setType(3);
 		case(2) :
+			GameView.getController().getTimers().setLevelTimerCounter(100);
 			break;
 		default :
 			break;
