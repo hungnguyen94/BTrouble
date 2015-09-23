@@ -4,6 +4,8 @@ import com.sem.btrouble.event.ExceptionEvent;
 import com.sem.btrouble.tools.Logger;
 import com.sem.btrouble.view.GameView;
 import com.sem.btrouble.view.MenuView;
+import com.sem.btrouble.view.ShopView;
+
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
@@ -50,5 +52,6 @@ public class SlickApp extends StateBasedGame {
     public void initStatesList(GameContainer gc) throws SlickException {
         this.addState(new MenuView());
         this.addState(new GameView());
+        this.addState(new ShopView());
     }
 }

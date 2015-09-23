@@ -12,13 +12,15 @@ import com.sem.btrouble.model.Room;
 import com.sem.btrouble.model.Rope;
 import com.sem.btrouble.model.Timers;
 import com.sem.btrouble.tools.GameObservable;
-
 import com.sem.btrouble.view.GameView;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Shape;
+import org.newdawn.slick.state.transition.FadeInTransition;
+import org.newdawn.slick.state.transition.FadeOutTransition;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -84,7 +86,7 @@ public class Controller extends GameObservable {
       if (!collisionHandler.checkCollision(player)) {
         player.setFalling(true);
       }
-
+      
       if (!player.isAlive()) {
         loseLife(player);
       }
@@ -165,7 +167,7 @@ public class Controller extends GameObservable {
    */
   private void updateBubble() {
     if (!Model.getCurrentRoom().hasBubbles()) {
-      endGame("You won the game!");
+      //endGame("You won the game!");
     }
     Model.getCurrentRoom().moveBubbles();
   }
