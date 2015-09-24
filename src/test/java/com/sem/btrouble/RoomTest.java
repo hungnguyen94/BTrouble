@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import static org.mockito.Mockito.verify;
 
 import com.sem.btrouble.model.Bubble;
 import com.sem.btrouble.model.Model;
@@ -93,4 +94,56 @@ public class RoomTest {
         myRoom.reload();
         assertEquals(myRoom, room);
     }
+	
+	@Test
+	public void hasBubblesFalseTest() {
+		assertFalse(room.hasBubbles());
+	}
+	
+	@Test
+	public void hasBubblesTrueTest() {
+		room.addBubble(bubble);
+		assertTrue(room.hasBubbles());
+	}
+	
+	@Test
+	public void moveBubblesTest() {
+		room.addBubble(bubble);
+		room.moveBubbles();
+		verify(bubble).move();
+	}
+	
+	@Test
+	public void removeBubbleTest() {
+		room.addBubble(bubble);
+		room.removeBubble(bubble);
+		assertFalse(room.hasBubbles());
+	}
+	
+	@Test
+	public void equalsOtherTest() {
+		assertFalse(room.equals(new String("test")));
+	}
+	
+	@Test
+	public void equalsBubbleTest() {
+		room.addBubble(bubble);
+		Room room2 = new Room();
+		assertFalse(room.equals(room2));
+	}
+	
+	@Test
+	public void equalsXTest() {
+		room.setSpawnPositionX(2);
+		Room room2 = new Room();
+		assertFalse(room.equals(room2));
+	}
+	
+	@Test
+	public void equalsYTest() {
+		room.setSpawnPositionY(2);
+		Room room2 = new Room();
+		assertFalse(room.equals(room2));
+	}
+	
 }
