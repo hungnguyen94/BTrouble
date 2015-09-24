@@ -82,6 +82,14 @@ public class Bubble extends Circle {
   public double getVy() {
     return vy;
   }
+  
+  public void setAY(float ay) {
+	  this.ay = ay;
+  }
+  
+  public float getAY() {
+	  return ay;
+  }
 
   /**
    * Calculates the next location of the Bubble.

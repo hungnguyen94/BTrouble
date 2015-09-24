@@ -20,6 +20,14 @@ public class Wall extends Rectangle {
         super(x, y, width, height);
         speed = 1;
     }
+    
+    public float getX() {
+    	return x;
+    }
+    
+    public float getY() {
+    	return y;
+    }
 
     /**
      * Move the wall to the right
