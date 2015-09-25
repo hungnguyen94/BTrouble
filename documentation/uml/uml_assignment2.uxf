@@ -1,0 +1,1247 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.3">
+  <zoom_level>5</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>610</x>
+      <y>735</y>
+      <w>160</w>
+      <h>430</h>
+    </coordinates>
+    <panel_attributes>com.sem.btrouble.model::Player
+--
+-lives: int
+-score: int
+-walkSheet: SpriteSheet
+-walkAnimation: Animation
+-playerIdle: Image
+-facingLeft = true: boolean
+-idle = true: boolean
+-leftBlocked: boolean
+-rightBlocked: boolean
+-alive: boolean
+-falling: boolean
+-vy: float
+-ay = .3f: float
+-PLAYER_SPEED = 3: int
+-INITIAL_LIVES = 5: int
+-INITIAL_SCORE = 0: int
+-ropes: ArrayList&lt;Rope&gt;
+--
++Player(float xpos, float ypos): ctor
++equals(Object other): boolean
++getRightBlocked(): boolean
++getLeftBlocked(): boolean
++setRightBlock(boolean block): void
++setLeftBlock(boolean block): void
++isAlive(): boolean
++setAlive(boolean alive): void
++isFalling(): boolean
++setFalling(boolean falling): void
++getRopes(): ArrayList&lt;Rope&gt;
++addLife(): void
++loseLife(): void
++hasLives(): boolean
++getLives(): int
++getScore(): int
++increaseScore(int amount): void
++getVy(): double
++moveRopes(): void
++removeCollidedRopes(): Collection&lt;Shape&gt;
++fire(Rope r): boolean
++draw(): void
++move(): void
++moveLeft(int delta): void
++moveRight(int delta): void
++setLeftBlocked(boolean leftBlocked): void
++setRightBlocked(boolean rightBlocked): void
++resetRope(): void
++moveTo(int xpos, int ypos): void
++fall(): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>815</x>
+      <y>1055</y>
+      <w>220</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>com.sem.btrouble.model::Bubble
+--
+-size: int
+-GAME_SIZE = 10f: float
+-vx: float
+-vy: float
+-ay: float
+-GRAVITY = .4f: float
+-INITIAL_HORIZONTAL_SPEED = 3f: float
+-HIT_SPEED_FACTOR = 30: int
+--
++Bubble(int size, float xpos, float ypos): ctor
++Bubble(int size, float xpos, float ypos, float vx, float vy): ctor
++getSize(): int
++getVx(): double
++getVy(): double
++setAY(float ay): void
++getAY(): float
++move(): void
++bubbleEvent(BubbleEvent event): void
++split(): void
++equals(Object other): boolean
++bounceY(): void
++bounceX(): void
++bounceX(boolean left): void
++bounceY(boolean up): void
++bounceYFloor(): void
++toString(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>565</x>
+      <y>330</y>
+      <w>230</w>
+      <h>205</h>
+    </coordinates>
+    <panel_attributes>com.sem.btrouble.controller::CollisionHandler
+--
+-collidables: Collection&lt;Shape&gt;
+-sideLeft = 1: int
+-sideRight = 2: int
+-sideTop = 3: int
+-sideBottom = 4: int
+--
++CollisionHandler(): ctor
++hitboxDraw(Graphics g): void
++addCollidable(Shape c): void
++addCollidable(Collection&lt;? extends Shape&gt; c): void
++removeCollidable(Collection&lt;? extends Shape&gt; c): void
++removeCollidable(Shape c): void
++getSize(): int
++checkCollision(Shape self): boolean
++checkCollision(Collection&lt;? extends Shape&gt; colliders): boolean
+-onCollide(Shape collider, Shape collidee): void
+-wallCollide(Wall wall, Shape collidee): void
+-playerCollide(Player player, Shape collidee): void
+-bubbleCollide(Bubble bubble, Shape collidee): void
+-ropeCollide(Rope rope, Shape collidee): void
+-checkSideX(Shape collider, Shape collidee): int
+-checkSideY(Shape collider, Shape collidee): int
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>860</x>
+      <y>835</y>
+      <w>340</w>
+      <h>205</h>
+    </coordinates>
+    <panel_attributes>com.sem.btrouble.model::Room
+--
+-spawnPositionX: int
+-spawnPositionY: int
+-walls: List&lt;Wall&gt;
+-floors: List&lt;Floor&gt;
+-bubbles: List&lt;Bubble&gt;
+-moveableBorders: List&lt;Shape&gt;
+--
++Room(): ctor
++Room(List&lt;Wall&gt; walls, List&lt;Floor&gt; floors, List&lt;Bubble&gt; bubbles, int spawnX, int spawnY): ctor
++copyRoom(): Room
++equals(Object other): boolean
++getCollidables(): Collection&lt;Shape&gt;
++getBubbles(): Collection&lt;Bubble&gt;
++addBubble(Bubble b): void
++removeBubble(Bubble b): void
++hasBubbles(): boolean
++moveBubbles(): void
++getSpawnPositionX(): int
++getSpawnPositionY(): int
++loadRoom(): void
++loadRoom2(): void
++drawRoom(Graphics g): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>565</x>
+      <y>140</y>
+      <w>230</w>
+      <h>175</h>
+    </coordinates>
+    <panel_attributes>com.sem.btrouble.controller::Controller
+--
+-REWARD_BUBBLE = 100: int
+-gc: GameContainer
+-sbg: StateBasedGame
+-collisionHandler: CollisionHandler
+-timers: Timers
+--
++Controller(GameContainer container, StateBasedGame sbg): ctor
++getTimers(): Timers
++drawCollidables(Graphics g): void
++update(int delta): void
++processInput(int delta): void
++loseLife(Player player): void
+-restartRoom(): void
+-updateBubble(): void
++addBubble(Bubble bubble): void
++removeBubble(Bubble bubble): void
+-updateRopes(): void
++endGame(String message): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>795</x>
+      <y>590</y>
+      <w>120</w>
+      <h>175</h>
+    </coordinates>
+    <panel_attributes>com.sem.btrouble.model::Model
+--
+-rooms: RoomIterator
+-players: ArrayList&lt;Player&gt;
+-roomCurrent: Room
+-currentLevel: int
+-ROOM_WIDTH: int
+-ROOM_HEIGHT: int
+--
++init(int width, int height): void
++addRoom(Room room): void
++getNextRoom(): Room
++getCurrentRoom(): Room
++getPlayers(): ArrayList&lt;Player&gt;
++getBubbles(): ArrayList&lt;Bubble&gt;
++getRoomHeight(): int
++getRoomWidth(): int
++restartRoom(): void
++addPlayer(Player player): void
++getRoom_current(): int
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>435</x>
+      <y>590</y>
+      <w>150</w>
+      <h>175</h>
+    </coordinates>
+    <panel_attributes>com.sem.btrouble.model::Timers
+--
+-levelTimer: Timer
+-countdownTimer: Timer
+-levelTimerCounter: int
+-countdownCounter: int
+-levelMaxDuration = 500: int
+-countdownMaxDuration = 30: int
+-timerSpeed = 100: int
+--
++Timers(int delay): ctor
++restartTimer(): void
++setLevelTimerCounter(int duration): void
++getLevelTimeLeft(): int
++getLevelMaxDuration(): int
++getCountdownTimeLeft(): int
++getCountdownMaxDuration(): int
++getLevelTimerRunning(): boolean
++stopLevelTimer(): void
++getCountdownRunning(): boolean
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>910</x>
+      <y>380</y>
+      <w>165</w>
+      <h>165</h>
+    </coordinates>
+    <panel_attributes>com.sem.btrouble.view::View
+--
+-background: Image
+-font: TrueTypeFont
+-gc: GameContainer
+-timers: Timers
+-timerBar: Rectangle
+--
++View(GameContainer gc, Timers timers): ctor
++draw(Graphics graphics): void
+-drawBackground(Graphics graphics): void
+-drawCountDown(Graphics graphics): void
+-drawPlayers(Graphics g): void
+-drawBubbles(Graphics graphics): void
+-drawTimer(Graphics graphics): void
+-drawLives(): void
+-drawScore(Graphics graphics): void
+-drawDebug(Graphics g): void
+-drawBorders(Graphics g): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>285</x>
+      <y>795</y>
+      <w>300</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>com.sem.btrouble.model::GraphicSettings
+--
+-fullscreen = true: boolean
+-antialiasing = true: boolean
+-resolutions = new ArrayList&lt;Resolution&gt;(): ArrayList&lt;Resolution&gt;
+-currentResolution = 1: int
+--
++GraphicSettings(boolean fullscreen, boolean antialiasing, int currentResolution): ctor
++initializeResolutions(): void
++isFullscreen(): boolean
++setFullscreen(boolean fullscreen): void
++isAntialiasing(): boolean
++setAntialiasing(boolean antialiasing): void
++getCurrentResolution(): int
++setCurrentResolution(int currentResolution): void
++getResolutions(): ArrayList&lt;Resolution&gt;
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>910</x>
+      <y>205</y>
+      <w>260</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>com.sem.btrouble.view::GameView
+--
+-timers: Timers
+-controller: Controller
+-view: View
+-observer: GameObserver
+-soundObserver: SoundObserver
+-wavEffect: Audio
+-wallet: Wallet
+--
++init(GameContainer gc, StateBasedGame sbg): void
++update(GameContainer gc, StateBasedGame sbg, int delta): void
++render(GameContainer gc, StateBasedGame sbg, Graphics graphics): void
++getID(): int
++getController(): Controller
++getWallet(): Wallet
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>640</x>
+      <y>1180</y>
+      <w>125</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>com.sem.btrouble.model::Rope
+--
+-dy: int
+-INITIAL_ROPESPEED = 5: int
+-sprite: Image
+-collided: boolean
+--
++Rope(float xpos, float ypos): ctor
++equals(Object other): boolean
++getDy(): int
++isCollided(): boolean
++setCollided(boolean collided): void
++draw(): void
++move(): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>65</x>
+      <y>160</y>
+      <w>200</w>
+      <h>115</h>
+    </coordinates>
+    <panel_attributes>com.sem.btrouble.event::PlayerEvent
+--
++COLLISION_BUBBLE = 0: int
++COLLISION_LEFTWALL = 1: int
++COLLISION_RIGHTWALL = 2: int
++POPBUBBLE = 3: int
++LIFE_LOST = 4: int
++LIFE_GAINED = 5: int
++SHOOT = 6: int
+--
++PlayerEvent(Object subject, int id, String message): ctor
++getSubject(): Player
++toString(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>30</x>
+      <y>285</y>
+      <w>235</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>com.sem.btrouble.event::ControllerEvent
+--
++GAMEOVER = 0: int
++GAMESTART = 1: int
++NEXTROOM = 2: int
++RESTARTROOM = 3: int
++OUTOFTIME = 4: int
++GAMEWON = 5: int
++GAMELOST = 6: int
+--
++ControllerEvent(Controller controller, int id, String message): ctor
++toString(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>335</x>
+      <y>965</y>
+      <w>250</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>com.sem.btrouble.model::Resolution
+--
+-screenWidth: int
+-screenHeight: int
+-background: String
+--
++Resolution(int screenWidth, int screenHeight, String background): ctor
++getBackground(): String
++getScreenWidth(): int
++setScreenWidth(int screenWidth): void
++getScreenHeight(): int
++setScreenHeight(int screenHeight): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>295</x>
+      <y>140</y>
+      <w>200</w>
+      <h>95</h>
+    </coordinates>
+    <panel_attributes>/com.sem.btrouble.event::GameEvent/
+--
+-subject: Object
+-id: int
+-message: String
+--
++GameEvent(Object subject, int id, String message): ctor
++getSubject(): Object
++getId(): int
++getMessage(): String
++toString(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>245</x>
+      <y>590</y>
+      <w>175</w>
+      <h>95</h>
+    </coordinates>
+    <panel_attributes>com.sem.btrouble.model::PowerUp
+--
+-type: int
+--
++PowerUp(int type): ctor
++update(Observable observable, Object arg): void
++setType(int type): void
++givePower(): void
++slowBubbles(float speed): void
++giveExtraLife(): void
++erasePower(): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1080</x>
+      <y>1100</y>
+      <w>180</w>
+      <h>95</h>
+    </coordinates>
+    <panel_attributes>com.sem.btrouble.model::Wall
+--
+-speed: int
+--
++Wall(float x, float y, float width, float height): ctor
++getX(): float
++getY(): float
++moveX(): void
++moveUp(): void
++moveDown(): void
++changeDirection(): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>60</x>
+      <y>55</y>
+      <w>205</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>com.sem.btrouble.event::BubbleEvent
+--
++COLLISION_FLOOR = 0: int
++COLLISION_WALL = 1: int
++COLLISION_ROPE = 2: int
++COLLISION_CEILING = 3: int
+--
++BubbleEvent(Bubble subject, int id, String message): ctor
++getSubject(): Bubble
++toString(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>950</x>
+      <y>725</y>
+      <w>145</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>com.sem.btrouble.model::RoomIterator
+--
+-roomsList: List&lt;Room&gt;
+-counter: int
+--
++RoomIterator(): ctor
++add(Room r): void
++roomRestart(): Room
++hasNext(): boolean
++next(): Room
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>910</x>
+      <y>25</y>
+      <w>260</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>com.sem.btrouble.view::ShopView
+--
+-background: Image
+-font: TrueTypeFont
+-power: PowerUp
+--
++init(GameContainer gc, StateBasedGame sbg): void
++update(GameContainer gc, StateBasedGame sbg, int delta): void
++render(GameContainer gc, StateBasedGame sbg, Graphics graphics): void
++getID(): int
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1080</x>
+      <y>1210</y>
+      <w>185</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>com.sem.btrouble.model::Floor
+--
+-speed: float
+--
++Floor(float x, float y, float width, float height): ctor
++moveRight(): void
++moveLeft(): void
++moveUp(): void
++moveDown(): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1065</x>
+      <y>595</y>
+      <w>175</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>com.sem.btrouble.model::Wallet
+--
+-value: int
+--
++Wallet(): ctor
++getValue(): int
++increaseValue(int extra): void
++decreaseValue(int less): void
++update(Observable observable, Object arg): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>650</x>
+      <y>25</y>
+      <w>145</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>com.sem.btrouble::SlickApp
+--
+-graphics: GraphicSettings
+--
++SlickApp(String gamename): ctor
++main(String[] args): void
++initStatesList(GameContainer gc): void
++returnGraphics(): GraphicSettings
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>910</x>
+      <y>125</y>
+      <w>260</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>com.sem.btrouble.view::MenuView
+--
+-background: Image
+--
++init(GameContainer gc, StateBasedGame sbg): void
++update(GameContainer gc, StateBasedGame sbg, int delta): void
++render(GameContainer gc, StateBasedGame sbg, Graphics graphics): void
++getID(): int
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>15</x>
+      <y>610</y>
+      <w>115</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>com.sem.btrouble.tools::Logger
+--
+-fw: FileWriter
+-bw: BufferedWriter
+--
++initLog(): void
++log(GameEvent event): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>15</x>
+      <y>550</y>
+      <w>175</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>com.sem.btrouble.tools::GameObserver
+--
+-consoleLog: boolean
+--
++GameObserver(boolean consoleLog): ctor
++update(Observable observable, Object arg): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>15</x>
+      <y>680</y>
+      <w>175</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>com.sem.btrouble.tools::SoundObserver
+--
+-wavEffect: Audio
+--
++SoundObserver(): ctor
++update(Observable observable, Object arg): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>70</x>
+      <y>400</y>
+      <w>195</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>com.sem.btrouble.event::ExceptionEvent
+--
+--
++ExceptionEvent(Object subject, String message): ctor
++toString(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>15</x>
+      <y>510</y>
+      <w>150</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>com.sem.btrouble.tools::GameObservable
+--
+--
+#fireEvent(GameEvent gameEvent): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>940</x>
+      <y>340</y>
+      <w>15</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>790</x>
+      <y>50</y>
+      <w>130</w>
+      <h>15</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;&gt;&gt;</panel_attributes>
+    <additional_attributes>240.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>790</x>
+      <y>60</y>
+      <w>130</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;&gt;&gt;</panel_attributes>
+    <additional_attributes>240.0;200.0;130.0;200.0;130.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>790</x>
+      <y>70</y>
+      <w>130</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;&gt;&gt;</panel_attributes>
+    <additional_attributes>240.0;380.0;90.0;380.0;90.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>0</x>
+      <y>490</y>
+      <w>205</w>
+      <h>260</h>
+    </coordinates>
+    <panel_attributes>Tools
+--
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>900</x>
+      <y>0</y>
+      <w>290</w>
+      <h>560</h>
+    </coordinates>
+    <panel_attributes>View
+--
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>790</x>
+      <y>275</y>
+      <w>130</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;20.0;240.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>555</x>
+      <y>120</y>
+      <w>255</w>
+      <h>425</h>
+    </coordinates>
+    <panel_attributes>Controller
+--
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>20</x>
+      <y>25</y>
+      <w>490</w>
+      <h>450</h>
+    </coordinates>
+    <panel_attributes>Event
+--
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>490</x>
+      <y>190</y>
+      <w>85</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;20.0;150.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>260</x>
+      <y>115</y>
+      <w>45</w>
+      <h>65</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>70.0;110.0;40.0;110.0;40.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>260</x>
+      <y>170</y>
+      <w>45</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>70.0;40.0;40.0;40.0;40.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>260</x>
+      <y>210</y>
+      <w>45</w>
+      <h>135</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>70.0;10.0;40.0;10.0;40.0;250.0;10.0;250.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>260</x>
+      <y>220</y>
+      <w>45</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>70.0;10.0;50.0;10.0;50.0;420.0;10.0;420.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>540</x>
+      <y>260</y>
+      <w>35</w>
+      <h>340</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>50.0;10.0;10.0;10.0;10.0;660.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>790</x>
+      <y>295</y>
+      <w>75</w>
+      <h>305</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;20.0;130.0;20.0;130.0;590.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>640</x>
+      <y>310</y>
+      <w>15</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>560</x>
+      <y>310</y>
+      <w>360</w>
+      <h>290</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>700.0;10.0;540.0;10.0;540.0;520.0;10.0;520.0;10.0;560.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1060</x>
+      <y>1035</y>
+      <w>30</w>
+      <h>205</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1..n</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;390.0;40.0;390.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1070</x>
+      <y>1035</y>
+      <w>25</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1..n</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;260.0;20.0;260.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1030</x>
+      <y>1035</y>
+      <w>40</w>
+      <h>205</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1..n</panel_attributes>
+    <additional_attributes>40.0;10.0;40.0;390.0;10.0;390.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1020</x>
+      <y>810</y>
+      <w>25</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1..n</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>910</x>
+      <y>665</y>
+      <w>110</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;200.0;10.0;200.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>695</x>
+      <y>665</y>
+      <w>110</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>200.0;10.0;10.0;10.0;10.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>700</x>
+      <y>1160</y>
+      <w>25</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1..n</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1165</x>
+      <y>305</y>
+      <w>50</w>
+      <h>300</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;80.0;10.0;80.0;580.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>230</x>
+      <y>565</y>
+      <w>1045</w>
+      <h>740</h>
+    </coordinates>
+    <panel_attributes>Model
+--
+bg=cyan</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>460</x>
+      <y>930</y>
+      <w>25</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1..n</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>420</x>
+      <y>65</y>
+      <w>240</w>
+      <h>740</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>460.0;10.0;200.0;10.0;200.0;970.0;10.0;970.0;10.0;1460.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>185</x>
+      <y>230</y>
+      <w>190</w>
+      <h>335</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=uses</panel_attributes>
+    <additional_attributes>330.0;10.0;330.0;650.0;10.0;650.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>125</x>
+      <y>600</y>
+      <w>55</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=uses</panel_attributes>
+    <additional_attributes>10.0;70.0;90.0;70.0;90.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>1320</x>
+      <y>1120</y>
+      <w>150</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Slick2D
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1330</x>
+      <y>1140</y>
+      <w>50</w>
+      <h>15</h>
+    </coordinates>
+    <panel_attributes>Rectangle</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1330</x>
+      <y>1160</y>
+      <w>50</w>
+      <h>15</h>
+    </coordinates>
+    <panel_attributes>Circle</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1400</x>
+      <y>1150</y>
+      <w>50</w>
+      <h>15</h>
+    </coordinates>
+    <panel_attributes>Shape</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1375</x>
+      <y>1140</y>
+      <w>35</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>50.0;30.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1375</x>
+      <y>1155</y>
+      <w>35</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>50.0;10.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1255</x>
+      <y>1145</y>
+      <w>85</w>
+      <h>15</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>150.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1260</x>
+      <y>1150</y>
+      <w>80</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>140.0;10.0;80.0;10.0;80.0;190.0;10.0;190.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>765</x>
+      <y>1045</y>
+      <w>590</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>1160.0;190.0;1160.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1010</x>
+      <y>1170</y>
+      <w>355</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>690.0;10.0;690.0;260.0;10.0;260.0;10.0;250.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>740</x>
+      <y>1150</y>
+      <w>635</w>
+      <h>175</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>1250.0;10.0;1250.0;330.0;10.0;330.0;10.0;310.0</additional_attributes>
+  </element>
+</diagram>
