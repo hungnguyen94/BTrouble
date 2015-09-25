@@ -2,6 +2,7 @@ package com.sem.btrouble.model;
 
 import java.util.ArrayList;
 
+import com.sem.btrouble.SlickApp;
 import com.sem.btrouble.tools.DataLoader;
 
 /**
@@ -14,8 +15,8 @@ public class Model {
   private static ArrayList<Player> players;
   private static int room_current;
 
-  private static final int ROOM_WIDTH = 1123;
-  private static final int ROOM_HEIGHT = 921;
+  private static int ROOM_WIDTH;
+  private static int ROOM_HEIGHT;
 
   /**
    * Initializes the model. Should be done before any calls to its methods are
@@ -25,6 +26,8 @@ public class Model {
     rooms = roomList;
     players = new ArrayList<Player>();
     room_current = 0;
+    ROOM_WIDTH = SlickApp.returnGraphics().getResolutions().get(SlickApp.returnGraphics().getCurrentResolution()).getScreenWidth();
+    ROOM_HEIGHT = SlickApp.returnGraphics().getResolutions().get(SlickApp.returnGraphics().getCurrentResolution()).getScreenHeight();
   }
 
   /**

@@ -1,18 +1,16 @@
 package com.sem.btrouble;
 
-import static org.junit.Assert.*;
-
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import com.sem.btrouble.model.Bubble;
 import com.sem.btrouble.model.Model;
 import com.sem.btrouble.model.Player;
@@ -39,7 +37,6 @@ public class PowerUpTest {
 	public void givePower0Test() {
 		Model.addPlayer(player);
 		power.givePower();
-		ArrayList<Player> players = Model.getPlayers();
 		verify(player).addLife();
 	}
 	
@@ -51,8 +48,6 @@ public class PowerUpTest {
 		bubbles.add(bubble);
 		when(room.getBubbles()).thenReturn(bubbles);
 		power.givePower();
-		ArrayList<Bubble> bubbles2 = Model.getBubbles();
-//		verify(bubble).setAY(.3f);
 	}
 
 }

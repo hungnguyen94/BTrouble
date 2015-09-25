@@ -12,6 +12,7 @@ import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.util.ResourceLoader;
 
+import com.sem.btrouble.SlickApp;
 import com.sem.btrouble.model.Bubble;
 import com.sem.btrouble.model.Model;
 import com.sem.btrouble.model.Player;
@@ -21,7 +22,6 @@ import com.sem.btrouble.model.Timers;
  * Created by rubenwiersma on 18-09-15.
  */
 public class View {
-    private Image background;
     private TrueTypeFont font;
     private GameContainer gc;
     private Timers timers;
@@ -35,7 +35,7 @@ public class View {
     public View(GameContainer gc, Timers timers) {
         this.gc = gc;
         this.timers = timers;
-        timerBar = new Rectangle(200, gc.getHeight() - 114, gc.getWidth() - 400, 25);
+        timerBar = new Rectangle(200, gc.getHeight() - ((gc.getHeight()/100)*12), gc.getWidth() - 400, 25);
 
         // load font from a .ttf file
         try {
@@ -73,7 +73,8 @@ public class View {
      */
     private void drawBackground(Graphics graphics) throws SlickException {
         graphics.setFont(font);
-        background = new Image("Sprites/background.jpg");
+        String backgroundName = SlickApp.returnGraphics().getResolutions().get(SlickApp.returnGraphics().getCurrentResolution()).getBackground();
+        Image background = new Image(backgroundName);
         background.draw(0, 0);
     }
 

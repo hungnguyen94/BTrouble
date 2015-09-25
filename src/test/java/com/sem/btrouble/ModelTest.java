@@ -1,7 +1,13 @@
 package com.sem.btrouble;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -11,17 +17,8 @@ import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Room;
 import com.sem.btrouble.tools.DataLoader;
 
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.verify;
-
-import java.util.ArrayList;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
 @RunWith(MockitoJUnitRunner.class)
-public class ModelTest {
+public class ModelTest extends Model {
 
 	@Mock private Room room;
 	@Mock private Player player;
@@ -34,12 +31,12 @@ public class ModelTest {
 	
 	@Test
 	public void getRoomHeightTest() {
-		assertEquals(Model.getRoomHeight(), 921);
+		assertEquals(Model.getRoomHeight(), 720);
 	}
 	
 	@Test
 	public void getRoomWidthTest() {
-		assertEquals(Model.getRoomWidth(), 1123);
+		assertEquals(Model.getRoomWidth(), 1280);
 	}
 	
 	@Test
