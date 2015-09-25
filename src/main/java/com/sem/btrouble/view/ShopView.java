@@ -75,19 +75,19 @@ public class ShopView extends BasicGameState {
                 if (mouseY > 80 && mouseY < 155) {
                     if(GameView.getWallet().getValue() > 2500) {
                         GameView.getWallet().decreaseValue(2500);
-                        power.setType(0);
+                        power.setType(1);
                         power.givePower();
                     }
                 } else if (mouseY > 230 && mouseY < 320) {
                     if(GameView.getWallet().getValue() > 2500) {
                         GameView.getWallet().decreaseValue(2500);
-                        power.setType(1);
+                        power.setType(2);
                         power.givePower();
                     }
                 } else if (mouseY > 390 && mouseY < 475) {
                     if(GameView.getWallet().getValue() > 10000) {
                         GameView.getWallet().decreaseValue(10000);
-                        power.setType(2);
+                        power.setType(0);
                         power.givePower();
                     }
                 }
@@ -111,6 +111,8 @@ public class ShopView extends BasicGameState {
         graphics.setFont(font);
         background.draw(0f, 0f);
         String score = "" + GameView.getWallet().getValue();
+        power.setType(3);
+        power.erasePower();
 
         graphics.drawString(score, 70, 660);
         graphics.drawString("Press enter", 1000, 660);
