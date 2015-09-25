@@ -19,6 +19,7 @@ import com.sem.btrouble.model.Model;
 import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Room;
 import com.sem.btrouble.model.Wall;
+import com.sem.btrouble.tools.DataLoader;
 import com.sem.btrouble.model.Floor;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -31,8 +32,8 @@ public class RoomTest {
 	@Before
 	public void setUp() {
 	      
-        room = new Room(0, new ArrayList<Wall>(), new ArrayList<Floor>(), new ArrayList<Bubble>());
-		Model.init();
+        room = new Room(new ArrayList<Wall>(), new ArrayList<Floor>(), new ArrayList<Bubble>());
+		Model.init(DataLoader.getRooms());
 		Model.addPlayer(player);
         Model.addRoom(room);
 	}
@@ -120,21 +121,21 @@ public class RoomTest {
 	@Test
 	public void equalsBubbleTest() {
 		room.addBubble(bubble);
-		Room room2 = new Room(0, new ArrayList<Wall>(), new ArrayList<Floor>(), new ArrayList<Bubble>());
+		Room room2 = new Room(new ArrayList<Wall>(), new ArrayList<Floor>(), new ArrayList<Bubble>());
 		assertFalse(room.equals(room2));
 	}
 	
 	@Test
 	public void equalsXTest() {
 		room.setSpawnPositionX(2);
-		Room room2 = new Room(0, new ArrayList<Wall>(), new ArrayList<Floor>(), new ArrayList<Bubble>());
+		Room room2 = new Room(new ArrayList<Wall>(), new ArrayList<Floor>(), new ArrayList<Bubble>());
 		assertFalse(room.equals(room2));
 	}
 	
 	@Test
 	public void equalsYTest() {
 		room.setSpawnPositionY(2);
-		Room room2 = new Room(0, new ArrayList<Wall>(), new ArrayList<Floor>(), new ArrayList<Bubble>());
+		Room room2 = new Room(new ArrayList<Wall>(), new ArrayList<Floor>(), new ArrayList<Bubble>());
 		assertFalse(room.equals(room2));
 	}
 	

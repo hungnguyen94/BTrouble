@@ -9,6 +9,7 @@ import com.sem.btrouble.model.Bubble;
 import com.sem.btrouble.model.Model;
 import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Room;
+import com.sem.btrouble.tools.DataLoader;
 
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
@@ -27,7 +28,8 @@ public class ModelTest {
 	
 	@Before
 	public void setUp() {
-		Model.init();
+	  DataLoader.init();
+		Model.init(new ArrayList<Room>());
 	}
 	
 	@Test
