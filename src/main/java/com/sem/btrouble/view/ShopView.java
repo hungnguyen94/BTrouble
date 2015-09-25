@@ -7,6 +7,9 @@ import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.util.ResourceLoader;
 
+import com.sem.btrouble.controller.Controller;
+import com.sem.btrouble.model.PowerUp;
+
 import java.io.InputStream;
 
 /**
@@ -15,6 +18,7 @@ import java.io.InputStream;
 public class ShopView extends BasicGameState {
     private Image background;
     private TrueTypeFont font;
+    private PowerUp power;
 
     /**
      * Initialize method of the slick2d library.
@@ -28,6 +32,9 @@ public class ShopView extends BasicGameState {
      */
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         background = new Image("Sprites/store1280x720.png");
+        Controller controller = GameView.getController();
+        power = new PowerUp(3);
+        controller.addObserver(power);
         // load font from a .ttf file
         try {
             InputStream inputStream = ResourceLoader.getResourceAsStream("Sprites/IndieFlower.ttf");
@@ -68,14 +75,20 @@ public class ShopView extends BasicGameState {
                 if (mouseY > 80 && mouseY < 155) {
                     if(GameView.getWallet().getValue() > 2500) {
                         GameView.getWallet().decreaseValue(2500);
+                        power.setType(0);
+                        power.givePower();
                     }
                 } else if (mouseY > 230 && mouseY < 320) {
                     if(GameView.getWallet().getValue() > 2500) {
                         GameView.getWallet().decreaseValue(2500);
+                        power.setType(1);
+                        power.givePower();
                     }
                 } else if (mouseY > 390 && mouseY < 475) {
                     if(GameView.getWallet().getValue() > 10000) {
                         GameView.getWallet().decreaseValue(10000);
+                        power.setType(2);
+                        power.givePower();
                     }
                 }
             }

@@ -30,7 +30,6 @@ public class GameView extends BasicGameState {
     private GameObserver observer;
     private SoundObserver soundObserver;
     private Audio wavEffect;
-    private PowerUp powerObserver;
     private static Wallet wallet;
 
     /**
@@ -47,12 +46,10 @@ public class GameView extends BasicGameState {
         controller = new Controller(gc, sbg);
         observer = new GameObserver(true);
         soundObserver = new SoundObserver();
-        powerObserver = new PowerUp(3);
         wallet = new Wallet();
 
         controller.addObserver(soundObserver);
         controller.addObserver(observer);
-        controller.addObserver(powerObserver);
         controller.addObserver(wallet);
 
         timers = controller.getTimers();
