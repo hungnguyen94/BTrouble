@@ -54,7 +54,7 @@ public class Model {
         if(rooms.hasNext())
             return rooms.next();
         else
-            return rooms.roomRestart();
+            return null;
     }
 
     /**
