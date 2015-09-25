@@ -202,7 +202,7 @@ public class Controller extends GameObservable {
      */
     public void endGame(String message) {
         fireEvent(new ControllerEvent(this, ControllerEvent.GAMEOVER, "Game over"));
-        sbg.enterState(2);
+        gc.exit();
     }
 
 }
