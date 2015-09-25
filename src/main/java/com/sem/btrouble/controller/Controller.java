@@ -1,7 +1,13 @@
 package com.sem.btrouble.controller;
 
-import com.sem.btrouble.SlickApp;
-import com.sem.btrouble.event.BubbleEvent;
+import java.util.Observable;
+import java.util.Observer;
+
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
+
 import com.sem.btrouble.event.ControllerEvent;
 import com.sem.btrouble.event.GameEvent;
 import com.sem.btrouble.event.PlayerEvent;
@@ -11,27 +17,14 @@ import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Room;
 import com.sem.btrouble.model.Rope;
 import com.sem.btrouble.model.Timers;
+import com.sem.btrouble.tools.DataLoader;
 import com.sem.btrouble.tools.GameObservable;
-
 import com.sem.btrouble.view.GameView;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Shape;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Observable;
-import java.util.Observer;
 
 /**
  * Controller, recalculates the Model, on request of the view.
  */
 public class Controller extends GameObservable {
-
-  private static final int REWARD_BUBBLE = 100;
 
   private GameContainer gc;
   private CollisionHandler collisionHandler;
@@ -56,14 +49,17 @@ public class Controller extends GameObservable {
     });
 
     Model.init();
-    Room r = new Room();
-    Model.addRoom(r);
-    r.loadRoom();
     Player p = new Player(0, 0);
     Model.addPlayer(p);
-    collisionHandler.addCollidable(p);
+    Model.addRoom(DataLoader.getRoom(0));
+    Model.addRoom(DataLoader.getRoom(1));
+    refreshCollisions();
+  }
+
+  private void refreshCollisions() {
     Model.restartRoom();
-    collisionHandler.addCollidable(r.getCollidables());
+    collisionHandler.addCollidable(Model.getPlayers());
+    collisionHandler.addCollidable(Model.getCurrentRoom().getCollidables());
   }
 
   public Timers getTimers() {
@@ -89,8 +85,8 @@ public class Controller extends GameObservable {
         loseLife(player);
       }
       collisionHandler.checkCollision(player.getRopes());
-        if(player.getRopes().size() > 0)
-            fireEvent(new PlayerEvent(player, PlayerEvent.SHOOT, "Shot a rope"));
+      if (player.getRopes().size() > 0)
+        fireEvent(new PlayerEvent(player, PlayerEvent.SHOOT, "Shot a rope"));
     }
 
     // Check if timer has run out.
@@ -165,9 +161,21 @@ public class Controller extends GameObservable {
    */
   private void updateBubble() {
     if (!Model.getCurrentRoom().hasBubbles()) {
+      noBubblesLeft();
+    } else {
+      Model.getCurrentRoom().moveBubbles();
+    }
+  }
+
+  private void noBubblesLeft() {
+    if (Model.hasNextRoom()) {
+      fireEvent(new ControllerEvent(this, ControllerEvent.NEXTROOM, "Moved to the next room."));
+      Model.loadNextRoom();
+      refreshCollisions();
+    } else {
+      fireEvent(new ControllerEvent(this, ControllerEvent.GAMEWON, "You won the game!"));
       endGame("You won the game!");
     }
-    Model.getCurrentRoom().moveBubbles();
   }
 
   /**

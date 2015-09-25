@@ -2,6 +2,8 @@ package com.sem.btrouble.model;
 
 import java.util.ArrayList;
 
+import com.sem.btrouble.tools.DataLoader;
+
 /**
  * Model contains all data of the game. Model is updated by the Controller and
  * used to draw the View. Model has been split into partial models such as
@@ -90,7 +92,9 @@ public class Model {
     for (Player p : players) {
       p.resetRope();
     }
-    getCurrentRoom().reload();
+    
+    rooms.set(room_current, DataLoader.getRoom(getCurrentRoom().getId()));
+    
     for (Player p : players) {
       p.moveTo(getCurrentRoom().getSpawnPositionX(), getCurrentRoom().getSpawnPositionY());
     }
@@ -105,5 +109,17 @@ public class Model {
   public static void addPlayer(Player player) {
     players.add(player);
   }
+
+  public static boolean hasNextRoom() {
+    return (room_current + 1) < rooms.size();
+  }
+
+  public static void loadNextRoom() {
+    if(hasNextRoom()){
+      room_current ++;
+    }
+  }
+  
+  
 
 }

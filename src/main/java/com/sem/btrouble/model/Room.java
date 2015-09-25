@@ -1,14 +1,9 @@
 package com.sem.btrouble.model;
 
-import org.newdawn.slick.Color;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.Shape;
-
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+
+import org.newdawn.slick.geom.Shape;
 
 /**
  * Room contains all objects within the room (except for the players), and draws
@@ -16,6 +11,7 @@ import java.util.List;
  *
  */
 public class Room {
+  int id;
   private int spawnPositionX;
   private int spawnPositionY;
 
@@ -26,15 +22,20 @@ public class Room {
   /**
    * Initializes the room with the objects.
    */
-  public Room() {
-    walls = new ArrayList<Wall>();
-    floors = new ArrayList<Floor>();
-    bubbles = new ArrayList<Bubble>();
-    spawnPositionX = 0;
-    spawnPositionY = 0;
+  public Room(int id, ArrayList<Wall> walls, ArrayList<Floor> floors, ArrayList<Bubble> bubbles) {
+    this.id = id;
+    this.walls = walls;
+    this.floors = floors;
+    this.bubbles = bubbles;
+    spawnPositionX = Model.getRoomWidth()/2;
+    spawnPositionY = 400;
   }
   
-  /**
+  public int getId() {
+    return id;
+  }
+
+    /**
    * Checks whether the provided Object is the same as this Room.
    * 
    * @param other
@@ -120,15 +121,15 @@ public class Room {
   public int getSpawnPositionX() {
     return spawnPositionX;
   }
-  
+
   public void setSpawnPositionX(int x) {
-	  this.spawnPositionX = x;
+    this.spawnPositionX = x;
   }
   
   public void setSpawnPositionY(int y) {
-	  this.spawnPositionY = y;
+    this.spawnPositionY = y;
   }
-
+  
   /**
    * Return the y coordinate of the spawn position.
    * 
@@ -136,29 +137,6 @@ public class Room {
    */
   public int getSpawnPositionY() {
     return spawnPositionY;
-  }
-
-  /**
-   * Reloads the room, by calling the loadRoom method.
-   */
-  public void reload() {
-    loadRoom();
-  }
-
-  /**
-   * Method to load a room with default hard coded data.
-   */
-  public void loadRoom() {
-    spawnPositionX = Model.getRoomWidth()/2;
-    spawnPositionY = 400;
-    walls.clear();
-    walls.add(new Wall(0, 0, 20, 800));
-    walls.add(new Wall(1103, 0, 20, 800));
-    floors.clear();
-    floors.add(new Floor(0, 794, 1123, 50));
-    floors.add(new Floor(0, 0, 1123, 50));
-    bubbles.clear();
-    bubbles.add(new Bubble(4, Model.getRoomWidth()/2, 200));
   }
 }
 

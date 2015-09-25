@@ -61,13 +61,6 @@ public class ModelTest {
 		Model.addPlayer(player);
 		assertEquals(players, Model.getPlayers());
 	}
-	
-	@Test
-	public void restartRoomTest() {
-		Model.addRoom(room);
-		Model.restartRoom();
-		verify(room).reload();
-	}
 
 
 }
