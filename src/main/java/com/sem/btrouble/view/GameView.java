@@ -29,8 +29,7 @@ public class GameView extends BasicGameState {
     private GameObserver observer;
     private SoundObserver soundObserver;
     private Audio wavEffect;
-    private PowerUp powerObserver;
-    private Wallet wallet;
+    private static Wallet wallet;
 
     /**
      * Initialize method of the slick2d library.
@@ -43,15 +42,13 @@ public class GameView extends BasicGameState {
      *           when the game could not be initialized.
      */
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        controller = new Controller(gc);
+        controller = new Controller(gc, sbg);
         observer = new GameObserver(true);
         soundObserver = new SoundObserver();
-        powerObserver = new PowerUp(3);
         wallet = new Wallet();
 
         controller.addObserver(soundObserver);
         controller.addObserver(observer);
-        controller.addObserver(powerObserver);
         controller.addObserver(wallet);
 
         timers = controller.getTimers();
@@ -109,4 +106,6 @@ public class GameView extends BasicGameState {
     public static Controller getController() {
         return controller;
     }
+
+    public static Wallet getWallet() { return wallet; }
 }
