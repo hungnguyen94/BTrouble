@@ -2,8 +2,6 @@ package com.sem.btrouble.model;
 
 import java.util.ArrayList;
 
-import com.sem.btrouble.SlickApp;
-
 /**
  * Model contains all data of the game. Model is updated by the Controller and
  * used to draw the View. Model has been split into partial models such as

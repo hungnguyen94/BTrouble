@@ -1,14 +1,11 @@
 package com.sem.btrouble.model;
 
-import org.newdawn.slick.Color;
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
-import org.newdawn.slick.geom.Transform;
-
 import java.io.*;
 import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Room contains all objects within the room (except for the players), and draws

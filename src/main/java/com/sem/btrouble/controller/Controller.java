@@ -1,7 +1,6 @@
 package com.sem.btrouble.controller;
 
 import com.sem.btrouble.SlickApp;
-import com.sem.btrouble.event.BubbleEvent;
 import com.sem.btrouble.event.ControllerEvent;
 import com.sem.btrouble.event.GameEvent;
 import com.sem.btrouble.event.PlayerEvent;
@@ -22,9 +21,7 @@ import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
+
 import java.util.Observable;
 import java.util.Observer;
 
@@ -61,6 +58,8 @@ public class Controller extends GameObservable {
         collisionHandler.addCollidable(p);
         restartRoom();
     }
+  //private static final int REWARD_BUBBLE = 100;
+
 
     public Timers getTimers() {
         return timers;
