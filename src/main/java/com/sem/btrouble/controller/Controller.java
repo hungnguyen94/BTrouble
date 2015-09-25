@@ -160,6 +160,7 @@ public class Controller extends GameObservable {
             Model.getNextRoom();
             restartRoom();
             sbg.enterState(2, new FadeOutTransition(), new FadeInTransition());
+
         }
         Model.getCurrentRoom().moveBubbles();
     }
