@@ -1,9 +1,6 @@
 package com.sem.btrouble.view;
 
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
@@ -13,6 +10,8 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
  * Created by rubenwiersma on 22-09-15.
  */
 public class MenuView extends BasicGameState {
+    private Image background;
+
     /**
      * Initialize method of the slick2d library.
      *
@@ -24,7 +23,7 @@ public class MenuView extends BasicGameState {
      *           when the game could not be initialized.
      */
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-
+        background = new Image("Sprites/menu1280x720.png");
     }
 
     /**
@@ -58,7 +57,7 @@ public class MenuView extends BasicGameState {
      *           when an item could not be drawn.
      */
     public void render(GameContainer gc, StateBasedGame sbg, Graphics graphics) throws SlickException {
-        graphics.drawString("Press enter to start", 300, 300);
+        background.draw(0f,0f);
     }
 
     public int getID() {
