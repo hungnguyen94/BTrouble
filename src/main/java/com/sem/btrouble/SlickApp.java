@@ -18,7 +18,11 @@ import org.newdawn.slick.state.StateBasedGame;
 public class SlickApp extends StateBasedGame {
 
 	private static GraphicSettings graphics;
-	
+
+	/**
+	 * Init the Slickapp.
+	 * @param gamename is the name of the game
+	 */
     public SlickApp(String gamename) {
         super(gamename);
     }
@@ -26,12 +30,11 @@ public class SlickApp extends StateBasedGame {
     /**
      * Main class of the SlickApp.
      *
-     * @param args
-     *          should be empty.
+     * @param args should be empty.
      */
     public static void main(String[] args) {
         try {
-        	graphics = new GraphicSettings(false, true, 0);
+        	graphics = new GraphicSettings(true, true, 0);
             AppGameContainer appgc;
             appgc = new AppGameContainer(new SlickApp("Bubble Trouble"));
             appgc.setDisplayMode(1280, 720, false);
@@ -40,16 +43,16 @@ public class SlickApp extends StateBasedGame {
             appgc.setTargetFrameRate(60);
             appgc.setAlwaysRender(true);
             appgc.start();
-
         } catch (SlickException ex) {
-            Logger.log(new ExceptionEvent(ex, "initialisation of the game failed."));
+            Logger.log(new ExceptionEvent(ex,
+            		"initialisation of the game failed."));
         }
     }
 
     /**
-     * Add states to the stateslist
+     * Add states to the stateslist.
      * @param gc GameContainer reference
-     * @throws SlickException
+     * @throws SlickException when sprite is incorrect
      */
     public void initStatesList(GameContainer gc) throws SlickException {
         this.addState(new MenuView());
@@ -57,7 +60,8 @@ public class SlickApp extends StateBasedGame {
     }
     
     /**
-     * Returns the graphics settings
+     * Returns the graphics settings.
+     * @return the graphics
      */
     public static GraphicSettings returnGraphics() {
   	  return graphics;
