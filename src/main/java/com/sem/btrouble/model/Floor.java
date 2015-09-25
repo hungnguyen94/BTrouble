@@ -7,7 +7,7 @@ import org.newdawn.slick.geom.Rectangle;
  */
 public class Floor extends Rectangle {
 
-    private int speed;
+    private float speed;
 
     /**
      * Constructor for floor class
@@ -18,7 +18,7 @@ public class Floor extends Rectangle {
      */
     public Floor(float x, float y, float width, float height) {
         super(x, y, width, height);
-        speed = 1;
+        speed = 0.1f;
     }
 
     /**
@@ -39,13 +39,13 @@ public class Floor extends Rectangle {
      * Move the floor up
      */
     public void moveUp() {
-        y += speed;
+        y -= speed;
     }
 
     /**
      * Move the floor down
      */
     public void moveDown() {
-        y -= speed;
+        y += speed;
     }
 }

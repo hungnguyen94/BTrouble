@@ -1,14 +1,11 @@
 package com.sem.btrouble.controller;
 
-import com.sem.btrouble.SlickApp;
-import com.sem.btrouble.event.BubbleEvent;
 import com.sem.btrouble.event.ControllerEvent;
 import com.sem.btrouble.event.GameEvent;
 import com.sem.btrouble.event.PlayerEvent;
 import com.sem.btrouble.model.Bubble;
 import com.sem.btrouble.model.Model;
 import com.sem.btrouble.model.Player;
-import com.sem.btrouble.model.Room;
 import com.sem.btrouble.model.Rope;
 import com.sem.btrouble.model.Timers;
 import com.sem.btrouble.tools.GameObservable;
@@ -18,12 +15,10 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.FadeInTransition;
+import org.newdawn.slick.state.transition.FadeOutTransition;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -48,25 +43,19 @@ public class Controller extends GameObservable {
         this.sbg = sbg;
 
         collisionHandler = new CollisionHandler();
-
         collisionHandler.addObserver(new Observer() {
-
             public void update(Observable o, Object arg) {
-                if (arg instanceof GameEvent) {
+                if(arg instanceof GameEvent) {
                     GameView.getController().fireEvent((GameEvent) arg);
                 }
             }
         });
 
-        Model.init(SlickApp.returnGraphics().getResolutions().get(SlickApp.returnGraphics().getCurrentResolution()).getScreenWidth(), SlickApp.returnGraphics().getResolutions().get(SlickApp.returnGraphics().getCurrentResolution()).getScreenHeight());
-        Room r = new Room();
-        Model.addRoom(r);
-        r.loadRoom();
+        Model.init(1280, 720);
         Player p = new Player(0, 0);
         Model.addPlayer(p);
         collisionHandler.addCollidable(p);
-        Model.restartRoom();
-        collisionHandler.addCollidable(r.getCollidables());
+        restartRoom();
     }
 
     public Timers getTimers() {
@@ -92,8 +81,8 @@ public class Controller extends GameObservable {
                 loseLife(player);
             }
             collisionHandler.checkCollision(player.getRopes());
-            if(player.getRopes().size() > 0)
-                fireEvent(new PlayerEvent(player, PlayerEvent.SHOOT, "Shot a rope"));
+                if(player.getRopes().size() > 0)
+                        fireEvent(new PlayerEvent(player, PlayerEvent.SHOOT, "Shot a rope"));
         }
 
         // Check if timer has run out.
@@ -114,9 +103,8 @@ public class Controller extends GameObservable {
 
     /**
      * Move the player on key presses
-     *
-     * @param delta
-     *          - milliseconds between frames
+     * 
+     * @param delta   milliseconds between frames
      */
     public void processInput(int delta) {
         Input input = gc.getInput();
@@ -138,9 +126,8 @@ public class Controller extends GameObservable {
 
     /**
      * Lets the player lose a life.
-     *
-     * @param player
-     *          should be the player who lost a life
+     * 
+     * @param player  should be the player who lost a life
      */
     public void loseLife(Player player) {
         fireEvent(new PlayerEvent(player, PlayerEvent.LIFE_LOST, "Lost a life"));
@@ -149,6 +136,7 @@ public class Controller extends GameObservable {
             endGame("Game over...");
         } else {
             collisionHandler.removeCollidable(Model.getCurrentRoom().getCollidables());
+            // Hardcoded player 1
             collisionHandler.removeCollidable(Model.getPlayers().get(0).getRopes());
             restartRoom();
             player.setAlive(true);
@@ -168,16 +156,18 @@ public class Controller extends GameObservable {
      */
     private void updateBubble() {
         if (!Model.getCurrentRoom().hasBubbles()) {
-            endGame("You won the game!");
+            collisionHandler.removeCollidable(Model.getCurrentRoom().getCollidables());
+            Model.getNextRoom();
+            restartRoom();
+            sbg.enterState(2, new FadeOutTransition(), new FadeInTransition());
         }
         Model.getCurrentRoom().moveBubbles();
     }
 
     /**
      * Adds a bubble to the game.
-     *
-     * @param bubble
-     *          Bubble to add to the room
+     * 
+     * @param bubble  Bubble to add to the room
      */
     public void addBubble(Bubble bubble) {
         Model.getCurrentRoom().addBubble(bubble);
@@ -186,9 +176,8 @@ public class Controller extends GameObservable {
 
     /**
      * Removes a bubble from the game.
-     *
-     * @param bubble
-     *          the bubble to remove
+     * 
+     * @param bubble  the bubble to remove
      */
     public void removeBubble(Bubble bubble) {
         Model.getCurrentRoom().removeBubble(bubble);
@@ -209,8 +198,7 @@ public class Controller extends GameObservable {
     /**
      * Ends the game by stopping the view, shows a message.
      *
-     * @param message
-     *          should be a String containing the message which is shown.
+     * @param message - should be a String containing the message which is shown.
      */
     public void endGame(String message) {
         fireEvent(new ControllerEvent(this, ControllerEvent.GAMEOVER, "Game over"));

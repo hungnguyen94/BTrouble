@@ -32,15 +32,8 @@ public class Wall extends Rectangle {
     /**
      * Move the wall to the right
      */
-    public void moveRight() {
+    public void moveX() {
         x += speed;
-    }
-
-    /**
-     * Move the wall to the left
-     */
-    public void moveLeft() {
-        x -= speed;
     }
 
     /**
@@ -55,5 +48,9 @@ public class Wall extends Rectangle {
      */
     public void moveDown() {
         y -= speed;
+    }
+
+    public void changeDirection() {
+        speed = -speed;
     }
 }

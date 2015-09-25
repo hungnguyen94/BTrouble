@@ -30,7 +30,7 @@ public class Wallet implements Observer {
 			BubbleEvent event = (BubbleEvent) arg;
 			if(event.getId() == BubbleEvent.COLLISION_ROPE) {
 				int value = event.getSubject().getSize();
-				increaseValue(value*100);
+				increaseValue(value*1000);
 			}
 		}
 	}

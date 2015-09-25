@@ -1,6 +1,5 @@
 package com.sem.btrouble.view;
 
-import com.sem.btrouble.model.Wallet;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -56,8 +55,10 @@ public class ShopView extends BasicGameState {
      */
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
         if(gc.getInput().isKeyPressed(Input.KEY_RETURN)) {
+            GameView.getController().getTimers().restartTimer();
             sbg.enterState(1, new FadeOutTransition(), new FadeInTransition());
         }
+
         if(gc.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
             float mouseX = gc.getInput().getMouseX();
             float mouseY = gc.getInput().getMouseY();
@@ -91,6 +92,7 @@ public class ShopView extends BasicGameState {
         String score = "" + GameView.getWallet().getValue();
 
         graphics.drawString(score, 70, 660);
+        graphics.drawString("Press enter", 1000, 660);
     }
 
     public int getID() {

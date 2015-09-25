@@ -32,7 +32,7 @@ public class SlickApp extends StateBasedGame {
      */
     public static void main(String[] args) {
         try {
-        	graphics = new GraphicSettings(true, true, 0);
+        	graphics = new GraphicSettings(false, true, 0);
             AppGameContainer appgc;
             appgc = new AppGameContainer(new SlickApp("Bubble Trouble"));
             appgc.setDisplayMode(1280, 720, false);

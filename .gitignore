@@ -53,3 +53,5 @@ target/
 
 # Meld
 *.orig
+
+log.txt
