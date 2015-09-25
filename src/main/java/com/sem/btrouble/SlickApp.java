@@ -6,6 +6,7 @@ import com.sem.btrouble.tools.Logger;
 import com.sem.btrouble.view.GameView;
 import com.sem.btrouble.view.MenuView;
 
+import com.sem.btrouble.view.ShopView;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
@@ -34,8 +35,7 @@ public class SlickApp extends StateBasedGame {
         	graphics = new GraphicSettings(true, true, 0);
             AppGameContainer appgc;
             appgc = new AppGameContainer(new SlickApp("Bubble Trouble"));
-            appgc.setDisplayMode(graphics.getResolutions().get(graphics.getCurrentResolution()).getScreenWidth(),
-          		  graphics.getResolutions().get(graphics.getCurrentResolution()).getScreenHeight(), graphics.isFullscreen());
+            appgc.setDisplayMode(1280, 720, false);
             appgc.setShowFPS(false);
             appgc.setVSync(true);
             appgc.setTargetFrameRate(60);
@@ -55,6 +55,7 @@ public class SlickApp extends StateBasedGame {
     public void initStatesList(GameContainer gc) throws SlickException {
         this.addState(new MenuView());
         this.addState(new GameView());
+        this.addState(new ShopView());
     }
     
     /**
