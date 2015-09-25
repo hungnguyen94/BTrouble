@@ -20,6 +20,16 @@ public class Resolution {
         this.screenHeight = screenHeight;
         this.background = background;
     }
+    
+    public boolean equals(Object other) {
+    	if(other instanceof Resolution) {
+    		Resolution that = (Resolution) other;
+    		return(this.screenHeight == that.screenHeight &&
+    				this.screenWidth == that.screenWidth &&
+    				this.background.equals(that.background));
+    	}
+    	return false;
+    }
 
     /**
      * This method returns the background for a certain resolution.

@@ -5,11 +5,15 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Collection;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.newdawn.slick.geom.Shape;
+
 import static org.mockito.Mockito.verify;
 
 import com.sem.btrouble.model.Bubble;
@@ -17,6 +21,11 @@ import com.sem.btrouble.model.Model;
 import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Room;
 
+/**
+ * Class which test the Room class.
+ * @author Martin
+ *
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class RoomTest {
 
@@ -24,6 +33,9 @@ public class RoomTest {
 	@Mock private Bubble bubble;
 	private Room room;
 	
+	/**
+	 * Set up the model and room object.
+	 */
 	@Before
 	public void setUp() {
         room = new Room();
@@ -95,17 +107,26 @@ public class RoomTest {
         assertEquals(myRoom, room);
     }
 	
+	/**
+	 * Test the hasBubbles method with outcome false.
+	 */
 	@Test
 	public void hasBubblesFalseTest() {
 		assertFalse(room.hasBubbles());
 	}
 	
+	/**
+	 * Test the hasBubbles method with outcome true.
+	 */
 	@Test
 	public void hasBubblesTrueTest() {
 		room.addBubble(bubble);
 		assertTrue(room.hasBubbles());
 	}
 	
+	/**
+	 * Test the moveBubbles method.
+	 */
 	@Test
 	public void moveBubblesTest() {
 		room.addBubble(bubble);
@@ -113,6 +134,9 @@ public class RoomTest {
 		verify(bubble).move();
 	}
 	
+	/**
+	 * Test the removeBubbles method.
+	 */
 	@Test
 	public void removeBubbleTest() {
 		room.addBubble(bubble);
@@ -120,11 +144,17 @@ public class RoomTest {
 		assertFalse(room.hasBubbles());
 	}
 	
+	/**
+	 * Test the equals method with another type.
+	 */
 	@Test
 	public void equalsOtherTest() {
 		assertFalse(room.equals(new String("test")));
 	}
 	
+	/**
+	 * Test the equals method with a false bubble.
+	 */
 	@Test
 	public void equalsBubbleTest() {
 		room.addBubble(bubble);
@@ -132,6 +162,9 @@ public class RoomTest {
 		assertFalse(room.equals(room2));
 	}
 	
+	/**
+	 * Test the equals method with a false x.
+	 */
 	@Test
 	public void equalsXTest() {
 		room.setSpawnPositionX(2);
@@ -139,11 +172,25 @@ public class RoomTest {
 		assertFalse(room.equals(room2));
 	}
 	
+	/**
+	 * Test the equals method with a false y.
+	 */
 	@Test
 	public void equalsYTest() {
 		room.setSpawnPositionY(2);
 		Room room2 = new Room();
 		assertFalse(room.equals(room2));
+	}
+	
+	/**
+	 * Test the getCollidables method.
+	 */
+	@Test
+	public void getCollidablesTest() {
+		room.addBubble(bubble);
+		Collection<Shape> collection = room.getCollidables();
+		assertEquals(1, collection.size());
+		assertTrue(collection.contains(bubble));
 	}
 	
 }

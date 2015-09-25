@@ -12,8 +12,12 @@ import org.newdawn.slick.geom.Shape;
 import java.util.Collection;
 import java.util.HashSet;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
 
 /**
  * Created by hung on 22-9-15.
@@ -31,20 +35,20 @@ public class CollisionHandlerTest {
     @Mock
     private Rope rope;
 
-    private float colliderX = 1;
-    private float colliderY = 1;
-
-    private float collideeX = 1;
-    private float collideeY = 1;
-
     private CollisionHandler collisionHandler;
 
+    /**
+     * setUp the collisionHandler.
+     */
     @Before
-    public void CollisionHandlerTest() {
+    public void setUp() {
         collisionHandler = new CollisionHandler();
         assertNotNull(collisionHandler);
     }
 
+    /**
+     * Test the collision between a player and a bubble.
+     */
     @Test
     public void PlayerCollideBubbleTest() {
         when(player.intersects(bubble)).thenReturn(true);
@@ -55,6 +59,9 @@ public class CollisionHandlerTest {
         verify(player).setAlive(false);
     }
 
+    /**
+     * Test the collision between the right side of a wall and a player.
+     */
     @Test
     public void PlayerCollideWallSideRightTest() {
         when(player.getCenterX()).thenReturn(-1f);
@@ -67,6 +74,9 @@ public class CollisionHandlerTest {
         verify(player).setRightBlocked(true);
     }
 
+    /**
+     * Test the collision between the left side of a wall and a player.
+     */
     @Test
     public void PlayerCollideWallSideLeftTest() {
         when(player.getCenterX()).thenReturn(1f);
@@ -79,6 +89,9 @@ public class CollisionHandlerTest {
         verify(player).setLeftBlocked(true);
     }
 
+    /**
+     * Test the collision between the floor and a player.
+     */
     @Test
     public void PlayerCollideFloorTest() {
         when(player.intersects(floor)).thenReturn(true);
@@ -89,6 +102,9 @@ public class CollisionHandlerTest {
         verify(player).setFalling(false);
     }
 
+    /**
+     * Tests the collision between the left side of a wall and a bubble.
+     */
     @Test
     public void BubbleCollideWallLeftTest() {
         when(bubble.getCenterX()).thenReturn(1f);
@@ -101,6 +117,9 @@ public class CollisionHandlerTest {
         verify(bubble).bounceX(false);
     }
 
+    /**
+     * Tests the collision between the right side of a wall and a bubble.
+     */
     @Test
     public void BubbleCollideWallRightTest() {
         when(bubble.getCenterX()).thenReturn(-1f);
@@ -113,6 +132,9 @@ public class CollisionHandlerTest {
         verify(bubble).bounceX(true);
     }
 
+    /**
+     * Test the collision between the floor and a bubble.
+     */
     @Test
     public void BubbleCollideFloorTest() {
         when(bubble.intersects(floor)).thenReturn(true);
@@ -122,6 +144,9 @@ public class CollisionHandlerTest {
         verify(bubble).intersects(floor);
     }
 
+    /**
+     * Tests the collision between a bubble and a rope.
+     */
     @Test
     public void BubbleCollideRopeTest() {
         when(bubble.intersects(rope)).thenReturn(true);
@@ -133,6 +158,9 @@ public class CollisionHandlerTest {
         verify(rope).setCollided(true);
     }
 
+    /**
+     * Test the addCollidables method.
+     */
     @Test
     public void AddCollidablesTest() {
         Collection<Shape> collidables = new HashSet<Shape>();
@@ -145,6 +173,9 @@ public class CollisionHandlerTest {
         assertEquals(collisionHandler.getSize(), collidables.size());
     }
 
+    /**
+     * Tests the removeCollidables method.
+     */
     @Test
     public void RemoveCollidablesTest() {
         Collection<Shape> collidables = new HashSet<Shape>();
@@ -161,6 +192,9 @@ public class CollisionHandlerTest {
         assertEquals(collisionHandler.getSize(), collidables.size() - removedCollidables.size());
     }
 
+    /**
+     * Test addCollidable method.
+     */
     @Test
     public void AddCollidableTest() {
         assertTrue(collisionHandler.getSize() == 0);
@@ -168,6 +202,9 @@ public class CollisionHandlerTest {
         assertTrue(collisionHandler.getSize() > 0);
     }
 
+    /**
+     * Test removeCollidable method.
+     */
     @Test
     public void RemoveCollidableTest() {
         collisionHandler.addCollidable(player);
@@ -176,12 +213,18 @@ public class CollisionHandlerTest {
         assertTrue(collisionHandler.getSize() == 0);
     }
 
+    /**
+     * Test the checkCollision method with outcome false.
+     */
     @Test
     public void checkCollisionTestFalse() {
         collisionHandler.addCollidable(player);
         assertFalse(collisionHandler.checkCollision(player));
     }
 
+    /**
+     * Test the checkCollision method with outcome true.
+     */
     @Test
     public void checkCollisionTestTrue() {
         collisionHandler.addCollidable(player);
@@ -192,6 +235,9 @@ public class CollisionHandlerTest {
         assertTrue(collisionHandler.checkCollision(bubble));
     }
 
+    /**
+     * Test the checkCollisionList method.
+     */
     @Test
     public void checkCollisionListTest() {
         Collection<Shape> listCollidables = new HashSet<Shape>();
