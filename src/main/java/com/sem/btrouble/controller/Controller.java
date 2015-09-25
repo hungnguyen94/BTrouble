@@ -81,8 +81,6 @@ public class Controller extends GameObservable {
                 loseLife(player);
             }
             collisionHandler.checkCollision(player.getRopes());
-            if(player.getRopes().size() > 0)
-                fireEvent(new PlayerEvent(player, PlayerEvent.SHOOT, "Shot a rope"));
         }
 
         // Check if timer has run out.
@@ -119,8 +117,10 @@ public class Controller extends GameObservable {
         if (input.isKeyPressed(Input.KEY_SPACE)) {
             Rope r = new Rope(p1.getX() + (int) (p1.getWidth() / 2),
                     (float) (p1.getY() + p1.getHeight() * 0.9));
-            if (p1.fire(r))
+            if (p1.fire(r)) {
                 collisionHandler.addCollidable(r);
+                fireEvent(new PlayerEvent(p1, PlayerEvent.SHOOT, "Shot a rope"));
+            }
         }
     }
 
