@@ -4,6 +4,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Shape;
 import java.io.*;
 import java.util.*;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -135,8 +136,8 @@ public class Room implements Serializable {
             b.move();
         }
         if(!moveableBorders.isEmpty()) {
-            for(Shape f: moveableBorders) {
-                if( f instanceof  Floor) {
+            for (Shape f: moveableBorders) {
+                if (f instanceof  Floor) {
                     Floor that = (Floor) f;
                     that.moveUp();
                 }
@@ -205,9 +206,9 @@ public class Room implements Serializable {
      * @param g
      */
     public void drawRoom(Graphics g) {
-        for(Wall w: walls)
+        for (Wall w: walls)
             g.fillRect(w.getX(), w.getY(), 5, w.getHeight());
-        for(Floor f: floors)
+        for (Floor f: floors)
             g.fillRect(f.getX(), f.getY(), f.getWidth(), 5);
     }
 }

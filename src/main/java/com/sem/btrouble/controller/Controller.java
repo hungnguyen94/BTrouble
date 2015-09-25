@@ -1,14 +1,11 @@
 package com.sem.btrouble.controller;
 
-import com.sem.btrouble.SlickApp;
-import com.sem.btrouble.event.BubbleEvent;
 import com.sem.btrouble.event.ControllerEvent;
 import com.sem.btrouble.event.GameEvent;
 import com.sem.btrouble.event.PlayerEvent;
 import com.sem.btrouble.model.Bubble;
 import com.sem.btrouble.model.Model;
 import com.sem.btrouble.model.Player;
-import com.sem.btrouble.model.Room;
 import com.sem.btrouble.model.Rope;
 import com.sem.btrouble.model.Timers;
 import com.sem.btrouble.tools.GameObservable;
@@ -22,9 +19,6 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -87,8 +81,8 @@ public class Controller extends GameObservable {
                 loseLife(player);
             }
             collisionHandler.checkCollision(player.getRopes());
-                if(player.getRopes().size() > 0)
-                        fireEvent(new PlayerEvent(player, PlayerEvent.SHOOT, "Shot a rope"));
+            if(player.getRopes().size() > 0)
+                fireEvent(new PlayerEvent(player, PlayerEvent.SHOOT, "Shot a rope"));
         }
 
         // Check if timer has run out.
@@ -109,7 +103,7 @@ public class Controller extends GameObservable {
 
     /**
      * Move the player on key presses
-     * 
+     *
      * @param delta   milliseconds between frames
      */
     public void processInput(int delta) {
@@ -132,7 +126,7 @@ public class Controller extends GameObservable {
 
     /**
      * Lets the player lose a life.
-     * 
+     *
      * @param player  should be the player who lost a life
      */
     public void loseLife(Player player) {
@@ -172,7 +166,7 @@ public class Controller extends GameObservable {
 
     /**
      * Adds a bubble to the game.
-     * 
+     *
      * @param bubble  Bubble to add to the room
      */
     public void addBubble(Bubble bubble) {
@@ -182,7 +176,7 @@ public class Controller extends GameObservable {
 
     /**
      * Removes a bubble from the game.
-     * 
+     *
      * @param bubble  the bubble to remove
      */
     public void removeBubble(Bubble bubble) {
@@ -203,7 +197,7 @@ public class Controller extends GameObservable {
 
     /**
      * Ends the game by stopping the view, shows a message.
-     * 
+     *
      * @param message - should be a String containing the message which is shown.
      */
     public void endGame(String message) {
