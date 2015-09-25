@@ -54,21 +54,29 @@ public class ShopView extends BasicGameState {
      *           when the controller could not be updated
      */
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
+        // Press enter
         if(gc.getInput().isKeyPressed(Input.KEY_RETURN)) {
             GameView.getController().getTimers().restartTimer();
             sbg.enterState(1, new FadeOutTransition(), new FadeInTransition());
         }
 
+        // Buttons
         if(gc.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
             float mouseX = gc.getInput().getMouseX();
             float mouseY = gc.getInput().getMouseY();
             if(mouseX > 175 && mouseX < 700) {
                 if (mouseY > 80 && mouseY < 155) {
-                    System.out.println("bubblespeed");
+                    if(GameView.getWallet().getValue() > 2500) {
+                        GameView.getWallet().decreaseValue(2500);
+                    }
                 } else if (mouseY > 230 && mouseY < 320) {
-                    System.out.println("time");
+                    if(GameView.getWallet().getValue() > 2500) {
+                        GameView.getWallet().decreaseValue(2500);
+                    }
                 } else if (mouseY > 390 && mouseY < 475) {
-                    System.out.println("life");
+                    if(GameView.getWallet().getValue() > 10000) {
+                        GameView.getWallet().decreaseValue(10000);
+                    }
                 }
             }
         }
