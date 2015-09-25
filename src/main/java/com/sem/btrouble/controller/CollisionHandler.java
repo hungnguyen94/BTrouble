@@ -166,6 +166,26 @@ public class CollisionHandler extends GameObservable {
         if (collider instanceof Rope) {
             ropeCollide((Rope) collider, collidee);
         }
+
+        if (collider instanceof Wall) {
+            wallCollide((Wall) collider, collidee);
+        }
+    }
+
+    /**
+     * Actions when the player collides with another shape
+     *
+     * @param wall
+     *          - wall that is colliding
+     * @param collidee
+     *          - shape the wall collides with
+     */
+    private void wallCollide(Wall wall, Shape collidee) {
+        if(collidee instanceof Wall) {
+            wall.changeDirection();
+            Wall that = (Wall) collidee;
+            that.changeDirection();
+        }
     }
 
     /**

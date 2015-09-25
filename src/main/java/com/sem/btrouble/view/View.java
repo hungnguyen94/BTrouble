@@ -56,10 +56,11 @@ public class View {
         drawPlayers(graphics);
         drawBubbles(graphics);
         drawTimer(graphics);
+        drawBorders(graphics);
 
         drawLives();
         drawScore(graphics);
-//        drawDebug(graphics);
+        drawDebug(graphics);
     }
 
     /**
@@ -78,8 +79,9 @@ public class View {
      */
     private void drawCountDown(Graphics graphics) {
         if (timers.getCountdownRunning()) {
-            graphics.drawString("Game starts in " + (timers.getCountdownTimeLeft() / 1000 + 1) + " seconds",
-                    gc.getWidth() / 2 - 200, gc.getHeight() / 2 - 100);
+            graphics.drawString("Level " + (Model.getRoom_current() + 1), gc.getWidth() / 2 - 30, gc.getHeight() / 2 - 400);
+            graphics.drawString(" Starting in " + (timers.getCountdownTimeLeft() / 1000 + 1) + " seconds",
+                    gc.getWidth() / 2 - 150, gc.getHeight() / 2 - 200);
         }
     }
 
@@ -152,5 +154,13 @@ public class View {
      */
     private void drawDebug(Graphics g) {
         GameView.getController().drawCollidables(g);
+    }
+
+    /**
+     * Draw the borders
+     * @param g - graphics
+     */
+    private void drawBorders(Graphics g) {
+        Model.getCurrentRoom().drawRoom(g);
     }
 }
