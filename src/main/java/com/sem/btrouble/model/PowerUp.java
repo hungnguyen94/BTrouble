@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-import com.sem.btrouble.controller.Controller;
 import com.sem.btrouble.event.BubbleEvent;
 import com.sem.btrouble.view.GameView;
 

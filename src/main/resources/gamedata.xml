@@ -1,0 +1,17 @@
+<GameData>
+	<Room>
+		<Wall x="0" y="0" width="20" height="800"></Wall>
+		<Wall x="1103" y="0" width="20" height="800"></Wall>
+		<Floor x="0" y="794" width="1123" height="50"></Floor>
+		<Floor x="0" y="0" width="1123" height="50"></Floor>
+		<Bubble size="2" x="550" y="200"></Bubble>
+	</Room>
+	<Room>
+		<Wall x="0" y="0" width="20" height="800"></Wall>
+		<Wall x="1103" y="0" width="20" height="800"></Wall>
+		<Floor x="0" y="794" width="1123" height="50"></Floor>
+		<Floor x="0" y="0" width="1123" height="50"></Floor>
+		<Bubble size="2" x="550" y="200"></Bubble>
+		<Bubble size="2" x="100" y="200"></Bubble>
+	</Room>
+</GameData>

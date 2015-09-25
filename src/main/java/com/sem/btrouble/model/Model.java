@@ -21,8 +21,8 @@ public class Model {
    * Initializes the model. Should be done before any calls to its methods are
    * done.
    */
-  public static void init() {
-    rooms = new ArrayList<Room>();
+  public static void init(ArrayList<Room> roomList) {
+    rooms = roomList;
     players = new ArrayList<Player>();
     room_current = 0;
   }
@@ -93,7 +93,7 @@ public class Model {
       p.resetRope();
     }
     
-    rooms.set(room_current, DataLoader.getRoom(getCurrentRoom().getId()));
+    rooms.set(room_current, DataLoader.getRoom(room_current));
     
     for (Player p : players) {
       p.moveTo(getCurrentRoom().getSpawnPositionX(), getCurrentRoom().getSpawnPositionY());

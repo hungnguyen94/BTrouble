@@ -1,16 +1,21 @@
 package com.sem.btrouble.view;
 
-import com.sem.btrouble.SlickApp;
-import com.sem.btrouble.model.*;
-import org.newdawn.slick.*;
+import java.io.InputStream;
+
 import org.newdawn.slick.Color;
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.SpriteSheet;
+import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.util.ResourceLoader;
 
-import java.io.InputStream;
+import com.sem.btrouble.model.Bubble;
+import com.sem.btrouble.model.Model;
+import com.sem.btrouble.model.Player;
+import com.sem.btrouble.model.Timers;
 
 /**
  * Created by rubenwiersma on 18-09-15.
@@ -150,6 +155,7 @@ public class View {
     /**
      * Draw hitboxes for testing.
      */
+    @SuppressWarnings("unused")
     private void drawDebug(Graphics g) {
         GameView.getController().drawCollidables(g);
     }

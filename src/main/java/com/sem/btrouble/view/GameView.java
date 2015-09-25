@@ -2,23 +2,22 @@ package com.sem.btrouble.view;
 
 import java.io.IOException;
 
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.openal.Audio;
+import org.newdawn.slick.openal.AudioLoader;
+import org.newdawn.slick.openal.SoundStore;
+import org.newdawn.slick.state.BasicGameState;
+import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.util.ResourceLoader;
+
 import com.sem.btrouble.controller.Controller;
 import com.sem.btrouble.model.PowerUp;
 import com.sem.btrouble.model.Timers;
 import com.sem.btrouble.model.Wallet;
 import com.sem.btrouble.tools.GameObserver;
 import com.sem.btrouble.tools.SoundObserver;
-
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.state.BasicGameState;
-import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.Sound;
-import org.newdawn.slick.openal.Audio;
-import org.newdawn.slick.openal.AudioLoader;
-import org.newdawn.slick.openal.SoundStore;
-import org.newdawn.slick.util.ResourceLoader;
 
 /**
  * Created by rubenwiersma on 22-09-15.

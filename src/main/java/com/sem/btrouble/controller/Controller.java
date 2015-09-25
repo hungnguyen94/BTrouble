@@ -14,7 +14,6 @@ import com.sem.btrouble.event.PlayerEvent;
 import com.sem.btrouble.model.Bubble;
 import com.sem.btrouble.model.Model;
 import com.sem.btrouble.model.Player;
-import com.sem.btrouble.model.Room;
 import com.sem.btrouble.model.Rope;
 import com.sem.btrouble.model.Timers;
 import com.sem.btrouble.tools.DataLoader;
@@ -47,12 +46,11 @@ public class Controller extends GameObservable {
         }
       }
     });
-
-    Model.init();
-    Player p = new Player(0, 0);
-    Model.addPlayer(p);
-    Model.addRoom(DataLoader.getRoom(0));
-    Model.addRoom(DataLoader.getRoom(1));
+    
+    DataLoader.init();
+    Model.init(DataLoader.getRooms());
+    
+    Model.addPlayer(new Player(0, 0));
     refreshCollisions();
   }
 

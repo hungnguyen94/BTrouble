@@ -11,7 +11,6 @@ import org.newdawn.slick.geom.Shape;
  *
  */
 public class Room {
-  int id;
   private int spawnPositionX;
   private int spawnPositionY;
 
@@ -22,17 +21,12 @@ public class Room {
   /**
    * Initializes the room with the objects.
    */
-  public Room(int id, ArrayList<Wall> walls, ArrayList<Floor> floors, ArrayList<Bubble> bubbles) {
-    this.id = id;
+  public Room(ArrayList<Wall> walls, ArrayList<Floor> floors, ArrayList<Bubble> bubbles) {
     this.walls = walls;
     this.floors = floors;
     this.bubbles = bubbles;
     spawnPositionX = Model.getRoomWidth()/2;
     spawnPositionY = 400;
-  }
-  
-  public int getId() {
-    return id;
   }
 
     /**
@@ -139,5 +133,3 @@ public class Room {
     return spawnPositionY;
   }
 }
-
-

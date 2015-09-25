@@ -2,6 +2,7 @@ package com.sem.btrouble.tools;
 
 import java.io.IOException;
 import java.util.Observable;
+import java.util.Observer;
 
 import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.openal.AudioLoader;
@@ -9,10 +10,7 @@ import org.newdawn.slick.openal.SoundStore;
 import org.newdawn.slick.util.ResourceLoader;
 
 import com.sem.btrouble.event.ControllerEvent;
-import com.sem.btrouble.event.GameEvent;
 import com.sem.btrouble.event.PlayerEvent;
-
-import java.util.Observer;
 
 public class SoundObserver implements Observer {
 	
