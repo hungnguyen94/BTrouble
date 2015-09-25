@@ -55,7 +55,7 @@ public class Controller extends GameObservable {
             }
         });
 
-        Model.init();
+        Model.init(1280, 720);
         Player p = new Player(0, 0);
         Model.addPlayer(p);
         collisionHandler.addCollidable(p);

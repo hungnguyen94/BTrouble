@@ -30,7 +30,7 @@ public class View {
     public View(GameContainer gc, Timers timers) {
         this.gc = gc;
         this.timers = timers;
-        timerBar = new Rectangle(200, gc.getHeight() - 114, gc.getWidth() - 400, 25);
+        timerBar = new Rectangle(200, gc.getHeight() - ((gc.getHeight()/100)*12), gc.getWidth() - 400, 25);
 
         // load font from a .ttf file
         try {
@@ -69,7 +69,8 @@ public class View {
      */
     private void drawBackground(Graphics graphics) throws SlickException {
         graphics.setFont(font);
-        background = new Image("Sprites/background.jpg");
+        String backgroundName = SlickApp.returnGraphics().getResolutions().get(SlickApp.returnGraphics().getCurrentResolution()).getBackground();
+        Image background = new Image(backgroundName);
         background.draw(0, 0);
     }
 
@@ -79,9 +80,9 @@ public class View {
      */
     private void drawCountDown(Graphics graphics) {
         if (timers.getCountdownRunning()) {
-            graphics.drawString("Level " + Model.getRoom_current(), gc.getWidth() / 2 - 30, gc.getHeight() / 2 - 400);
+            graphics.drawString("Level " + Model.getRoom_current(), gc.getWidth() / 2 - 30, gc.getHeight() / 6);
             graphics.drawString(" Starting in " + (timers.getCountdownTimeLeft() / 1000 + 1) + " seconds",
-                    gc.getWidth() / 2 - 150, gc.getHeight() / 2 - 200);
+                    gc.getWidth() / 2 - 150, gc.getHeight() / 3);
         }
     }
 

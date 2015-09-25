@@ -166,26 +166,19 @@ public class Room implements Serializable {
     }
 
     /**
-     * Reloads the room, by calling the loadRoom method.
-     */
-    public void reload() {
-        //loadRoom2();
-    }
-
-    /**
      * Method to load a room with default hard coded data.
      */
     public void loadRoom() {
         spawnPositionX = Model.getRoomWidth()/2;
         spawnPositionY = 400;
         walls.clear();
-        walls.add(new Wall(0, 0, 20, 800));
-        walls.add(new Wall(1103, 0, 20, 800));
+        walls.add(new Wall(0, 0, 20, Model.getRoomHeight()));
+        walls.add(new Wall(Model.getRoomWidth(), 0, 20, Model.getRoomHeight()));
         floors.clear();
-        floors.add(new Floor(0, 794, 1123, 50));
-        floors.add(new Floor(0, 0, 1123, 50));
+        floors.add(new Floor(0, Model.getRoomHeight() - ((Model.getRoomHeight()/100)*14), Model.getRoomWidth(), 50));
+        floors.add(new Floor(0, 0, Model.getRoomWidth(), 50));
         bubbles.clear();
-        bubbles.add(new Bubble(2, Model.getRoomWidth() / 2, 200));
+        bubbles.add(new Bubble(2, Model.getRoomWidth()/2, 200));
     }
 
     /**
@@ -196,10 +189,10 @@ public class Room implements Serializable {
         spawnPositionX = Model.getRoomWidth()/4;
         spawnPositionY = 400;
         walls.clear();
-        walls.add(new Wall(0, 0, 20, 800));
-        walls.add(new Wall(1103, 0, 20, 800));
+        walls.add(new Wall(0, 0, 20, Model.getRoomHeight()));
+        walls.add(new Wall(Model.getRoomWidth(), 0, 20, Model.getRoomHeight()));
         floors.clear();
-        Floor fTemp = new Floor(0, 794, 1123, 50);
+        Floor fTemp = new Floor(0, Model.getRoomHeight() - ((Model.getRoomHeight()/100)*14), Model.getRoomWidth(), 50);
         floors.add(fTemp);
         moveableBorders.add(fTemp);
         floors.add(new Floor(0, 0, 1123, 50));

@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.verify;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +27,7 @@ public class RoomTest {
 	@Before
 	public void setUp() {
         room = new Room();
-		Model.init();
+		Model.init(1280, 720);
 		Model.addPlayer(player);
         Model.addRoom(room);
         Model.restartRoom();
@@ -61,4 +62,42 @@ public class RoomTest {
         room.loadRoom();
         assertFalse(room.getBubbles().isEmpty());
     }
+	
+	@Test
+	public void hasBubblesFalseTest() {
+		assertFalse(room.hasBubbles());
+	}
+	
+	@Test
+	public void hasBubblesTrueTest() {
+		room.addBubble(bubble);
+		assertTrue(room.hasBubbles());
+	}
+	
+	@Test
+	public void moveBubblesTest() {
+		room.addBubble(bubble);
+		room.moveBubbles();
+		verify(bubble).move();
+	}
+	
+	@Test
+	public void removeBubbleTest() {
+		room.addBubble(bubble);
+		room.removeBubble(bubble);
+		assertFalse(room.hasBubbles());
+	}
+	
+	@Test
+	public void equalsOtherTest() {
+		assertFalse(room.equals(new String("test")));
+	}
+	
+	@Test
+	public void equalsBubbleTest() {
+		room.addBubble(bubble);
+		Room room2 = new Room();
+		assertFalse(room.equals(room2));
+	}
+	
 }
