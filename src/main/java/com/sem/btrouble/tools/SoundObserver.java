@@ -9,7 +9,6 @@ import org.newdawn.slick.openal.SoundStore;
 import org.newdawn.slick.util.ResourceLoader;
 
 import com.sem.btrouble.event.ControllerEvent;
-import com.sem.btrouble.event.GameEvent;
 import com.sem.btrouble.event.PlayerEvent;
 
 import java.util.Observer;

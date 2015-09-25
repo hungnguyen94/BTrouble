@@ -5,6 +5,7 @@ import org.newdawn.slick.geom.Rectangle;
 /**
  * Class representing a wall
  */
+@SuppressWarnings("serial")
 public class Wall extends Rectangle {
 
     private int speed;

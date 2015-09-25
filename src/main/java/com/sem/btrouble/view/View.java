@@ -7,7 +7,6 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.util.ResourceLoader;
 
 import java.io.InputStream;
@@ -16,7 +15,6 @@ import java.io.InputStream;
  * Created by rubenwiersma on 18-09-15.
  */
 public class View {
-    private Image background;
     private TrueTypeFont font;
     private GameContainer gc;
     private Timers timers;
@@ -151,7 +149,7 @@ public class View {
     /**
      * Draw hitboxes for testing.
      */
-    private void drawDebug(Graphics g) {
+    /*private void drawDebug(Graphics g) {
         GameView.getController().drawCollidables(g);
-    }
+    }*/
 }

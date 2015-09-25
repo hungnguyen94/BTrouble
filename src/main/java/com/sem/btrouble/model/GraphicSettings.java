@@ -2,7 +2,6 @@ package com.sem.btrouble.model;
 
 import java.util.ArrayList;
 
-import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 /**
