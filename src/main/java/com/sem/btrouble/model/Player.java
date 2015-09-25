@@ -62,7 +62,6 @@ public class Player extends Rectangle {
 		leftBlocked = false;
 		alive = true;
 		falling = true;
-
 	}
 
 	/**
@@ -194,28 +193,29 @@ public class Player extends Rectangle {
    *           when the player could not be drawn.
    */
   public void draw() throws SlickException {
-		try {
-			playerIdle = new Image("Sprites/idle.png");
-			walkSheet = new SpriteSheet("Sprites/player_spritesheet.png", 100,
-					175);
-		} catch (SlickException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		walkAnimation = new Animation(walkSheet, 20);
-		// Render the sprite at an offset.
-		int playerX = (int) (x - ((walkSheet.getWidth() / walkSheet
-				.getHorizontalCount()) - getWidth()) / 2);
-		if (!idle) {
-			walkAnimation.getCurrentFrame().getFlippedCopy(facingLeft, false)
-					.draw(playerX, y - 15);
-		} else {
-			playerIdle.getFlippedCopy(facingLeft, false).draw(playerX, y - 15);
-		}
-		for (int i = 0; i < ropes.size(); i++) {
-			ropes.get(i).draw();
-		}
-	}
+      try {
+          if(playerIdle == null && walkSheet == null && walkAnimation == null) {
+              playerIdle = new Image("Sprites/idle.png");
+              walkSheet = new SpriteSheet("Sprites/player_spritesheet.png", 100, 175);
+              walkAnimation = new Animation(walkSheet, 20);
+          }
+      } catch (SlickException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+      }
+      // Render the sprite at an offset.
+      int playerX = (int) (x - ((walkSheet.getWidth() / walkSheet
+              .getHorizontalCount()) - getWidth()) / 2);
+      if (!idle) {
+          walkAnimation.getCurrentFrame().getFlippedCopy(facingLeft, false)
+                  .draw(playerX, y - 15);
+      } else {
+          playerIdle.getFlippedCopy(facingLeft, false).draw(playerX, y - 15);
+      }
+      for (int i = 0; i < ropes.size(); i++) {
+          ropes.get(i).draw();
+      }
+  }
 
   /**
    * Moves the Player the provided amount of pixels to the right.
