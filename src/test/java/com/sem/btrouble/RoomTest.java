@@ -27,7 +27,7 @@ public class RoomTest {
 	@Before
 	public void setUp() {
         room = new Room();
-		Model.init(1280, 720);
+		Model.init();
 		Model.addPlayer(player);
         Model.addRoom(room);
 	}

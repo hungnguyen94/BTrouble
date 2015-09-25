@@ -1,7 +1,14 @@
 package com.sem.btrouble.controller;
 
+import java.util.Observable;
+import java.util.Observer;
+
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
+
 import com.sem.btrouble.SlickApp;
-import com.sem.btrouble.event.BubbleEvent;
 import com.sem.btrouble.event.ControllerEvent;
 import com.sem.btrouble.event.GameEvent;
 import com.sem.btrouble.event.PlayerEvent;
@@ -12,19 +19,7 @@ import com.sem.btrouble.model.Room;
 import com.sem.btrouble.model.Rope;
 import com.sem.btrouble.model.Timers;
 import com.sem.btrouble.tools.GameObservable;
-
 import com.sem.btrouble.view.GameView;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Shape;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Observable;
-import java.util.Observer;
 
 /**
  * Controller, recalculates the Model, on request of the view.
@@ -55,7 +50,7 @@ public class Controller extends GameObservable {
       }
     });
 
-    Model.init(SlickApp.returnGraphics().getResolutions().get(SlickApp.returnGraphics().getCurrentResolution()).getScreenWidth(), SlickApp.returnGraphics().getResolutions().get(SlickApp.returnGraphics().getCurrentResolution()).getScreenHeight());
+    Model.init();
     Room r = new Room();
     Model.addRoom(r);
     r.loadRoom();

@@ -21,12 +21,12 @@ public class Model {
    * Initializes the model. Should be done before any calls to its methods are
    * done.
    */
-  public static void init(int width, int height) {
+  public static void init() {
     rooms = new ArrayList<Room>();
     players = new ArrayList<Player>();
     room_current = 0;
-    ROOM_WIDTH = width;
-    ROOM_HEIGHT = height;
+    ROOM_WIDTH = SlickApp.returnGraphics().getResolutions().get(SlickApp.returnGraphics().getCurrentResolution()).getScreenWidth();
+    ROOM_HEIGHT = SlickApp.returnGraphics().getResolutions().get(SlickApp.returnGraphics().getCurrentResolution()).getScreenHeight();
   }
 
   /**
