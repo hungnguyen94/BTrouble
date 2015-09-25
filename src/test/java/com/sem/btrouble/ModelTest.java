@@ -20,24 +20,24 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ModelTest {
+public class ModelTest extends Model {
 
 	@Mock private Room room;
 	@Mock private Player player;
 	
 	@Before
 	public void setUp() {
-		Model.init();
+		Model.init(1280, 720);
 	}
 	
 	@Test
 	public void getRoomHeightTest() {
-		assertEquals(Model.getRoomHeight(), 921);
+		assertEquals(Model.getRoomHeight(), 720);
 	}
 	
 	@Test
 	public void getRoomWidthTest() {
-		assertEquals(Model.getRoomWidth(), 1123);
+		assertEquals(Model.getRoomWidth(), 1280);
 	}
 	
 	@Test

@@ -30,7 +30,7 @@ public class View {
     public View(GameContainer gc, Timers timers) {
         this.gc = gc;
         this.timers = timers;
-        timerBar = new Rectangle(200, gc.getHeight() - 114, gc.getWidth() - 400, 25);
+        timerBar = new Rectangle(200, gc.getHeight() - ((gc.getHeight()/100)*12), gc.getWidth() - 400, 25);
 
         // load font from a .ttf file
         try {
@@ -68,7 +68,8 @@ public class View {
      */
     private void drawBackground(Graphics graphics) throws SlickException {
         graphics.setFont(font);
-        background = new Image("Sprites/background.jpg");
+        String backgroundName = SlickApp.returnGraphics().getResolutions().get(SlickApp.returnGraphics().getCurrentResolution()).getBackground();
+        Image background = new Image(backgroundName);
         background.draw(0, 0);
     }
 

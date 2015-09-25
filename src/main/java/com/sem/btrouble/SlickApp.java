@@ -1,9 +1,11 @@
 package com.sem.btrouble;
 
 import com.sem.btrouble.event.ExceptionEvent;
+import com.sem.btrouble.model.GraphicSettings;
 import com.sem.btrouble.tools.Logger;
 import com.sem.btrouble.view.GameView;
 import com.sem.btrouble.view.MenuView;
+
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
@@ -15,6 +17,8 @@ import org.newdawn.slick.state.StateBasedGame;
  */
 public class SlickApp extends StateBasedGame {
 
+	private static GraphicSettings graphics;
+	
     public SlickApp(String gamename) {
         super(gamename);
     }
@@ -27,10 +31,11 @@ public class SlickApp extends StateBasedGame {
      */
     public static void main(String[] args) {
         try {
-
+        	graphics = new GraphicSettings(true, true, 0);
             AppGameContainer appgc;
             appgc = new AppGameContainer(new SlickApp("Bubble Trouble"));
-            appgc.setDisplayMode(1123, 921, false);
+            appgc.setDisplayMode(graphics.getResolutions().get(graphics.getCurrentResolution()).getScreenWidth(),
+          		  graphics.getResolutions().get(graphics.getCurrentResolution()).getScreenHeight(), graphics.isFullscreen());
             appgc.setShowFPS(false);
             appgc.setVSync(true);
             appgc.setTargetFrameRate(60);
@@ -50,5 +55,12 @@ public class SlickApp extends StateBasedGame {
     public void initStatesList(GameContainer gc) throws SlickException {
         this.addState(new MenuView());
         this.addState(new GameView());
+    }
+    
+    /**
+     * Returns the graphics settings
+     */
+    public static GraphicSettings returnGraphics() {
+  	  return graphics;
     }
 }
