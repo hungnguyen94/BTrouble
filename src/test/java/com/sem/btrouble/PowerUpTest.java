@@ -29,7 +29,7 @@ public class PowerUpTest {
 	
 	@Before
 	public void setUp() {
-		Model.init();
+		Model.init(1280, 720);
 		power = new PowerUp(0);
 	}
 	

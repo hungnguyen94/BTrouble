@@ -55,7 +55,7 @@ public class Controller extends GameObservable {
       }
     });
 
-    Model.init();
+    Model.init(SlickApp.returnGraphics().getResolutions().get(SlickApp.returnGraphics().getCurrentResolution()).getScreenWidth(), SlickApp.returnGraphics().getResolutions().get(SlickApp.returnGraphics().getCurrentResolution()).getScreenHeight());
     Room r = new Room();
     Model.addRoom(r);
     r.loadRoom();

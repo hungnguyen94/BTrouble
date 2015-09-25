@@ -14,17 +14,19 @@ public class Model {
   private static ArrayList<Player> players;
   private static int room_current;
 
-  private static final int ROOM_WIDTH = SlickApp.returnGraphics().getResolutions().get(SlickApp.returnGraphics().getCurrentResolution()).getScreenWidth();
-  private static final int ROOM_HEIGHT = SlickApp.returnGraphics().getResolutions().get(SlickApp.returnGraphics().getCurrentResolution()).getScreenHeight();
+  private static int ROOM_WIDTH;
+  private static int ROOM_HEIGHT;
 
   /**
    * Initializes the model. Should be done before any calls to its methods are
    * done.
    */
-  public static void init() {
+  public static void init(int width, int height) {
     rooms = new ArrayList<Room>();
     players = new ArrayList<Player>();
     room_current = 0;
+    ROOM_WIDTH = width;
+    ROOM_HEIGHT = height;
   }
 
   /**
