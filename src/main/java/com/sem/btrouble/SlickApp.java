@@ -34,8 +34,7 @@ public class SlickApp extends StateBasedGame {
         	graphics = new GraphicSettings(false, true, 0);
             AppGameContainer appgc;
             appgc = new AppGameContainer(new SlickApp("Bubble Trouble"));
-            appgc.setDisplayMode(graphics.getResolutions().get(graphics.getCurrentResolution()).getScreenWidth(),
-          		  graphics.getResolutions().get(graphics.getCurrentResolution()).getScreenHeight(), graphics.isFullscreen());
+            appgc.setDisplayMode(1280, 720, false);
             appgc.setShowFPS(false);
             appgc.setVSync(true);
             appgc.setTargetFrameRate(60);

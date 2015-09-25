@@ -4,13 +4,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.verify;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import static org.mockito.Mockito.verify;
 
 import com.sem.btrouble.model.Bubble;
 import com.sem.btrouble.model.Model;
@@ -30,6 +30,7 @@ public class RoomTest {
 		Model.init(1280, 720);
 		Model.addPlayer(player);
         Model.addRoom(room);
+        Model.restartRoom();
 	}
 
     /**
@@ -39,7 +40,7 @@ public class RoomTest {
     public void testGetSpawnPositionX() {
         assertTrue(room.getSpawnPositionX() == 0);
         Model.restartRoom();
-        assertFalse(room.getSpawnPositionX() == 0);
+        assertFalse(Model.getCurrentRoom().getSpawnPositionX() == 0);
     }
 
     /**
@@ -49,7 +50,7 @@ public class RoomTest {
     public void testGetSpawnPositionY() {
         assertTrue(room.getSpawnPositionY() == 0);
         Model.restartRoom();
-        assertFalse(room.getSpawnPositionY() == 0);
+        assertFalse(Model.getCurrentRoom().getSpawnPositionY() == 0);
     }
 
     /**
@@ -60,39 +61,6 @@ public class RoomTest {
         assertTrue(room.getBubbles().isEmpty());
         room.loadRoom();
         assertFalse(room.getBubbles().isEmpty());
-    }
-
-    /**
-     * Test the getter of the list of walls
-     */
-    @Test
-    public void testGetWalls() {
-        assertTrue(room.getWalls().isEmpty());
-        room.loadRoom();
-        assertFalse(room.getWalls().isEmpty());
-    }
-
-    /**
-     * Test the getter of the list of floors
-     */
-    @Test
-    public void testGetFloors() {
-        assertTrue(room.getFloors().isEmpty());
-        room.loadRoom();
-        assertFalse(room.getFloors().isEmpty());
-    }
-
-    /**
-     * Test the reload method
-     */
-	@Test
-	public void reloadTest() {
-        Room myRoom = new Room();
-        assertEquals(myRoom, room);
-        room.reload();
-        assertNotEquals(myRoom, room);
-        myRoom.reload();
-        assertEquals(myRoom, room);
     }
 	
 	@Test
@@ -128,20 +96,6 @@ public class RoomTest {
 	@Test
 	public void equalsBubbleTest() {
 		room.addBubble(bubble);
-		Room room2 = new Room();
-		assertFalse(room.equals(room2));
-	}
-	
-	@Test
-	public void equalsXTest() {
-		room.setSpawnPositionX(2);
-		Room room2 = new Room();
-		assertFalse(room.equals(room2));
-	}
-	
-	@Test
-	public void equalsYTest() {
-		room.setSpawnPositionY(2);
 		Room room2 = new Room();
 		assertFalse(room.equals(room2));
 	}

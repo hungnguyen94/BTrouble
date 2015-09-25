@@ -13,25 +13,25 @@ public class FloorTest {
 	@Test
 	public void moveRightTest() {
 		floor.moveRight();
-		assertEquals(2, floor.getX(), 0);
+		assertEquals(1.1, floor.getX(), 0.01);
 	}
 	
 	@Test
 	public void moveLeftTest() {
 		floor.moveLeft();
-		assertEquals(0, floor.getX(), 0);
+		assertEquals(0.9, floor.getX(), 0.01);
 	}
 	
 	@Test
 	public void moveUpTest() {
 		floor.moveUp();
-		assertEquals(2, floor.getY(), 0);
+		assertEquals(0.9, floor.getY(), 0.01);
 	}
 	
 	@Test
 	public void moveDownTest() {
 		floor.moveDown();
-		assertEquals(0, floor.getY(), 0);
+		assertEquals(1.1, floor.getY(), 0.01);
 	}
 
 }
