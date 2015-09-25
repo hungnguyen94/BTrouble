@@ -29,6 +29,7 @@ public class RoomTest {
 		Model.init();
 		Model.addPlayer(player);
         Model.addRoom(room);
+        Model.restartRoom();
 	}
 
     /**
@@ -38,7 +39,7 @@ public class RoomTest {
     public void testGetSpawnPositionX() {
         assertTrue(room.getSpawnPositionX() == 0);
         Model.restartRoom();
-        assertFalse(room.getSpawnPositionX() == 0);
+        assertFalse(Model.getCurrentRoom().getSpawnPositionX() == 0);
     }
 
     /**
@@ -48,7 +49,7 @@ public class RoomTest {
     public void testGetSpawnPositionY() {
         assertTrue(room.getSpawnPositionY() == 0);
         Model.restartRoom();
-        assertFalse(room.getSpawnPositionY() == 0);
+        assertFalse(Model.getCurrentRoom().getSpawnPositionY() == 0);
     }
 
     /**
@@ -59,38 +60,5 @@ public class RoomTest {
         assertTrue(room.getBubbles().isEmpty());
         room.loadRoom();
         assertFalse(room.getBubbles().isEmpty());
-    }
-
-    /**
-     * Test the getter of the list of walls
-     */
-    @Test
-    public void testGetWalls() {
-        assertTrue(room.getWalls().isEmpty());
-        room.loadRoom();
-        assertFalse(room.getWalls().isEmpty());
-    }
-
-    /**
-     * Test the getter of the list of floors
-     */
-    @Test
-    public void testGetFloors() {
-        assertTrue(room.getFloors().isEmpty());
-        room.loadRoom();
-        assertFalse(room.getFloors().isEmpty());
-    }
-
-    /**
-     * Test the reload method
-     */
-	@Test
-	public void reloadTest() {
-        Room myRoom = new Room();
-        assertEquals(myRoom, room);
-        room.reload();
-        assertNotEquals(myRoom, room);
-        myRoom.reload();
-        assertEquals(myRoom, room);
     }
 }

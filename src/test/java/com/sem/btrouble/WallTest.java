@@ -21,7 +21,7 @@ public class WallTest {
         wall = new Wall(0, 0, 10, 11);
     }
 
-    @Test
+/*    @Test
     public void moveRightTest() {
     	wall.moveRight();
     	assertEquals(1f, wall.getX(), 0);
@@ -31,7 +31,7 @@ public class WallTest {
     public void moveLeftTest() {
     	wall.moveLeft();
     	assertEquals(-1f, wall.getX(), 0);
-    }
+    }*/
     
     @Test
     public void moveUpTest() {

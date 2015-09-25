@@ -47,7 +47,10 @@ public class Model {
      */
     public static Room getNextRoom() {
         currentLevel++;
-        return rooms.next();
+        if(rooms.hasNext())
+            return rooms.next();
+        else
+            return rooms.roomRestart();
     }
 
     /**
@@ -103,7 +106,6 @@ public class Model {
      */
     public static void restartRoom() {
         roomCurrent = rooms.roomRestart();
-        System.out.println("MODEL: \n" + roomCurrent.toString() + "\n\n");
         for (Player p : players) {
             p.resetRope();
         }

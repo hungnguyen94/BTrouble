@@ -138,10 +138,10 @@ public class Room implements Serializable {
             b.move();
         }
         if(!moveableBorders.isEmpty()) {
-            for(Shape w: moveableBorders) {
-                if( w instanceof  Wall) {
-                    Wall that = (Wall) w;
-                    that.moveX();
+            for(Shape f: moveableBorders) {
+                if( f instanceof  Floor) {
+                    Floor that = (Floor) f;
+                    that.moveUp();
                 }
             }
         }
@@ -198,15 +198,16 @@ public class Room implements Serializable {
         walls.clear();
         walls.add(new Wall(0, 0, 20, 800));
         walls.add(new Wall(1103, 0, 20, 800));
-        Wall mWall = new Wall(551, 0, 20, 600);
-        walls.add(mWall);
-        moveableBorders.add(mWall);
         floors.clear();
-        floors.add(new Floor(0, 794, 1123, 50));
+        Floor fTemp = new Floor(0, 794, 1123, 50);
+        floors.add(fTemp);
+        moveableBorders.add(fTemp);
         floors.add(new Floor(0, 0, 1123, 50));
         bubbles.clear();
         bubbles.add(new Bubble(2, Model.getRoomWidth() / 5, 200));
-        bubbles.add(new Bubble(2, Model.getRoomWidth() -100, 200));
+        bubbles.add(new Bubble(2, Model.getRoomWidth() -100, 250));
+        bubbles.add(new Bubble(2, Model.getRoomWidth() -200, 200));
+        bubbles.add(new Bubble(2, Model.getRoomWidth() -300, 100));
     }
 
     /**
@@ -218,18 +219,6 @@ public class Room implements Serializable {
             g.fillRect(w.getX(), w.getY(), 5, w.getHeight());
         for(Floor f: floors)
             g.fillRect(f.getX(), f.getY(), f.getWidth(), 5);
-    }
-
-    @Override
-    public String toString() {
-        return "Room{" +
-                "spawnPositionX=" + spawnPositionX +
-                ", spawnPositionY=" + spawnPositionY +
-                ", walls=" + walls +
-                ", floors=" + floors +
-                ", bubbles=" + bubbles +
-                ", moveableBorders=" + moveableBorders +
-                '}';
     }
 }
 

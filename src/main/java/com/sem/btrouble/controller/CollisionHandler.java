@@ -220,6 +220,7 @@ public class CollisionHandler extends GameObservable {
 
         if (collidee instanceof Floor) {
             player.setFalling(false);
+            player.setY(collidee.getY() - player.getHeight());
         }
     }
 

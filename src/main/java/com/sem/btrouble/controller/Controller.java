@@ -49,7 +49,7 @@ public class Controller extends GameObservable {
         collisionHandler = new CollisionHandler();
         collisionHandler.addObserver(new Observer() {
             public void update(Observable o, Object arg) {
-                if (arg instanceof GameEvent) {
+                if(arg instanceof GameEvent) {
                     GameView.getController().fireEvent((GameEvent) arg);
                 }
             }
@@ -160,6 +160,7 @@ public class Controller extends GameObservable {
      */
     private void updateBubble() {
         if (!Model.getCurrentRoom().hasBubbles()) {
+            collisionHandler.removeCollidable(Model.getCurrentRoom().getCollidables());
             Model.getNextRoom();
             restartRoom();
         }
