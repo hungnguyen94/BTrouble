@@ -6,6 +6,8 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
+import com.sem.btrouble.SlickApp;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -152,11 +154,11 @@ public class Room {
     spawnPositionX = Model.getRoomWidth()/2;
     spawnPositionY = 400;
     walls.clear();
-    walls.add(new Wall(0, 0, 20, 800));
-    walls.add(new Wall(1103, 0, 20, 800));
+    walls.add(new Wall(0, 0, 20, Model.getRoomHeight()));
+    walls.add(new Wall(Model.getRoomWidth(), 0, 20, Model.getRoomHeight()));
     floors.clear();
-    floors.add(new Floor(0, 794, 1123, 50));
-    floors.add(new Floor(0, 0, 1123, 50));
+    floors.add(new Floor(0, Model.getRoomHeight() - ((Model.getRoomHeight()/100)*14), Model.getRoomWidth(), 50));
+    floors.add(new Floor(0, 0, Model.getRoomWidth(), 50));
     bubbles.clear();
     bubbles.add(new Bubble(4, Model.getRoomWidth()/2, 200));
   }

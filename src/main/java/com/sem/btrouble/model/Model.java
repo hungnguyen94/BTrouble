@@ -2,6 +2,8 @@ package com.sem.btrouble.model;
 
 import java.util.ArrayList;
 
+import com.sem.btrouble.SlickApp;
+
 /**
  * Model contains all data of the game. Model is updated by the Controller and
  * used to draw the View. Model has been split into partial models such as
@@ -12,8 +14,8 @@ public class Model {
   private static ArrayList<Player> players;
   private static int room_current;
 
-  private static final int ROOM_WIDTH = 1123;
-  private static final int ROOM_HEIGHT = 921;
+  private static final int ROOM_WIDTH = SlickApp.returnGraphics().getResolutions().get(SlickApp.returnGraphics().getCurrentResolution()).getScreenWidth();
+  private static final int ROOM_HEIGHT = SlickApp.returnGraphics().getResolutions().get(SlickApp.returnGraphics().getCurrentResolution()).getScreenHeight();
 
   /**
    * Initializes the model. Should be done before any calls to its methods are
