@@ -5,6 +5,7 @@ import org.newdawn.slick.geom.Rectangle;
 /**
  * Class representing a floor
  */
+@SuppressWarnings("serial")
 public class Floor extends Rectangle {
 
     private float speed;

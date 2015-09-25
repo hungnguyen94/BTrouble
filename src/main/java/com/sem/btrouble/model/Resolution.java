@@ -1,6 +1,5 @@
 package com.sem.btrouble.model;
 
-import org.newdawn.slick.Image;
 
 /**
  * 
@@ -19,6 +18,16 @@ public class Resolution {
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
         this.background = background;
+    }
+    
+    public boolean equals(Object other) {
+    	if(other instanceof Resolution) {
+    		Resolution that = (Resolution) other;
+    		return(this.screenHeight == that.screenHeight &&
+    				this.screenWidth == that.screenWidth &&
+    				this.background.equals(that.background));
+    	}
+    	return false;
     }
 
     /**

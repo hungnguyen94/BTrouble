@@ -60,7 +60,7 @@ public class View {
 
         drawLives();
         drawScore(graphics);
-        //drawDebug(graphics);
+//        drawDebug(graphics);
     }
 
     /**
@@ -80,9 +80,8 @@ public class View {
      */
     private void drawCountDown(Graphics graphics) {
         if (timers.getCountdownRunning()) {
-            graphics.drawString("Level " + Model.getRoom_current(), gc.getWidth() / 2 - 30, gc.getHeight() / 6);
-            graphics.drawString(" Starting in " + (timers.getCountdownTimeLeft() / 1000 + 1) + " seconds",
-                    gc.getWidth() / 2 - 150, gc.getHeight() / 3);
+            graphics.drawString("Game starts in " + (timers.getCountdownTimeLeft() / 1000 + 1) + " seconds",
+                    gc.getWidth() / 2 - 200, gc.getHeight() / 2 - 100);
         }
     }
 

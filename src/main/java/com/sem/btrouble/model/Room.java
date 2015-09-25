@@ -1,14 +1,12 @@
 package com.sem.btrouble.model;
 
-import org.newdawn.slick.Color;
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
-import org.newdawn.slick.geom.Transform;
-
 import java.io.*;
 import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Room contains all objects within the room (except for the players), and draws
@@ -138,8 +136,8 @@ public class Room implements Serializable {
             b.move();
         }
         if(!moveableBorders.isEmpty()) {
-            for(Shape f: moveableBorders) {
-                if( f instanceof  Floor) {
+            for (Shape f: moveableBorders) {
+                if (f instanceof  Floor) {
                     Floor that = (Floor) f;
                     that.moveUp();
                 }
@@ -208,9 +206,9 @@ public class Room implements Serializable {
      * @param g
      */
     public void drawRoom(Graphics g) {
-        for(Wall w: walls)
+        for (Wall w: walls)
             g.fillRect(w.getX(), w.getY(), 5, w.getHeight());
-        for(Floor f: floors)
+        for (Floor f: floors)
             g.fillRect(f.getX(), f.getY(), f.getWidth(), 5);
     }
 }

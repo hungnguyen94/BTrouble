@@ -19,6 +19,11 @@ import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.PowerUp;
 import com.sem.btrouble.model.Room;
 
+/**
+ * Class which test the PowerUp class.
+ * @author Martin
+ *
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class PowerUpTest {
 
@@ -27,21 +32,30 @@ public class PowerUpTest {
 	@Mock private Player player;
 	@Mock private Bubble bubble;
 	
+	/**
+	 * Set up the model and the power up object.
+	 */
 	@Before
 	public void setUp() {
 		Model.init(1280, 720);
+		Model.restartRoom();
 		power = new PowerUp(0);
 	}
 	
+	/**
+	 * Test the power up for extra life.
+	 */
 	@Test
 	public void givePower0Test() {
 		Model.addPlayer(player);
 		power.givePower();
-		ArrayList<Player> players = Model.getPlayers();
 		verify(player).addLife();
 	}
 	
-/*	@Test
+/*	*//**
+	 * Test the power up for slower bubbles.
+	 *//*
+	@Test
 	public void givePower1Test() {
 		power.setType(1);
 		Model.addRoom(room);
@@ -49,7 +63,6 @@ public class PowerUpTest {
 		bubbles.add(bubble);
 		when(room.getBubbles()).thenReturn(bubbles);
 		power.givePower();
-		ArrayList<Bubble> bubbles2 = Model.getBubbles();
 		verify(bubble).setAY(.3f);
 	}*/
 

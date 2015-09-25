@@ -5,6 +5,7 @@ import org.newdawn.slick.geom.Rectangle;
 /**
  * Class representing a wall
  */
+@SuppressWarnings("serial")
 public class Wall extends Rectangle {
 
     private int speed;
@@ -30,10 +31,24 @@ public class Wall extends Rectangle {
     }
 
     /**
-     * Move the wall to the right
+     * Move the wall X
      */
     public void moveX() {
         x += speed;
+    }
+
+    /**
+     * Move the floor to the right
+     */
+    public void moveRight() {
+        x += speed;
+    }
+
+    /**
+     * Move the floor to the left
+     */
+    public void moveLeft() {
+        x -= speed;
     }
 
     /**

@@ -81,8 +81,8 @@ public class Controller extends GameObservable {
                 loseLife(player);
             }
             collisionHandler.checkCollision(player.getRopes());
-                if(player.getRopes().size() > 0)
-                        fireEvent(new PlayerEvent(player, PlayerEvent.SHOOT, "Shot a rope"));
+            if(player.getRopes().size() > 0)
+                fireEvent(new PlayerEvent(player, PlayerEvent.SHOOT, "Shot a rope"));
         }
 
         // Check if timer has run out.
@@ -103,7 +103,7 @@ public class Controller extends GameObservable {
 
     /**
      * Move the player on key presses
-     * 
+     *
      * @param delta   milliseconds between frames
      */
     public void processInput(int delta) {
@@ -126,7 +126,7 @@ public class Controller extends GameObservable {
 
     /**
      * Lets the player lose a life.
-     * 
+     *
      * @param player  should be the player who lost a life
      */
     public void loseLife(Player player) {
@@ -160,14 +160,13 @@ public class Controller extends GameObservable {
             Model.getNextRoom();
             restartRoom();
             sbg.enterState(2, new FadeOutTransition(), new FadeInTransition());
-
         }
         Model.getCurrentRoom().moveBubbles();
     }
 
     /**
      * Adds a bubble to the game.
-     * 
+     *
      * @param bubble  Bubble to add to the room
      */
     public void addBubble(Bubble bubble) {
@@ -177,7 +176,7 @@ public class Controller extends GameObservable {
 
     /**
      * Removes a bubble from the game.
-     * 
+     *
      * @param bubble  the bubble to remove
      */
     public void removeBubble(Bubble bubble) {
