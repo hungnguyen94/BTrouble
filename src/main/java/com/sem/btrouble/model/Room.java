@@ -120,6 +120,14 @@ public class Room {
   public int getSpawnPositionX() {
     return spawnPositionX;
   }
+  
+  public void setSpawnPositionX(int x) {
+	  this.spawnPositionX = x;
+  }
+  
+  public void setSpawnPositionY(int y) {
+	  this.spawnPositionY = y;
+  }
 
   /**
    * Return the y coordinate of the spawn position.
