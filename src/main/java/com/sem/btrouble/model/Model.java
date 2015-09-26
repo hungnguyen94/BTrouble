@@ -28,10 +28,10 @@ public class Model {
         currentLevel = 1;
         Room r = new Room();
         Room r2 = new Room();
-        Model.addRoom(r);
-        Model.addRoom(r2);
         r.loadRoom();
         r2.loadRoom2();
+        Model.addRoom(r);
+        Model.addRoom(r2);
     }
 
     /**

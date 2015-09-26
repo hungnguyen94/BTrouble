@@ -50,7 +50,7 @@ public class CollisionHandlerTest {
      * Test the collision between a player and a bubble.
      */
     @Test
-    public void PlayerCollideBubbleTest() {
+    public void playerCollideBubbleTest() {
         when(player.intersects(bubble)).thenReturn(true);
         collisionHandler.addCollidable(bubble);
         collisionHandler.addCollidable(player);
@@ -63,7 +63,7 @@ public class CollisionHandlerTest {
      * Test the collision between the right side of a wall and a player.
      */
     @Test
-    public void PlayerCollideWallSideRightTest() {
+    public void playerCollideWallSideRightTest() {
         when(player.getCenterX()).thenReturn(-1f);
         when(wall.getCenterX()).thenReturn(1f);
         when(player.intersects(wall)).thenReturn(true);
@@ -78,7 +78,7 @@ public class CollisionHandlerTest {
      * Test the collision between the left side of a wall and a player.
      */
     @Test
-    public void PlayerCollideWallSideLeftTest() {
+    public void playerCollideWallSideLeftTest() {
         when(player.getCenterX()).thenReturn(1f);
         when(wall.getCenterX()).thenReturn(-1f);
         when(player.intersects(wall)).thenReturn(true);
@@ -93,7 +93,7 @@ public class CollisionHandlerTest {
      * Test the collision between the floor and a player.
      */
     @Test
-    public void PlayerCollideFloorTest() {
+    public void playerCollideFloorTest() {
         when(player.intersects(floor)).thenReturn(true);
         collisionHandler.addCollidable(player);
         collisionHandler.addCollidable(floor);
@@ -106,7 +106,7 @@ public class CollisionHandlerTest {
      * Tests the collision between the left side of a wall and a bubble.
      */
     @Test
-    public void BubbleCollideWallLeftTest() {
+    public void bubbleCollideWallLeftTest() {
         when(bubble.getCenterX()).thenReturn(1f);
         when(wall.getCenterX()).thenReturn(-1f);
         when(bubble.intersects(wall)).thenReturn(true);
@@ -121,7 +121,7 @@ public class CollisionHandlerTest {
      * Tests the collision between the right side of a wall and a bubble.
      */
     @Test
-    public void BubbleCollideWallRightTest() {
+    public void bubbleCollideWallRightTest() {
         when(bubble.getCenterX()).thenReturn(-1f);
         when(wall.getCenterX()).thenReturn(1f);
         when(bubble.intersects(wall)).thenReturn(true);
@@ -136,7 +136,7 @@ public class CollisionHandlerTest {
      * Test the collision between the floor and a bubble.
      */
     @Test
-    public void BubbleCollideFloorTest() {
+    public void bubbleCollideFloorTest() {
         when(bubble.intersects(floor)).thenReturn(true);
         collisionHandler.addCollidable(bubble);
         collisionHandler.addCollidable(floor);
@@ -148,7 +148,7 @@ public class CollisionHandlerTest {
      * Tests the collision between a bubble and a rope.
      */
     @Test
-    public void BubbleCollideRopeTest() {
+    public void bubbleCollideRopeTest() {
         when(bubble.intersects(rope)).thenReturn(true);
         collisionHandler.addCollidable(bubble);
         collisionHandler.addCollidable(rope);
@@ -162,7 +162,7 @@ public class CollisionHandlerTest {
      * Test the addCollidables method.
      */
     @Test
-    public void AddCollidablesTest() {
+    public void addCollidablesTest() {
         Collection<Shape> collidables = new HashSet<Shape>();
         collidables.add(player);
         collidables.add(bubble);
@@ -177,7 +177,7 @@ public class CollisionHandlerTest {
      * Tests the removeCollidables method.
      */
     @Test
-    public void RemoveCollidablesTest() {
+    public void removeCollidablesTest() {
         Collection<Shape> collidables = new HashSet<Shape>();
         collidables.add(player);
         collidables.add(bubble);
@@ -196,7 +196,7 @@ public class CollisionHandlerTest {
      * Test addCollidable method.
      */
     @Test
-    public void AddCollidableTest() {
+    public void addCollidableTest() {
         assertTrue(collisionHandler.getSize() == 0);
         collisionHandler.addCollidable(player);
         assertTrue(collisionHandler.getSize() > 0);
@@ -206,7 +206,7 @@ public class CollisionHandlerTest {
      * Test removeCollidable method.
      */
     @Test
-    public void RemoveCollidableTest() {
+    public void removeCollidableTest() {
         collisionHandler.addCollidable(player);
         assertTrue(collisionHandler.getSize() > 0);
         collisionHandler.removeCollidable(player);
