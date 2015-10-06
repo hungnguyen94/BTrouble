@@ -27,8 +27,6 @@ import java.util.Observer;
  */
 public class Controller extends GameObservable {
 
-    private static final int REWARD_BUBBLE = 100;
-
     private GameContainer gc;
     private StateBasedGame sbg;
     private CollisionHandler collisionHandler;
@@ -36,6 +34,9 @@ public class Controller extends GameObservable {
 
     /**
      * Starts a new game by loading data into the room and adding the players.
+     * @param container GameContainer from Slick2D
+     * @param sbg State of the game
+     * @throws SlickException Throws exception on error
      */
     public Controller(GameContainer container, StateBasedGame sbg) throws SlickException {
         timers = new Timers(100);
@@ -58,16 +59,26 @@ public class Controller extends GameObservable {
         restartRoom();
     }
 
+    /**
+     * Returns the timers.
+     * @return timer
+     */
     public Timers getTimers() {
         return timers;
     }
 
+    /**
+     * Draw all collidable objects with a red outline.
+     * @param g Graphics handler from Slick2D
+     */
     public void drawCollidables(Graphics g) {
         collisionHandler.hitboxDraw(g);
     }
 
     /**
      * Updates the model, should be done on request of the view.
+     * @param delta milliseconds between frames
+     * @throws SlickException throw error on exception
      */
     public void update(int delta) throws SlickException {
         collisionHandler.checkCollision(Model.getCurrentRoom().getBubbles());
@@ -81,13 +92,14 @@ public class Controller extends GameObservable {
                 loseLife(player);
             }
             collisionHandler.checkCollision(player.getRopes());
-        }
+         }
 
         // Check if timer has run out.
         if (this.getTimers().getLevelTimeLeft() <= 0) {
             fireEvent(new ControllerEvent(this, ControllerEvent.OUTOFTIME, "Out of time"));
-            for (Player p : Model.getPlayers())
+            for (Player p : Model.getPlayers()) {
                 loseLife(p);
+            }
         }
 
         for (Player p : Model.getPlayers()) {
@@ -100,9 +112,9 @@ public class Controller extends GameObservable {
     }
 
     /**
-     * Move the player on key presses
+     * Move the player on key presses.
      *
-     * @param delta   milliseconds between frames
+     * @param delta milliseconds between frames
      */
     public void processInput(int delta) {
         Input input = gc.getInput();
@@ -198,10 +210,10 @@ public class Controller extends GameObservable {
     /**
      * Ends the game by stopping the view, shows a message.
      *
-     * @param message - should be a String containing the message which is shown.
+     * @param message should be a String containing the message which is shown.
      */
     public void endGame(String message) {
-        fireEvent(new ControllerEvent(this, ControllerEvent.GAMEOVER, "Game over"));
+        fireEvent(new ControllerEvent(this, ControllerEvent.GAMEOVER, message));
         gc.exit();
     }
 

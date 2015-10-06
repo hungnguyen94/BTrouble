@@ -16,7 +16,7 @@ import java.util.Collection;
 import java.util.HashSet;
 
 /**
- * Class to handle collisions
+ * Class to handle collisions.
  */
 public class CollisionHandler extends GameObservable {
 
@@ -27,7 +27,7 @@ public class CollisionHandler extends GameObservable {
     private final int sideBottom = 4;
 
     /**
-    * Draw hitboxes of all objects in collidables
+    * Draw hitboxes of all objects in collidables.
     *
     * @param g
     *          - graphics handler from Slick2D
@@ -50,7 +50,7 @@ public class CollisionHandler extends GameObservable {
     }
 
     /**
-     * Add a collidable object to the list
+     * Add a collidable object to the list.
      *
      * @param c
      *          - collidable object
@@ -60,7 +60,7 @@ public class CollisionHandler extends GameObservable {
     }
 
     /**
-     * Add collection of collidable objects to the list
+     * Add collection of collidable objects to the list.
      *
      * @param c
      *          - collection of collidable objects
@@ -70,7 +70,7 @@ public class CollisionHandler extends GameObservable {
     }
 
     /**
-     * Remove all collidable objects that are in c
+     * Remove all collidable objects that are in c.
      *
      * @param c
      *          - collection of collidable objects
@@ -80,7 +80,7 @@ public class CollisionHandler extends GameObservable {
     }
 
     /**
-     * Remove a collidable object from the list
+     * Remove a collidable object from the list.
      *
      * @param c
      *          - collidable object
@@ -90,17 +90,18 @@ public class CollisionHandler extends GameObservable {
     }
 
     /**
-     * Get size of list of collidable objects
+     * Get size of list of collidable objects.
+     * @return - The number of colliable objects
      */
     public int getSize() {
         return collidables.size();
     }
 
     /**
-     * Check if you collide with any object
+     * Check if you collide with any object.
      *
-     * @param self
-     *          - object that is checking for collision
+     * @param self - object that is checking for collision
+     * @return - true if shape has collided
      */
     public boolean checkCollision(Shape self) {
         boolean collided = false;
@@ -108,22 +109,23 @@ public class CollisionHandler extends GameObservable {
         // possible.
         collidables.remove(null);
 
-        if (self == null)
-            return collided;
+        if(self == null) {
+            return false;
+        }
 
         // Iterate over a shallow cloned set, since you can't change the set while iterating.
         HashSet<Shape> collidablesClone = new HashSet<Shape>(collidables);
         for(Shape collidee: collidablesClone) {
             if(self != collidee && self.intersects(collidee)) {
-              collided = true;
-              onCollide(self, collidee);
+                collided = true;
+                onCollide(self, collidee);
             }
         }
         return collided;
     }
 
     /**
-     * Check collision for every shapes in the collection
+     * Check collision for every shapes in the collection.
      *
      * @param colliders
      *          - collection of shapes
@@ -147,7 +149,7 @@ public class CollisionHandler extends GameObservable {
     }
 
     /**
-     * Actions on a collide
+     * Actions on a collide.
      *
      * @param collider
      *          - the collider
@@ -173,7 +175,7 @@ public class CollisionHandler extends GameObservable {
     }
 
     /**
-     * Actions when the player collides with another shape
+     * Actions when the wall collides with another shape.
      *
      * @param wall
      *          - wall that is colliding
@@ -189,7 +191,7 @@ public class CollisionHandler extends GameObservable {
     }
 
     /**
-     * Actions when the player collides with another shape
+     * Actions when the player collides with another shape.
      *
      * @param player
      *          - player that is colliding
@@ -198,22 +200,25 @@ public class CollisionHandler extends GameObservable {
      */
     private void playerCollide(Player player, Shape collidee) {
         if (collidee instanceof Bubble) {
-            fireEvent(new PlayerEvent(player, PlayerEvent.COLLISION_BUBBLE, "Collided with bubble"));
+            fireEvent(new PlayerEvent(player,
+                    PlayerEvent.COLLISION_BUBBLE, "Collided with bubble"));
             player.setAlive(false);
         }
 
         if (collidee instanceof Wall) {
             switch (checkSideX(player, collidee)) {
                 case sideLeft:
-                    fireEvent(
-                    new PlayerEvent(player, PlayerEvent.COLLISION_RIGHTWALL, "Collided with right wall"));
+                    fireEvent(new PlayerEvent(player,
+                            PlayerEvent.COLLISION_RIGHTWALL, "Collided with right wall"));
                     player.setRightBlocked(true);
                     break;
                 case sideRight:
                     player.setLeftBlocked(true);
-                    fireEvent(
-                    new PlayerEvent(player, PlayerEvent.COLLISION_LEFTWALL, "Collided with left wall"));
-                break;
+                    fireEvent(new PlayerEvent(player,
+                            PlayerEvent.COLLISION_LEFTWALL, "Collided with left wall"));
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -224,7 +229,7 @@ public class CollisionHandler extends GameObservable {
     }
 
     /**
-     * Actions when the bubble collides with another shape
+     * Actions when the bubble collides with another shape.
      *
      * @param bubble
      *          - bubble that is colliding
@@ -235,12 +240,16 @@ public class CollisionHandler extends GameObservable {
         if (collidee instanceof Wall) {
             switch (checkSideX(bubble, collidee)) {
                 case sideLeft:
-                    fireEvent(new BubbleEvent(bubble, BubbleEvent.COLLISION_WALL, "Collided with wall"));
+                    fireEvent(new BubbleEvent(bubble,
+                            BubbleEvent.COLLISION_WALL, "Collided with wall"));
                     bubble.bounceX(true);
                 break;
                 case sideRight:
-                    fireEvent(new BubbleEvent(bubble, BubbleEvent.COLLISION_WALL, "Collided with wall"));
+                    fireEvent(new BubbleEvent(bubble,
+                            BubbleEvent.COLLISION_WALL, "Collided with wall"));
                     bubble.bounceX(false);
+                    break;
+                default:
                     break;
             }
         }
@@ -248,18 +257,23 @@ public class CollisionHandler extends GameObservable {
             // If floor is under bounce up with constant speed, else bounce normally
             switch (checkSideY(bubble, collidee)) {
                 case sideTop:
-                    fireEvent(new BubbleEvent(bubble, BubbleEvent.COLLISION_FLOOR, "Collided with floor"));
+                    fireEvent(new BubbleEvent(bubble,
+                            BubbleEvent.COLLISION_FLOOR, "Collided with floor"));
                     bubble.bounceYFloor();
                     break;
                 case sideBottom:
                     fireEvent(
-                    new BubbleEvent(bubble, BubbleEvent.COLLISION_CEILING, "Collided with ceiling"));
+                    new BubbleEvent(bubble,
+                            BubbleEvent.COLLISION_CEILING, "Collided with ceiling"));
                     bubble.bounceY(false);
+                    break;
+                default:
                     break;
             }
         }
         if (collidee instanceof Rope) {
-            fireEvent(new BubbleEvent(bubble, BubbleEvent.COLLISION_ROPE, "Collided with rope"));
+            fireEvent(new BubbleEvent(bubble,
+                    BubbleEvent.COLLISION_ROPE, "Collided with rope"));
             Rope that = (Rope) collidee;
             bubble.split();
             that.setCollided(true);
@@ -275,6 +289,8 @@ public class CollisionHandler extends GameObservable {
                     bubble.bounceX(false);
                     that.bounceX(true);
                     break;
+                default:
+                    break;
             }
             switch (checkSideY(bubble, collidee)) {
                 case sideTop:
@@ -285,12 +301,14 @@ public class CollisionHandler extends GameObservable {
                     bubble.bounceY(false);
                     that.bounceY(true);
                     break;
+                default:
+                    break;
             }
         }
     }
 
     /**
-     * Actions when the rope collides with another shape
+     * Actions when the rope collides with another shape.
      *
      * @param rope
      *          - rope that is colliding
@@ -312,7 +330,7 @@ public class CollisionHandler extends GameObservable {
     }
 
     /**
-     * Return which side the collision occurs for X-axis
+     * Return which side the collision occurs for X-axis.
      *
      * @param collider
      *          - mover
@@ -333,7 +351,7 @@ public class CollisionHandler extends GameObservable {
     }
 
     /**
-     * Return which side the collision occurs for Y-axis
+     * Return which side the collision occurs for Y-axis.
      *
      * @param collider
      *          - mover
