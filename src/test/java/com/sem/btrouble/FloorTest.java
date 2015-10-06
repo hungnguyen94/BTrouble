@@ -21,8 +21,8 @@ public class FloorTest {
      */
     @Test
     public void moveRightTest() {
-	floor.moveRight();
-	assertEquals(1.1, floor.getX(), 0.01);
+        floor.moveRight();
+        assertEquals(1.1, floor.getX(), 0.01);
     }
 
     /**
@@ -30,8 +30,8 @@ public class FloorTest {
      */
     @Test
     public void moveLeftTest() {
-	floor.moveLeft();
-	assertEquals(0.9, floor.getX(), 0.01);
+        floor.moveLeft();
+        assertEquals(0.9, floor.getX(), 0.01);
     }
 
     /**
@@ -39,8 +39,8 @@ public class FloorTest {
      */
     @Test
     public void moveUpTest() {
-	floor.moveUp();
-	assertEquals(0.9, floor.getY(), 0.01);
+        floor.moveUp();
+        assertEquals(0.9, floor.getY(), 0.01);
     }
 
     /**
@@ -48,8 +48,8 @@ public class FloorTest {
      */
     @Test
     public void moveDownTest() {
-	floor.moveDown();
-	assertEquals(1.1, floor.getY(), 0.01);
+        floor.moveDown();
+        assertEquals(1.1, floor.getY(), 0.01);
     }
 
 }

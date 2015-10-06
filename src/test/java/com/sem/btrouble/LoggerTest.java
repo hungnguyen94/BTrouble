@@ -26,8 +26,8 @@ public class LoggerTest {
      */
     @Before
     public void test() {
-	Logger.initLog();
-	when(event.toString()).thenReturn("Log");
+        Logger.initLog();
+        when(event.toString()).thenReturn("Log");
     }
 
     /**
@@ -35,7 +35,7 @@ public class LoggerTest {
      */
     @Test
     public void logTest() {
-	Logger.log(event);
+        Logger.log(event);
     }
 
 }

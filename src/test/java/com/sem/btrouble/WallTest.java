@@ -19,7 +19,7 @@ public class WallTest {
      */
     @Before
     public void setUp() {
-	wall = new Wall(0, 0, 10, 11);
+        wall = new Wall(0, 0, 10, 11);
     }
 
     /**
@@ -27,8 +27,8 @@ public class WallTest {
      */
     @Test
     public void moveRightTest() {
-	wall.moveRight();
-	assertEquals(1f, wall.getX(), 0);
+        wall.moveRight();
+        assertEquals(1f, wall.getX(), 0);
     }
 
     /**
@@ -36,8 +36,8 @@ public class WallTest {
      */
     @Test
     public void moveLeftTest() {
-	wall.moveLeft();
-	assertEquals(-1f, wall.getX(), 0);
+        wall.moveLeft();
+        assertEquals(-1f, wall.getX(), 0);
     }
 
     /**
@@ -45,8 +45,8 @@ public class WallTest {
      */
     @Test
     public void moveUpTest() {
-	wall.moveUp();
-	assertEquals(1f, wall.getY(), 0);
+        wall.moveUp();
+        assertEquals(1f, wall.getY(), 0);
     }
 
     /**
@@ -54,8 +54,8 @@ public class WallTest {
      */
     @Test
     public void moveDownTest() {
-	wall.moveDown();
-	assertEquals(-1f, wall.getY(), 0);
+        wall.moveDown();
+        assertEquals(-1f, wall.getY(), 0);
     }
 
 }

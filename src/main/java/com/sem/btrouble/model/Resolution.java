@@ -13,18 +13,18 @@ public class Resolution {
     private String background;
 
     public Resolution(int screenWidth, int screenHeight, String background) {
-	this.screenWidth = screenWidth;
-	this.screenHeight = screenHeight;
-	this.background = background;
+        this.screenWidth = screenWidth;
+        this.screenHeight = screenHeight;
+        this.background = background;
     }
 
     public boolean equals(Object other) {
-	if (other instanceof Resolution) {
-	    Resolution that = (Resolution) other;
-	    return (this.screenHeight == that.screenHeight && this.screenWidth == that.screenWidth
-		    && this.background.equals(that.background));
-	}
-	return false;
+        if (other instanceof Resolution) {
+            Resolution that = (Resolution) other;
+            return (this.screenHeight == that.screenHeight && this.screenWidth == that.screenWidth
+                    && this.background.equals(that.background));
+        }
+        return false;
     }
 
     /**
@@ -33,7 +33,7 @@ public class Resolution {
      * @return The background
      */
     public String getBackground() {
-	return background;
+        return background;
     }
 
     /**
@@ -42,7 +42,7 @@ public class Resolution {
      * @return Width of the screen
      */
     public int getScreenWidth() {
-	return screenWidth;
+        return screenWidth;
     }
 
     /**
@@ -51,7 +51,7 @@ public class Resolution {
      * @param screenWidth
      */
     public void setScreenWidth(int screenWidth) {
-	this.screenWidth = screenWidth;
+        this.screenWidth = screenWidth;
     }
 
     /**
@@ -60,7 +60,7 @@ public class Resolution {
      * @return Height of the screen
      */
     public int getScreenHeight() {
-	return screenHeight;
+        return screenHeight;
     }
 
     /**
@@ -69,7 +69,7 @@ public class Resolution {
      * @param screenHeight
      */
     public void setScreenHeight(int screenHeight) {
-	this.screenHeight = screenHeight;
+        this.screenHeight = screenHeight;
     }
 
 }

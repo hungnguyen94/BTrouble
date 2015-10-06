@@ -28,16 +28,16 @@ public class PlayerEvent extends GameEvent {
      *            the log file.
      */
     public PlayerEvent(Object subject, int id, String message) {
-	super(subject, id, message);
+        super(subject, id, message);
     }
 
     @Override
     public Player getSubject() {
-	return (Player) super.getSubject();
+        return (Player) super.getSubject();
     }
 
     @Override
     public String toString() {
-	return "<PlayerEvent: " + this.getMessage() + ">";
+        return "<PlayerEvent: " + this.getMessage() + ">";
     }
 }

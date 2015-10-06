@@ -33,7 +33,7 @@ public abstract class GameEventTest {
      *            to set
      */
     public void setEvent(GameEvent event) {
-	this.event = event;
+        this.event = event;
     }
 
     /**
@@ -43,7 +43,7 @@ public abstract class GameEventTest {
      *            to set
      */
     public void setObject(Object object) {
-	this.object = object;
+        this.object = object;
     }
 
     /**
@@ -53,7 +53,7 @@ public abstract class GameEventTest {
      *            to set
      */
     public void setId(int id) {
-	this.id = id;
+        this.id = id;
     }
 
     /**
@@ -63,7 +63,7 @@ public abstract class GameEventTest {
      *            to set
      */
     public void setString(String string) {
-	this.message = string;
+        this.message = string;
     }
 
     /**
@@ -71,7 +71,7 @@ public abstract class GameEventTest {
      */
     @Test
     public void getSubjectTest() {
-	assertEquals(object, event.getSubject());
+        assertEquals(object, event.getSubject());
     }
 
     /**
@@ -79,7 +79,7 @@ public abstract class GameEventTest {
      */
     @Test
     public void getIdTest() {
-	assertEquals(id, event.getId());
+        assertEquals(id, event.getId());
     }
 
     /**
@@ -87,7 +87,7 @@ public abstract class GameEventTest {
      */
     @Test
     public void getMessageTest() {
-	assertEquals(message, event.getMessage());
+        assertEquals(message, event.getMessage());
     }
 
     /**

@@ -29,11 +29,11 @@ public class BubbleEventTest extends GameEventTest {
      */
     @Before
     public void setUp() {
-	event = new BubbleEvent(bubble, 1, "Test");
-	setEvent(event);
-	setObject(bubble);
-	setId(1);
-	setString("Test");
+        event = new BubbleEvent(bubble, 1, "Test");
+        setEvent(event);
+        setObject(bubble);
+        setId(1);
+        setString("Test");
     }
 
     /**
@@ -41,7 +41,7 @@ public class BubbleEventTest extends GameEventTest {
      */
     @Test
     public void toStringTest() {
-	assertEquals("<BubbleEvent: Test>", event.toString());
+        assertEquals("<BubbleEvent: Test>", event.toString());
     }
 
 }

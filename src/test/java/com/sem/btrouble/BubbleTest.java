@@ -34,7 +34,7 @@ public class BubbleTest {
      */
     @Test
     public void getSize1Test() {
-	assertEquals(1, bubble1.getSize());
+        assertEquals(1, bubble1.getSize());
     }
 
     /**
@@ -43,7 +43,7 @@ public class BubbleTest {
      */
     @Test
     public void getSize2Test() {
-	assertEquals(2, bubble2.getSize());
+        assertEquals(2, bubble2.getSize());
     }
 
     /**
@@ -52,7 +52,7 @@ public class BubbleTest {
      */
     @Test
     public void getVx1Test() {
-	assertEquals(3f, bubble1.getVx(), 0);
+        assertEquals(3f, bubble1.getVx(), 0);
     }
 
     /**
@@ -61,7 +61,7 @@ public class BubbleTest {
      */
     @Test
     public void getVx2Test() {
-	assertEquals(2, bubble2.getVx(), 0);
+        assertEquals(2, bubble2.getVx(), 0);
     }
 
     /**
@@ -70,7 +70,7 @@ public class BubbleTest {
      */
     @Test
     public void getVy1Test() {
-	assertEquals(0, bubble1.getVy(), 0);
+        assertEquals(0, bubble1.getVy(), 0);
     }
 
     /**
@@ -79,7 +79,7 @@ public class BubbleTest {
      */
     @Test
     public void getVy2Test() {
-	assertEquals(2, bubble2.getVy(), 0);
+        assertEquals(2, bubble2.getVy(), 0);
     }
 
     /**
@@ -87,10 +87,10 @@ public class BubbleTest {
      */
     @Test
     public void collideFloorTest() {
-	double vy = bubble1.getVy();
-	bubble1.bubbleEvent(
-		new BubbleEvent(bubble1, BubbleEvent.COLLISION_FLOOR, "Collided with floor"));
-	assertEquals(-vy, bubble1.getVy(), 0);
+        double vy = bubble1.getVy();
+        bubble1.bubbleEvent(
+                new BubbleEvent(bubble1, BubbleEvent.COLLISION_FLOOR, "Collided with floor"));
+        assertEquals(-vy, bubble1.getVy(), 0);
     }
 
     /**
@@ -98,10 +98,10 @@ public class BubbleTest {
      */
     @Test
     public void collideWallTest() {
-	double vx = bubble1.getVx();
-	bubble1.bubbleEvent(
-		new BubbleEvent(bubble1, BubbleEvent.COLLISION_WALL, "Collided with wall"));
-	assertEquals(-vx, bubble1.getVx(), 0);
+        double vx = bubble1.getVx();
+        bubble1.bubbleEvent(
+                new BubbleEvent(bubble1, BubbleEvent.COLLISION_WALL, "Collided with wall"));
+        assertEquals(-vx, bubble1.getVx(), 0);
     }
 
     /**
@@ -109,10 +109,10 @@ public class BubbleTest {
      */
     @Test
     public void collideDefault() {
-	Bubble bubble = bubble1;
-	when(event.getId()).thenReturn(5);
-	bubble1.bubbleEvent(event);
-	assertEquals(bubble, bubble1);
+        Bubble bubble = bubble1;
+        when(event.getId()).thenReturn(5);
+        bubble1.bubbleEvent(event);
+        assertEquals(bubble, bubble1);
     }
 
     /**
@@ -120,7 +120,7 @@ public class BubbleTest {
      */
     @Test
     public void equalsTrueTest() {
-	assertTrue(bubble1.equals(bubble1));
+        assertTrue(bubble1.equals(bubble1));
     }
 
     /**
@@ -128,7 +128,7 @@ public class BubbleTest {
      */
     @Test
     public void equalsFalseSizeTest() {
-	assertFalse(bubble1.equals(new Bubble(2, 1, 1)));
+        assertFalse(bubble1.equals(new Bubble(2, 1, 1)));
     }
 
     /**
@@ -136,7 +136,7 @@ public class BubbleTest {
      */
     @Test
     public void equalsFalseXTest() {
-	assertFalse(bubble1.equals(new Bubble(1, 2, 1)));
+        assertFalse(bubble1.equals(new Bubble(1, 2, 1)));
     }
 
     /**
@@ -144,7 +144,7 @@ public class BubbleTest {
      */
     @Test
     public void equalsFalseYTest() {
-	assertFalse(bubble1.equals(new Bubble(1, 1, 2)));
+        assertFalse(bubble1.equals(new Bubble(1, 1, 2)));
     }
 
     /**
@@ -152,7 +152,7 @@ public class BubbleTest {
      */
     @Test
     public void equalsFalseVXTest() {
-	assertFalse(bubble2.equals(new Bubble(2, 2, 2, 1, 2)));
+        assertFalse(bubble2.equals(new Bubble(2, 2, 2, 1, 2)));
     }
 
     /**
@@ -160,7 +160,7 @@ public class BubbleTest {
      */
     @Test
     public void equalsFalseVYTest() {
-	assertFalse(bubble2.equals(new Bubble(2, 2, 2, 2, 1)));
+        assertFalse(bubble2.equals(new Bubble(2, 2, 2, 2, 1)));
     }
 
     /**
@@ -168,8 +168,8 @@ public class BubbleTest {
      */
     @Test
     public void equalsOtherTest() {
-	String string = new String("bubble");
-	assertFalse(bubble1.equals(string));
+        String string = new String("bubble");
+        assertFalse(bubble1.equals(string));
     }
 
     /**
@@ -177,8 +177,8 @@ public class BubbleTest {
      */
     @Test
     public void setAYTest() {
-	bubble1.setAY(1);
-	assertEquals(1, bubble1.getAY(), 0);
+        bubble1.setAY(1);
+        assertEquals(1, bubble1.getAY(), 0);
     }
 
     /**
@@ -186,9 +186,9 @@ public class BubbleTest {
      */
     @Test
     public void bounceYTest() {
-	double vy = bubble1.getVy();
-	bubble1.bounceY();
-	assertEquals(-vy, bubble1.getVy(), 0);
+        double vy = bubble1.getVy();
+        bubble1.bounceY();
+        assertEquals(-vy, bubble1.getVy(), 0);
     }
 
     /**
@@ -196,9 +196,9 @@ public class BubbleTest {
      */
     @Test
     public void bounceXTest() {
-	double vx = bubble1.getVx();
-	bubble1.bounceX();
-	assertEquals(-vx, bubble1.getVx(), 0);
+        double vx = bubble1.getVx();
+        bubble1.bounceX();
+        assertEquals(-vx, bubble1.getVx(), 0);
     }
 
     /**
@@ -206,9 +206,9 @@ public class BubbleTest {
      */
     @Test
     public void bounceXTrueTest() {
-	double vx = bubble1.getVx();
-	bubble1.bounceX(true);
-	assertEquals(-vx, bubble1.getVx(), 0);
+        double vx = bubble1.getVx();
+        bubble1.bounceX(true);
+        assertEquals(-vx, bubble1.getVx(), 0);
     }
 
     /**
@@ -216,9 +216,9 @@ public class BubbleTest {
      */
     @Test
     public void bounceXFalseTest() {
-	double vx = bubble1.getVx();
-	bubble1.bounceX(false);
-	assertEquals(vx, bubble1.getVx(), 0);
+        double vx = bubble1.getVx();
+        bubble1.bounceX(false);
+        assertEquals(vx, bubble1.getVx(), 0);
     }
 
     /**
@@ -226,9 +226,9 @@ public class BubbleTest {
      */
     @Test
     public void bounceYTrueTest() {
-	double vy = bubble1.getVy();
-	bubble1.bounceY(true);
-	assertEquals(-vy, bubble1.getVy(), 0);
+        double vy = bubble1.getVy();
+        bubble1.bounceY(true);
+        assertEquals(-vy, bubble1.getVy(), 0);
     }
 
     /**
@@ -236,9 +236,9 @@ public class BubbleTest {
      */
     @Test
     public void bounceYFalseTest() {
-	double vy = bubble1.getVy();
-	bubble1.bounceY(false);
-	assertEquals(vy, bubble1.getVy(), 0);
+        double vy = bubble1.getVy();
+        bubble1.bounceY(false);
+        assertEquals(vy, bubble1.getVy(), 0);
     }
 
     /**
@@ -246,8 +246,8 @@ public class BubbleTest {
      */
     @Test
     public void bounceYFloorTest() {
-	bubble1.bounceYFloor();
-	assertEquals(-Math.abs(11 + 2 * (bubble1.getSize())), bubble1.getVy(), 0);
+        bubble1.bounceYFloor();
+        assertEquals(-Math.abs(11 + 2 * (bubble1.getSize())), bubble1.getVy(), 0);
     }
 
     /**
@@ -255,7 +255,7 @@ public class BubbleTest {
      */
     @Test
     public void toStringTest() {
-	assertEquals("Bubble{size=1, x=-9.0, y=-9.0, vx=3.0, vy=0.0, ay=0.4}", bubble1.toString());
+        assertEquals("Bubble{size=1, x=-9.0, y=-9.0, vx=3.0, vy=0.0, ay=0.4}", bubble1.toString());
     }
 
     /**
@@ -263,9 +263,9 @@ public class BubbleTest {
      */
     @Test
     public void moveXTest() {
-	double x = bubble1.getCenterX() + bubble1.getVx();
-	bubble1.move();
-	assertEquals(x - 10, bubble1.getX(), 0);
+        double x = bubble1.getCenterX() + bubble1.getVx();
+        bubble1.move();
+        assertEquals(x - 10, bubble1.getX(), 0);
     }
 
     /**
@@ -273,9 +273,9 @@ public class BubbleTest {
      */
     @Test
     public void moveYTest() {
-	double y = bubble1.getCenterY() + bubble1.getVy() + .4f;
-	bubble1.move();
-	assertEquals(y - 10, bubble1.getY(), 0.000001);
+        double y = bubble1.getCenterY() + bubble1.getVy() + .4f;
+        bubble1.move();
+        assertEquals(y - 10, bubble1.getY(), 0.000001);
     }
 
 }

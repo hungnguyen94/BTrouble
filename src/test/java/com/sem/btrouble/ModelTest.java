@@ -38,9 +38,9 @@ public class ModelTest extends Model {
      */
     @Before
     public void setUp() {
-	Model.init(1280, 720);
-	Model.getNextRoom();
-	Model.getNextRoom();
+        Model.init(1280, 720);
+        Model.getNextRoom();
+        Model.getNextRoom();
     }
 
     /**
@@ -48,7 +48,7 @@ public class ModelTest extends Model {
      */
     @Test
     public void getRoomHeightTest() {
-	assertEquals(Model.getRoomHeight(), 720);
+        assertEquals(Model.getRoomHeight(), 720);
     }
 
     /**
@@ -56,43 +56,43 @@ public class ModelTest extends Model {
      */
     @Test
     public void getRoomWidthTest() {
-	assertEquals(Model.getRoomWidth(), 1280);
+        assertEquals(Model.getRoomWidth(), 1280);
     }
 
     /*	*//**
-	   * Test the addRoom method.
-	   *//*
-	     * @Test public void addRoomTest() { Model.addRoom(room);
-	     * //Model.getNextRoom(); Model.restartRoom();
-	     * assertEquals(Model.getCurrentRoom(), room); }
-	     */
+           * Test the addRoom method.
+           *//*
+             * @Test public void addRoomTest() { Model.addRoom(room);
+             * //Model.getNextRoom(); Model.restartRoom();
+             * assertEquals(Model.getCurrentRoom(), room); }
+             */
 
     /*	*//**
-	   * Test the getBubbles method.
-	   *//*
-	     * @Test public void getBubblesTest() { ArrayList<Bubble> bubbles =
-	     * new ArrayList<Bubble>(); Model.addRoom(room);
-	     * when(room.getBubbles()).thenReturn(bubbles);
-	     * assertEquals(Model.getBubbles(), bubbles); }
-	     */
+           * Test the getBubbles method.
+           *//*
+             * @Test public void getBubblesTest() { ArrayList<Bubble> bubbles =
+             * new ArrayList<Bubble>(); Model.addRoom(room);
+             * when(room.getBubbles()).thenReturn(bubbles);
+             * assertEquals(Model.getBubbles(), bubbles); }
+             */
 
     /**
      * Test the addPlayer method.
      */
     @Test
     public void addPlayerTest() {
-	ArrayList<Player> players = new ArrayList<Player>();
-	players.add(player);
-	Model.addPlayer(player);
-	assertEquals(players, Model.getPlayers());
+        ArrayList<Player> players = new ArrayList<Player>();
+        players.add(player);
+        Model.addPlayer(player);
+        assertEquals(players, Model.getPlayers());
     }
 
     /*	*//**
-	   * Test the restartRoom method.
-	   *//*
-	     * @Test public void restartRoomTest() { Model.addRoom(room);
-	     * Model.restartRoom(); assertEquals(room, Model.getCurrentRoom());
-	     * }
-	     */
+           * Test the restartRoom method.
+           *//*
+             * @Test public void restartRoomTest() { Model.addRoom(room);
+             * Model.restartRoom(); assertEquals(room, Model.getCurrentRoom());
+             * }
+             */
 
 }

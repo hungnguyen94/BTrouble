@@ -24,9 +24,9 @@ public abstract class GameEvent {
      *            the log file.
      */
     public GameEvent(Object subject, int id, String message) {
-	this.subject = subject;
-	this.id = id;
-	this.message = message;
+        this.subject = subject;
+        this.id = id;
+        this.message = message;
     }
 
     /**
@@ -35,7 +35,7 @@ public abstract class GameEvent {
      * @return returns the object which triggered the event
      */
     public Object getSubject() {
-	return subject;
+        return subject;
     }
 
     /**
@@ -44,7 +44,7 @@ public abstract class GameEvent {
      * @return returns an integer which represents the type of event.
      */
     public int getId() {
-	return id;
+        return id;
     }
 
     /**
@@ -53,7 +53,7 @@ public abstract class GameEvent {
      * @return returns a String containing a message explaining the event.
      */
     public String getMessage() {
-	return message;
+        return message;
     }
 
     /**

@@ -28,26 +28,26 @@ public class Timers {
      *            - delay before the timer actually starts.
      */
     public Timers(int delay) {
-	levelTimerCounter = levelMaxDuration;
-	countdownCounter = countdownMaxDuration;
-	levelTimer = new Timer(timerSpeed, new LevelTimerActionListener());
-	levelTimer.setInitialDelay(delay);
-	countdownTimer = new Timer(timerSpeed, new CountdownTimerActionListener());
+        levelTimerCounter = levelMaxDuration;
+        countdownCounter = countdownMaxDuration;
+        levelTimer = new Timer(timerSpeed, new LevelTimerActionListener());
+        levelTimer.setInitialDelay(delay);
+        countdownTimer = new Timer(timerSpeed, new CountdownTimerActionListener());
     }
 
     /**
      * Restarts the game timer.
      */
     public void restartTimer() {
-	levelTimer.stop();
-	countdownTimer.stop();
-	levelTimerCounter = levelMaxDuration;
-	countdownCounter = countdownMaxDuration;
-	countdownTimer.restart();
+        levelTimer.stop();
+        countdownTimer.stop();
+        levelTimerCounter = levelMaxDuration;
+        countdownCounter = countdownMaxDuration;
+        countdownTimer.restart();
     }
 
     public void setLevelTimerCounter(int duration) {
-	levelTimer.setInitialDelay(duration);
+        levelTimer.setInitialDelay(duration);
     }
 
     /**
@@ -57,7 +57,7 @@ public class Timers {
      * @return - time left in the game in milliseconds.
      */
     public int getLevelTimeLeft() {
-	return levelTimerCounter * timerSpeed;
+        return levelTimerCounter * timerSpeed;
     }
 
     /**
@@ -67,7 +67,7 @@ public class Timers {
      * @return - Max time in a level.
      */
     public int getLevelMaxDuration() {
-	return levelMaxDuration * timerSpeed;
+        return levelMaxDuration * timerSpeed;
     }
 
     /**
@@ -76,7 +76,7 @@ public class Timers {
      * @return - countdown value of the countdownTimer in ms
      */
     public int getCountdownTimeLeft() {
-	return countdownCounter * timerSpeed;
+        return countdownCounter * timerSpeed;
     }
 
     /**
@@ -86,7 +86,7 @@ public class Timers {
      * @return - Max countdown time.
      */
     public int getCountdownMaxDuration() {
-	return countdownMaxDuration * timerSpeed;
+        return countdownMaxDuration * timerSpeed;
     }
 
     /**
@@ -95,14 +95,14 @@ public class Timers {
      * @return - true if the level timer is running.
      */
     public boolean getLevelTimerRunning() {
-	return levelTimer.isRunning();
+        return levelTimer.isRunning();
     }
 
     /**
      * Pauses/stops the timer.
      */
     public void stopLevelTimer() {
-	levelTimer.stop();
+        levelTimer.stop();
     }
 
     /**
@@ -111,7 +111,7 @@ public class Timers {
      * @return - true if the countdown is running.
      */
     public boolean getCountdownRunning() {
-	return countdownTimer.isRunning();
+        return countdownTimer.isRunning();
     }
 
     /**
@@ -119,13 +119,13 @@ public class Timers {
      * executed every timer cycle.
      */
     class LevelTimerActionListener implements ActionListener {
-	public void actionPerformed(ActionEvent event) {
-	    // System.out.println("levelTimerCounter: " + levelTimerCounter);
-	    levelTimerCounter--;
-	    if (levelTimerCounter <= 0) {
-		levelTimer.stop();
-	    }
-	}
+        public void actionPerformed(ActionEvent event) {
+            // System.out.println("levelTimerCounter: " + levelTimerCounter);
+            levelTimerCounter--;
+            if (levelTimerCounter <= 0) {
+                levelTimer.stop();
+            }
+        }
     }
 
     /**
@@ -133,14 +133,14 @@ public class Timers {
      * should be executed every timer cycle.
      */
     class CountdownTimerActionListener implements ActionListener {
-	public void actionPerformed(ActionEvent event) {
-	    // System.out.println("countdownTimerCounter: " + countdownCounter);
-	    countdownCounter--;
-	    if (countdownCounter <= 0) {
-		levelTimer.restart();
-		countdownTimer.stop();
-	    }
-	}
+        public void actionPerformed(ActionEvent event) {
+            // System.out.println("countdownTimerCounter: " + countdownCounter);
+            countdownCounter--;
+            if (countdownCounter <= 0) {
+                levelTimer.restart();
+                countdownTimer.stop();
+            }
+        }
     }
 
 }

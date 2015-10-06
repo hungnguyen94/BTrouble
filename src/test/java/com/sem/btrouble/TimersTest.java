@@ -20,7 +20,7 @@ public class TimersTest {
      */
     @Test
     public void getLevelTimeLeftTest() {
-	assertEquals(timer.getLevelTimeLeft(), 500 * 100);
+        assertEquals(timer.getLevelTimeLeft(), 500 * 100);
     }
 
     /**
@@ -28,7 +28,7 @@ public class TimersTest {
      */
     @Test
     public void getLevelMaxDuration() {
-	assertEquals(timer.getLevelMaxDuration(), 500 * 100);
+        assertEquals(timer.getLevelMaxDuration(), 500 * 100);
     }
 
     /**
@@ -36,7 +36,7 @@ public class TimersTest {
      */
     @Test
     public void getCountdownTimeLeft() {
-	assertEquals(timer.getCountdownTimeLeft(), 100 * 30);
+        assertEquals(timer.getCountdownTimeLeft(), 100 * 30);
     }
 
     /**
@@ -44,7 +44,7 @@ public class TimersTest {
      */
     @Test
     public void getCountdownMaxDuration() {
-	assertEquals(timer.getCountdownMaxDuration(), 100 * 30);
+        assertEquals(timer.getCountdownMaxDuration(), 100 * 30);
     }
 
 }

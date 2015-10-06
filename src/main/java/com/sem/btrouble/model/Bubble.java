@@ -40,11 +40,11 @@ public class Bubble extends Circle {
      *            vertical starting position of the bubble in the room
      */
     public Bubble(int size, float xpos, float ypos) {
-	super(xpos, ypos, size * GAME_SIZE);
+        super(xpos, ypos, size * GAME_SIZE);
 
-	this.size = size;
-	this.ay = GRAVITY;
-	this.vx = INITIAL_HORIZONTAL_SPEED;
+        this.size = size;
+        this.ay = GRAVITY;
+        this.vx = INITIAL_HORIZONTAL_SPEED;
     }
 
     /**
@@ -62,12 +62,12 @@ public class Bubble extends Circle {
      *            vertical starting speed of the bubble
      */
     public Bubble(int size, float xpos, float ypos, float vx, float vy) {
-	super(xpos, ypos, size * GAME_SIZE);
+        super(xpos, ypos, size * GAME_SIZE);
 
-	this.size = size;
-	this.ay = GRAVITY;
-	this.vx = vx;
-	this.vy = vy;
+        this.size = size;
+        this.ay = GRAVITY;
+        this.vx = vx;
+        this.vy = vy;
     }
 
     /**
@@ -76,7 +76,7 @@ public class Bubble extends Circle {
      * @return returns an integer representing the size of the bubble in steps.
      */
     public int getSize() {
-	return size;
+        return size;
     }
 
     /**
@@ -86,7 +86,7 @@ public class Bubble extends Circle {
      *         direction.
      */
     public double getVx() {
-	return vx;
+        return vx;
     }
 
     /**
@@ -96,7 +96,7 @@ public class Bubble extends Circle {
      *         direction.
      */
     public double getVy() {
-	return vy;
+        return vy;
     }
 
     /**
@@ -107,7 +107,7 @@ public class Bubble extends Circle {
      *            bubble in y direction.
      */
     public void setAY(float ay) {
-	this.ay = ay;
+        this.ay = ay;
     }
 
     /**
@@ -117,20 +117,20 @@ public class Bubble extends Circle {
      *         direction.
      */
     public float getAY() {
-	return ay;
+        return ay;
     }
 
     /**
      * Calculates the next location of the Bubble.
      */
     public void move() {
-	this.vy += ay;
+        this.vy += ay;
 
-	float newX = getCenterX() + vx;
-	float newY = getCenterY() + vy;
+        float newX = getCenterX() + vx;
+        float newY = getCenterY() + vy;
 
-	setCenterX(newX);
-	setCenterY(newY);
+        setCenterX(newX);
+        setCenterY(newY);
     }
 
     /**
@@ -140,41 +140,41 @@ public class Bubble extends Circle {
      *            should be a BubbleEvent representing an event in the game.
      */
     public void bubbleEvent(BubbleEvent event) {
-	switch (event.getId()) {
-	case BubbleEvent.COLLISION_FLOOR:
-	    vy = -vy;
-	    break;
-	case BubbleEvent.COLLISION_WALL:
-	    vx = -vx;
-	    break;
-	case BubbleEvent.COLLISION_ROPE:
-	    split();
-	    break;
-	default:
-	    return;
-	}
+        switch (event.getId()) {
+        case BubbleEvent.COLLISION_FLOOR:
+            vy = -vy;
+            break;
+        case BubbleEvent.COLLISION_WALL:
+            vx = -vx;
+            break;
+        case BubbleEvent.COLLISION_ROPE:
+            split();
+            break;
+        default:
+            return;
+        }
     }
 
     /**
      * Splits the bubble in two with a smaller size of each.
      */
     public void split() {
-	// reduce size
-	size--;
-	setRadius(size * GAME_SIZE);
-	if (size > 0) {
-	    // give upward speed
-	    vy = -Math.abs(ay) * HIT_SPEED_FACTOR;
-	    vx = Math.abs(vx);
-	    // add an extra bubble to the game
-	    Bubble leftBubble = new Bubble(size, x, y, -vx, vy);
-	    Bubble rightBubble = new Bubble(size, x, y, vx, vy);
-	    GameView.getController().addBubble(leftBubble);
-	    GameView.getController().addBubble(rightBubble);
-	    GameView.getController().removeBubble(this);
-	} else {
-	    GameView.getController().removeBubble(this);
-	}
+        // reduce size
+        size--;
+        setRadius(size * GAME_SIZE);
+        if (size > 0) {
+            // give upward speed
+            vy = -Math.abs(ay) * HIT_SPEED_FACTOR;
+            vx = Math.abs(vx);
+            // add an extra bubble to the game
+            Bubble leftBubble = new Bubble(size, x, y, -vx, vy);
+            Bubble rightBubble = new Bubble(size, x, y, vx, vy);
+            GameView.getController().addBubble(leftBubble);
+            GameView.getController().addBubble(rightBubble);
+            GameView.getController().removeBubble(this);
+        } else {
+            GameView.getController().removeBubble(this);
+        }
     }
 
     /**
@@ -187,33 +187,34 @@ public class Bubble extends Circle {
      */
     @Override
     public boolean equals(Object other) {
-	if (other instanceof Bubble) {
-	    Bubble that = (Bubble) other;
-	    return (this.size == that.size && this.x == that.x && this.y == that.y
-		    && this.vx == that.vx && this.vy == that.vy);
-	}
-	return false;
+        if (other instanceof Bubble) {
+            Bubble that = (Bubble) other;
+            return (this.size == that.size && this.x == that.x && this.y == that.y
+                    && this.vx == that.vx && this.vy == that.vy);
+        }
+        return false;
     }
-    
+
     private final int arbitraryconstant = 42;
+
     @Override
-    public int hashCode(){
-	assert false : "hashcode not designed";
-    	return arbitraryconstant;
+    public int hashCode() {
+        assert false : "hashcode not designed";
+        return arbitraryconstant;
     }
 
     /**
      * Invert the y direction on collision.
      */
     public void bounceY() {
-	vy = -vy;
+        vy = -vy;
     }
 
     /**
      * Invert the x direction on collision.
      */
     public void bounceX() {
-	vx = -vx;
+        vx = -vx;
     }
 
     /**
@@ -223,11 +224,11 @@ public class Bubble extends Circle {
      *            - bounce to the left
      */
     public void bounceX(boolean left) {
-	if (left) {
-	    vx = -Math.abs(vx);
-	} else {
-	    vx = Math.abs(vx);
-	}
+        if (left) {
+            vx = -Math.abs(vx);
+        } else {
+            vx = Math.abs(vx);
+        }
     }
 
     /**
@@ -237,24 +238,25 @@ public class Bubble extends Circle {
      *            - bounce up
      */
     public void bounceY(boolean up) {
-	if (up) {
-	    vy = -Math.abs(vy);
-	} else {
-	    vy = Math.abs(vy);
-	}
+        if (up) {
+            vy = -Math.abs(vy);
+        } else {
+            vy = Math.abs(vy);
+        }
     }
 
     private final int bounceconstant = 11;
+
     /**
      * Bounce up on collision with floor.
      */
     public void bounceYFloor() {
-	vy = -Math.abs(bounceconstant + 2 * (size));
+        vy = -Math.abs(bounceconstant + 2 * (size));
     }
 
     @Override
     public String toString() {
-	return "Bubble{" + "size=" + size + ", x=" + x + ", y=" + y + ", vx=" + vx + ", vy=" + vy
-		+ ", ay=" + ay + '}';
+        return "Bubble{" + "size=" + size + ", x=" + x + ", y=" + y + ", vx=" + vx + ", vy=" + vy
+                + ", ay=" + ay + '}';
     }
 }

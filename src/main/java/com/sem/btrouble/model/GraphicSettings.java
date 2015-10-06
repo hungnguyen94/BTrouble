@@ -33,11 +33,11 @@ public class GraphicSettings {
      *             when the initialization of the resolutions failed.
      */
     public GraphicSettings(boolean fullscreen, boolean antialiasing, int currentResolution)
-	    throws SlickException {
-	this.fullscreen = fullscreen;
-	this.antialiasing = antialiasing;
-	this.currentResolution = currentResolution;
-	initializeResolutions();
+            throws SlickException {
+        this.fullscreen = fullscreen;
+        this.antialiasing = antialiasing;
+        this.currentResolution = currentResolution;
+        initializeResolutions();
     }
 
     private final int[] resSet1 = { 1280, 720 };
@@ -53,15 +53,15 @@ public class GraphicSettings {
      *             when the initialization of the resolutions failed.
      */
     public void initializeResolutions() throws SlickException {
-	Resolution res1 = new Resolution(resSet1[0], resSet1[1], "Sprites/background1280x720.png");
-	Resolution res2 = new Resolution(resSet2[0], resSet2[1], null);
-	Resolution res3 = new Resolution(resSet3[0], resSet3[1], null);
-	Resolution res4 = new Resolution(resSet4[0], resSet4[1], null);
+        Resolution res1 = new Resolution(resSet1[0], resSet1[1], "Sprites/background1280x720.png");
+        Resolution res2 = new Resolution(resSet2[0], resSet2[1], null);
+        Resolution res3 = new Resolution(resSet3[0], resSet3[1], null);
+        Resolution res4 = new Resolution(resSet4[0], resSet4[1], null);
 
-	resolutions.add(res1);
-	resolutions.add(res2);
-	resolutions.add(res3);
-	resolutions.add(res4);
+        resolutions.add(res1);
+        resolutions.add(res2);
+        resolutions.add(res3);
+        resolutions.add(res4);
     }
 
     /**
@@ -71,7 +71,7 @@ public class GraphicSettings {
      *         mode.
      */
     public boolean isFullscreen() {
-	return fullscreen;
+        return fullscreen;
     }
 
     /**
@@ -82,7 +82,7 @@ public class GraphicSettings {
      *            full screen mode.
      */
     public void setFullscreen(boolean fullscreen) {
-	this.fullscreen = fullscreen;
+        this.fullscreen = fullscreen;
     }
 
     /**
@@ -92,7 +92,7 @@ public class GraphicSettings {
      *         anti-aliasing mode.
      */
     public boolean isAntialiasing() {
-	return antialiasing;
+        return antialiasing;
     }
 
     /**
@@ -103,7 +103,7 @@ public class GraphicSettings {
      *            anti-aliasing mode.
      */
     public void setAntialiasing(boolean antialiasing) {
-	this.antialiasing = antialiasing;
+        this.antialiasing = antialiasing;
     }
 
     /**
@@ -113,7 +113,7 @@ public class GraphicSettings {
      *         game.
      */
     public int getCurrentResolution() {
-	return currentResolution;
+        return currentResolution;
     }
 
     /**
@@ -124,7 +124,7 @@ public class GraphicSettings {
      *            the game.
      */
     public void setCurrentResolution(int currentResolution) {
-	this.currentResolution = currentResolution;
+        this.currentResolution = currentResolution;
     }
 
     /**
@@ -134,6 +134,6 @@ public class GraphicSettings {
      *         the game.
      */
     public ArrayList<Resolution> getResolutions() {
-	return resolutions;
+        return resolutions;
     }
 }

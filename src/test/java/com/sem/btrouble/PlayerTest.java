@@ -31,7 +31,7 @@ public class PlayerTest {
      */
     @Before
     public void setUp() throws SlickException {
-	player = new Player(1, 1);
+        player = new Player(1, 1);
     }
 
     /**
@@ -39,7 +39,7 @@ public class PlayerTest {
      */
     @Test
     public void equalsTrueTest() {
-	assertTrue(player.equals(player));
+        assertTrue(player.equals(player));
     }
 
     /**
@@ -47,7 +47,7 @@ public class PlayerTest {
      */
     @Test
     public void equalsFalseXTest() {
-	assertFalse(player.equals(new Player(2, 1)));
+        assertFalse(player.equals(new Player(2, 1)));
     }
 
     /**
@@ -55,7 +55,7 @@ public class PlayerTest {
      */
     @Test
     public void equalsFalseYTest() {
-	assertFalse(player.equals(new Player(3, 1)));
+        assertFalse(player.equals(new Player(3, 1)));
     }
 
     /**
@@ -63,9 +63,9 @@ public class PlayerTest {
      */
     @Test
     public void equalsFalseLivesTest() {
-	Player player2 = new Player(1, 1);
-	player2.addLife();
-	assertFalse(player.equals(player2));
+        Player player2 = new Player(1, 1);
+        player2.addLife();
+        assertFalse(player.equals(player2));
     }
 
     /**
@@ -73,8 +73,8 @@ public class PlayerTest {
      */
     @Test
     public void addLifeTest() {
-	player.addLife();
-	assertEquals(6, player.getLives());
+        player.addLife();
+        assertEquals(6, player.getLives());
     }
 
     /**
@@ -82,8 +82,8 @@ public class PlayerTest {
      */
     @Test
     public void loseLifeTest() {
-	player.loseLife();
-	assertEquals(4, player.getLives());
+        player.loseLife();
+        assertEquals(4, player.getLives());
     }
 
     /**
@@ -91,7 +91,7 @@ public class PlayerTest {
      */
     @Test
     public void hasLivesTrueTest() {
-	assertTrue(player.hasLives());
+        assertTrue(player.hasLives());
     }
 
     /**
@@ -99,10 +99,10 @@ public class PlayerTest {
      */
     @Test
     public void hasLivesFalseTest() {
-	for (int i = 0; i < 6; i++) {
-	    player.loseLife();
-	}
-	assertFalse(player.hasLives());
+        for (int i = 0; i < 6; i++) {
+            player.loseLife();
+        }
+        assertFalse(player.hasLives());
     }
 
     /**
@@ -110,7 +110,7 @@ public class PlayerTest {
      */
     @Test
     public void getScoreTest() {
-	assertEquals(0, player.getScore());
+        assertEquals(0, player.getScore());
     }
 
     /**
@@ -118,8 +118,8 @@ public class PlayerTest {
      */
     @Test
     public void increaseScoreTest() {
-	player.increaseScore(1);
-	assertEquals(1, player.getScore());
+        player.increaseScore(1);
+        assertEquals(1, player.getScore());
     }
 
     /**
@@ -127,9 +127,9 @@ public class PlayerTest {
      */
     @Test
     public void equalsFalseScoreTest() {
-	Player player2 = new Player(1, 1);
-	player2.increaseScore(1);
-	assertFalse(player.equals(player2));
+        Player player2 = new Player(1, 1);
+        player2.increaseScore(1);
+        assertFalse(player.equals(player2));
     }
 
     /**
@@ -137,9 +137,9 @@ public class PlayerTest {
      */
     @Test
     public void equalsFalseRightTest() {
-	Player player2 = new Player(1, 1);
-	player2.setRightBlocked(true);
-	assertFalse(player.equals(player2));
+        Player player2 = new Player(1, 1);
+        player2.setRightBlocked(true);
+        assertFalse(player.equals(player2));
     }
 
     /**
@@ -147,9 +147,9 @@ public class PlayerTest {
      */
     @Test
     public void equalsFalseLeftTest() {
-	Player player2 = new Player(1, 1);
-	player2.setLeftBlocked(true);
-	assertFalse(player.equals(player2));
+        Player player2 = new Player(1, 1);
+        player2.setLeftBlocked(true);
+        assertFalse(player.equals(player2));
     }
 
     /**
@@ -157,8 +157,8 @@ public class PlayerTest {
      */
     @Test
     public void equalsOtherTest() {
-	String string = new String("Player");
-	assertFalse(player.equals(string));
+        String string = new String("Player");
+        assertFalse(player.equals(string));
     }
 
     /**
@@ -166,7 +166,7 @@ public class PlayerTest {
      */
     @Test
     public void getRopesTest() {
-	assertEquals(player.getRopes(), new ArrayList<Rope>());
+        assertEquals(player.getRopes(), new ArrayList<Rope>());
     }
 
     /**
@@ -174,8 +174,8 @@ public class PlayerTest {
      */
     @Test
     public void resetRopesTest() {
-	player.resetRope();
-	assertEquals(player.getRopes(), new ArrayList<Rope>());
+        player.resetRope();
+        assertEquals(player.getRopes(), new ArrayList<Rope>());
     }
 
     /**
@@ -183,8 +183,8 @@ public class PlayerTest {
      */
     @Test
     public void setAliveTest() {
-	player.setAlive(false);
-	assertFalse(player.isAlive());
+        player.setAlive(false);
+        assertFalse(player.isAlive());
     }
 
     /**
@@ -192,8 +192,8 @@ public class PlayerTest {
      */
     @Test
     public void setFallingTest() {
-	player.setFalling(false);
-	assertFalse(player.isFalling());
+        player.setFalling(false);
+        assertFalse(player.isFalling());
     }
 
     /**
@@ -201,9 +201,9 @@ public class PlayerTest {
      */
     @Test
     public void fallYTest() {
-	double y = player.getY();
-	player.fall();
-	assertEquals(y + 2, player.getY(), 0);
+        double y = player.getY();
+        player.fall();
+        assertEquals(y + 2, player.getY(), 0);
     }
 
     /**
@@ -211,8 +211,8 @@ public class PlayerTest {
      */
     @Test
     public void fallVYTest() {
-	player.fall();
-	assertEquals(2 + .3f, player.getVy(), 0);
+        player.fall();
+        assertEquals(2 + .3f, player.getVy(), 0);
     }
 
     /**
@@ -220,8 +220,8 @@ public class PlayerTest {
      */
     @Test
     public void moveToXTest() {
-	player.moveTo(5, 5);
-	assertEquals(5, player.getX(), 0);
+        player.moveTo(5, 5);
+        assertEquals(5, player.getX(), 0);
     }
 
     /**
@@ -229,8 +229,8 @@ public class PlayerTest {
      */
     @Test
     public void moveToYTest() {
-	player.moveTo(5, 5);
-	assertEquals(5, player.getY(), 0);
+        player.moveTo(5, 5);
+        assertEquals(5, player.getY(), 0);
     }
 
     /**
@@ -238,8 +238,8 @@ public class PlayerTest {
      */
     @Test
     public void moveToFallingTest() {
-	player.moveTo(5, 5);
-	assertTrue(player.isFalling());
+        player.moveTo(5, 5);
+        assertTrue(player.isFalling());
     }
 
     /**
@@ -247,10 +247,10 @@ public class PlayerTest {
      */
     @Test
     public void moveRightTrueTest() {
-	Player player1 = player;
-	player.setRightBlock(true);
-	player.moveRight(1);
-	assertEquals(player1, player);
+        Player player1 = player;
+        player.setRightBlock(true);
+        player.moveRight(1);
+        assertEquals(player1, player);
     }
 
     /**
@@ -258,10 +258,10 @@ public class PlayerTest {
      */
     @Test
     public void moveLeftTrueTest() {
-	Player player1 = player;
-	player.setLeftBlock(true);
-	player.moveLeft(1);
-	assertEquals(player1, player);
+        Player player1 = player;
+        player.setLeftBlock(true);
+        player.moveLeft(1);
+        assertEquals(player1, player);
     }
 
     /**
@@ -269,9 +269,9 @@ public class PlayerTest {
      */
     @Test
     public void moveFalseTest() {
-	player.setFalling(false);
-	player.move();
-	assertEquals(0, player.getVy(), 0);
+        player.setFalling(false);
+        player.move();
+        assertEquals(0, player.getVy(), 0);
     }
 
     /**
@@ -279,12 +279,12 @@ public class PlayerTest {
      */
     @Test
     public void moveTrueTest() {
-	player.setFalling(true);
-	double y = player.getY();
-	double vy = player.getVy();
-	player.move();
-	assertEquals(y + vy, player.getY(), 0);
-	assertEquals(vy + .3, player.getVy(), 0.000001);
+        player.setFalling(true);
+        double y = player.getY();
+        double vy = player.getVy();
+        player.move();
+        assertEquals(y + vy, player.getY(), 0);
+        assertEquals(vy + .3, player.getVy(), 0.000001);
     }
 
 }

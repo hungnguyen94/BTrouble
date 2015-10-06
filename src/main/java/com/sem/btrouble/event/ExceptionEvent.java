@@ -16,7 +16,7 @@ public class ExceptionEvent extends GameEvent {
      *            should be a String containing a message, explaining the event.
      */
     public ExceptionEvent(Object subject, String message) {
-	super(subject, 0, message);
+        super(subject, 0, message);
     }
 
     /**
@@ -26,8 +26,8 @@ public class ExceptionEvent extends GameEvent {
      */
     @Override
     public String toString() {
-	return "### <EXCEPTION: " + this.getSubject().getClass().getName() + "; "
-		+ this.getMessage() + " >";
+        return "### <EXCEPTION: " + this.getSubject().getClass().getName() + "; "
+                + this.getMessage() + " >";
     }
 
 }

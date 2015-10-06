@@ -41,9 +41,9 @@ public class PowerUpTest {
      */
     @Before
     public void setUp() {
-	Model.init(1280, 720);
-	Model.restartRoom();
-	power = new PowerUp(0);
+        Model.init(1280, 720);
+        Model.restartRoom();
+        power = new PowerUp(0);
     }
 
     /**
@@ -51,19 +51,19 @@ public class PowerUpTest {
      */
     @Test
     public void givePower0Test() {
-	Model.addPlayer(player);
-	power.givePower();
-	verify(player).addLife();
+        Model.addPlayer(player);
+        power.givePower();
+        verify(player).addLife();
     }
 
     /*	*//**
-	   * Test the power up for slower bubbles.
-	   *//*
-	     * @Test public void givePower1Test() { power.setType(1);
-	     * Model.addRoom(room); ArrayList<Bubble> bubbles = new
-	     * ArrayList<Bubble>(); bubbles.add(bubble);
-	     * when(room.getBubbles()).thenReturn(bubbles); power.givePower();
-	     * verify(bubble).setAY(.3f); }
-	     */
+           * Test the power up for slower bubbles.
+           *//*
+             * @Test public void givePower1Test() { power.setType(1);
+             * Model.addRoom(room); ArrayList<Bubble> bubbles = new
+             * ArrayList<Bubble>(); bubbles.add(bubble);
+             * when(room.getBubbles()).thenReturn(bubbles); power.givePower();
+             * verify(bubble).setAY(.3f); }
+             */
 
 }

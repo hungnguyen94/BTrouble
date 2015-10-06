@@ -21,8 +21,8 @@ public class WalletTest {
      */
     @Test
     public void increaseValueTest() {
-	wallet.increaseValue(10);
-	assertEquals(10, wallet.getValue());
+        wallet.increaseValue(10);
+        assertEquals(10, wallet.getValue());
     }
 
     /**
@@ -30,8 +30,8 @@ public class WalletTest {
      */
     @Test
     public void decreaseValueTest() {
-	wallet.decreaseValue(10);
-	assertEquals(-10, wallet.getValue());
+        wallet.decreaseValue(10);
+        assertEquals(-10, wallet.getValue());
     }
 
 }

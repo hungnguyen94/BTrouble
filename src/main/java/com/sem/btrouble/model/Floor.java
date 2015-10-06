@@ -24,35 +24,35 @@ public class Floor extends Rectangle {
      *            - height of the floor
      */
     public Floor(float x, float y, float width, float height) {
-	super(x, y, width, height);
-	speed = defaultspeed;
+        super(x, y, width, height);
+        speed = defaultspeed;
     }
 
     /**
      * Move the floor to the right.
      */
     public void moveRight() {
-	x += speed;
+        x += speed;
     }
 
     /**
      * Move the floor to the left.
      */
     public void moveLeft() {
-	x -= speed;
+        x -= speed;
     }
 
     /**
      * Move the floor up.
      */
     public void moveUp() {
-	y -= speed;
+        y -= speed;
     }
 
     /**
      * Move the floor down.
      */
     public void moveDown() {
-	y += speed;
+        y += speed;
     }
 }

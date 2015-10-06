@@ -23,7 +23,7 @@ public class ResolutionTest {
      */
     @Test
     public void getBackgroundTest() {
-	assertEquals("Test", resolution.getBackground());
+        assertEquals("Test", resolution.getBackground());
     }
 
     /**
@@ -31,8 +31,8 @@ public class ResolutionTest {
      */
     @Test
     public void setScreenWidthTest() {
-	resolution.setScreenWidth(2);
-	assertEquals(2, resolution.getScreenWidth());
+        resolution.setScreenWidth(2);
+        assertEquals(2, resolution.getScreenWidth());
     }
 
     /**
@@ -40,8 +40,8 @@ public class ResolutionTest {
      */
     @Test
     public void setScreenHeightTest() {
-	resolution.setScreenHeight(2);
-	assertEquals(2, resolution.getScreenHeight());
+        resolution.setScreenHeight(2);
+        assertEquals(2, resolution.getScreenHeight());
     }
 
     /**
@@ -49,7 +49,7 @@ public class ResolutionTest {
      */
     @Test
     public void equalsTrueTest() {
-	assertTrue(resolution.equals(resolution));
+        assertTrue(resolution.equals(resolution));
     }
 
     /**
@@ -57,7 +57,7 @@ public class ResolutionTest {
      */
     @Test
     public void equalsOtherTest() {
-	assertFalse(resolution.equals(new String("Test")));
+        assertFalse(resolution.equals(new String("Test")));
     }
 
     /**
@@ -65,7 +65,7 @@ public class ResolutionTest {
      */
     @Test
     public void equalsHeightTest() {
-	assertFalse(resolution.equals(new Resolution(1, 2, "Test")));
+        assertFalse(resolution.equals(new Resolution(1, 2, "Test")));
     }
 
     /**
@@ -73,7 +73,7 @@ public class ResolutionTest {
      */
     @Test
     public void equalsWidthTest() {
-	assertFalse(resolution.equals(new Resolution(2, 1, "Test")));
+        assertFalse(resolution.equals(new Resolution(2, 1, "Test")));
     }
 
     /**
@@ -81,7 +81,7 @@ public class ResolutionTest {
      */
     @Test
     public void equalsBackgroundTest() {
-	assertFalse(resolution.equals(new Resolution(1, 1, "test")));
+        assertFalse(resolution.equals(new Resolution(1, 1, "test")));
     }
 
 }

@@ -22,10 +22,10 @@ public class Rope extends Rectangle {
      *            rope.
      */
     public Rope(float xpos, float ypos) {
-	super(xpos, ypos, 2f, 2f);
-	this.dy = INITIAL_ROPESPEED;
-	collided = false;
-	// sprite = new Image("Sprites/rope.png");
+        super(xpos, ypos, 2f, 2f);
+        this.dy = INITIAL_ROPESPEED;
+        collided = false;
+        // sprite = new Image("Sprites/rope.png");
     }
 
     /**
@@ -37,23 +37,23 @@ public class Rope extends Rectangle {
      *         same as this Rope.
      */
     public boolean equals(Object other) {
-	if (other instanceof Rope) {
-	    Rope that = (Rope) other;
-	    return (this.x == that.x && this.y == that.y && this.dy == that.dy);
-	}
-	return false;
+        if (other instanceof Rope) {
+            Rope that = (Rope) other;
+            return (this.x == that.x && this.y == that.y && this.dy == that.dy);
+        }
+        return false;
     }
 
     public int getDy() {
-	return dy;
+        return dy;
     }
 
     public boolean isCollided() {
-	return collided;
+        return collided;
     }
 
     public void setCollided(boolean collided) {
-	this.collided = collided;
+        this.collided = collided;
     }
 
     /**
@@ -63,21 +63,21 @@ public class Rope extends Rectangle {
      *             when the Rope could not be drawn.
      */
     public void draw() throws SlickException {
-	sprite = new Image("Sprites/rope.png");
-	sprite.draw(x - (int) (sprite.getWidth() / 2), y);
+        sprite = new Image("Sprites/rope.png");
+        sprite.draw(x - (int) (sprite.getWidth() / 2), y);
     }
 
     /**
      * Calculates the next position of the Rope.
      */
     public void move() {
-	if (collided)
-	    return;
-	grow(0, (float) (1.5 * dy));
-	y -= 1.5 * dy;
-	if (getY() <= 0) {
-	    dy = 0;
-	    setCollided(true);
-	}
+        if (collided)
+            return;
+        grow(0, (float) (1.5 * dy));
+        y -= 1.5 * dy;
+        if (getY() <= 0) {
+            dy = 0;
+            setCollided(true);
+        }
     }
 }

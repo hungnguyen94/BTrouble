@@ -50,15 +50,15 @@ public class Player extends Rectangle {
      *            y value for the Player from the sprite class.
      */
     public Player(float xpos, float ypos) {
-	super(xpos, ypos, 50f, 160f);
-	ropes = new ArrayList<Rope>();
-	lives = INITIAL_LIVES;
-	score = INITIAL_SCORE;
-	vy = 2;
-	rightBlocked = false;
-	leftBlocked = false;
-	alive = true;
-	falling = true;
+        super(xpos, ypos, 50f, 160f);
+        ropes = new ArrayList<Rope>();
+        lives = INITIAL_LIVES;
+        score = INITIAL_SCORE;
+        vy = 2;
+        rightBlocked = false;
+        leftBlocked = false;
+        alive = true;
+        falling = true;
     }
 
     /**
@@ -70,102 +70,102 @@ public class Player extends Rectangle {
      *         same as this Player.
      */
     public boolean equals(Object other) {
-	if (other instanceof Player) {
-	    Player that = (Player) other;
-	    return (this.x == that.x && this.y == that.y && this.ropes.equals(that.ropes)
-		    && this.facingLeft == that.facingLeft && this.idle == that.idle
-		    && this.lives == that.lives && this.score == that.score && this.vy == that.vy
-		    && this.rightBlocked == that.rightBlocked
-		    && this.leftBlocked == that.leftBlocked);
-	}
-	return false;
+        if (other instanceof Player) {
+            Player that = (Player) other;
+            return (this.x == that.x && this.y == that.y && this.ropes.equals(that.ropes)
+                    && this.facingLeft == that.facingLeft && this.idle == that.idle
+                    && this.lives == that.lives && this.score == that.score && this.vy == that.vy
+                    && this.rightBlocked == that.rightBlocked
+                    && this.leftBlocked == that.leftBlocked);
+        }
+        return false;
     }
 
     public boolean getRightBlocked() {
-	return rightBlocked;
+        return rightBlocked;
     }
 
     public boolean getLeftBlocked() {
-	return leftBlocked;
+        return leftBlocked;
     }
 
     public void setRightBlock(boolean block) {
-	this.rightBlocked = block;
+        this.rightBlocked = block;
     }
 
     public void setLeftBlock(boolean block) {
-	this.leftBlocked = block;
+        this.leftBlocked = block;
     }
 
     public boolean isAlive() {
-	return alive;
+        return alive;
     }
 
     public void setAlive(boolean alive) {
-	this.alive = alive;
+        this.alive = alive;
     }
 
     public boolean isFalling() {
-	return falling;
+        return falling;
     }
 
     public void setFalling(boolean falling) {
-	this.falling = falling;
+        this.falling = falling;
     }
 
     public ArrayList<Rope> getRopes() {
-	return ropes;
+        return ropes;
     }
 
     public void addLife() {
-	lives++;
+        lives++;
     }
 
     public void loseLife() {
-	lives--;
+        lives--;
     }
 
     public boolean hasLives() {
-	return lives >= 0;
+        return lives >= 0;
     }
 
     public int getLives() {
-	return lives;
+        return lives;
     }
 
     public int getScore() {
-	return score;
+        return score;
     }
 
     public void increaseScore(int amount) {
-	score += amount;
+        score += amount;
     }
 
     public double getVy() {
-	return vy;
+        return vy;
     }
 
     /**
      * Add a rope to the player
      */
     public void moveRopes() {
-	for (Rope r : ropes) {
-	    r.move();
-	}
+        for (Rope r : ropes) {
+            r.move();
+        }
     }
 
     /**
      * Remove collided ropes
      */
     public Collection<Shape> removeCollidedRopes() {
-	LinkedHashSet<Shape> collidedRopes = new LinkedHashSet<Shape>();
-	for (Rope r : ropes) {
-	    if (r.isCollided()) {
-		collidedRopes.add(r);
-	    }
-	}
-	ropes.removeAll(collidedRopes);
-	return collidedRopes;
+        LinkedHashSet<Shape> collidedRopes = new LinkedHashSet<Shape>();
+        for (Rope r : ropes) {
+            if (r.isCollided()) {
+                collidedRopes.add(r);
+            }
+        }
+        ropes.removeAll(collidedRopes);
+        return collidedRopes;
     }
 
     /**
@@ -176,11 +176,11 @@ public class Player extends Rectangle {
      *            - rope to be added
      */
     public boolean fire(Rope r) {
-	if (ropes.size() <= 0) {
-	    ropes.add(r);
-	    return true;
-	}
-	return false;
+        if (ropes.size() <= 0) {
+            ropes.add(r);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -190,27 +190,27 @@ public class Player extends Rectangle {
      *             when the player could not be drawn.
      */
     public void draw() throws SlickException {
-	try {
-	    if (playerIdle == null && walkSheet == null && walkAnimation == null) {
-		playerIdle = new Image("Sprites/idle.png");
-		walkSheet = new SpriteSheet("Sprites/player_spritesheet.png", 100, 175);
-		walkAnimation = new Animation(walkSheet, 20);
-	    }
-	} catch (SlickException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	}
-	// Render the sprite at an offset.
-	int playerX = (int) (x
-		- ((walkSheet.getWidth() / walkSheet.getHorizontalCount()) - getWidth()) / 2);
-	if (!idle) {
-	    walkAnimation.getCurrentFrame().getFlippedCopy(facingLeft, false).draw(playerX, y - 15);
-	} else {
-	    playerIdle.getFlippedCopy(facingLeft, false).draw(playerX, y - 15);
-	}
-	for (int i = 0; i < ropes.size(); i++) {
-	    ropes.get(i).draw();
-	}
+        try {
+            if (playerIdle == null && walkSheet == null && walkAnimation == null) {
+                playerIdle = new Image("Sprites/idle.png");
+                walkSheet = new SpriteSheet("Sprites/player_spritesheet.png", 100, 175);
+                walkAnimation = new Animation(walkSheet, 20);
+            }
+        } catch (SlickException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        // Render the sprite at an offset.
+        int playerX = (int) (x
+                - ((walkSheet.getWidth() / walkSheet.getHorizontalCount()) - getWidth()) / 2);
+        if (!idle) {
+            walkAnimation.getCurrentFrame().getFlippedCopy(facingLeft, false).draw(playerX, y - 15);
+        } else {
+            playerIdle.getFlippedCopy(facingLeft, false).draw(playerX, y - 15);
+        }
+        for (int i = 0; i < ropes.size(); i++) {
+            ropes.get(i).draw();
+        }
     }
 
     /**
@@ -218,12 +218,12 @@ public class Player extends Rectangle {
      *
      */
     public void move() {
-	if (isFalling())
-	    fall();
-	else
-	    vy = 0;
+        if (isFalling())
+            fall();
+        else
+            vy = 0;
 
-	idle = true;
+        idle = true;
     }
 
     /**
@@ -233,14 +233,14 @@ public class Player extends Rectangle {
      *            - speed
      */
     public void moveLeft(int delta) {
-	if (!leftBlocked) {
-	    rightBlocked = false;
-	    leftBlocked = false;
-	    idle = false;
-	    facingLeft = true;
-	    walkAnimation.update(delta);
-	    x -= delta * 0.15f * PLAYER_SPEED;
-	}
+        if (!leftBlocked) {
+            rightBlocked = false;
+            leftBlocked = false;
+            idle = false;
+            facingLeft = true;
+            walkAnimation.update(delta);
+            x -= delta * 0.15f * PLAYER_SPEED;
+        }
     }
 
     /**
@@ -250,29 +250,29 @@ public class Player extends Rectangle {
      *            - speed
      */
     public void moveRight(int delta) {
-	if (!rightBlocked) {
-	    rightBlocked = false;
-	    leftBlocked = false;
-	    idle = false;
-	    facingLeft = false;
-	    walkAnimation.update(delta);
-	    x += delta * 0.15f * PLAYER_SPEED;
-	}
+        if (!rightBlocked) {
+            rightBlocked = false;
+            leftBlocked = false;
+            idle = false;
+            facingLeft = false;
+            walkAnimation.update(delta);
+            x += delta * 0.15f * PLAYER_SPEED;
+        }
     }
 
     public void setLeftBlocked(boolean leftBlocked) {
-	this.leftBlocked = leftBlocked;
+        this.leftBlocked = leftBlocked;
     }
 
     public void setRightBlocked(boolean rightBlocked) {
-	this.rightBlocked = rightBlocked;
+        this.rightBlocked = rightBlocked;
     }
 
     /**
      * This functions deletes all the rope elements from the room.
      */
     public void resetRope() {
-	ropes.clear();
+        ropes.clear();
     }
 
     /**
@@ -284,17 +284,17 @@ public class Player extends Rectangle {
      *            - y-coordinate
      */
     public void moveTo(int xpos, int ypos) {
-	this.x = xpos;
-	this.y = ypos;
-	falling = true;
+        this.x = xpos;
+        this.y = ypos;
+        falling = true;
     }
 
     /**
      * Slowly fall down vertically
      */
     public void fall() {
-	y += vy;
-	vy += ay;
+        y += vy;
+        vy += ay;
     }
 
 }

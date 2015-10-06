@@ -18,8 +18,8 @@ public class RoomIterator implements Iterator<Room> {
      * Constructor which initializes an empty list.
      */
     public RoomIterator() {
-	this.roomsList = new LinkedList<Room>();
-	this.counter = 0;
+        this.roomsList = new LinkedList<Room>();
+        this.counter = 0;
     }
 
     /**
@@ -29,8 +29,8 @@ public class RoomIterator implements Iterator<Room> {
      *            list of rooms
      */
     public RoomIterator(List<Room> rList) {
-	this.roomsList = rList;
-	this.counter = 0;
+        this.roomsList = rList;
+        this.counter = 0;
     }
 
     /**
@@ -40,7 +40,7 @@ public class RoomIterator implements Iterator<Room> {
      *            room to be added
      */
     public void add(Room r) {
-	roomsList.add(r);
+        roomsList.add(r);
     }
 
     /**
@@ -49,7 +49,7 @@ public class RoomIterator implements Iterator<Room> {
      * @return The current room
      */
     public Room getCurrentRoom() {
-	return currentRoom;
+        return currentRoom;
     }
 
     /**
@@ -58,11 +58,11 @@ public class RoomIterator implements Iterator<Room> {
      * @return Returns the (copy of) current room
      */
     public Room roomRestart() {
-	if (roomsList.isEmpty()) {
-	    return null;
-	}
-	currentRoom = roomsList.get(counter).copyRoom();
-	return currentRoom;
+        if (roomsList.isEmpty()) {
+            return null;
+        }
+        currentRoom = roomsList.get(counter).copyRoom();
+        return currentRoom;
     }
 
     /**
@@ -73,7 +73,7 @@ public class RoomIterator implements Iterator<Room> {
      * @return {@code true} if the iteration has more elements
      */
     public boolean hasNext() {
-	return (roomsList.size() - 1) > counter;
+        return (roomsList.size() - 1) > counter;
     }
 
     /**
@@ -93,7 +93,7 @@ public class RoomIterator implements Iterator<Room> {
      */
     @Override
     public void remove() {
-	roomsList.remove(counter--);
+        roomsList.remove(counter--);
     }
 
     /**
@@ -104,11 +104,11 @@ public class RoomIterator implements Iterator<Room> {
      *             if the iteration has no more elements
      */
     public Room next() {
-	if (hasNext()) {
-	    counter++;
-	    return roomsList.get(counter).copyRoom();
-	} else {
-	    throw new NoSuchElementException("No more rooms available");
-	}
+        if (hasNext()) {
+            counter++;
+            return roomsList.get(counter).copyRoom();
+        } else {
+            throw new NoSuchElementException("No more rooms available");
+        }
     }
 }

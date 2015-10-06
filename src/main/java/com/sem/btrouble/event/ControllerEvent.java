@@ -29,7 +29,7 @@ public class ControllerEvent extends GameEvent {
      *            should be a String containing a message, explaining the event.
      */
     public ControllerEvent(Controller controller, int id, String message) {
-	super(controller, id, message);
+        super(controller, id, message);
     }
 
     /**
@@ -38,6 +38,6 @@ public class ControllerEvent extends GameEvent {
      * @return returns a String which can be displayed or written to a log file.
      */
     public String toString() {
-	return "<ControllerEvent: " + this.getMessage() + ">";
+        return "<ControllerEvent: " + this.getMessage() + ">";
     }
 }

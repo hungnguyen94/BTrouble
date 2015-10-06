@@ -33,20 +33,20 @@ public class CollisionHandler extends GameObservable {
      *            - graphics handler from Slick2D
      */
     public void hitboxDraw(Graphics g) {
-	for (Shape s : collidables) {
-	    g.setColor(Color.red);
-	    g.setLineWidth(2);
-	    g.draw(s);
-	    g.setLineWidth(1);
-	    // g.drawRect(s.getX(), s.getY(), s.getWidth(), s.getHeight());
-	}
+        for (Shape s : collidables) {
+            g.setColor(Color.red);
+            g.setLineWidth(2);
+            g.draw(s);
+            g.setLineWidth(1);
+            // g.drawRect(s.getX(), s.getY(), s.getWidth(), s.getHeight());
+        }
     }
 
     /**
      * Use set to prevent duplicates.
      */
     public CollisionHandler() {
-	collidables = new HashSet<Shape>();
+        collidables = new HashSet<Shape>();
     }
 
     /**
@@ -56,7 +56,7 @@ public class CollisionHandler extends GameObservable {
      *            - collidable object
      */
     public void addCollidable(Shape c) {
-	collidables.add(c);
+        collidables.add(c);
     }
 
     /**
@@ -66,7 +66,7 @@ public class CollisionHandler extends GameObservable {
      *            - collection of collidable objects
      */
     public void addCollidable(Collection<? extends Shape> c) {
-	collidables.addAll(c);
+        collidables.addAll(c);
     }
 
     /**
@@ -76,7 +76,7 @@ public class CollisionHandler extends GameObservable {
      *            - collection of collidable objects
      */
     public void removeCollidable(Collection<? extends Shape> c) {
-	collidables.removeAll(c);
+        collidables.removeAll(c);
     }
 
     /**
@@ -86,7 +86,7 @@ public class CollisionHandler extends GameObservable {
      *            - collidable object
      */
     public void removeCollidable(Shape c) {
-	collidables.remove(c);
+        collidables.remove(c);
     }
 
     /**
@@ -95,7 +95,7 @@ public class CollisionHandler extends GameObservable {
      * @return - The number of colliable objects
      */
     public int getSize() {
-	return collidables.size();
+        return collidables.size();
     }
 
     /**
@@ -106,25 +106,25 @@ public class CollisionHandler extends GameObservable {
      * @return - true if shape has collided
      */
     public boolean checkCollision(Shape self) {
-	boolean collided = false;
-	// Removes all null references. It's an hashset, so duplicates aren't
-	// possible.
-	collidables.remove(null);
+        boolean collided = false;
+        // Removes all null references. It's an hashset, so duplicates aren't
+        // possible.
+        collidables.remove(null);
 
-	if (self == null) {
-	    return false;
-	}
+        if (self == null) {
+            return false;
+        }
 
-	// Iterate over a shallow cloned set, since you can't change the set
-	// while iterating.
-	HashSet<Shape> collidablesClone = new HashSet<Shape>(collidables);
-	for (Shape collidee : collidablesClone) {
-	    if (self != collidee && self.intersects(collidee)) {
-		collided = true;
-		onCollide(self, collidee);
-	    }
-	}
-	return collided;
+        // Iterate over a shallow cloned set, since you can't change the set
+        // while iterating.
+        HashSet<Shape> collidablesClone = new HashSet<Shape>(collidables);
+        for (Shape collidee : collidablesClone) {
+            if (self != collidee && self.intersects(collidee)) {
+                collided = true;
+                onCollide(self, collidee);
+            }
+        }
+        return collided;
     }
 
     /**
@@ -135,21 +135,21 @@ public class CollisionHandler extends GameObservable {
      * @return - true if collision
      */
     public boolean checkCollision(Collection<? extends Shape> colliders) {
-	boolean collided = false;
-	// Removes all null references. It's an hashset, so duplicates aren't
-	// possible.
-	collidables.remove(null);
+        boolean collided = false;
+        // Removes all null references. It's an hashset, so duplicates aren't
+        // possible.
+        collidables.remove(null);
 
-	// Iterate over a shallow cloned set, since you can't change the set
-	// while
-	// iterating.
-	Collection<Shape> collidersClone = new HashSet<Shape>(colliders);
-	for (Shape self : collidersClone) {
-	    if (checkCollision(self)) {
-		collided = true;
-	    }
-	}
-	return collided;
+        // Iterate over a shallow cloned set, since you can't change the set
+        // while
+        // iterating.
+        Collection<Shape> collidersClone = new HashSet<Shape>(colliders);
+        for (Shape self : collidersClone) {
+            if (checkCollision(self)) {
+                collided = true;
+            }
+        }
+        return collided;
     }
 
     /**
@@ -161,21 +161,21 @@ public class CollisionHandler extends GameObservable {
      *            - the object being collided in
      */
     private void onCollide(Shape collider, Shape collidee) {
-	if (collider instanceof Player) {
-	    playerCollide((Player) collider, collidee);
-	}
+        if (collider instanceof Player) {
+            playerCollide((Player) collider, collidee);
+        }
 
-	if (collider instanceof Bubble) {
-	    bubbleCollide((Bubble) collider, collidee);
-	}
+        if (collider instanceof Bubble) {
+            bubbleCollide((Bubble) collider, collidee);
+        }
 
-	if (collider instanceof Rope) {
-	    ropeCollide((Rope) collider, collidee);
-	}
+        if (collider instanceof Rope) {
+            ropeCollide((Rope) collider, collidee);
+        }
 
-	if (collider instanceof Wall) {
-	    wallCollide((Wall) collider, collidee);
-	}
+        if (collider instanceof Wall) {
+            wallCollide((Wall) collider, collidee);
+        }
     }
 
     /**
@@ -187,11 +187,11 @@ public class CollisionHandler extends GameObservable {
      *            - shape the wall collides with
      */
     private void wallCollide(Wall wall, Shape collidee) {
-	if (collidee instanceof Wall) {
-	    wall.changeDirection();
-	    Wall that = (Wall) collidee;
-	    that.changeDirection();
-	}
+        if (collidee instanceof Wall) {
+            wall.changeDirection();
+            Wall that = (Wall) collidee;
+            that.changeDirection();
+        }
     }
 
     /**
@@ -203,33 +203,33 @@ public class CollisionHandler extends GameObservable {
      *            - shape the player collides with
      */
     private void playerCollide(Player player, Shape collidee) {
-	if (collidee instanceof Bubble) {
-	    fireEvent(
-		    new PlayerEvent(player, PlayerEvent.COLLISION_BUBBLE, "Collided with bubble"));
-	    player.setAlive(false);
-	}
+        if (collidee instanceof Bubble) {
+            fireEvent(
+                    new PlayerEvent(player, PlayerEvent.COLLISION_BUBBLE, "Collided with bubble"));
+            player.setAlive(false);
+        }
 
-	if (collidee instanceof Wall) {
-	    switch (checkSideX(player, collidee)) {
-	    case sideLeft:
-		fireEvent(new PlayerEvent(player, PlayerEvent.COLLISION_RIGHTWALL,
-			"Collided with right wall"));
-		player.setRightBlocked(true);
-		break;
-	    case sideRight:
-		player.setLeftBlocked(true);
-		fireEvent(new PlayerEvent(player, PlayerEvent.COLLISION_LEFTWALL,
-			"Collided with left wall"));
-		break;
-	    default:
-		break;
-	    }
-	}
+        if (collidee instanceof Wall) {
+            switch (checkSideX(player, collidee)) {
+            case sideLeft:
+                fireEvent(new PlayerEvent(player, PlayerEvent.COLLISION_RIGHTWALL,
+                        "Collided with right wall"));
+                player.setRightBlocked(true);
+                break;
+            case sideRight:
+                player.setLeftBlocked(true);
+                fireEvent(new PlayerEvent(player, PlayerEvent.COLLISION_LEFTWALL,
+                        "Collided with left wall"));
+                break;
+            default:
+                break;
+            }
+        }
 
-	if (collidee instanceof Floor) {
-	    player.setFalling(false);
-	    player.setY(collidee.getY() - player.getHeight());
-	}
+        if (collidee instanceof Floor) {
+            player.setFalling(false);
+            player.setY(collidee.getY() - player.getHeight());
+        }
     }
 
     /**
@@ -241,73 +241,73 @@ public class CollisionHandler extends GameObservable {
      *            - shape the bubble collides with
      */
     private void bubbleCollide(Bubble bubble, Shape collidee) {
-	if (collidee instanceof Wall) {
-	    switch (checkSideX(bubble, collidee)) {
-	    case sideLeft:
-		fireEvent(
-			new BubbleEvent(bubble, BubbleEvent.COLLISION_WALL, "Collided with wall"));
-		bubble.bounceX(true);
-		break;
-	    case sideRight:
-		fireEvent(
-			new BubbleEvent(bubble, BubbleEvent.COLLISION_WALL, "Collided with wall"));
-		bubble.bounceX(false);
-		break;
-	    default:
-		break;
-	    }
-	}
-	if (collidee instanceof Floor) {
-	    // If floor is under bounce up with constant speed, else bounce
-	    // normally
-	    switch (checkSideY(bubble, collidee)) {
-	    case sideTop:
-		fireEvent(new BubbleEvent(bubble, BubbleEvent.COLLISION_FLOOR,
-			"Collided with floor"));
-		bubble.bounceYFloor();
-		break;
-	    case sideBottom:
-		fireEvent(new BubbleEvent(bubble, BubbleEvent.COLLISION_CEILING,
-			"Collided with ceiling"));
-		bubble.bounceY(false);
-		break;
-	    default:
-		break;
-	    }
-	}
-	if (collidee instanceof Rope) {
-	    fireEvent(new BubbleEvent(bubble, BubbleEvent.COLLISION_ROPE, "Collided with rope"));
-	    Rope that = (Rope) collidee;
-	    bubble.split();
-	    that.setCollided(true);
-	}
-	if (collidee instanceof Bubble) {
-	    Bubble that = (Bubble) collidee;
-	    switch (checkSideX(bubble, collidee)) {
-	    case sideLeft:
-		bubble.bounceX(true);
-		that.bounceX(false);
-		break;
-	    case sideRight:
-		bubble.bounceX(false);
-		that.bounceX(true);
-		break;
-	    default:
-		break;
-	    }
-	    switch (checkSideY(bubble, collidee)) {
-	    case sideTop:
-		bubble.bounceY(true);
-		that.bounceY(false);
-		break;
-	    case sideBottom:
-		bubble.bounceY(false);
-		that.bounceY(true);
-		break;
-	    default:
-		break;
-	    }
-	}
+        if (collidee instanceof Wall) {
+            switch (checkSideX(bubble, collidee)) {
+            case sideLeft:
+                fireEvent(
+                        new BubbleEvent(bubble, BubbleEvent.COLLISION_WALL, "Collided with wall"));
+                bubble.bounceX(true);
+                break;
+            case sideRight:
+                fireEvent(
+                        new BubbleEvent(bubble, BubbleEvent.COLLISION_WALL, "Collided with wall"));
+                bubble.bounceX(false);
+                break;
+            default:
+                break;
+            }
+        }
+        if (collidee instanceof Floor) {
+            // If floor is under bounce up with constant speed, else bounce
+            // normally
+            switch (checkSideY(bubble, collidee)) {
+            case sideTop:
+                fireEvent(new BubbleEvent(bubble, BubbleEvent.COLLISION_FLOOR,
+                        "Collided with floor"));
+                bubble.bounceYFloor();
+                break;
+            case sideBottom:
+                fireEvent(new BubbleEvent(bubble, BubbleEvent.COLLISION_CEILING,
+                        "Collided with ceiling"));
+                bubble.bounceY(false);
+                break;
+            default:
+                break;
+            }
+        }
+        if (collidee instanceof Rope) {
+            fireEvent(new BubbleEvent(bubble, BubbleEvent.COLLISION_ROPE, "Collided with rope"));
+            Rope that = (Rope) collidee;
+            bubble.split();
+            that.setCollided(true);
+        }
+        if (collidee instanceof Bubble) {
+            Bubble that = (Bubble) collidee;
+            switch (checkSideX(bubble, collidee)) {
+            case sideLeft:
+                bubble.bounceX(true);
+                that.bounceX(false);
+                break;
+            case sideRight:
+                bubble.bounceX(false);
+                that.bounceX(true);
+                break;
+            default:
+                break;
+            }
+            switch (checkSideY(bubble, collidee)) {
+            case sideTop:
+                bubble.bounceY(true);
+                that.bounceY(false);
+                break;
+            case sideBottom:
+                bubble.bounceY(false);
+                that.bounceY(true);
+                break;
+            default:
+                break;
+            }
+        }
     }
 
     /**
@@ -319,17 +319,17 @@ public class CollisionHandler extends GameObservable {
      *            - shape the rope collides with
      */
     private void ropeCollide(Rope rope, Shape collidee) {
-	if (collidee instanceof Wall) {
-	    rope.setCollided(true);
-	}
+        if (collidee instanceof Wall) {
+            rope.setCollided(true);
+        }
 
-	if (collidee instanceof Floor) {
-	    rope.setCollided(true);
-	}
+        if (collidee instanceof Floor) {
+            rope.setCollided(true);
+        }
 
-	if (collidee instanceof Bubble) {
-	    rope.setCollided(true);
-	}
+        if (collidee instanceof Bubble) {
+            rope.setCollided(true);
+        }
     }
 
     /**
@@ -342,15 +342,15 @@ public class CollisionHandler extends GameObservable {
      * @return - integer representing the side
      */
     private int checkSideX(Shape collider, Shape collidee) {
-	// Collide on right side
-	if (collider.getCenterX() > collidee.getCenterX()) {
-	    return sideRight;
-	}
-	// Collide on left side
-	if (collider.getCenterX() < collidee.getCenterX()) {
-	    return sideLeft;
-	}
-	return 0;
+        // Collide on right side
+        if (collider.getCenterX() > collidee.getCenterX()) {
+            return sideRight;
+        }
+        // Collide on left side
+        if (collider.getCenterX() < collidee.getCenterX()) {
+            return sideLeft;
+        }
+        return 0;
     }
 
     /**
@@ -363,14 +363,14 @@ public class CollisionHandler extends GameObservable {
      * @return - integer representing the side
      */
     private int checkSideY(Shape collider, Shape collidee) {
-	// Collide on top side
-	if (collider.getCenterY() < collidee.getCenterY()) {
-	    return sideTop;
-	}
-	// Collide on bottom side
-	if (collider.getCenterY() > collidee.getCenterY()) {
-	    return sideBottom;
-	}
-	return 0;
+        // Collide on top side
+        if (collider.getCenterY() < collidee.getCenterY()) {
+            return sideTop;
+        }
+        // Collide on bottom side
+        if (collider.getCenterY() > collidee.getCenterY()) {
+            return sideBottom;
+        }
+        return 0;
     }
 }

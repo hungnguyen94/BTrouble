@@ -29,11 +29,11 @@ public class ControllerEventTest extends GameEventTest {
      */
     @Before
     public void setUp() {
-	event = new ControllerEvent(controller, 1, "Test");
-	setEvent(event);
-	setObject(controller);
-	setId(1);
-	setString("Test");
+        event = new ControllerEvent(controller, 1, "Test");
+        setEvent(event);
+        setObject(controller);
+        setId(1);
+        setString("Test");
     }
 
     /**
@@ -41,7 +41,7 @@ public class ControllerEventTest extends GameEventTest {
      */
     @Test
     public void toStringTest() {
-	assertEquals("<ControllerEvent: Test>", event.toString());
+        assertEquals("<ControllerEvent: Test>", event.toString());
     }
 
 }

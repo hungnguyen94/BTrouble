@@ -29,11 +29,11 @@ public class PlayerEventTest extends GameEventTest {
      */
     @Before
     public void setUp() {
-	event = new PlayerEvent(player, 1, "Test");
-	setEvent(event);
-	setObject(player);
-	setId(1);
-	setString("Test");
+        event = new PlayerEvent(player, 1, "Test");
+        setEvent(event);
+        setObject(player);
+        setId(1);
+        setString("Test");
     }
 
     /**
@@ -41,7 +41,7 @@ public class PlayerEventTest extends GameEventTest {
      */
     @Test
     public void toStringTest() {
-	assertEquals("<PlayerEvent: Test>", event.toString());
+        assertEquals("<PlayerEvent: Test>", event.toString());
     }
 
     /**
@@ -49,7 +49,7 @@ public class PlayerEventTest extends GameEventTest {
      */
     @Test
     public void getSubjectTest() {
-	assertEquals(player, event.getSubject());
+        assertEquals(player, event.getSubject());
     }
 
 }

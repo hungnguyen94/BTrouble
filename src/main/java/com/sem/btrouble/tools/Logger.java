@@ -19,18 +19,18 @@ public class Logger {
      * called.
      */
     public static void initLog() {
-	try {
-	    File file = new File("log.txt");
+        try {
+            File file = new File("log.txt");
 
-	    if (!file.exists()) {
-		file.createNewFile();
-	    }
+            if (!file.exists()) {
+                file.createNewFile();
+            }
 
-	    fw = new FileWriter(file.getAbsoluteFile());
-	    bw = new BufferedWriter(fw);
-	} catch (IOException e) {
-	    e.printStackTrace();
-	}
+            fw = new FileWriter(file.getAbsoluteFile());
+            bw = new BufferedWriter(fw);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -42,14 +42,14 @@ public class Logger {
      *            should be the GameEvent to be written to the log file.
      */
     public static void log(GameEvent event) {
-	try {
-	    Date date = new Date();
-	    String currentDate = date.toString();
-	    String temp = currentDate + " " + event.toString();
-	    bw.write(temp);
-	} catch (IOException e) {
-	    e.printStackTrace();
-	}
+        try {
+            Date date = new Date();
+            String currentDate = date.toString();
+            String temp = currentDate + " " + event.toString();
+            bw.write(temp);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

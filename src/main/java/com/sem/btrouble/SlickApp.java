@@ -30,7 +30,7 @@ public class SlickApp extends StateBasedGame {
      *            is the name of the game
      */
     public SlickApp(String gamename) {
-	super(gamename);
+        super(gamename);
     }
 
     /**
@@ -40,19 +40,19 @@ public class SlickApp extends StateBasedGame {
      *            should be empty.
      */
     public static void main(String[] args) {
-	try {
-	    graphics = new GraphicSettings(true, true, 0);
-	    AppGameContainer appgc;
-	    appgc = new AppGameContainer(new SlickApp("Bubble Trouble"));
-	    appgc.setDisplayMode(SCREEN_WIDTH, SCREEN_HEIGHT, false);
-	    appgc.setShowFPS(false);
-	    appgc.setVSync(true);
-	    appgc.setTargetFrameRate(DEFAULT_FRAMERATE);
-	    appgc.setAlwaysRender(true);
-	    appgc.start();
-	} catch (SlickException ex) {
-	    Logger.log(new ExceptionEvent(ex, "initialisation of the game failed."));
-	}
+        try {
+            graphics = new GraphicSettings(true, true, 0);
+            AppGameContainer appgc;
+            appgc = new AppGameContainer(new SlickApp("Bubble Trouble"));
+            appgc.setDisplayMode(SCREEN_WIDTH, SCREEN_HEIGHT, false);
+            appgc.setShowFPS(false);
+            appgc.setVSync(true);
+            appgc.setTargetFrameRate(DEFAULT_FRAMERATE);
+            appgc.setAlwaysRender(true);
+            appgc.start();
+        } catch (SlickException ex) {
+            Logger.log(new ExceptionEvent(ex, "initialisation of the game failed."));
+        }
     }
 
     /**
@@ -64,9 +64,9 @@ public class SlickApp extends StateBasedGame {
      *             when sprite is incorrect
      */
     public void initStatesList(GameContainer gc) throws SlickException {
-	this.addState(new MenuView());
-	this.addState(new GameView());
-	this.addState(new ShopView());
+        this.addState(new MenuView());
+        this.addState(new GameView());
+        this.addState(new ShopView());
     }
 
     /**
@@ -75,6 +75,6 @@ public class SlickApp extends StateBasedGame {
      * @return the graphics
      */
     public static GraphicSettings returnGraphics() {
-	return graphics;
+        return graphics;
     }
 }

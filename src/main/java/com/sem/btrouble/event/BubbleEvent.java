@@ -27,12 +27,12 @@ public class BubbleEvent extends GameEvent {
      *            should be a String containing a message, explaining the event.
      */
     public BubbleEvent(Bubble subject, int id, String message) {
-	super(subject, id, message);
+        super(subject, id, message);
     }
 
     @Override
     public Bubble getSubject() {
-	return (Bubble) super.getSubject();
+        return (Bubble) super.getSubject();
     }
 
     /**
@@ -41,6 +41,6 @@ public class BubbleEvent extends GameEvent {
      * @return returns a String which can be displayed or written to a log file.
      */
     public String toString() {
-	return "<BubbleEvent: " + this.getMessage() + ">";
+        return "<BubbleEvent: " + this.getMessage() + ">";
     }
 }

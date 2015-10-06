@@ -41,10 +41,10 @@ public class RoomTest {
      */
     @Before
     public void setUp() {
-	room = new Room();
-	Model.init(1280, 720);
-	Model.addPlayer(player);
-	Model.addRoom(room);
+        room = new Room();
+        Model.init(1280, 720);
+        Model.addPlayer(player);
+        Model.addRoom(room);
     }
 
     /**
@@ -52,9 +52,9 @@ public class RoomTest {
      */
     @Test
     public void testGetSpawnPositionX() {
-	assertTrue(room.getSpawnPositionX() == 0);
-	Model.restartRoom();
-	assertFalse(Model.getCurrentRoom().getSpawnPositionX() == 0);
+        assertTrue(room.getSpawnPositionX() == 0);
+        Model.restartRoom();
+        assertFalse(Model.getCurrentRoom().getSpawnPositionX() == 0);
     }
 
     /**
@@ -62,9 +62,9 @@ public class RoomTest {
      */
     @Test
     public void testGetSpawnPositionY() {
-	assertTrue(room.getSpawnPositionY() == 0);
-	Model.restartRoom();
-	assertFalse(Model.getCurrentRoom().getSpawnPositionY() == 0);
+        assertTrue(room.getSpawnPositionY() == 0);
+        Model.restartRoom();
+        assertFalse(Model.getCurrentRoom().getSpawnPositionY() == 0);
     }
 
     /**
@@ -72,9 +72,9 @@ public class RoomTest {
      */
     @Test
     public void testGetBubbles() {
-	assertTrue(room.getBubbles().isEmpty());
-	room.loadRoom();
-	assertFalse(room.getBubbles().isEmpty());
+        assertTrue(room.getBubbles().isEmpty());
+        room.loadRoom();
+        assertFalse(room.getBubbles().isEmpty());
     }
 
     /**
@@ -82,7 +82,7 @@ public class RoomTest {
      */
     @Test
     public void hasBubblesFalseTest() {
-	assertFalse(room.hasBubbles());
+        assertFalse(room.hasBubbles());
     }
 
     /**
@@ -90,8 +90,8 @@ public class RoomTest {
      */
     @Test
     public void hasBubblesTrueTest() {
-	room.addBubble(bubble);
-	assertTrue(room.hasBubbles());
+        room.addBubble(bubble);
+        assertTrue(room.hasBubbles());
     }
 
     /**
@@ -99,9 +99,9 @@ public class RoomTest {
      */
     @Test
     public void moveBubblesTest() {
-	room.addBubble(bubble);
-	room.moveBubbles();
-	verify(bubble).move();
+        room.addBubble(bubble);
+        room.moveBubbles();
+        verify(bubble).move();
     }
 
     /**
@@ -109,9 +109,9 @@ public class RoomTest {
      */
     @Test
     public void removeBubbleTest() {
-	room.addBubble(bubble);
-	room.removeBubble(bubble);
-	assertFalse(room.hasBubbles());
+        room.addBubble(bubble);
+        room.removeBubble(bubble);
+        assertFalse(room.hasBubbles());
     }
 
     /**
@@ -119,7 +119,7 @@ public class RoomTest {
      */
     @Test
     public void equalsOtherTest() {
-	assertFalse(room.equals(new String("test")));
+        assertFalse(room.equals(new String("test")));
     }
 
     /**
@@ -127,9 +127,9 @@ public class RoomTest {
      */
     @Test
     public void equalsBubbleTest() {
-	room.addBubble(bubble);
-	Room room2 = new Room();
-	assertFalse(room.equals(room2));
+        room.addBubble(bubble);
+        Room room2 = new Room();
+        assertFalse(room.equals(room2));
     }
 
     /**
@@ -137,8 +137,8 @@ public class RoomTest {
      */
     @Test
     public void equalsTest() {
-	Room room2 = room.copyRoom();
-	assertTrue(room.equals(room2));
+        Room room2 = room.copyRoom();
+        assertTrue(room.equals(room2));
     }
 
     /**
@@ -146,10 +146,10 @@ public class RoomTest {
      */
     @Test
     public void getCollidablesTest() {
-	room.addBubble(bubble);
-	Collection<Shape> collection = room.getCollidables();
-	assertEquals(1, collection.size());
-	assertTrue(collection.contains(bubble));
+        room.addBubble(bubble);
+        Collection<Shape> collection = room.getCollidables();
+        assertEquals(1, collection.size());
+        assertTrue(collection.contains(bubble));
     }
 
 }

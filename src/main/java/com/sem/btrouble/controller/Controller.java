@@ -46,24 +46,24 @@ public class Controller extends GameObservable {
      *             Throws exception on error
      */
     public Controller(GameContainer container, StateBasedGame sbg) throws SlickException {
-	timers = new Timers(delay);
-	this.gc = container;
-	this.sbg = sbg;
+        timers = new Timers(delay);
+        this.gc = container;
+        this.sbg = sbg;
 
-	collisionHandler = new CollisionHandler();
-	collisionHandler.addObserver(new Observer() {
-	    public void update(Observable o, Object arg) {
-		if (arg instanceof GameEvent) {
-		    GameView.getController().fireEvent((GameEvent) arg);
-		}
-	    }
-	});
+        collisionHandler = new CollisionHandler();
+        collisionHandler.addObserver(new Observer() {
+            public void update(Observable o, Object arg) {
+                if (arg instanceof GameEvent) {
+                    GameView.getController().fireEvent((GameEvent) arg);
+                }
+            }
+        });
 
-	Model.init(SlickApp.SCREEN_WIDTH, SlickApp.SCREEN_HEIGHT);
-	Player p = new Player(0, 0);
-	Model.addPlayer(p);
-	collisionHandler.addCollidable(p);
-	restartRoom();
+        Model.init(SlickApp.SCREEN_WIDTH, SlickApp.SCREEN_HEIGHT);
+        Player p = new Player(0, 0);
+        Model.addPlayer(p);
+        collisionHandler.addCollidable(p);
+        restartRoom();
     }
 
     /**
@@ -72,7 +72,7 @@ public class Controller extends GameObservable {
      * @return timer
      */
     public Timers getTimers() {
-	return timers;
+        return timers;
     }
 
     /**
@@ -82,7 +82,7 @@ public class Controller extends GameObservable {
      *            Graphics handler from Slick2D
      */
     public void drawCollidables(Graphics g) {
-	collisionHandler.hitboxDraw(g);
+        collisionHandler.hitboxDraw(g);
     }
 
     /**
@@ -94,37 +94,38 @@ public class Controller extends GameObservable {
      *             throw error on exception
      */
     public void update(int delta) throws SlickException {
-	collisionHandler.checkCollision(Model.getCurrentRoom().getBubbles());
+        collisionHandler.checkCollision(Model.getCurrentRoom().getBubbles());
 
-	for (Player player : Model.getPlayers()) {
-	    if (!collisionHandler.checkCollision(player)) {
-		player.setFalling(true);
-	    }
+        for (Player player : Model.getPlayers()) {
+            if (!collisionHandler.checkCollision(player)) {
+                player.setFalling(true);
+            }
 
-	    if (!player.isAlive()) {
-		loseLife(player);
-	    }
-	    collisionHandler.checkCollision(player.getRopes());
-	}
+            if (!player.isAlive()) {
+                loseLife(player);
+            }
+            collisionHandler.checkCollision(player.getRopes());
+        }
 
-	// Check if timer has run out.
-	if (this.getTimers().getLevelTimeLeft() <= 0) {
-	    fireEvent(new ControllerEvent(this, ControllerEvent.OUTOFTIME, "Out of time"));
-	    for (Player p : Model.getPlayers()) {
-		loseLife(p);
-	    }
-	}
+        // Check if timer has run out.
+        if (this.getTimers().getLevelTimeLeft() <= 0) {
+            fireEvent(new ControllerEvent(this, ControllerEvent.OUTOFTIME, "Out of time"));
+            for (Player p : Model.getPlayers()) {
+                loseLife(p);
+            }
+        }
 
-	for (Player p : Model.getPlayers()) {
-	    p.move();
-	}
-	processInput(delta);
-	// calculate movements
-	updateRopes();
-	updateBubble();
+        for (Player p : Model.getPlayers()) {
+            p.move();
+        }
+        processInput(delta);
+        // calculate movements
+        updateRopes();
+        updateBubble();
     }
 
     private final double ropeoffset = 0.9;
+
     /**
      * Move the player on key presses.
      *
@@ -132,23 +133,23 @@ public class Controller extends GameObservable {
      *            milliseconds between frames
      */
     public void processInput(int delta) {
-	Input input = gc.getInput();
-	Player p1 = Model.getPlayers().get(0);
+        Input input = gc.getInput();
+        Player p1 = Model.getPlayers().get(0);
 
-	if (input.isKeyDown(Input.KEY_LEFT)) {
-	    p1.moveLeft(delta);
-	} else if (input.isKeyDown(Input.KEY_RIGHT)) {
-	    p1.moveRight(delta);
-	}
+        if (input.isKeyDown(Input.KEY_LEFT)) {
+            p1.moveLeft(delta);
+        } else if (input.isKeyDown(Input.KEY_RIGHT)) {
+            p1.moveRight(delta);
+        }
 
-	if (input.isKeyPressed(Input.KEY_SPACE)) {
-	    Rope r = new Rope(p1.getX() + (int) (p1.getWidth() / 2),
-		    (float) (p1.getY() + p1.getHeight() * ropeoffset));
-	    if (p1.fire(r)) {
-		collisionHandler.addCollidable(r);
-		fireEvent(new PlayerEvent(p1, PlayerEvent.SHOOT, "Shot a rope"));
-	    }
-	}
+        if (input.isKeyPressed(Input.KEY_SPACE)) {
+            Rope r = new Rope(p1.getX() + (int) (p1.getWidth() / 2),
+                    (float) (p1.getY() + p1.getHeight() * ropeoffset));
+            if (p1.fire(r)) {
+                collisionHandler.addCollidable(r);
+                fireEvent(new PlayerEvent(p1, PlayerEvent.SHOOT, "Shot a rope"));
+            }
+        }
     }
 
     /**
@@ -158,24 +159,24 @@ public class Controller extends GameObservable {
      *            should be the player who lost a life
      */
     public void loseLife(Player player) {
-	fireEvent(new PlayerEvent(player, PlayerEvent.LIFE_LOST, "Lost a life"));
-	player.loseLife();
-	if (!player.hasLives()) {
-	    endGame("Game over...");
-	} else {
-	    collisionHandler.removeCollidable(Model.getCurrentRoom().getCollidables());
-	    // Hardcoded player 1
-	    collisionHandler.removeCollidable(Model.getPlayers().get(0).getRopes());
-	    restartRoom();
-	    player.setAlive(true);
-	}
+        fireEvent(new PlayerEvent(player, PlayerEvent.LIFE_LOST, "Lost a life"));
+        player.loseLife();
+        if (!player.hasLives()) {
+            endGame("Game over...");
+        } else {
+            collisionHandler.removeCollidable(Model.getCurrentRoom().getCollidables());
+            // Hardcoded player 1
+            collisionHandler.removeCollidable(Model.getPlayers().get(0).getRopes());
+            restartRoom();
+            player.setAlive(true);
+        }
     }
 
     private void restartRoom() {
-	fireEvent(new ControllerEvent(this, ControllerEvent.RESTARTROOM, "Room restarted"));
-	Model.restartRoom();
-	getTimers().restartTimer();
-	collisionHandler.addCollidable(Model.getCurrentRoom().getCollidables());
+        fireEvent(new ControllerEvent(this, ControllerEvent.RESTARTROOM, "Room restarted"));
+        Model.restartRoom();
+        getTimers().restartTimer();
+        collisionHandler.addCollidable(Model.getCurrentRoom().getCollidables());
     }
 
     /**
@@ -183,13 +184,13 @@ public class Controller extends GameObservable {
      * calculates the new position of each bubble.
      */
     private void updateBubble() {
-	if (!Model.getCurrentRoom().hasBubbles()) {
-	    collisionHandler.removeCollidable(Model.getCurrentRoom().getCollidables());
-	    Model.getNextRoom();
-	    restartRoom();
-	    sbg.enterState(2, new FadeOutTransition(), new FadeInTransition());
-	}
-	Model.getCurrentRoom().moveBubbles();
+        if (!Model.getCurrentRoom().hasBubbles()) {
+            collisionHandler.removeCollidable(Model.getCurrentRoom().getCollidables());
+            Model.getNextRoom();
+            restartRoom();
+            sbg.enterState(2, new FadeOutTransition(), new FadeInTransition());
+        }
+        Model.getCurrentRoom().moveBubbles();
     }
 
     /**
@@ -199,8 +200,8 @@ public class Controller extends GameObservable {
      *            Bubble to add to the room
      */
     public void addBubble(Bubble bubble) {
-	Model.getCurrentRoom().addBubble(bubble);
-	collisionHandler.addCollidable(bubble);
+        Model.getCurrentRoom().addBubble(bubble);
+        collisionHandler.addCollidable(bubble);
     }
 
     /**
@@ -210,8 +211,8 @@ public class Controller extends GameObservable {
      *            the bubble to remove
      */
     public void removeBubble(Bubble bubble) {
-	Model.getCurrentRoom().removeBubble(bubble);
-	collisionHandler.removeCollidable(bubble);
+        Model.getCurrentRoom().removeBubble(bubble);
+        collisionHandler.removeCollidable(bubble);
     }
 
     /**
@@ -219,10 +220,10 @@ public class Controller extends GameObservable {
      * the rope if it hits the ceiling.
      */
     private void updateRopes() throws SlickException {
-	for (Player player : Model.getPlayers()) {
-	    player.moveRopes();
-	    collisionHandler.removeCollidable(player.removeCollidedRopes());
-	}
+        for (Player player : Model.getPlayers()) {
+            player.moveRopes();
+            collisionHandler.removeCollidable(player.removeCollidedRopes());
+        }
     }
 
     /**
@@ -232,8 +233,8 @@ public class Controller extends GameObservable {
      *            should be a String containing the message which is shown.
      */
     public void endGame(String message) {
-	fireEvent(new ControllerEvent(this, ControllerEvent.GAMEOVER, message));
-	gc.exit();
+        fireEvent(new ControllerEvent(this, ControllerEvent.GAMEOVER, message));
+        gc.exit();
     }
 
 }

@@ -31,23 +31,23 @@ public class View {
      *            Timers object with the timers from the main app
      */
     public View(GameContainer gc, Timers timers) {
-	this.gc = gc;
-	this.timers = timers;
-	timerBar = new Rectangle(200, gc.getHeight() - ((gc.getHeight() / 100) * 12),
-		gc.getWidth() - 400, 25);
+        this.gc = gc;
+        this.timers = timers;
+        timerBar = new Rectangle(200, gc.getHeight() - ((gc.getHeight() / 100) * 12),
+                gc.getWidth() - 400, 25);
 
-	// load font from a .ttf file
-	try {
-	    InputStream inputStream = ResourceLoader.getResourceAsStream("Sprites/IndieFlower.ttf");
+        // load font from a .ttf file
+        try {
+            InputStream inputStream = ResourceLoader.getResourceAsStream("Sprites/IndieFlower.ttf");
 
-	    java.awt.Font awtFont = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT,
-		    inputStream);
-	    awtFont = awtFont.deriveFont(24f); // set font size
-	    font = new TrueTypeFont(awtFont, false);
+            java.awt.Font awtFont = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT,
+                    inputStream);
+            awtFont = awtFont.deriveFont(24f); // set font size
+            font = new TrueTypeFont(awtFont, false);
 
-	} catch (Exception e) {
-	    e.printStackTrace();
-	}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -58,16 +58,16 @@ public class View {
      * @throws SlickException
      */
     public void draw(Graphics graphics) throws SlickException {
-	drawBackground(graphics);
-	drawCountDown(graphics);
-	drawPlayers(graphics);
-	drawBubbles(graphics);
-	drawTimer(graphics);
-	drawBorders(graphics);
+        drawBackground(graphics);
+        drawCountDown(graphics);
+        drawPlayers(graphics);
+        drawBubbles(graphics);
+        drawTimer(graphics);
+        drawBorders(graphics);
 
-	drawLives();
-	drawScore(graphics);
-	drawDebug(graphics);
+        drawLives();
+        drawScore(graphics);
+        drawDebug(graphics);
     }
 
     /**
@@ -77,11 +77,11 @@ public class View {
      *            Graphics object from Slick2D
      */
     private void drawBackground(Graphics graphics) throws SlickException {
-	graphics.setFont(font);
-	String backgroundName = SlickApp.returnGraphics().getResolutions()
-		.get(SlickApp.returnGraphics().getCurrentResolution()).getBackground();
-	Image background = new Image(backgroundName);
-	background.draw(0, 0);
+        graphics.setFont(font);
+        String backgroundName = SlickApp.returnGraphics().getResolutions()
+                .get(SlickApp.returnGraphics().getCurrentResolution()).getBackground();
+        Image background = new Image(backgroundName);
+        background.draw(0, 0);
     }
 
     /**
@@ -91,20 +91,20 @@ public class View {
      *            Graphics object from Slick2D
      */
     private void drawCountDown(Graphics graphics) {
-	if (timers.getCountdownRunning()) {
-	    graphics.drawString(
-		    "Game starts in " + (timers.getCountdownTimeLeft() / 1000 + 1) + " seconds",
-		    gc.getWidth() / 2 - 200, gc.getHeight() / 2 - 100);
-	}
+        if (timers.getCountdownRunning()) {
+            graphics.drawString(
+                    "Game starts in " + (timers.getCountdownTimeLeft() / 1000 + 1) + " seconds",
+                    gc.getWidth() / 2 - 200, gc.getHeight() / 2 - 100);
+        }
     }
 
     /**
      * Draw players on screen.
      */
     private void drawPlayers(Graphics g) throws SlickException {
-	for (Player player : Model.getPlayers()) {
-	    player.draw();
-	}
+        for (Player player : Model.getPlayers()) {
+            player.draw();
+        }
     }
 
     /**
@@ -114,13 +114,13 @@ public class View {
      *            Graphics object from Slick2D
      */
     private void drawBubbles(Graphics graphics) {
-	for (Bubble bubble : Model.getCurrentRoom().getBubbles()) {
-	    graphics.setAntiAlias(true);
-	    graphics.setColor(Color.black);
-	    graphics.fill(bubble);
-	    graphics.draw(bubble);
-	    graphics.setColor(Color.red);
-	}
+        for (Bubble bubble : Model.getCurrentRoom().getBubbles()) {
+            graphics.setAntiAlias(true);
+            graphics.setColor(Color.black);
+            graphics.fill(bubble);
+            graphics.draw(bubble);
+            graphics.setColor(Color.red);
+        }
     }
 
     /**
@@ -130,13 +130,13 @@ public class View {
      *            Graphics object from Slick2D
      */
     private void drawTimer(Graphics graphics) {
-	graphics.setColor(Color.darkGray);
-	graphics.fillRect(
-		timerBar.getX(), timerBar.getY(), (int) (timerBar.getWidth()
-			* timers.getLevelTimeLeft() / timers.getLevelMaxDuration()),
-		timerBar.getHeight());
-	graphics.setColor(Color.lightGray);
-	graphics.draw(timerBar);
+        graphics.setColor(Color.darkGray);
+        graphics.fillRect(
+                timerBar.getX(), timerBar.getY(), (int) (timerBar.getWidth()
+                        * timers.getLevelTimeLeft() / timers.getLevelMaxDuration()),
+                timerBar.getHeight());
+        graphics.setColor(Color.lightGray);
+        graphics.draw(timerBar);
 
     }
 
@@ -147,11 +147,11 @@ public class View {
      *             when the lives could not be drawn.
      */
     private void drawLives() throws SlickException {
-	SpriteSheet livesImage = new SpriteSheet("Sprites/lives_spritesheet.jpg", 381, 171);
-	int lives = Model.getPlayers().get(0).getLives();
-	if (lives >= 0) {
-	    livesImage.getSprite(lives, 0).draw(225, 851, (float) 0.286);
-	}
+        SpriteSheet livesImage = new SpriteSheet("Sprites/lives_spritesheet.jpg", 381, 171);
+        int lives = Model.getPlayers().get(0).getLives();
+        if (lives >= 0) {
+            livesImage.getSprite(lives, 0).draw(225, 851, (float) 0.286);
+        }
     }
 
     /**
@@ -163,16 +163,16 @@ public class View {
      *            Graphics object from Slick2D
      */
     private void drawScore(Graphics graphics) throws SlickException {
-	graphics.setColor(Color.white);
-	String score = "" + Model.getPlayers().get(0).getScore();
-	graphics.drawString(score, 891 - font.getWidth(score), 851);
+        graphics.setColor(Color.white);
+        String score = "" + Model.getPlayers().get(0).getScore();
+        graphics.drawString(score, 891 - font.getWidth(score), 851);
     }
 
     /**
      * Draw hitboxes for testing.
      */
     private void drawDebug(Graphics g) {
-	GameView.getController().drawCollidables(g);
+        GameView.getController().drawCollidables(g);
     }
 
     /**
@@ -182,6 +182,6 @@ public class View {
      *            - graphics
      */
     private void drawBorders(Graphics g) {
-	Model.getCurrentRoom().drawRoom(g);
+        Model.getCurrentRoom().drawRoom(g);
     }
 }

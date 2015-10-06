@@ -27,7 +27,7 @@ public class GraphicSettingsTest {
      */
     @Before
     public void setUp() throws SlickException {
-	settings = new GraphicSettings(true, true, 1);
+        settings = new GraphicSettings(true, true, 1);
     }
 
     /**
@@ -35,8 +35,8 @@ public class GraphicSettingsTest {
      */
     @Test
     public void setcurrentResolutionTest() {
-	settings.setCurrentResolution(2);
-	assertEquals(2, settings.getCurrentResolution());
+        settings.setCurrentResolution(2);
+        assertEquals(2, settings.getCurrentResolution());
     }
 
     /**
@@ -44,8 +44,8 @@ public class GraphicSettingsTest {
      */
     @Test
     public void setAntialiasingTest() {
-	settings.setAntialiasing(false);
-	assertFalse(settings.isAntialiasing());
+        settings.setAntialiasing(false);
+        assertFalse(settings.isAntialiasing());
     }
 
     /**
@@ -53,8 +53,8 @@ public class GraphicSettingsTest {
      */
     @Test
     public void setFullscreenTest() {
-	settings.setFullscreen(false);
-	assertFalse(settings.isFullscreen());
+        settings.setFullscreen(false);
+        assertFalse(settings.isFullscreen());
     }
 
 }

@@ -29,13 +29,13 @@ public class ExceptionEventTest extends GameEventTest {
      */
     @Before
     public void setUp() {
-	event = new ExceptionEvent(object, "Test");
-	setEvent(event);
-	setObject(object);
-	setId(0);
-	setString("Test");
-	// when(object.getClass()).thenReturn(class1);
-	// when(class1.getName()).thenReturn("Test");
+        event = new ExceptionEvent(object, "Test");
+        setEvent(event);
+        setObject(object);
+        setId(0);
+        setString("Test");
+        // when(object.getClass()).thenReturn(class1);
+        // when(class1.getName()).thenReturn("Test");
     }
 
     /**
@@ -43,7 +43,7 @@ public class ExceptionEventTest extends GameEventTest {
      */
     @Test
     public void toStringTest() {
-	// assertEquals("### <EXCEPTION: Test; Test >", event.toString());
+        // assertEquals("### <EXCEPTION: Test; Test >", event.toString());
     }
 
 }
