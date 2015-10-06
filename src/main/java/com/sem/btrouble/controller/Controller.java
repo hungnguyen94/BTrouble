@@ -118,11 +118,14 @@ public class Controller extends GameObservable {
             }
         }
         
-        for (PowerUp power: Model.getShortPower()) {
-        	if(collisionHandler.checkCollision(power)) {
-        		//power.setFalling(true);
-        	}
-        	power.move();
+        ArrayList<PowerUp> powers = Model.getShortPower();
+        if(powers.size() > 0) {
+	        for (int i = 0; i < powers.size(); i++) {
+	        	if(collisionHandler.checkCollision(powers.get(i))) {
+	        		
+	        	}
+	        	powers.get(i).move();
+	        }
         }
 
         for (Player p : Model.getPlayers()) {

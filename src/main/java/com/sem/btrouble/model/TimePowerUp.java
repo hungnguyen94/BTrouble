@@ -22,6 +22,10 @@ public class TimePowerUp extends PowerUp {
         GameView.getController().getTimers().setLevelTimerCounter(10000);
     }
     
+    public void activateShort() {
+    	GameView.getController().getTimers().restartTimerWithoutCountdown();
+    }
+    
     public void reset() {
         GameView.getController().getTimers().setLevelTimerCounter(100);
     }

@@ -147,7 +147,24 @@ public class Model {
     }
     
     public static void deleteShortPower(PowerUp power) {
-    	powersshort.remove(power);
+    	ArrayList<PowerUp> powers = new ArrayList<PowerUp>();
+    	for(int i = 0; i < powersshort.size(); i++) {
+    		PowerUp listPower = powersshort.get(i);
+    		if(power instanceof LifePowerUp) {
+    			if(listPower instanceof SlowPowerUp || listPower instanceof TimePowerUp) {
+    				powers.add(listPower);
+    			}
+    		} else if (power instanceof SlowPowerUp) {
+    			if(listPower instanceof LifePowerUp || listPower instanceof TimePowerUp) {
+    				powers.add(listPower);
+    			}
+    		} else if (power instanceof TimePowerUp) {
+    			if(listPower instanceof SlowPowerUp || listPower instanceof LifePowerUp) {
+    				powers.add(listPower);
+    			}
+    		}
+    	}
+		powersshort = powers;
     }
     
     public static void clearShortPower() {

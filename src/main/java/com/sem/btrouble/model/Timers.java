@@ -45,6 +45,14 @@ public class Timers {
         countdownCounter = countdownMaxDuration;
         countdownTimer.restart();
     }
+    
+    /**
+     * Restarts the game timer without countdown.
+     */
+    public void restartTimerWithoutCountdown() {
+        levelTimerCounter = levelMaxDuration;
+
+    }
 
     public void setLevelTimerCounter(int duration) {
         levelTimer.setInitialDelay(duration);
