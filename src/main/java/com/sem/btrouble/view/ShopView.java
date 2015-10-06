@@ -84,21 +84,18 @@ public class ShopView extends BasicGameState {
                         GameView.getWallet().decreaseValue(2500);
                         power = new SlowPowerUp();
                         GameView.getController().addObserver((Observer) power);
-                        power.activate();
                         Model.addPowerUp(power);
                     }
                 } else if (mouseY > 230 && mouseY < 320) {
                     if(GameView.getWallet().getValue() >= 2500) {
                         GameView.getWallet().decreaseValue(2500);
                         power = new TimePowerUp();
-                        power.activate();
                         Model.addPowerUp(power);
                     }
                 } else if (mouseY > 390 && mouseY < 475) {
                     if(GameView.getWallet().getValue() >= 10000) {
                         GameView.getWallet().decreaseValue(10000);
                         power = new LifePowerUp();
-                        power.activate();
                         Model.addPowerUp(power);
                     }
                 }

@@ -5,9 +5,11 @@ import com.sem.btrouble.event.PlayerEvent;
 import com.sem.btrouble.model.Bubble;
 import com.sem.btrouble.model.Floor;
 import com.sem.btrouble.model.Player;
+import com.sem.btrouble.model.PowerUp;
 import com.sem.btrouble.model.Wall;
 import com.sem.btrouble.tools.GameObservable;
 import com.sem.btrouble.model.Rope;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Shape;
@@ -176,6 +178,17 @@ public class CollisionHandler extends GameObservable {
         if (collider instanceof Wall) {
             wallCollide((Wall) collider, collidee);
         }
+        
+        if (collider instanceof PowerUp) {
+        	powerCollide((PowerUp) collider, collidee);
+        }
+    }
+    
+    private void powerCollide(PowerUp power, Shape collidee) {
+    	if (collidee instanceof Floor) {
+    		power.setFalling(false);
+    		power.setY(collidee.getY() - power.getHeight());
+    	}
     }
 
     /**

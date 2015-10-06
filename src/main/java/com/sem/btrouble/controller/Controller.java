@@ -117,6 +117,13 @@ public class Controller extends GameObservable {
                 loseLife(p);
             }
         }
+        
+        for (PowerUp power: Model.getShortPower()) {
+        	if(collisionHandler.checkCollision(power)) {
+        		//power.setFalling(true);
+        	}
+        	power.move();
+        }
 
         for (Player p : Model.getPlayers()) {
             p.move();

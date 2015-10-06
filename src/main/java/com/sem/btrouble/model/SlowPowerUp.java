@@ -4,13 +4,24 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
+
 import com.sem.btrouble.event.BubbleEvent;
 
-public class SlowPowerUp implements PowerUp, Observer{
+public class SlowPowerUp extends PowerUp implements Observer{
     
-    boolean on;
+    private boolean on;
+	private Image playerIdle;
     
     public SlowPowerUp() {
+    	super();
+    	on = false;
+    	activate();
+    }
+    
+    public SlowPowerUp(float xpos, float ypos) {
+        super(xpos, ypos);
         on = false;
     }
     
@@ -37,6 +48,18 @@ public class SlowPowerUp implements PowerUp, Observer{
       for (int i = 0; i < bubbles.size(); i++) {
           bubbles.get(i).setAY(speed);
       }
+    }
+    
+    public void draw() throws SlickException {
+        try {
+            if (playerIdle == null) {
+                playerIdle = new Image("Sprites/powerup_slow.png");
+            }
+        } catch (SlickException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        playerIdle.draw(getX(), getY(), 50, 100);
     }
 
 }
