@@ -120,11 +120,11 @@ public class Controller extends GameObservable {
         
         ArrayList<PowerUp> powers = Model.getShortPower();
         if(powers.size() > 0) {
-	        for (int i = 0; i < powers.size(); i++) {
-	        	if(collisionHandler.checkCollision(powers.get(i))) {
+	        for (PowerUp power: powers) {
+	        	if(collisionHandler.checkCollision(power)) {
 	        		
 	        	}
-	        	powers.get(i).move();
+	        	power.move();
 	        }
         }
 
@@ -189,8 +189,8 @@ public class Controller extends GameObservable {
         fireEvent(new ControllerEvent(this, ControllerEvent.RESTARTROOM, "Room restarted"));
         Model.restartRoom();
         ArrayList<PowerUp> powers = Model.getPowerUps();
-        for(int i = 0; i < powers.size(); i++) {
-            powers.get(i).reset();
+        for(PowerUp power: powers) {
+            power.reset();
         }
         Model.clearPowerUps();
         Model.clearShortPower();

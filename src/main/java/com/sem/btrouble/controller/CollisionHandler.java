@@ -184,7 +184,7 @@ public class CollisionHandler extends GameObservable {
         }
         
         if (collider instanceof PowerUp) {
-        	powerCollide((PowerUp) collider, collidee);
+            powerCollide((PowerUp) collider, collidee);
         }
     }
     
@@ -197,13 +197,13 @@ public class CollisionHandler extends GameObservable {
         if (collidee instanceof Player) {
         	ArrayList<Player> players = Model.getPlayers();
         	Player player = null;
-        	for(int i = 0; i < players.size(); i++) {
-        		if(collidee.equals(players.get(i))) {
+        	for(Player otherPlayer: players) {
+        		if(collidee.equals(otherPlayer)) {
         			player = (Player) collidee;
         		}
         	}
-        	if(!(power instanceof LifePowerUp && player.getLives() == 5
-        			&& power instanceof TimePowerUp)){
+        	if(!(power instanceof LifePowerUp && player.getLives() == 5)
+        			&& !(power instanceof TimePowerUp)){
         		power.activate();
         	}
         	if(power instanceof TimePowerUp) {
