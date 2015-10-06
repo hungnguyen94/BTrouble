@@ -8,17 +8,20 @@ public class PowerUpGenerator {
 		PowerUp power = null;
 		int[] types = getTypes();
 		double random = Math.random();
-		if (random < 0.075) {
-			if(types[0] == 0)
+		if (random < 0.1) {
+			if(types[0] == 0) {
 				power = new TimePowerUp(x, y);
+			}
 		}
-		else if (random < 0.15 && random > 0.075) {
-			if(types[1] == 0)
+		else if (random >= 0.1 && random < 0.2) {
+			if(types[1] == 0) {
 				power = new SlowPowerUp(x, y);
+			}
 		}
-		else if (random > 0.15 && random < 0.2) {
-			if(types[2] == 0)
+		else if (random >= 0.2 && random <= 0.3) {
+			if(types[2] == 0) {
 				power = new LifePowerUp(x, y);
+			}
 		}
 		return power;
 	}
