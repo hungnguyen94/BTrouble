@@ -19,6 +19,11 @@ public class Model {
     /**
      * Initializes the model. Should be done before any calls to its methods are
      * done.
+     * 
+     * @param width
+     *            should be the width of the room.
+     * @param height
+     *            should be the height of the roo
      */
     public static void init(int width, int height) {
         ROOM_WIDTH = width;
@@ -38,21 +43,25 @@ public class Model {
      * Adds a room to the Model's room collection.
      *
      * @param room
-     *          should be the Room which is added to the Model's room collection
+     *            should be the Room which is added to the Model's room
+     *            collection
      */
     public static void addRoom(Room room) {
         rooms.add(room);
     }
 
     /**
-     * Get the next room
+     * Get the next room.
+     * 
+     * @return returns the next room
      */
     public static Room getNextRoom() {
         currentLevel++;
-        if(rooms.hasNext())
+        if (rooms.hasNext()) {
             return rooms.next();
-        else
+        } else {
             return null;
+        }
     }
 
     /**
@@ -67,8 +76,7 @@ public class Model {
     /**
      * Returns the Model's player collection.
      *
-     * @return returns an ArrayList which is the Model's player
-     *         collection.
+     * @return returns an ArrayList which is the Model's player collection.
      */
     public static ArrayList<Player> getPlayers() {
         return players;
@@ -77,8 +85,7 @@ public class Model {
     /**
      * Returns the Model's bubble collection.
      *
-     * @return returns an ArrayList which is the Model's bubble
-     *         collection.
+     * @return returns an ArrayList which is the Model's bubble collection.
      */
     public static ArrayList<Bubble> getBubbles() {
         return new ArrayList<Bubble>(getCurrentRoom().getBubbles());
@@ -103,8 +110,8 @@ public class Model {
     }
 
     /**
-     * Restarts the currently active room, resets all the objects in the room but
-     * preserves the players and their scores.
+     * Restarts the currently active room, resets all the objects in the room
+     * but preserves the players and their scores.
      */
     public static void restartRoom() {
         roomCurrent = rooms.roomRestart();
@@ -121,12 +128,17 @@ public class Model {
      * Adds a new player to the game.
      *
      * @param player
-     *          should be the Player to be added to the game.
+     *            should be the Player to be added to the game.
      */
     public static void addPlayer(Player player) {
         players.add(player);
     }
 
+    /**
+     * Get the current room.
+     * 
+     * @return returns the current room.
+     */
     public static int getRoom_current() {
         return currentLevel;
     }

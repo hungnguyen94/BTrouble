@@ -23,26 +23,29 @@ import com.sem.btrouble.model.Room;
 
 /**
  * Class which test the Room class.
+ * 
  * @author Martin
  *
  */
 @RunWith(MockitoJUnitRunner.class)
 public class RoomTest {
 
-	@Mock private Player player;
-	@Mock private Bubble bubble;
-	private Room room;
-	
-	/**
-	 * Set up the model and room object.
-	 */
-	@Before
-	public void setUp() {
+    @Mock
+    private Player player;
+    @Mock
+    private Bubble bubble;
+    private Room room;
+
+    /**
+     * Set up the model and room object.
+     */
+    @Before
+    public void setUp() {
         room = new Room();
-		Model.init(1280, 720);
-		Model.addPlayer(player);
+        Model.init(1280, 720);
+        Model.addPlayer(player);
         Model.addRoom(room);
-	}
+    }
 
     /**
      * Test the getter of spawn position X
@@ -73,80 +76,80 @@ public class RoomTest {
         room.loadRoom();
         assertFalse(room.getBubbles().isEmpty());
     }
-	
-	/**
-	 * Test the hasBubbles method with outcome false.
-	 */
-	@Test
-	public void hasBubblesFalseTest() {
-		assertFalse(room.hasBubbles());
-	}
-	
-	/**
-	 * Test the hasBubbles method with outcome true.
-	 */
-	@Test
-	public void hasBubblesTrueTest() {
-		room.addBubble(bubble);
-		assertTrue(room.hasBubbles());
-	}
-	
-	/**
-	 * Test the moveBubbles method.
-	 */
-	@Test
-	public void moveBubblesTest() {
-		room.addBubble(bubble);
-		room.moveBubbles();
-		verify(bubble).move();
-	}
-	
-	/**
-	 * Test the removeBubbles method.
-	 */
-	@Test
-	public void removeBubbleTest() {
-		room.addBubble(bubble);
-		room.removeBubble(bubble);
-		assertFalse(room.hasBubbles());
-	}
-	
-	/**
-	 * Test the equals method with another type.
-	 */
-	@Test
-	public void equalsOtherTest() {
-		assertFalse(room.equals(new String("test")));
-	}
-	
-	/**
-	 * Test the equals method with a false bubble.
-	 */
-	@Test
-	public void equalsBubbleTest() {
-		room.addBubble(bubble);
-		Room room2 = new Room();
-		assertFalse(room.equals(room2));
-	}
-	
-	/**
-	 * Test the equals method with the copy method.
-	 */
-	@Test
-	public void equalsTest() {
-		Room room2 = room.copyRoom();
-		assertTrue(room.equals(room2));
-	}
 
-	/**
-	 * Test the getCollidables method.
-	 */
-	@Test
-	public void getCollidablesTest() {
-		room.addBubble(bubble);
-		Collection<Shape> collection = room.getCollidables();
-		assertEquals(1, collection.size());
-		assertTrue(collection.contains(bubble));
-	}
-	
+    /**
+     * Test the hasBubbles method with outcome false.
+     */
+    @Test
+    public void hasBubblesFalseTest() {
+        assertFalse(room.hasBubbles());
+    }
+
+    /**
+     * Test the hasBubbles method with outcome true.
+     */
+    @Test
+    public void hasBubblesTrueTest() {
+        room.addBubble(bubble);
+        assertTrue(room.hasBubbles());
+    }
+
+    /**
+     * Test the moveBubbles method.
+     */
+    @Test
+    public void moveBubblesTest() {
+        room.addBubble(bubble);
+        room.moveBubbles();
+        verify(bubble).move();
+    }
+
+    /**
+     * Test the removeBubbles method.
+     */
+    @Test
+    public void removeBubbleTest() {
+        room.addBubble(bubble);
+        room.removeBubble(bubble);
+        assertFalse(room.hasBubbles());
+    }
+
+    /**
+     * Test the equals method with another type.
+     */
+    @Test
+    public void equalsOtherTest() {
+        assertFalse(room.equals(new String("test")));
+    }
+
+    /**
+     * Test the equals method with a false bubble.
+     */
+    @Test
+    public void equalsBubbleTest() {
+        room.addBubble(bubble);
+        Room room2 = new Room();
+        assertFalse(room.equals(room2));
+    }
+
+    /**
+     * Test the equals method with the copy method.
+     */
+    @Test
+    public void equalsTest() {
+        Room room2 = room.copyRoom();
+        assertTrue(room.equals(room2));
+    }
+
+    /**
+     * Test the getCollidables method.
+     */
+    @Test
+    public void getCollidablesTest() {
+        room.addBubble(bubble);
+        Collection<Shape> collection = room.getCollidables();
+        assertEquals(1, collection.size());
+        assertTrue(collection.contains(bubble));
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.sem.btrouble.controller;
 
+import com.sem.btrouble.SlickApp;
 import com.sem.btrouble.event.ControllerEvent;
 import com.sem.btrouble.event.GameEvent;
 import com.sem.btrouble.event.PlayerEvent;
@@ -32,27 +33,33 @@ public class Controller extends GameObservable {
     private CollisionHandler collisionHandler;
     private static Timers timers;
 
+    private final int delay = 100;
+
     /**
      * Starts a new game by loading data into the room and adding the players.
-     * @param container GameContainer from Slick2D
-     * @param sbg State of the game
-     * @throws SlickException Throws exception on error
+     * 
+     * @param container
+     *            GameContainer from Slick2D
+     * @param sbg
+     *            State of the game
+     * @throws SlickException
+     *             Throws exception on error
      */
     public Controller(GameContainer container, StateBasedGame sbg) throws SlickException {
-        timers = new Timers(100);
+        timers = new Timers(delay);
         this.gc = container;
         this.sbg = sbg;
 
         collisionHandler = new CollisionHandler();
         collisionHandler.addObserver(new Observer() {
             public void update(Observable o, Object arg) {
-                if(arg instanceof GameEvent) {
+                if (arg instanceof GameEvent) {
                     GameView.getController().fireEvent((GameEvent) arg);
                 }
             }
         });
 
-        Model.init(1280, 720);
+        Model.init(SlickApp.SCREEN_WIDTH, SlickApp.SCREEN_HEIGHT);
         Player p = new Player(0, 0);
         Model.addPlayer(p);
         collisionHandler.addCollidable(p);
@@ -61,6 +68,7 @@ public class Controller extends GameObservable {
 
     /**
      * Returns the timers.
+     * 
      * @return timer
      */
     public Timers getTimers() {
@@ -69,7 +77,9 @@ public class Controller extends GameObservable {
 
     /**
      * Draw all collidable objects with a red outline.
-     * @param g Graphics handler from Slick2D
+     * 
+     * @param g
+     *            Graphics handler from Slick2D
      */
     public void drawCollidables(Graphics g) {
         collisionHandler.hitboxDraw(g);
@@ -77,8 +87,11 @@ public class Controller extends GameObservable {
 
     /**
      * Updates the model, should be done on request of the view.
-     * @param delta milliseconds between frames
-     * @throws SlickException throw error on exception
+     * 
+     * @param delta
+     *            milliseconds between frames
+     * @throws SlickException
+     *             throw error on exception
      */
     public void update(int delta) throws SlickException {
         collisionHandler.checkCollision(Model.getCurrentRoom().getBubbles());
@@ -92,7 +105,7 @@ public class Controller extends GameObservable {
                 loseLife(player);
             }
             collisionHandler.checkCollision(player.getRopes());
-         }
+        }
 
         // Check if timer has run out.
         if (this.getTimers().getLevelTimeLeft() <= 0) {
@@ -111,10 +124,13 @@ public class Controller extends GameObservable {
         updateBubble();
     }
 
+    private final double ropeoffset = 0.9;
+
     /**
      * Move the player on key presses.
      *
-     * @param delta milliseconds between frames
+     * @param delta
+     *            milliseconds between frames
      */
     public void processInput(int delta) {
         Input input = gc.getInput();
@@ -128,7 +144,7 @@ public class Controller extends GameObservable {
 
         if (input.isKeyPressed(Input.KEY_SPACE)) {
             Rope r = new Rope(p1.getX() + (int) (p1.getWidth() / 2),
-                    (float) (p1.getY() + p1.getHeight() * 0.9));
+                    (float) (p1.getY() + p1.getHeight() * ropeoffset));
             if (p1.fire(r)) {
                 collisionHandler.addCollidable(r);
                 fireEvent(new PlayerEvent(p1, PlayerEvent.SHOOT, "Shot a rope"));
@@ -139,7 +155,8 @@ public class Controller extends GameObservable {
     /**
      * Lets the player lose a life.
      *
-     * @param player  should be the player who lost a life
+     * @param player
+     *            should be the player who lost a life
      */
     public void loseLife(Player player) {
         fireEvent(new PlayerEvent(player, PlayerEvent.LIFE_LOST, "Lost a life"));
@@ -179,7 +196,8 @@ public class Controller extends GameObservable {
     /**
      * Adds a bubble to the game.
      *
-     * @param bubble  Bubble to add to the room
+     * @param bubble
+     *            Bubble to add to the room
      */
     public void addBubble(Bubble bubble) {
         Model.getCurrentRoom().addBubble(bubble);
@@ -189,7 +207,8 @@ public class Controller extends GameObservable {
     /**
      * Removes a bubble from the game.
      *
-     * @param bubble  the bubble to remove
+     * @param bubble
+     *            the bubble to remove
      */
     public void removeBubble(Bubble bubble) {
         Model.getCurrentRoom().removeBubble(bubble);
@@ -197,8 +216,8 @@ public class Controller extends GameObservable {
     }
 
     /**
-     * Updates the ropes, calculates the new position of the rope and removes the
-     * rope if it hits the ceiling.
+     * Updates the ropes, calculates the new position of the rope and removes
+     * the rope if it hits the ceiling.
      */
     private void updateRopes() throws SlickException {
         for (Player player : Model.getPlayers()) {
@@ -210,7 +229,8 @@ public class Controller extends GameObservable {
     /**
      * Ends the game by stopping the view, shows a message.
      *
-     * @param message should be a String containing the message which is shown.
+     * @param message
+     *            should be a String containing the message which is shown.
      */
     public void endGame(String message) {
         fireEvent(new ControllerEvent(this, ControllerEvent.GAMEOVER, message));

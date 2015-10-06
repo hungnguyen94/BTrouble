@@ -24,19 +24,24 @@ public class View {
 
     /**
      * View constructor, sets up initial attributes and loads the font.
-     * @param gc GameContainer given by Slick2D
-     * @param timers Timers object with the timers from the main app
+     * 
+     * @param gc
+     *            GameContainer given by Slick2D
+     * @param timers
+     *            Timers object with the timers from the main app
      */
     public View(GameContainer gc, Timers timers) {
         this.gc = gc;
         this.timers = timers;
-        timerBar = new Rectangle(200, gc.getHeight() - ((gc.getHeight()/100)*12), gc.getWidth() - 400, 25);
+        timerBar = new Rectangle(200, gc.getHeight() - ((gc.getHeight() / 100) * 12),
+                gc.getWidth() - 400, 25);
 
         // load font from a .ttf file
         try {
             InputStream inputStream = ResourceLoader.getResourceAsStream("Sprites/IndieFlower.ttf");
 
-            java.awt.Font awtFont = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT, inputStream);
+            java.awt.Font awtFont = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT,
+                    inputStream);
             awtFont = awtFont.deriveFont(24f); // set font size
             font = new TrueTypeFont(awtFont, false);
 
@@ -47,7 +52,9 @@ public class View {
 
     /**
      * Draws all the elements to the screen.
-     * @param graphics Graphics object from Slick2D
+     * 
+     * @param graphics
+     *            Graphics object from Slick2D
      * @throws SlickException
      */
     public void draw(Graphics graphics) throws SlickException {
@@ -60,27 +67,33 @@ public class View {
 
         drawLives();
         drawScore(graphics);
-//        drawDebug(graphics);
+        drawDebug(graphics);
     }
 
     /**
      * Draws the background on the screen.
-     * @param graphics Graphics object from Slick2D
+     * 
+     * @param graphics
+     *            Graphics object from Slick2D
      */
     private void drawBackground(Graphics graphics) throws SlickException {
         graphics.setFont(font);
-        String backgroundName = SlickApp.returnGraphics().getResolutions().get(SlickApp.returnGraphics().getCurrentResolution()).getBackground();
+        String backgroundName = SlickApp.returnGraphics().getResolutions()
+                .get(SlickApp.returnGraphics().getCurrentResolution()).getBackground();
         Image background = new Image(backgroundName);
         background.draw(0, 0);
     }
 
     /**
      * Draw the count down timer on screen.
-     * @param graphics Graphics object from Slick2D
+     * 
+     * @param graphics
+     *            Graphics object from Slick2D
      */
     private void drawCountDown(Graphics graphics) {
         if (timers.getCountdownRunning()) {
-            graphics.drawString("Game starts in " + (timers.getCountdownTimeLeft() / 1000 + 1) + " seconds",
+            graphics.drawString(
+                    "Game starts in " + (timers.getCountdownTimeLeft() / 1000 + 1) + " seconds",
                     gc.getWidth() / 2 - 200, gc.getHeight() / 2 - 100);
         }
     }
@@ -96,7 +109,9 @@ public class View {
 
     /**
      * Draw bubbles on screen.
-     * @param graphics Graphics object from Slick2D
+     * 
+     * @param graphics
+     *            Graphics object from Slick2D
      */
     private void drawBubbles(Graphics graphics) {
         for (Bubble bubble : Model.getCurrentRoom().getBubbles()) {
@@ -110,12 +125,15 @@ public class View {
 
     /**
      * Draw timer progress bar.
-     * @param graphics Graphics object from Slick2D
+     * 
+     * @param graphics
+     *            Graphics object from Slick2D
      */
     private void drawTimer(Graphics graphics) {
         graphics.setColor(Color.darkGray);
-        graphics.fillRect(timerBar.getX(), timerBar.getY(),
-                (int) (timerBar.getWidth() * timers.getLevelTimeLeft() / timers.getLevelMaxDuration()),
+        graphics.fillRect(
+                timerBar.getX(), timerBar.getY(), (int) (timerBar.getWidth()
+                        * timers.getLevelTimeLeft() / timers.getLevelMaxDuration()),
                 timerBar.getHeight());
         graphics.setColor(Color.lightGray);
         graphics.draw(timerBar);
@@ -126,7 +144,7 @@ public class View {
      * Draw lives on screen.
      *
      * @throws SlickException
-     *           when the lives could not be drawn.
+     *             when the lives could not be drawn.
      */
     private void drawLives() throws SlickException {
         SpriteSheet livesImage = new SpriteSheet("Sprites/lives_spritesheet.jpg", 381, 171);
@@ -140,8 +158,9 @@ public class View {
      * Draw score on screen.
      *
      * @throws SlickException
-     *           when the score could not be drawn.
-     * @param graphics Graphics object from Slick2D
+     *             when the score could not be drawn.
+     * @param graphics
+     *            Graphics object from Slick2D
      */
     private void drawScore(Graphics graphics) throws SlickException {
         graphics.setColor(Color.white);
@@ -158,7 +177,9 @@ public class View {
 
     /**
      * Draw the borders
-     * @param g - graphics
+     * 
+     * @param g
+     *            - graphics
      */
     private void drawBorders(Graphics g) {
         Model.getCurrentRoom().drawRoom(g);
