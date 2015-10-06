@@ -12,6 +12,7 @@ public class Model {
     private static ArrayList<Player> players;
     private static Room roomCurrent;
     private static int currentLevel;
+    private static ArrayList<PowerUp> powers = new ArrayList<PowerUp>();
 
     private static int ROOM_WIDTH;
     private static int ROOM_HEIGHT;
@@ -122,6 +123,18 @@ public class Model {
         for (Player p : players) {
             p.moveTo(getCurrentRoom().getSpawnPositionX(), getCurrentRoom().getSpawnPositionY());
         }
+    }
+    
+    public static ArrayList<PowerUp> getPowerUps() {
+        return powers;
+    }
+    
+    public static void addPowerUp(PowerUp power) {
+        powers.add(power);
+    }
+    
+    public static void clearPowerUps() {
+        powers.clear();
     }
 
     /**

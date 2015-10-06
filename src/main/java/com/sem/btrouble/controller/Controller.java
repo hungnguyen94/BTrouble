@@ -7,11 +7,13 @@ import com.sem.btrouble.event.PlayerEvent;
 import com.sem.btrouble.model.Bubble;
 import com.sem.btrouble.model.Model;
 import com.sem.btrouble.model.Player;
+import com.sem.btrouble.model.PowerUp;
+import com.sem.btrouble.model.Room;
 import com.sem.btrouble.model.Rope;
 import com.sem.btrouble.model.Timers;
 import com.sem.btrouble.tools.GameObservable;
-
 import com.sem.btrouble.view.GameView;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -20,6 +22,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -175,6 +178,11 @@ public class Controller extends GameObservable {
     private void restartRoom() {
         fireEvent(new ControllerEvent(this, ControllerEvent.RESTARTROOM, "Room restarted"));
         Model.restartRoom();
+        ArrayList<PowerUp> powers = Model.getPowerUps();
+        for(int i = 0; i < powers.size(); i++) {
+            powers.get(i).reset();
+        }
+        Model.clearPowerUps();
         getTimers().restartTimer();
         collisionHandler.addCollidable(Model.getCurrentRoom().getCollidables());
     }
