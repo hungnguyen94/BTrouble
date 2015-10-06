@@ -1,5 +1,7 @@
 package com.sem.btrouble.model;
 
+import com.sem.btrouble.controller.CollisionHandler;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,8 +11,7 @@ import java.util.List;
 public class Level implements Subject {
     private Room currentRoom;
     private List<Player> players;
-    private List<Bubble> bubbles;
-
+    private CollisionHandler collisionHandler;
     private List<Observer> observersList;
 
     /**
@@ -19,7 +20,6 @@ public class Level implements Subject {
     public Level() {
         this.currentRoom = new Room();
         this.players = new ArrayList<Player>();
-        this.bubbles = new ArrayList<Bubble>();
     }
 
     /**
@@ -30,12 +30,20 @@ public class Level implements Subject {
         players.add(player);
     }
 
+    /**
+     * Attaches the collisionHandler to the level.
+     * @param collisionHandler CollisionHandler that will be added.
+     */
+    public void addCollisionHandler(CollisionHandler collisionHandler) {
+        this.collisionHandler = collisionHandler;
+    }
 
     /**
      * Register an observer to the subject.
      *
      * @param observer Observer to be added.
      */
+    @Override
     public void registerObserver(Observer observer) {
         if(observer == null || observersList.contains(observer))
             return;
@@ -49,8 +57,6 @@ public class Level implements Subject {
      */
     @Override
     public void removeObserver(Observer observer) {
-        if(observer == null || !observersList.contains(observer))
-            return;
         observersList.remove(observer);
     }
 
