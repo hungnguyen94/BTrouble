@@ -146,6 +146,10 @@ public class Model {
     	powersshort.add(power);
     }
     
+    public static void deleteShortPower(PowerUp power) {
+    	powersshort.remove(power);
+    }
+    
     public static void clearShortPower() {
     	powersshort.clear();
     }

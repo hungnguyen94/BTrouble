@@ -174,8 +174,10 @@ public class Bubble extends Circle {
             GameView.getController().addBubble(leftBubble);
             GameView.getController().addBubble(rightBubble);
             GameView.getController().removeBubble(this);
-            PowerUp power = new LifePowerUp(getX(), getY());
-            Model.addShortPowerUp(power);
+            PowerUp power = PowerUpGenerator.generate(x, y);
+            if(power != null) {
+            	Model.addShortPowerUp(power);
+            }
         } else {
             GameView.getController().removeBubble(this);
         }
