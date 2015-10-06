@@ -35,11 +35,11 @@ public class GameView extends BasicGameState {
      * Initialize method of the slick2d library.
      *
      * @param gc
-     *          should be the GameContainer containing the game.
+     *            should be the GameContainer containing the game.
      * @param sbg
-     *          the reference to the StateBasedGame.
+     *            the reference to the StateBasedGame.
      * @throws SlickException
-     *           when the game could not be initialized.
+     *             when the game could not be initialized.
      */
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         controller = new Controller(gc, sbg);
@@ -57,7 +57,8 @@ public class GameView extends BasicGameState {
         view = new View(gc, timers);
 
         try {
-            wavEffect = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("Bubble_Trouble_Theme.wav"));
+            wavEffect = AudioLoader.getAudio("WAV",
+                    ResourceLoader.getResourceAsStream("Bubble_Trouble_Theme.wav"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -69,13 +70,13 @@ public class GameView extends BasicGameState {
      * Update method of the slick2d library.
      *
      * @param gc
-     *          should be the GameContainer containing the game
+     *            should be the GameContainer containing the game
      * @param sbg
-     *          the reference to the StateBasedGame.
+     *            the reference to the StateBasedGame.
      * @param delta
-     *          should be an integer representing the speed of the player
+     *            should be an integer representing the speed of the player
      * @throws SlickException
-     *           when the controller could not be updated
+     *             when the controller could not be updated
      */
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
         if (!timers.getCountdownRunning()) {
@@ -87,15 +88,16 @@ public class GameView extends BasicGameState {
      * Render method of the slick2d library.
      *
      * @param gc
-     *          should be the GameContainer containing the game
+     *            should be the GameContainer containing the game
      * @param sbg
-     *          the reference to the StateBasedGame.
+     *            the reference to the StateBasedGame.
      * @param graphics
-     *          should be the graphics handler of the game
+     *            should be the graphics handler of the game
      * @throws SlickException
-     *           when an item could not be drawn.
+     *             when an item could not be drawn.
      */
-    public void render(GameContainer gc, StateBasedGame sbg, Graphics graphics) throws SlickException {
+    public void render(GameContainer gc, StateBasedGame sbg, Graphics graphics)
+            throws SlickException {
         view.draw(graphics);
     }
 
@@ -107,5 +109,7 @@ public class GameView extends BasicGameState {
         return controller;
     }
 
-    public static Wallet getWallet() { return wallet; }
+    public static Wallet getWallet() {
+        return wallet;
+    }
 }

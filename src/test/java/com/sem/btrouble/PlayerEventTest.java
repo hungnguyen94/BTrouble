@@ -13,41 +13,43 @@ import com.sem.btrouble.model.Player;
 
 /**
  * Class which test the PlayerEvent class.
+ * 
  * @author Martin
  *
  */
 @RunWith(MockitoJUnitRunner.class)
 public class PlayerEventTest extends GameEventTest {
-	
-	@Mock private Player player;
-	private PlayerEvent event;
 
-	/**
-	 * Set up the objects to use the GameEventTest.
-	 */
-	@Before
-	public void setUp() {
-		event = new PlayerEvent(player, 1, "Test");
-		setEvent(event);
-		setObject(player);
-		setId(1);
-		setString("Test");
-	}
-	
-	/**
-	 * Test the toString method.
-	 */
-	@Test
-	public void toStringTest() {
-		assertEquals("<PlayerEvent: Test>", event.toString());
-	}
-	
-	/**
-	 * Test the getSubject method.
-	 */
-	@Test
-	public void getSubjectTest() {
-		assertEquals(player, event.getSubject());
-	}
+    @Mock
+    private Player player;
+    private PlayerEvent event;
+
+    /**
+     * Set up the objects to use the GameEventTest.
+     */
+    @Before
+    public void setUp() {
+        event = new PlayerEvent(player, 1, "Test");
+        setEvent(event);
+        setObject(player);
+        setId(1);
+        setString("Test");
+    }
+
+    /**
+     * Test the toString method.
+     */
+    @Test
+    public void toStringTest() {
+        assertEquals("<PlayerEvent: Test>", event.toString());
+    }
+
+    /**
+     * Test the getSubject method.
+     */
+    @Test
+    public void getSubjectTest() {
+        assertEquals(player, event.getSubject());
+    }
 
 }

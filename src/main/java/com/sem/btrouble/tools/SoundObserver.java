@@ -14,56 +14,61 @@ import com.sem.btrouble.event.PlayerEvent;
 import java.util.Observer;
 
 public class SoundObserver implements Observer {
-	
-	private Audio wavEffect;
 
-	public SoundObserver() {
+    private Audio wavEffect;
 
-	}
+    public SoundObserver() {
 
-	public void update(Observable observable, Object arg) {
-		if (arg instanceof ControllerEvent) {
-			ControllerEvent event = (ControllerEvent) arg;
-			if(event.getId() == ControllerEvent.GAMELOST) {
-			    try {
-				    wavEffect = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("fail-trombone-02.wav"));
-			        } catch (IOException e) {
-				    e.printStackTrace();
-				}
-				wavEffect.playAsSoundEffect(1.0f, 1.0f, false);
-				SoundStore.get().poll(0);
-			}
-			if(event.getId() == ControllerEvent.GAMEWON) {
-			    try {
-				    wavEffect = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("Winning-sound-effect.wav"));
-			        } catch (IOException e) {
-				    e.printStackTrace();
-				}
-				wavEffect.playAsSoundEffect(1.0f, 1.0f, false);
-				SoundStore.get().poll(0);
-			}
-			if(event.getId() == ControllerEvent.RESTARTROOM || event.getId() == ControllerEvent.NEXTROOM) {
-			    try {
-				    wavEffect = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("soundscrate-17-woosh2.wav"));
-			        } catch (IOException e) {
-				    e.printStackTrace();
-				}
-				wavEffect.playAsSoundEffect(1.0f, 1.0f, false);
-				SoundStore.get().poll(0);
-			}
-		}
-		if(arg instanceof PlayerEvent) {
-			PlayerEvent event = (PlayerEvent) arg;
-			if(event.getId() == PlayerEvent.SHOOT) {
-			    try {
-				    wavEffect = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("soundscrate-17-woosh2.wav"));
-			        } catch (IOException e) {
-				    e.printStackTrace();
-				}
-				wavEffect.playAsSoundEffect(1.0f, 1.0f, false);
-				SoundStore.get().poll(0);
-			}
-		}
-	}
+    }
+
+    public void update(Observable observable, Object arg) {
+        if (arg instanceof ControllerEvent) {
+            ControllerEvent event = (ControllerEvent) arg;
+            if (event.getId() == ControllerEvent.GAMELOST) {
+                try {
+                    wavEffect = AudioLoader.getAudio("WAV",
+                            ResourceLoader.getResourceAsStream("fail-trombone-02.wav"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                wavEffect.playAsSoundEffect(1.0f, 1.0f, false);
+                SoundStore.get().poll(0);
+            }
+            if (event.getId() == ControllerEvent.GAMEWON) {
+                try {
+                    wavEffect = AudioLoader.getAudio("WAV",
+                            ResourceLoader.getResourceAsStream("Winning-sound-effect.wav"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                wavEffect.playAsSoundEffect(1.0f, 1.0f, false);
+                SoundStore.get().poll(0);
+            }
+            if (event.getId() == ControllerEvent.RESTARTROOM
+                    || event.getId() == ControllerEvent.NEXTROOM) {
+                try {
+                    wavEffect = AudioLoader.getAudio("WAV",
+                            ResourceLoader.getResourceAsStream("soundscrate-17-woosh2.wav"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                wavEffect.playAsSoundEffect(1.0f, 1.0f, false);
+                SoundStore.get().poll(0);
+            }
+        }
+        if (arg instanceof PlayerEvent) {
+            PlayerEvent event = (PlayerEvent) arg;
+            if (event.getId() == PlayerEvent.SHOOT) {
+                try {
+                    wavEffect = AudioLoader.getAudio("WAV",
+                            ResourceLoader.getResourceAsStream("soundscrate-17-woosh2.wav"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                wavEffect.playAsSoundEffect(1.0f, 1.0f, false);
+                SoundStore.get().poll(0);
+            }
+        }
+    }
 
 }
