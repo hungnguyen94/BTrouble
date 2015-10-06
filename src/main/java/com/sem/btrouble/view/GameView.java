@@ -35,77 +35,81 @@ public class GameView extends BasicGameState {
      * Initialize method of the slick2d library.
      *
      * @param gc
-     *          should be the GameContainer containing the game.
+     *            should be the GameContainer containing the game.
      * @param sbg
-     *          the reference to the StateBasedGame.
+     *            the reference to the StateBasedGame.
      * @throws SlickException
-     *           when the game could not be initialized.
+     *             when the game could not be initialized.
      */
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        controller = new Controller(gc, sbg);
-        observer = new GameObserver(true);
-        soundObserver = new SoundObserver();
-        wallet = new Wallet();
+	controller = new Controller(gc, sbg);
+	observer = new GameObserver(true);
+	soundObserver = new SoundObserver();
+	wallet = new Wallet();
 
-        controller.addObserver(soundObserver);
-        controller.addObserver(observer);
-        controller.addObserver(wallet);
+	controller.addObserver(soundObserver);
+	controller.addObserver(observer);
+	controller.addObserver(wallet);
 
-        timers = controller.getTimers();
-        timers.restartTimer();
+	timers = controller.getTimers();
+	timers.restartTimer();
 
-        view = new View(gc, timers);
+	view = new View(gc, timers);
 
-        try {
-            wavEffect = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("Bubble_Trouble_Theme.wav"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        wavEffect.playAsSoundEffect(1.0f, 1.0f, true);
-        SoundStore.get().poll(0);
+	try {
+	    wavEffect = AudioLoader.getAudio("WAV",
+		    ResourceLoader.getResourceAsStream("Bubble_Trouble_Theme.wav"));
+	} catch (IOException e) {
+	    e.printStackTrace();
+	}
+	wavEffect.playAsSoundEffect(1.0f, 1.0f, true);
+	SoundStore.get().poll(0);
     }
 
     /**
      * Update method of the slick2d library.
      *
      * @param gc
-     *          should be the GameContainer containing the game
+     *            should be the GameContainer containing the game
      * @param sbg
-     *          the reference to the StateBasedGame.
+     *            the reference to the StateBasedGame.
      * @param delta
-     *          should be an integer representing the speed of the player
+     *            should be an integer representing the speed of the player
      * @throws SlickException
-     *           when the controller could not be updated
+     *             when the controller could not be updated
      */
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-        if (!timers.getCountdownRunning()) {
-            controller.update(delta);
-        }
+	if (!timers.getCountdownRunning()) {
+	    controller.update(delta);
+	}
     }
 
     /**
      * Render method of the slick2d library.
      *
      * @param gc
-     *          should be the GameContainer containing the game
+     *            should be the GameContainer containing the game
      * @param sbg
-     *          the reference to the StateBasedGame.
+     *            the reference to the StateBasedGame.
      * @param graphics
-     *          should be the graphics handler of the game
+     *            should be the graphics handler of the game
      * @throws SlickException
-     *           when an item could not be drawn.
+     *             when an item could not be drawn.
      */
-    public void render(GameContainer gc, StateBasedGame sbg, Graphics graphics) throws SlickException {
-        view.draw(graphics);
+    public void render(GameContainer gc, StateBasedGame sbg, Graphics graphics)
+	    throws SlickException {
+	view.draw(graphics);
     }
 
     public int getID() {
-        return 1;
+	return 1;
     }
 
     public static Controller getController() {
-        return controller;
+	return controller;
     }
 
-    public static Wallet getWallet() { return wallet; }
+    public static Wallet getWallet() {
+	return wallet;
+    }
 }

@@ -42,8 +42,8 @@ public class CollisionHandlerTest {
      */
     @Before
     public void setUp() {
-        collisionHandler = new CollisionHandler();
-        assertNotNull(collisionHandler);
+	collisionHandler = new CollisionHandler();
+	assertNotNull(collisionHandler);
     }
 
     /**
@@ -51,12 +51,12 @@ public class CollisionHandlerTest {
      */
     @Test
     public void playerCollideBubbleTest() {
-        when(player.intersects(bubble)).thenReturn(true);
-        collisionHandler.addCollidable(bubble);
-        collisionHandler.addCollidable(player);
-        assertTrue(collisionHandler.checkCollision(player));
-        verify(player).intersects(bubble);
-        verify(player).setAlive(false);
+	when(player.intersects(bubble)).thenReturn(true);
+	collisionHandler.addCollidable(bubble);
+	collisionHandler.addCollidable(player);
+	assertTrue(collisionHandler.checkCollision(player));
+	verify(player).intersects(bubble);
+	verify(player).setAlive(false);
     }
 
     /**
@@ -64,14 +64,14 @@ public class CollisionHandlerTest {
      */
     @Test
     public void playerCollideWallSideRightTest() {
-        when(player.getCenterX()).thenReturn(-1f);
-        when(wall.getCenterX()).thenReturn(1f);
-        when(player.intersects(wall)).thenReturn(true);
-        collisionHandler.addCollidable(player);
-        collisionHandler.addCollidable(wall);
-        assertTrue(collisionHandler.checkCollision(player));
-        verify(player).intersects(wall);
-        verify(player).setRightBlocked(true);
+	when(player.getCenterX()).thenReturn(-1f);
+	when(wall.getCenterX()).thenReturn(1f);
+	when(player.intersects(wall)).thenReturn(true);
+	collisionHandler.addCollidable(player);
+	collisionHandler.addCollidable(wall);
+	assertTrue(collisionHandler.checkCollision(player));
+	verify(player).intersects(wall);
+	verify(player).setRightBlocked(true);
     }
 
     /**
@@ -79,14 +79,14 @@ public class CollisionHandlerTest {
      */
     @Test
     public void playerCollideWallSideLeftTest() {
-        when(player.getCenterX()).thenReturn(1f);
-        when(wall.getCenterX()).thenReturn(-1f);
-        when(player.intersects(wall)).thenReturn(true);
-        collisionHandler.addCollidable(player);
-        collisionHandler.addCollidable(wall);
-        assertTrue(collisionHandler.checkCollision(player));
-        verify(player).intersects(wall);
-        verify(player).setLeftBlocked(true);
+	when(player.getCenterX()).thenReturn(1f);
+	when(wall.getCenterX()).thenReturn(-1f);
+	when(player.intersects(wall)).thenReturn(true);
+	collisionHandler.addCollidable(player);
+	collisionHandler.addCollidable(wall);
+	assertTrue(collisionHandler.checkCollision(player));
+	verify(player).intersects(wall);
+	verify(player).setLeftBlocked(true);
     }
 
     /**
@@ -94,12 +94,12 @@ public class CollisionHandlerTest {
      */
     @Test
     public void playerCollideFloorTest() {
-        when(player.intersects(floor)).thenReturn(true);
-        collisionHandler.addCollidable(player);
-        collisionHandler.addCollidable(floor);
-        assertTrue(collisionHandler.checkCollision(player));
-        verify(player).intersects(floor);
-        verify(player).setFalling(false);
+	when(player.intersects(floor)).thenReturn(true);
+	collisionHandler.addCollidable(player);
+	collisionHandler.addCollidable(floor);
+	assertTrue(collisionHandler.checkCollision(player));
+	verify(player).intersects(floor);
+	verify(player).setFalling(false);
     }
 
     /**
@@ -107,14 +107,14 @@ public class CollisionHandlerTest {
      */
     @Test
     public void bubbleCollideWallLeftTest() {
-        when(bubble.getCenterX()).thenReturn(1f);
-        when(wall.getCenterX()).thenReturn(-1f);
-        when(bubble.intersects(wall)).thenReturn(true);
-        collisionHandler.addCollidable(bubble);
-        collisionHandler.addCollidable(wall);
-        assertTrue(collisionHandler.checkCollision(bubble));
-        verify(bubble).intersects(wall);
-        verify(bubble).bounceX(false);
+	when(bubble.getCenterX()).thenReturn(1f);
+	when(wall.getCenterX()).thenReturn(-1f);
+	when(bubble.intersects(wall)).thenReturn(true);
+	collisionHandler.addCollidable(bubble);
+	collisionHandler.addCollidable(wall);
+	assertTrue(collisionHandler.checkCollision(bubble));
+	verify(bubble).intersects(wall);
+	verify(bubble).bounceX(false);
     }
 
     /**
@@ -122,14 +122,14 @@ public class CollisionHandlerTest {
      */
     @Test
     public void bubbleCollideWallRightTest() {
-        when(bubble.getCenterX()).thenReturn(-1f);
-        when(wall.getCenterX()).thenReturn(1f);
-        when(bubble.intersects(wall)).thenReturn(true);
-        collisionHandler.addCollidable(bubble);
-        collisionHandler.addCollidable(wall);
-        assertTrue(collisionHandler.checkCollision(bubble));
-        verify(bubble).intersects(wall);
-        verify(bubble).bounceX(true);
+	when(bubble.getCenterX()).thenReturn(-1f);
+	when(wall.getCenterX()).thenReturn(1f);
+	when(bubble.intersects(wall)).thenReturn(true);
+	collisionHandler.addCollidable(bubble);
+	collisionHandler.addCollidable(wall);
+	assertTrue(collisionHandler.checkCollision(bubble));
+	verify(bubble).intersects(wall);
+	verify(bubble).bounceX(true);
     }
 
     /**
@@ -137,11 +137,11 @@ public class CollisionHandlerTest {
      */
     @Test
     public void bubbleCollideFloorTest() {
-        when(bubble.intersects(floor)).thenReturn(true);
-        collisionHandler.addCollidable(bubble);
-        collisionHandler.addCollidable(floor);
-        assertTrue(collisionHandler.checkCollision(bubble));
-        verify(bubble).intersects(floor);
+	when(bubble.intersects(floor)).thenReturn(true);
+	collisionHandler.addCollidable(bubble);
+	collisionHandler.addCollidable(floor);
+	assertTrue(collisionHandler.checkCollision(bubble));
+	verify(bubble).intersects(floor);
     }
 
     /**
@@ -149,13 +149,13 @@ public class CollisionHandlerTest {
      */
     @Test
     public void bubbleCollideRopeTest() {
-        when(bubble.intersects(rope)).thenReturn(true);
-        collisionHandler.addCollidable(bubble);
-        collisionHandler.addCollidable(rope);
-        assertTrue(collisionHandler.checkCollision(bubble));
-        verify(bubble).intersects(rope);
-        verify(bubble).split();
-        verify(rope).setCollided(true);
+	when(bubble.intersects(rope)).thenReturn(true);
+	collisionHandler.addCollidable(bubble);
+	collisionHandler.addCollidable(rope);
+	assertTrue(collisionHandler.checkCollision(bubble));
+	verify(bubble).intersects(rope);
+	verify(bubble).split();
+	verify(rope).setCollided(true);
     }
 
     /**
@@ -163,14 +163,14 @@ public class CollisionHandlerTest {
      */
     @Test
     public void addCollidablesTest() {
-        Collection<Shape> collidables = new HashSet<Shape>();
-        collidables.add(player);
-        collidables.add(bubble);
-        collisionHandler.addCollidable(collidables);
-        assertEquals(collisionHandler.getSize(), collidables.size());
-        collisionHandler.addCollidable(bubble);
-        // Duplicates should not be added, since it's a set
-        assertEquals(collisionHandler.getSize(), collidables.size());
+	Collection<Shape> collidables = new HashSet<Shape>();
+	collidables.add(player);
+	collidables.add(bubble);
+	collisionHandler.addCollidable(collidables);
+	assertEquals(collisionHandler.getSize(), collidables.size());
+	collisionHandler.addCollidable(bubble);
+	// Duplicates should not be added, since it's a set
+	assertEquals(collisionHandler.getSize(), collidables.size());
     }
 
     /**
@@ -178,18 +178,18 @@ public class CollisionHandlerTest {
      */
     @Test
     public void removeCollidablesTest() {
-        Collection<Shape> collidables = new HashSet<Shape>();
-        collidables.add(player);
-        collidables.add(bubble);
-        collidables.add(wall);
-        collisionHandler.addCollidable(collidables);
-        assertEquals(collisionHandler.getSize(), collidables.size());
+	Collection<Shape> collidables = new HashSet<Shape>();
+	collidables.add(player);
+	collidables.add(bubble);
+	collidables.add(wall);
+	collisionHandler.addCollidable(collidables);
+	assertEquals(collisionHandler.getSize(), collidables.size());
 
-        Collection<Shape> removedCollidables = new HashSet<Shape>();
-        removedCollidables.add(bubble);
-        removedCollidables.add(wall);
-        collisionHandler.removeCollidable(removedCollidables);
-        assertEquals(collisionHandler.getSize(), collidables.size() - removedCollidables.size());
+	Collection<Shape> removedCollidables = new HashSet<Shape>();
+	removedCollidables.add(bubble);
+	removedCollidables.add(wall);
+	collisionHandler.removeCollidable(removedCollidables);
+	assertEquals(collisionHandler.getSize(), collidables.size() - removedCollidables.size());
     }
 
     /**
@@ -197,9 +197,9 @@ public class CollisionHandlerTest {
      */
     @Test
     public void addCollidableTest() {
-        assertTrue(collisionHandler.getSize() == 0);
-        collisionHandler.addCollidable(player);
-        assertTrue(collisionHandler.getSize() > 0);
+	assertTrue(collisionHandler.getSize() == 0);
+	collisionHandler.addCollidable(player);
+	assertTrue(collisionHandler.getSize() > 0);
     }
 
     /**
@@ -207,10 +207,10 @@ public class CollisionHandlerTest {
      */
     @Test
     public void removeCollidableTest() {
-        collisionHandler.addCollidable(player);
-        assertTrue(collisionHandler.getSize() > 0);
-        collisionHandler.removeCollidable(player);
-        assertTrue(collisionHandler.getSize() == 0);
+	collisionHandler.addCollidable(player);
+	assertTrue(collisionHandler.getSize() > 0);
+	collisionHandler.removeCollidable(player);
+	assertTrue(collisionHandler.getSize() == 0);
     }
 
     /**
@@ -218,8 +218,8 @@ public class CollisionHandlerTest {
      */
     @Test
     public void checkCollisionTestFalse() {
-        collisionHandler.addCollidable(player);
-        assertFalse(collisionHandler.checkCollision(player));
+	collisionHandler.addCollidable(player);
+	assertFalse(collisionHandler.checkCollision(player));
     }
 
     /**
@@ -227,12 +227,12 @@ public class CollisionHandlerTest {
      */
     @Test
     public void checkCollisionTestTrue() {
-        collisionHandler.addCollidable(player);
-        collisionHandler.addCollidable(bubble);
-        when(player.intersects(bubble)).thenReturn(true);
-        when(bubble.intersects(player)).thenReturn(true);
-        assertTrue(collisionHandler.checkCollision(player));
-        assertTrue(collisionHandler.checkCollision(bubble));
+	collisionHandler.addCollidable(player);
+	collisionHandler.addCollidable(bubble);
+	when(player.intersects(bubble)).thenReturn(true);
+	when(bubble.intersects(player)).thenReturn(true);
+	assertTrue(collisionHandler.checkCollision(player));
+	assertTrue(collisionHandler.checkCollision(bubble));
     }
 
     /**
@@ -240,13 +240,13 @@ public class CollisionHandlerTest {
      */
     @Test
     public void checkCollisionListTest() {
-        Collection<Shape> listCollidables = new HashSet<Shape>();
-        listCollidables.add(player);
-        listCollidables.add(bubble);
-        collisionHandler.addCollidable(listCollidables);
-        when(player.intersects(bubble)).thenReturn(true);
-        when(bubble.intersects(player)).thenReturn(true);
-        assertTrue(collisionHandler.checkCollision(listCollidables));
+	Collection<Shape> listCollidables = new HashSet<Shape>();
+	listCollidables.add(player);
+	listCollidables.add(bubble);
+	collisionHandler.addCollidable(listCollidables);
+	when(player.intersects(bubble)).thenReturn(true);
+	when(bubble.intersects(player)).thenReturn(true);
+	assertTrue(collisionHandler.checkCollision(listCollidables));
     }
 
 }

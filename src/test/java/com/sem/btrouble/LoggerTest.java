@@ -11,29 +11,31 @@ import com.sem.btrouble.tools.Logger;
 
 /**
  * Class which test the Logger class.
+ * 
  * @author Martin
  *
  */
 @RunWith(MockitoJUnitRunner.class)
 public class LoggerTest {
 
-	@Mock private GameEvent event;
-	
-	/**
-	 * Setup the logger.
-	 */
-	@Before
-	public void test() {
-		Logger.initLog();
-		when(event.toString()).thenReturn("Log");
-	}
-	
-	/**
-	 * Verify that the log method, log something.
-	 */
-	@Test
-	public void logTest() {
-		Logger.log(event);
-	}
+    @Mock
+    private GameEvent event;
+
+    /**
+     * Setup the logger.
+     */
+    @Before
+    public void test() {
+	Logger.initLog();
+	when(event.toString()).thenReturn("Log");
+    }
+
+    /**
+     * Verify that the log method, log something.
+     */
+    @Test
+    public void logTest() {
+	Logger.log(event);
+    }
 
 }
