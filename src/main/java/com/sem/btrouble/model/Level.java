@@ -6,18 +6,20 @@ import java.util.List;
 /**
  * Level class.
  */
-public class Level {
-    private Room room;
+public class Level implements Subject {
+    private Room currentRoom;
     private List<Player> players;
     private List<Bubble> bubbles;
+
+    private List<Observer> observersList;
 
     /**
      * Constructor for the level class.
      */
     public Level() {
-        room = new Room();
-        players = new ArrayList<Player>();
-        bubbles = new ArrayList<Bubble>();
+        this.currentRoom = new Room();
+        this.players = new ArrayList<Player>();
+        this.bubbles = new ArrayList<Bubble>();
     }
 
     /**
@@ -28,8 +30,37 @@ public class Level {
         players.add(player);
     }
 
-    public void restartLevel() {
 
+    /**
+     * Register an observer to the subject.
+     *
+     * @param observer Observer to be added.
+     */
+    public void registerObserver(Observer observer) {
+        if(observer == null || observersList.contains(observer))
+            return;
+        observersList.add(observer);
     }
 
+    /**
+     * Remove an observer from the observersList list.
+     *
+     * @param observer Observer to be removed.
+     */
+    @Override
+    public void removeObserver(Observer observer) {
+        if(observer == null || !observersList.contains(observer))
+            return;
+        observersList.remove(observer);
+    }
+
+    /**
+     * Method to notify the observersList about a change.
+     */
+    @Override
+    public void notifyObserver() {
+        for(Observer obj: observersList) {
+            obj.update();
+        }
+    }
 }
