@@ -193,6 +193,7 @@ public class Controller extends GameObservable {
             powers.get(i).reset();
         }
         Model.clearPowerUps();
+        Model.clearShortPower();
         getTimers().restartTimer();
         collisionHandler.addCollidable(Model.getCurrentRoom().getCollidables());
     }
