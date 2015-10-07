@@ -3,6 +3,7 @@ package com.sem.btrouble.model;
 import com.sem.btrouble.controller.CollisionHandler;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -50,6 +51,7 @@ public class Level implements Subject {
      */
     public void addPlayer(Player player) {
         players.add(player);
+        player.setCenterY(360f);
         collisionHandler.addCollidable(players);
     }
 
@@ -79,6 +81,7 @@ public class Level implements Subject {
         if(timer.getLevelTimerRunning()) {
             System.out.println("Level time left: " + timer.getLevelTimeLeft());
         }
+        collisionHandler.checkAllCollisions();
         for(Player player : players) {
             if (!collisionHandler.checkCollision(player)) {
                 player.setFalling(true);
@@ -86,7 +89,6 @@ public class Level implements Subject {
             player.move();
         }
         room.moveBubbles();
-        collisionHandler.checkAllCollisions();
         notifyObserver();
     }
 
@@ -118,6 +120,15 @@ public class Level implements Subject {
      */
     @Override
     public void notifyObserver() {
+        for(Observer obj : observersList) {
+            ArrayList<Drawable> drawables = new ArrayList<Drawable>();
+            drawables.add(players.get(0));
+            drawables.addAll(room.getBubbles());
+            drawables.add(room);
+
+            obj.update(drawables);
+        }
+
         if(!playersAlive()) {
             for(Observer obj: observersList) {
                 obj.levelLost();

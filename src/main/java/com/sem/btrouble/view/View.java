@@ -103,7 +103,7 @@ public class View {
      */
     private void drawPlayers(Graphics g) throws SlickException {
         for (Player player : Model.getPlayers()) {
-            player.draw();
+            player.draw(g);
         }
     }
 
