@@ -12,6 +12,8 @@ public class Model {
     private static ArrayList<Player> players;
     private static Room roomCurrent;
     private static int currentLevel;
+    private static ArrayList<PowerUp> powers = new ArrayList<PowerUp>();
+    private static ArrayList<PowerUp> powersshort = new ArrayList<PowerUp>();
 
     private static int ROOM_WIDTH;
     private static int ROOM_HEIGHT;
@@ -122,6 +124,51 @@ public class Model {
         for (Player p : players) {
             p.moveTo(getCurrentRoom().getSpawnPositionX(), getCurrentRoom().getSpawnPositionY());
         }
+    }
+    
+    public static ArrayList<PowerUp> getPowerUps() {
+        return powers;
+    }
+    
+    public static void addPowerUp(PowerUp power) {
+        powers.add(power);
+    }
+    
+    public static void clearPowerUps() {
+        powers.clear();
+    }
+    
+    public static ArrayList<PowerUp> getShortPower() {
+    	return powersshort;
+    }
+    
+    public static void addShortPowerUp(PowerUp power) {
+    	powersshort.add(power);
+    }
+    
+    public static void deleteShortPower(PowerUp power) {
+    	ArrayList<PowerUp> powers = new ArrayList<PowerUp>();
+    	for(int i = 0; i < powersshort.size(); i++) {
+    		PowerUp listPower = powersshort.get(i);
+    		if(power instanceof LifePowerUp) {
+    			if(listPower instanceof SlowPowerUp || listPower instanceof TimePowerUp) {
+    				powers.add(listPower);
+    			}
+    		} else if (power instanceof SlowPowerUp) {
+    			if(listPower instanceof LifePowerUp || listPower instanceof TimePowerUp) {
+    				powers.add(listPower);
+    			}
+    		} else if (power instanceof TimePowerUp) {
+    			if(listPower instanceof SlowPowerUp || listPower instanceof LifePowerUp) {
+    				powers.add(listPower);
+    			}
+    		}
+    	}
+		powersshort = powers;
+    }
+    
+    public static void clearShortPower() {
+    	powersshort.clear();
     }
 
     /**

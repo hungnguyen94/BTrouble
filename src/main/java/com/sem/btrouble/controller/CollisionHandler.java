@@ -4,14 +4,20 @@ import com.sem.btrouble.event.BubbleEvent;
 import com.sem.btrouble.event.PlayerEvent;
 import com.sem.btrouble.model.Bubble;
 import com.sem.btrouble.model.Floor;
+import com.sem.btrouble.model.LifePowerUp;
+import com.sem.btrouble.model.Model;
 import com.sem.btrouble.model.Player;
+import com.sem.btrouble.model.PowerUp;
+import com.sem.btrouble.model.TimePowerUp;
 import com.sem.btrouble.model.Wall;
 import com.sem.btrouble.tools.GameObservable;
 import com.sem.btrouble.model.Rope;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Shape;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -176,6 +182,37 @@ public class CollisionHandler extends GameObservable {
         if (collider instanceof Wall) {
             wallCollide((Wall) collider, collidee);
         }
+        
+        if (collider instanceof PowerUp) {
+            powerCollide((PowerUp) collider, collidee);
+        }
+    }
+    
+    private void powerCollide(PowerUp power, Shape collidee) {
+    	if (collidee instanceof Floor) {
+    		power.setFalling(false);
+    		power.setY(collidee.getY() - power.getHeight());
+    	}
+    	
+        if (collidee instanceof Player) {
+        	ArrayList<Player> players = Model.getPlayers();
+        	Player player = null;
+        	for(Player otherPlayer: players) {
+        		if(collidee.equals(otherPlayer)) {
+        			player = (Player) collidee;
+        		}
+        	}
+        	if(!(power instanceof LifePowerUp && player.getLives() == 5)
+        			&& !(power instanceof TimePowerUp)){
+        		power.activate();
+        	}
+        	if(power instanceof TimePowerUp) {
+        		TimePowerUp timePower = (TimePowerUp) power;
+        		timePower.activateShort();
+        	}
+        	Model.deleteShortPower(power);
+        	System.out.println(Model.getShortPower());
+        }
     }
 
     /**
@@ -230,6 +267,8 @@ public class CollisionHandler extends GameObservable {
             player.setFalling(false);
             player.setY(collidee.getY() - player.getHeight());
         }
+        
+
     }
 
     /**

@@ -1,73 +1,51 @@
 package com.sem.btrouble.model;
 
-import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Rectangle;
 
-import com.sem.btrouble.event.BubbleEvent;
-import com.sem.btrouble.view.GameView;
+public abstract class PowerUp extends Rectangle {
+	
+	private boolean falling;
+	private float vy;
+	private float ay;
+	
+	public PowerUp() {
+		super(-50, -50, 50, 100);
+	}
+	
+	public PowerUp(float xpos, float ypos) {
+		super(xpos, ypos, 50, 100);
+		this.falling = true;
+		this.vy = 2;
+		this.ay = .3f;
+	}
 
-public class PowerUp implements Observer {
-
-    private int type;
-
-    public PowerUp(int type) {
-        this.type = type;
+    public abstract void activate();
+    
+    public abstract void reset();
+    
+    public abstract void draw() throws SlickException;
+    
+    public boolean isFalling() {
+        return falling;
     }
-
-    public void update(Observable observable, Object arg) {
-        if (arg instanceof BubbleEvent) {
-            BubbleEvent event = (BubbleEvent) arg;
-            if (event.getId() == BubbleEvent.COLLISION_ROPE && type == 1) {
-                slowBubbles(.3f);
-            }
-        }
+    
+    public void setFalling(boolean falling) {
+        this.falling = falling;
     }
-
-    public void setType(int type) {
-        this.type = type;
+    
+    public void fall() {
+    	float y = getY();
+        float changeY = y += vy;
+        setY(changeY);
+        vy += ay;
     }
-
-    public void givePower() {
-        switch (type) {
-        case (0):
-            giveExtraLife();
-            break;
-        case (1):
-            slowBubbles(.3f);
-            break;
-        case (2):
-            GameView.getController().getTimers().setLevelTimerCounter(10000);
-            break;
-        default:
-            break;
-        }
+    
+    public void move() {
+        if (isFalling())
+            fall();
+        else
+            vy = 0;
     }
-
-    public void slowBubbles(float speed) {
-        ArrayList<Bubble> bubbles = Model.getBubbles();
-        for (int i = 0; i < bubbles.size(); i++) {
-            bubbles.get(i).setAY(speed);
-        }
-    }
-
-    public void giveExtraLife() {
-        ArrayList<Player> players = Model.getPlayers();
-        players.get(0).addLife();
-    }
-
-    public void erasePower() {
-        switch (type) {
-        case (0):
-            break;
-        case (1):
-            setType(3);
-        case (2):
-            GameView.getController().getTimers().setLevelTimerCounter(100);
-            break;
-        default:
-            break;
-        }
-    }
-
+    
 }

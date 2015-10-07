@@ -2,6 +2,8 @@ package com.sem.btrouble.model;
 
 import com.sem.btrouble.event.BubbleEvent;
 import com.sem.btrouble.view.GameView;
+
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
 
 /**
@@ -172,6 +174,10 @@ public class Bubble extends Circle {
             GameView.getController().addBubble(leftBubble);
             GameView.getController().addBubble(rightBubble);
             GameView.getController().removeBubble(this);
+            PowerUp power = PowerUpGenerator.generate(x, y);
+            if(power != null) {
+            	Model.addShortPowerUp(power);
+            }
         } else {
             GameView.getController().removeBubble(this);
         }
