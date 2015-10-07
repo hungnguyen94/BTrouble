@@ -1,7 +1,5 @@
 package com.sem.btrouble.model;
 
-import java.util.List;
-
 /**
  * Game class.
  */
@@ -29,7 +27,7 @@ public class Game implements Observer {
     public void loadLevel(Room room) {
         // Deep copy temp fix.
         this.tempRoom = room;
-        Room deepCopiedRoom = (Room)DeepCopyList.deepCopy(room);
+        Room deepCopiedRoom = (Room) DeepCopyList.deepCopy(room);
         this.level = new Level(deepCopiedRoom);
         level.addPlayer(player);
         level.registerObserver(this);
@@ -82,6 +80,7 @@ public class Game implements Observer {
             loadLevel(tempRoom);
         } else {
             // End game.
+            System.out.println("Game has ended");
         }
     }
 }

@@ -128,6 +128,13 @@ public class CollisionHandler extends GameObservable {
     }
 
     /**
+     * Checks collisions for all objects in the collisionhandler.
+     */
+    public void checkAllCollisions() {
+        checkCollision(collidables);
+    }
+
+    /**
      * Check collision for every shapes in the collection.
      *
      * @param colliders

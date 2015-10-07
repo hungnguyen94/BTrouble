@@ -32,6 +32,7 @@ public class Level implements Subject {
 
     /**
      * Constructor for the level class with room parameter.
+     * @param room Room that the level should be started with.
      */
     public Level(Room room) {
         this.room = room;
@@ -79,9 +80,13 @@ public class Level implements Subject {
             System.out.println("Level time left: " + timer.getLevelTimeLeft());
         }
         for(Player player : players) {
+            if (!collisionHandler.checkCollision(player)) {
+                player.setFalling(true);
+            }
             player.move();
         }
         room.moveBubbles();
+        collisionHandler.checkAllCollisions();
         notifyObserver();
     }
 
