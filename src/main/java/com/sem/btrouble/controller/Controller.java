@@ -35,6 +35,7 @@ public class Controller extends GameObservable {
     private StateBasedGame sbg;
     private CollisionHandler collisionHandler;
     private static Timers timers;
+    private int timeLeft;
 
     private final int delay = 100;
 
@@ -123,8 +124,14 @@ public class Controller extends GameObservable {
 	        for (PowerUp power: powers) {
 	        	if(collisionHandler.checkCollision(power)) {
 	        		
+	        		if(timeLeft >= timers.getLevelTimeLeft() + 30000) {
+	        			Model.deleteShortPower(power);
+	        		}
 	        	}
 	        	power.move();
+	        	if(!collisionHandler.checkCollision(power)) {
+	        		timeLeft = timers.getLevelTimeLeft();
+	        	}
 	        }
         }
 
