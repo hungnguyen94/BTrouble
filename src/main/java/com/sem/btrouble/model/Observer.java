@@ -5,9 +5,19 @@ package com.sem.btrouble.model;
  */
 public interface Observer {
 
+//    /**
+//     * This method is called when the observer is notified about a update.
+//     */
+//    void update();
+
     /**
-     * This method is called when the observer is notified about a update.
+     * This method is called when a level is won.
      */
-    public void update();
+    void levelWon();
+
+    /**
+     * This method is called when a level is lost.
+     */
+    void levelLost();
 
 }

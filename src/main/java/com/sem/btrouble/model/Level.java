@@ -9,33 +9,80 @@ import java.util.List;
  * Level class.
  */
 public class Level implements Subject {
-    private Room currentRoom;
+    private Room room;
     private List<Player> players;
     private CollisionHandler collisionHandler;
     private List<Observer> observersList;
+    private Timers timer;
 
     /**
      * Constructor for the level class.
      */
     public Level() {
-        this.currentRoom = new Room();
+        // Temp loading room method.
+        Room r1 = new Room();
+        r1.loadRoom();
+        this.room = r1;
         this.players = new ArrayList<Player>();
+        this.observersList = new ArrayList<Observer>();
+        this.timer = new Timers(0);
+        this.collisionHandler = new CollisionHandler();
+        this.collisionHandler.addCollidable(room.getCollidables());
+    }
+
+    /**
+     * Constructor for the level class with room parameter.
+     */
+    public Level(Room room) {
+        this.room = room;
+        this.players = new ArrayList<Player>();
+        this.observersList = new ArrayList<Observer>();
+        this.timer = new Timers(0);
+        this.collisionHandler = new CollisionHandler();
+        this.collisionHandler.addCollidable(room.getCollidables());
+        timer.restartTimer();
     }
 
     /**
      * Adds a player to the level.
-     * @param player Player to be added
+     * @param player Player to be added.
      */
     public void addPlayer(Player player) {
         players.add(player);
+        collisionHandler.addCollidable(players);
     }
 
     /**
-     * Attaches the collisionHandler to the level.
-     * @param collisionHandler CollisionHandler that will be added.
+     * Checks if any player in this level is alive.
+     * @return True if there's a player alive.
      */
-    public void addCollisionHandler(CollisionHandler collisionHandler) {
-        this.collisionHandler = collisionHandler;
+    private boolean playersAlive() {
+        for(Player player : players) {
+            if(player.isAlive()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Calls the move method on all objects in the level.
+     */
+    public synchronized void moveObjects() {
+        // Don't update objects when countdown is running.
+        if(timer.getCountdownRunning()) {
+            System.out.println("Counting down: " + timer.getCountdownTimeLeft());
+            notifyObserver();
+            return;
+        }
+        if(timer.getLevelTimerRunning()) {
+            System.out.println("Level time left: " + timer.getLevelTimeLeft());
+        }
+        for(Player player : players) {
+            player.move();
+        }
+        room.moveBubbles();
+        notifyObserver();
     }
 
     /**
@@ -45,8 +92,9 @@ public class Level implements Subject {
      */
     @Override
     public void registerObserver(Observer observer) {
-        if(observer == null || observersList.contains(observer))
+        if(observer == null || observersList.contains(observer)) {
             return;
+        }
         observersList.add(observer);
     }
 
@@ -65,8 +113,20 @@ public class Level implements Subject {
      */
     @Override
     public void notifyObserver() {
-        for(Observer obj: observersList) {
-            obj.update();
+        if(!playersAlive()) {
+            for(Observer obj: observersList) {
+                obj.levelLost();
+            }
+        }
+        if(!room.hasBubbles()) {
+            for(Observer obj: observersList) {
+                obj.levelWon();
+            }
+        }
+        if(!timer.getCountdownRunning() && !timer.getLevelTimerRunning()) {
+            for(Observer obj: observersList) {
+                obj.levelLost();
+            }
         }
     }
 }
