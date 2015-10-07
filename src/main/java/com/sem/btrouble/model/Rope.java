@@ -1,11 +1,12 @@
 package com.sem.btrouble.model;
 
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 
 @SuppressWarnings("serial")
-public class Rope extends Rectangle {
+public class Rope extends Rectangle implements Drawable{
     private int dy;
     private static final int INITIAL_ROPESPEED = 5;
     private Image sprite;
@@ -62,8 +63,13 @@ public class Rope extends Rectangle {
      * @throws SlickException
      *             when the Rope could not be drawn.
      */
-    public void draw() throws SlickException {
-        sprite = new Image("Sprites/rope.png");
+    @Override
+    public void draw(Graphics graphics) {
+        try {
+            sprite = new Image("Sprites/rope.png");
+        } catch(SlickException e) {
+            e.printStackTrace();
+        }
         sprite.draw(x - (int) (sprite.getWidth() / 2), y);
     }
 

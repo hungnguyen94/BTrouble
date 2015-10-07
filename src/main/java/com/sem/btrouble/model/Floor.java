@@ -1,12 +1,14 @@
 package com.sem.btrouble.model;
 
+import org.newdawn.slick.Color;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 
 /**
  * Class representing a floor.
  */
 @SuppressWarnings("serial")
-public class Floor extends Rectangle {
+public class Floor extends Rectangle implements Drawable {
 
     private float speed;
     private final float defaultspeed = 0.1f;
@@ -54,5 +56,18 @@ public class Floor extends Rectangle {
      */
     public void moveDown() {
         y += speed;
+    }
+
+    /**
+     * Draw the object.
+     *
+     * @param graphics
+     */
+    @Override
+    public void draw(Graphics graphics) {
+        graphics.setColor(Color.red);
+        graphics.setLineWidth(2);
+        graphics.draw(this);
+        graphics.setLineWidth(1);
     }
 }

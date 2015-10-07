@@ -1,12 +1,14 @@
 package com.sem.btrouble.model;
 
+import org.newdawn.slick.Color;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 
 /**
  * Class representing a wall
  */
 @SuppressWarnings("serial")
-public class Wall extends Rectangle {
+public class Wall extends Rectangle implements Drawable {
 
     private int speed;
 
@@ -72,5 +74,18 @@ public class Wall extends Rectangle {
 
     public void changeDirection() {
         speed = -speed;
+    }
+
+    /**
+     * Draw the object.
+     *
+     * @param graphics
+     */
+    @Override
+    public void draw(Graphics graphics) {
+        graphics.setColor(Color.red);
+        graphics.setLineWidth(2);
+        graphics.draw(this);
+        graphics.setLineWidth(1);
     }
 }

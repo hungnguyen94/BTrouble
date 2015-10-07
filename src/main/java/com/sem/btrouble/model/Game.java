@@ -1,5 +1,9 @@
 package com.sem.btrouble.model;
 
+import com.sem.btrouble.TestState;
+
+import java.util.List;
+
 /**
  * Game class.
  */
@@ -8,6 +12,7 @@ public class Game implements Observer {
     private Level level;
     private Runnable levelThread;
     private boolean levelRunning;
+    private TestState view;
 
     // Temp solution to restart current room level.
     private Room tempRoom;
@@ -21,6 +26,16 @@ public class Game implements Observer {
     }
 
     /**
+     * Constructor for a game.
+     * @param player players in the game.
+     * @param view View connected to this controller.
+     */
+    public Game(Player player, TestState view) {
+        this.player = player;
+        this.view = view;
+    }
+
+    /**
      * Loads a new level with the given room.
      * @param room Room of the level that should be loaded.
      */
@@ -31,6 +46,7 @@ public class Game implements Observer {
         this.level = new Level(deepCopiedRoom);
         level.addPlayer(player);
         level.registerObserver(this);
+        level.registerObserver(view);
     }
 
     /**
@@ -57,6 +73,21 @@ public class Game implements Observer {
     }
 
     /**
+     * Does the same as startlevel, except running in a separate thread.
+     */
+    public void updateGame() {
+        level.moveObjects();
+    }
+
+    /**
+     * This method is called when the observer is notified about a update.
+     */
+    @Override
+    public void update(List<Drawable> drawableList) {
+
+    }
+
+    /**
      * This method is called when a level is won.
      */
     @Override
@@ -78,6 +109,7 @@ public class Game implements Observer {
         if(player.hasLives()) {
             // Level restart.
             loadLevel(tempRoom);
+            System.out.println("Level restart");
         } else {
             // End game.
             System.out.println("Game has ended");

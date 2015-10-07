@@ -1,5 +1,6 @@
 package com.sem.btrouble.model;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Shape;
 
@@ -18,7 +19,7 @@ import java.util.List;
  * them on the screen.
  *
  */
-public class Room implements Serializable {
+public class Room implements Serializable, Drawable {
     private int spawnPositionX;
     private int spawnPositionY;
 
@@ -197,17 +198,17 @@ public class Room implements Serializable {
      * Method to load a room with default hard coded data.
      */
     public void loadRoom() {
-        spawnPositionX = Model.getRoomWidth() / 2;
+        spawnPositionX = 1280 / 2;
         spawnPositionY = 400;
         walls.clear();
-        walls.add(new Wall(0, 0, 20, Model.getRoomHeight()));
-        walls.add(new Wall(Model.getRoomWidth(), 0, 20, Model.getRoomHeight()));
+        walls.add(new Wall(0, 0, 20, 720));
+        walls.add(new Wall(1260, 0, 20, 720));
         floors.clear();
-        floors.add(new Floor(0, Model.getRoomHeight() - ((Model.getRoomHeight() / 100) * 14),
-                Model.getRoomWidth(), 50));
-        floors.add(new Floor(0, 0, Model.getRoomWidth(), 50));
+        floors.add(new Floor(0, 720 - ((720 / 100) * 14),
+                1280, 50));
+        floors.add(new Floor(0, 0, 1280, 50));
         bubbles.clear();
-        bubbles.add(new Bubble(2, Model.getRoomWidth() / 2, 200));
+        bubbles.add(new Bubble(2, 1280 / 2, 200));
     }
 
     /**
@@ -232,18 +233,27 @@ public class Room implements Serializable {
         bubbles.add(new Bubble(5, Model.getRoomWidth() - 300, 100));
     }
 
+
     /**
      * Draw the walls and floors.
-     * 
-     * @param g
-     *            - graphics handler from Slick2D
+     *
+     * @param graphics
      */
-    public void drawRoom(Graphics g) {
+    @Override
+    public void draw(Graphics graphics) {
+        graphics.setColor(Color.blue);
         for (Wall w : walls) {
-            g.fillRect(w.getX(), w.getY(), 5, w.getHeight());
+            w.draw(graphics);
+            //graphics.fillRect(w.getX(), w.getY(), 5, w.getHeight());
         }
         for (Floor f : floors) {
-            g.fillRect(f.getX(), f.getY(), f.getWidth(), 5);
+            f.draw(graphics);
+            //graphics.fillRect(f.getX(), f.getY(), f.getWidth(), 5);
         }
+    }
+
+    // Old methods
+    public void drawRoom(Graphics g) {
+        draw(g);
     }
 }

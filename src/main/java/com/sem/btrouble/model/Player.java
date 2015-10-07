@@ -1,6 +1,7 @@
 package com.sem.btrouble.model;
 
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
@@ -16,7 +17,7 @@ import java.util.LinkedHashSet;
  *
  */
 @SuppressWarnings("serial")
-public class Player extends Rectangle {
+public class Player extends Rectangle implements Drawable{
     private int lives;
     private int score;
 
@@ -189,7 +190,8 @@ public class Player extends Rectangle {
      * @throws SlickException
      *             when the player could not be drawn.
      */
-    public void draw() throws SlickException {
+    @Override
+    public void draw(Graphics graphics) {
         try {
             if (playerIdle == null && walkSheet == null && walkAnimation == null) {
                 playerIdle = new Image("Sprites/idle.png");
@@ -209,7 +211,7 @@ public class Player extends Rectangle {
             playerIdle.getFlippedCopy(facingLeft, false).draw(playerX, y - 15);
         }
         for (int i = 0; i < ropes.size(); i++) {
-            ropes.get(i).draw();
+            ropes.get(i).draw(graphics);
         }
     }
 
@@ -296,5 +298,4 @@ public class Player extends Rectangle {
         y += vy;
         vy += ay;
     }
-
 }

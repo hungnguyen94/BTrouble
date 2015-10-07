@@ -2,6 +2,8 @@ package com.sem.btrouble.model;
 
 import com.sem.btrouble.event.BubbleEvent;
 import com.sem.btrouble.view.GameView;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Circle;
 
 /**
@@ -9,7 +11,7 @@ import org.newdawn.slick.geom.Circle;
  *
  */
 @SuppressWarnings("serial")
-public class Bubble extends Circle {
+public class Bubble extends Circle implements Drawable{
     private int size;
 
     // actual size of a level one bubble in the game in pixels.
@@ -258,5 +260,15 @@ public class Bubble extends Circle {
     public String toString() {
         return "Bubble{" + "size=" + size + ", x=" + x + ", y=" + y + ", vx=" + vx + ", vy=" + vy
                 + ", ay=" + ay + '}';
+    }
+
+    /**
+     * Draws the object.
+     */
+    @Override
+    public void draw(Graphics graphics) {
+        graphics.setColor(Color.red);
+        graphics.fill(this);
+        graphics.draw(this);
     }
 }
