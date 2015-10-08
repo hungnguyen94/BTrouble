@@ -61,8 +61,8 @@ public class TimePowerUp extends PowerUp {
         try {
             if (playerIdle == null) {
                 playerIdle = new Image("Sprites/powerup_time.png");
-                playerIdle.draw(getX(), getY(), 50, 100);
             }
+            playerIdle.draw(getX(), getY(), 50, 100);
         } catch (SlickException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
