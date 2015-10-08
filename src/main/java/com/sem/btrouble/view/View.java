@@ -3,11 +3,7 @@ package com.sem.btrouble.view;
 import com.sem.btrouble.SlickApp;
 import com.sem.btrouble.model.*;
 import org.newdawn.slick.*;
-import org.newdawn.slick.Color;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.util.ResourceLoader;
 
 import java.io.InputStream;
@@ -16,7 +12,6 @@ import java.io.InputStream;
  * Created by rubenwiersma on 18-09-15.
  */
 public class View {
-    private Image background;
     private TrueTypeFont font;
     private GameContainer gc;
     private Timers timers;
@@ -33,7 +28,7 @@ public class View {
     public View(GameContainer gc, Timers timers) {
         this.gc = gc;
         this.timers = timers;
-        timerBar = new Rectangle(200, gc.getHeight() - ((gc.getHeight() / 100) * 12),
+        timerBar = new Rectangle(200, gc.getHeight() - gc.getHeight() / 100 * 12,
                 gc.getWidth() - 400, 25);
 
         // load font from a .ttf file
@@ -60,8 +55,8 @@ public class View {
     public void draw(Graphics graphics) throws SlickException {
         drawBackground(graphics);
         drawCountDown(graphics);
-        drawPlayers(graphics);
-        drawPowers(graphics);
+        drawPlayers();
+        drawPowers();
         drawBubbles(graphics);
         drawTimer(graphics);
         drawBorders(graphics);
@@ -102,13 +97,13 @@ public class View {
     /**
      * Draw players on screen.
      */
-    private void drawPlayers(Graphics g) throws SlickException {
+    private void drawPlayers() throws SlickException {
         for (Player player : Model.getPlayers()) {
             player.draw();
         }
     }
     
-    private void drawPowers(Graphics graphics) throws SlickException {
+    private void drawPowers() throws SlickException {
     	for (PowerUp power : Model.getShortPower()) {
     		power.draw();
     	}

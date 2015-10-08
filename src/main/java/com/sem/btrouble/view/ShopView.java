@@ -1,6 +1,5 @@
 package com.sem.btrouble.view;
 
-import org.lwjgl.input.Mouse;
 import org.newdawn.slick.*;
 import org.newdawn.slick.gui.MouseOverArea;
 import org.newdawn.slick.state.BasicGameState;
@@ -9,7 +8,6 @@ import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.util.ResourceLoader;
 
-import com.sem.btrouble.controller.Controller;
 import com.sem.btrouble.model.LifePowerUp;
 import com.sem.btrouble.model.Model;
 import com.sem.btrouble.model.PowerUp;
@@ -18,7 +16,6 @@ import com.sem.btrouble.model.SlowPowerUp;
 import com.sem.btrouble.model.TimePowerUp;
 
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Observer;
 
 /**
@@ -28,7 +25,6 @@ public class ShopView extends BasicGameState {
     private Image background;
     private TrueTypeFont font;
     private PowerUp power;
-    private Room room;
     private int receiptBubbles = 0;
     private int receiptTime = 0;
     private int receiptLife = 0;
@@ -55,7 +51,6 @@ public class ShopView extends BasicGameState {
         timeButton = new MouseOverArea(gc,new Image("Sprites/time_button.jpg"), 187, 230);
         lifeButton = new MouseOverArea(gc,new Image("Sprites/life_button.jpg"), 154, 391);
 
-        room = Model.getCurrentRoom();
         loadFont();
     }
 
@@ -80,28 +75,22 @@ public class ShopView extends BasicGameState {
 
         // Buttons
         if (gc.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
-            if (bubblesButton.isMouseOver()) {
-                if(GameView.getWallet().getValue() >= 2500) {
-                    GameView.getWallet().decreaseValue(2500);
-                    power = new SlowPowerUp();
-                    GameView.getController().addObserver((Observer) power);
-                    Model.addPowerUp(power);
-                    receiptBubbles++;
-                }
-            } else if (timeButton.isMouseOver()) {
-                if(GameView.getWallet().getValue() >= 2500) {
-                    GameView.getWallet().decreaseValue(2500);
-                    power = new TimePowerUp();
-                    Model.addPowerUp(power);
-                    receiptTime++;
-                }
-            } else if (lifeButton.isMouseOver()) {
-                if(GameView.getWallet().getValue() >= 10000) {
-                    GameView.getWallet().decreaseValue(10000);
-                    power = new LifePowerUp();
-                    Model.addPowerUp(power);
-                    receiptLife++;
-                }
+            if (bubblesButton.isMouseOver() && GameView.getWallet().getValue() >= 2500) {
+                GameView.getWallet().decreaseValue(2500);
+                power = new SlowPowerUp();
+                GameView.getController().addObserver((Observer) power);
+                Model.addPowerUp(power);
+                receiptBubbles++;
+            } else if (timeButton.isMouseOver() && GameView.getWallet().getValue() >= 2500) {
+                GameView.getWallet().decreaseValue(2500);
+                power = new TimePowerUp();
+                Model.addPowerUp(power);
+                receiptTime++;
+            } else if (lifeButton.isMouseOver() && GameView.getWallet().getValue() >= 10000) {
+                GameView.getWallet().decreaseValue(10000);
+                power = new LifePowerUp();
+                Model.addPowerUp(power);
+                receiptLife++;
             }
         }
     }
