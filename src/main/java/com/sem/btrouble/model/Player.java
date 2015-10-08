@@ -81,72 +81,134 @@ public class Player extends Rectangle {
         return false;
     }
 
+    /**
+     * Return if player is right blocked.
+     * @return boolean
+     */
     public boolean getRightBlocked() {
         return rightBlocked;
     }
 
+    /**
+     * Return if the player is left blocked.
+     * @return boolean
+     */
     public boolean getLeftBlocked() {
         return leftBlocked;
     }
 
+    /**
+     * Set the player to right blocked.
+     * @param block boolean
+     */
     public void setRightBlock(boolean block) {
         this.rightBlocked = block;
     }
 
+    /**
+     * Set the player to left blocked.
+     * @param block boolean
+     */
     public void setLeftBlock(boolean block) {
         this.leftBlocked = block;
     }
 
+    /**
+     * Return if the player is alive.
+     * @return boolean
+     */
     public boolean isAlive() {
         return alive;
     }
 
+    /**
+     * Set the player alive.
+     * @param alive boolean
+     */
     public void setAlive(boolean alive) {
         this.alive = alive;
     }
 
+    /**
+     * Return if the player is falling.
+     * @return boolean
+     */
     public boolean isFalling() {
         return falling;
     }
 
+    /**
+     * Set the player to falling.
+     * @param falling boolean
+     */
     public void setFalling(boolean falling) {
         this.falling = falling;
     }
 
+    /**
+     * Return the ropes which the player has shot.
+     * @return the ropes
+     */
     public ArrayList<Rope> getRopes() {
         return ropes;
     }
 
+    /**
+     * Add a life to the player.
+     */
     public void addLife() {
         lives++;
     }
 
+    /**
+     * Remove a life of the player.
+     */
     public void loseLife() {
         lives--;
     }
 
+    /**
+     * Return if the player has lives.
+     * @return boolean
+     */
     public boolean hasLives() {
         return lives >= 0;
     }
 
+    /**
+     * Get the amount of lives of the player.
+     * @return the lives
+     */
     public int getLives() {
         return lives;
     }
 
+    /**
+     * Get the score of the player.
+     * @return the score
+     */
     public int getScore() {
         return score;
     }
 
+    /**
+     * Increase the score of the player.
+     * @param amount how many the score increases
+     */
     public void increaseScore(int amount) {
         score += amount;
     }
 
+    /**
+     * Return the vertical speed of the player.
+     * @return vertical speed
+     */
     public double getVy() {
         return vy;
     }
 
     /**
-     * Add a rope to the player
+     * Add a rope to the player.
      */
     public void moveRopes() {
         for (Rope r : ropes) {
@@ -155,7 +217,8 @@ public class Player extends Rectangle {
     }
 
     /**
-     * Remove collided ropes
+     * Remove collided ropes.
+     * @return Collection without collided ropes
      */
     public Collection<Shape> removeCollidedRopes() {
         LinkedHashSet<Shape> collidedRopes = new LinkedHashSet<Shape>();
@@ -169,11 +232,12 @@ public class Player extends Rectangle {
     }
 
     /**
-     * Function which allows the player to fire. True if the rope succesfully
-     * fires
+     * Function which allows the player to fire. 
+     * True if the rope succesfully fires.
      * 
      * @param r
      *            - rope to be added
+     * @return boolean
      */
     public boolean fire(Rope r) {
         if (ropes.size() <= 0) {
@@ -218,16 +282,17 @@ public class Player extends Rectangle {
      *
      */
     public void move() {
-        if (isFalling())
+        if (isFalling()) {
             fall();
-        else
+        }
+        else {
             vy = 0;
-
+        }
         idle = true;
     }
 
     /**
-     * Move the player to the left
+     * Move the player to the left.
      * 
      * @param delta
      *            - speed
@@ -244,7 +309,7 @@ public class Player extends Rectangle {
     }
 
     /**
-     * Move the player to the right
+     * Move the player to the right.
      * 
      * @param delta
      *            - speed
@@ -258,14 +323,6 @@ public class Player extends Rectangle {
             walkAnimation.update(delta);
             x += delta * 0.15f * PLAYER_SPEED;
         }
-    }
-
-    public void setLeftBlocked(boolean leftBlocked) {
-        this.leftBlocked = leftBlocked;
-    }
-
-    public void setRightBlocked(boolean rightBlocked) {
-        this.rightBlocked = rightBlocked;
     }
 
     /**
@@ -290,7 +347,7 @@ public class Player extends Rectangle {
     }
 
     /**
-     * Slowly fall down vertically
+     * Slowly fall down vertically.
      */
     public void fall() {
         y += vy;

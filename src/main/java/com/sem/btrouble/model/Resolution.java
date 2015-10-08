@@ -1,7 +1,7 @@
 package com.sem.btrouble.model;
 
 /**
- * 
+ * Class which takes care of the resolution.
  * @author Christian This class handles the different resolutions
  *
  */
@@ -12,12 +12,23 @@ public class Resolution {
     private int screenHeight;
     private String background;
 
+    /**
+     * Constructs a resolution.
+     * @param screenWidth width of the screen
+     * @param screenHeight height of the screen
+     * @param background background
+     */
     public Resolution(int screenWidth, int screenHeight, String background) {
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
         this.background = background;
     }
 
+    /**
+     * Are two resolutions equal.
+     * @param other object to compare with
+     * @return boolean
+     */
     public boolean equals(Object other) {
         if (other instanceof Resolution) {
             Resolution that = (Resolution) other;
@@ -48,7 +59,7 @@ public class Resolution {
     /**
      * This method changes the width of the resolution.
      * 
-     * @param screenWidth
+     * @param screenWidth width of the screen
      */
     public void setScreenWidth(int screenWidth) {
         this.screenWidth = screenWidth;
@@ -66,7 +77,7 @@ public class Resolution {
     /**
      * This method changes the height of the resolution.
      * 
-     * @param screenHeight
+     * @param screenHeight height of the screen
      */
     public void setScreenHeight(int screenHeight) {
         this.screenHeight = screenHeight;

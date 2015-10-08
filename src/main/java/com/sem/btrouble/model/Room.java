@@ -18,6 +18,7 @@ import java.util.List;
  * them on the screen.
  *
  */
+@SuppressWarnings("serial")
 public class Room implements Serializable {
     private int spawnPositionX;
     private int spawnPositionY;
@@ -67,7 +68,6 @@ public class Room implements Serializable {
     /**
      * Create an exact copy of the current room with the same parameters and
      * return it.
-     * 
      * @return - Return a deep copy of the current room.
      */
     public Room copyRoom() {

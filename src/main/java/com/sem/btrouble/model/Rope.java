@@ -4,6 +4,11 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 
+/**
+ * Represents a rope.
+ * @author Martin
+ *
+ */
 @SuppressWarnings("serial")
 public class Rope extends Rectangle {
     private int dy;
@@ -44,14 +49,26 @@ public class Rope extends Rectangle {
         return false;
     }
 
+    /**
+     * Get the y distance.
+     * @return dy
+     */
     public int getDy() {
         return dy;
     }
 
+    /**
+     * Return if the rope is collided.
+     * @return boolean
+     */
     public boolean isCollided() {
         return collided;
     }
 
+    /**
+     * Set collided.
+     * @param collided boolean
+     */
     public void setCollided(boolean collided) {
         this.collided = collided;
     }
@@ -71,8 +88,9 @@ public class Rope extends Rectangle {
      * Calculates the next position of the Rope.
      */
     public void move() {
-        if (collided)
+        if (collided) {
             return;
+        }
         grow(0, (float) (1.5 * dy));
         y -= 1.5 * dy;
         if (getY() <= 0) {

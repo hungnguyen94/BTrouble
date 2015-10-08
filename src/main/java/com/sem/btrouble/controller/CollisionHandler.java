@@ -251,10 +251,10 @@ public class CollisionHandler extends GameObservable {
             case sideLeft:
                 fireEvent(new PlayerEvent(player, PlayerEvent.COLLISION_RIGHTWALL,
                         "Collided with right wall"));
-                player.setRightBlocked(true);
+                player.setRightBlock(true);
                 break;
             case sideRight:
-                player.setLeftBlocked(true);
+                player.setLeftBlock(true);
                 fireEvent(new PlayerEvent(player, PlayerEvent.COLLISION_LEFTWALL,
                         "Collided with left wall"));
                 break;

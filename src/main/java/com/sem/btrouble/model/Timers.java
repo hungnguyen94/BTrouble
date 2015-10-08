@@ -54,6 +54,10 @@ public class Timers {
 
     }
 
+    /**
+     * Set the level timer counter.
+     * @param duration duration
+     */
     public void setLevelTimerCounter(int duration) {
         levelTimer.setInitialDelay(duration);
     }
@@ -127,6 +131,10 @@ public class Timers {
      * executed every timer cycle.
      */
     class LevelTimerActionListener implements ActionListener {
+        /**
+         * Perform action.
+         * @param event the event
+         */
         public void actionPerformed(ActionEvent event) {
             // System.out.println("levelTimerCounter: " + levelTimerCounter);
             levelTimerCounter--;
@@ -141,6 +149,10 @@ public class Timers {
      * should be executed every timer cycle.
      */
     class CountdownTimerActionListener implements ActionListener {
+        /**
+         * Perform action.
+         * @param event the event
+         */
         public void actionPerformed(ActionEvent event) {
             // System.out.println("countdownTimerCounter: " + countdownCounter);
             countdownCounter--;

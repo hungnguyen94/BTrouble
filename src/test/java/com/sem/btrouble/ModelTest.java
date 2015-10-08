@@ -1,17 +1,13 @@
 package com.sem.btrouble;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.sem.btrouble.model.Bubble;
 import com.sem.btrouble.model.Model;
 import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Room;
-
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.verify;
 
 import java.util.ArrayList;
 

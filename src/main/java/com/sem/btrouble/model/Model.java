@@ -8,6 +8,7 @@ import java.util.ArrayList;
  * Objects and Players.
  */
 public class Model {
+    
     private static RoomIterator rooms;
     private static ArrayList<Player> players;
     private static Room roomCurrent;
@@ -15,8 +16,8 @@ public class Model {
     private static ArrayList<PowerUp> powers = new ArrayList<PowerUp>();
     private static ArrayList<PowerUp> powersshort = new ArrayList<PowerUp>();
 
-    private static int ROOM_WIDTH;
-    private static int ROOM_HEIGHT;
+    private static int roomWidth;
+    private static int roomHeight;
 
     /**
      * Initializes the model. Should be done before any calls to its methods are
@@ -28,8 +29,8 @@ public class Model {
      *            should be the height of the roo
      */
     public static void init(int width, int height) {
-        ROOM_WIDTH = width;
-        ROOM_HEIGHT = height;
+        roomWidth = width;
+        roomHeight = height;
         rooms = new RoomIterator();
         players = new ArrayList<Player>();
         currentLevel = 1;
@@ -99,7 +100,7 @@ public class Model {
      * @return returns an integer representing the height of the room.
      */
     public static int getRoomHeight() {
-        return ROOM_HEIGHT;
+        return roomHeight;
     }
 
     /**
@@ -108,7 +109,7 @@ public class Model {
      * @return returns an integer representing the width of the room.
      */
     public static int getRoomWidth() {
-        return ROOM_WIDTH;
+        return roomWidth;
     }
 
     /**
@@ -126,26 +127,49 @@ public class Model {
         }
     }
     
+    /**
+     * Get the power ups bought in the store.
+     * @return the power ups
+     */
     public static ArrayList<PowerUp> getPowerUps() {
         return powers;
     }
     
+    /**
+     * Add a store power up.
+     * @param power the power up
+     */
     public static void addPowerUp(PowerUp power) {
         powers.add(power);
     }
     
+    /**
+     * Clear the power up bought in the store.
+     */
     public static void clearPowerUps() {
         powers.clear();
     }
     
+    /**
+     * Get power ups received in the game.
+     * @return the power ups
+     */
     public static ArrayList<PowerUp> getShortPower() {
     	return powersshort;
     }
     
+    /**
+     * Add a power up received in the game.
+     * @param power the power up
+     */
     public static void addShortPowerUp(PowerUp power) {
     	powersshort.add(power);
     }
     
+    /**
+     * Delete a specific power up received in the game.
+     * @param power the power up
+     */
     public static void deleteShortPower(PowerUp power) {
     	ArrayList<PowerUp> powers = new ArrayList<PowerUp>();
     	for(int i = 0; i < powersshort.size(); i++) {
@@ -167,6 +191,9 @@ public class Model {
 		powersshort = powers;
     }
     
+    /**
+     * Remove all power ups received in the game.
+     */
     public static void clearShortPower() {
     	powersshort.clear();
     }

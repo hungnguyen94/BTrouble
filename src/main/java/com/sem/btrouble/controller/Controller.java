@@ -8,7 +8,6 @@ import com.sem.btrouble.model.Bubble;
 import com.sem.btrouble.model.Model;
 import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.PowerUp;
-import com.sem.btrouble.model.Room;
 import com.sem.btrouble.model.Rope;
 import com.sem.btrouble.model.Timers;
 import com.sem.btrouble.tools.GameObservable;

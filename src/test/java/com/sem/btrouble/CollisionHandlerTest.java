@@ -1,7 +1,11 @@
 package com.sem.btrouble;
 
 import com.sem.btrouble.controller.CollisionHandler;
-import com.sem.btrouble.model.*;
+import com.sem.btrouble.model.Bubble;
+import com.sem.btrouble.model.Player;
+import com.sem.btrouble.model.Floor;
+import com.sem.btrouble.model.Wall;
+import com.sem.btrouble.model.Rope;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -71,7 +75,7 @@ public class CollisionHandlerTest {
         collisionHandler.addCollidable(wall);
         assertTrue(collisionHandler.checkCollision(player));
         verify(player).intersects(wall);
-        verify(player).setRightBlocked(true);
+        verify(player).setRightBlock(true);
     }
 
     /**
@@ -86,7 +90,7 @@ public class CollisionHandlerTest {
         collisionHandler.addCollidable(wall);
         assertTrue(collisionHandler.checkCollision(player));
         verify(player).intersects(wall);
-        verify(player).setLeftBlocked(true);
+        verify(player).setLeftBlock(true);
     }
 
     /**

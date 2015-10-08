@@ -2,8 +2,19 @@ package com.sem.btrouble.model;
 
 import java.util.ArrayList;
 
+/**
+ * Class which generates a random power up.
+ * @author Martin
+ *
+ */
 public class PowerUpGenerator {
 	
+    /**
+     * Generate a random power up.
+     * @param x x position
+     * @param y y position
+     * @return the power up
+     */
 	public static PowerUp generate(float x, float y) {
 		PowerUp power = null;
 		int[] types = getTypes();
@@ -26,6 +37,10 @@ public class PowerUpGenerator {
 		return power;
 	}
 	
+	/**
+	 * Get the types that are already in the game.
+	 * @return array with types
+	 */
 	public static int[] getTypes() {
 		ArrayList<PowerUp> powers = Model.getShortPower();
 		int[] types = {0, 0, 0};

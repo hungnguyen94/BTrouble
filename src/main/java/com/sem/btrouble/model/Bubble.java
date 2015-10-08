@@ -3,7 +3,6 @@ package com.sem.btrouble.model;
 import com.sem.btrouble.event.BubbleEvent;
 import com.sem.btrouble.view.GameView;
 
-import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
 
 /**
