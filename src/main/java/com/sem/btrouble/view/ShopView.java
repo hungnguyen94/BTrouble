@@ -130,6 +130,9 @@ public class ShopView extends BasicGameState {
         graphics.drawString("" + receiptLife, 1175, 620);
     }
 
+    /**
+     * Loads the game font into a TrueTypeFont object to be used by the setFont method.
+     */
     private void loadFont() {
         // load font from a .ttf file
         try {
