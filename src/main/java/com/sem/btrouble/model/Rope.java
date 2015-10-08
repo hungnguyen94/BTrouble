@@ -53,6 +53,7 @@ public class Rope extends Rectangle {
     
     /**
      * HashCode because of implemented equals method.
+     * @return hashCode
      */
     public int hashCode() {
         assert false : "hashCode not designed";

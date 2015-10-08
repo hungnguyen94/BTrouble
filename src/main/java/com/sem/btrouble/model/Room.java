@@ -108,6 +108,7 @@ public class Room implements Serializable {
     
     /**
      * HashCode because of implemented equals method.
+     * @return hashCode
      */
     public int hashCode() {
         assert false : "hashCode not designed";

@@ -9,7 +9,7 @@ import org.newdawn.slick.geom.Rectangle;
 public class Floor extends Rectangle {
 
     private float speed;
-    private final float defaultspeed = 0.1f;
+    private static final float DEFAULT_SPEED = 0.1f;
 
     /**
      * Constructor for floor class.
@@ -25,7 +25,7 @@ public class Floor extends Rectangle {
      */
     public Floor(float x, float y, float width, float height) {
         super(x, y, width, height);
-        speed = defaultspeed;
+        speed = DEFAULT_SPEED;
     }
 
     /**

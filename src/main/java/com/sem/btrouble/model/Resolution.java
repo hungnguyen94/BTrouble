@@ -40,6 +40,7 @@ public class Resolution {
     
     /**
      * HashCode because of implemented equals method.
+     * @return hashCode
      */
     public int hashCode() {
         assert false : "hashCode not designed";
