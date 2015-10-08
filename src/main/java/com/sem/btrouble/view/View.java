@@ -59,8 +59,6 @@ public class View {
      */
     public void draw(Graphics graphics) throws SlickException {
         drawBackground(graphics);
-        drawLives();
-        drawScore(graphics);
         drawCountDown(graphics);
         drawPlayers(graphics);
         drawPowers(graphics);
@@ -68,6 +66,8 @@ public class View {
         drawTimer(graphics);
         drawBorders(graphics);
 
+        drawLives();
+        drawScore(graphics);
         //drawDebug(graphics);
     }
 
@@ -155,7 +155,7 @@ public class View {
         SpriteSheet livesImage = new SpriteSheet("Sprites/lives_spritesheet.jpg", 381, 171);
         int lives = Model.getPlayers().get(0).getLives();
         if (lives >= 0) {
-            livesImage.getSprite(lives, 0).draw(225, 851, (float) 0.286);
+            livesImage.getSprite(lives, 0).draw(190, 670, (float) 0.286);
         }
     }
 
@@ -169,8 +169,8 @@ public class View {
      */
     private void drawScore(Graphics graphics) throws SlickException {
         graphics.setColor(Color.white);
-        String score = "" + Model.getPlayers().get(0).getScore();
-        graphics.drawString(score, 891 - font.getWidth(score), 851);
+        String score = "" + GameView.getWallet().getValue();
+        graphics.drawString(score, 1090 - font.getWidth(score), 670);
     }
 
     /**
