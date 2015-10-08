@@ -1,7 +1,5 @@
 package com.sem.btrouble.controller;
 
-import org.newdawn.slick.geom.Shape;
-
 /**
  * Interface for a collision action.
  */

@@ -6,7 +6,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Shape;
 
 import java.util.Collection;
-import java.util.HashSet;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
  * Class to handle collisions.
@@ -36,7 +36,7 @@ public class CollisionHandler extends GameObservable {
      * Use set to prevent duplicates.
      */
     public CollisionHandler() {
-        collidables = new HashSet<Collidable>();
+        collidables = new CopyOnWriteArraySet<Collidable>();
     }
 
     /**
@@ -105,10 +105,7 @@ public class CollisionHandler extends GameObservable {
             return false;
         }
 
-        // Iterate over a shallow cloned set, since you can't change the set
-        // while iterating.
-        HashSet<Collidable> collidablesClone = new HashSet<Collidable>(collidables);
-        for (Collidable collidee : collidablesClone) {
+        for (Collidable collidee : collidables) {
             if (self != collidee && self.intersectsCollidable(collidee)) {
                 // If there is no corresponding CollisionAction for this collision, skip it.
                 CollisionAction selfAction = self.getCollideActions().get(collidee.getClass());
@@ -146,9 +143,8 @@ public class CollisionHandler extends GameObservable {
         collidables.remove(null);
 
         // Iterate over a shallow cloned set, since you can't change the set
-        // while
-        // iterating.
-        Collection<Collidable> collidersClone = new HashSet<Collidable>(colliders);
+        // while iterating.
+        Collection<Collidable> collidersClone = new CopyOnWriteArraySet<Collidable>(colliders);
         for (Collidable self : collidersClone) {
             if (checkCollision(self)) {
                 collided = true;
