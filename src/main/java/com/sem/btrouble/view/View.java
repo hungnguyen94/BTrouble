@@ -68,7 +68,7 @@ public class View {
 
         drawLives();
         drawScore(graphics);
-        drawDebug(graphics);
+        //drawDebug(graphics);
     }
 
     /**
@@ -125,8 +125,6 @@ public class View {
             graphics.setAntiAlias(true);
             graphics.setColor(Color.black);
             graphics.fill(bubble);
-            graphics.draw(bubble);
-            graphics.setColor(Color.red);
         }
     }
 
