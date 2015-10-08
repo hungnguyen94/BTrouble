@@ -184,7 +184,7 @@ public class Model {
     			}
     		} else if (power instanceof TimePowerUp && (listPower instanceof SlowPowerUp
     		        || listPower instanceof LifePowerUp)) {
-    				powers.add(listPower);
+    			powers.add(listPower);
     		}
     	}
 		powersshort = powers;

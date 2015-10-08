@@ -30,7 +30,7 @@ public class PowerUpGenerator {
 			}
 		}
 		else if (random >= 0.2 && random <= 0.3 && types[2] == 0) {
-				power = new LifePowerUp(x, y);
+		    power = new LifePowerUp(x, y);
 		}
 		return power;
 	}
