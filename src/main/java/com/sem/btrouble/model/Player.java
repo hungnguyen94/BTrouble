@@ -1,6 +1,10 @@
 package com.sem.btrouble.model;
 
+import com.sem.btrouble.controller.Collidable;
+import com.sem.btrouble.controller.CollisionAction;
+import com.sem.btrouble.controller.CollisionHandler;
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
@@ -9,14 +13,15 @@ import org.newdawn.slick.geom.Shape;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedHashSet;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Player class, containing all the data about the player.
  *
  */
 @SuppressWarnings("serial")
-public class Player extends Rectangle {
+public class Player extends Rectangle implements Drawable, Collidable {
     private int lives;
     private int score;
 
@@ -157,8 +162,8 @@ public class Player extends Rectangle {
     /**
      * Remove collided ropes
      */
-    public Collection<Shape> removeCollidedRopes() {
-        LinkedHashSet<Shape> collidedRopes = new LinkedHashSet<Shape>();
+    public Collection<Collidable> removeCollidedRopes() {
+        Collection<Collidable> collidedRopes = new ArrayList<Collidable>();
         for (Rope r : ropes) {
             if (r.isCollided()) {
                 collidedRopes.add(r);
@@ -189,7 +194,8 @@ public class Player extends Rectangle {
      * @throws SlickException
      *             when the player could not be drawn.
      */
-    public void draw() throws SlickException {
+    @Override
+    public void draw(Graphics graphics) {
         try {
             if (playerIdle == null && walkSheet == null && walkAnimation == null) {
                 playerIdle = new Image("Sprites/idle.png");
@@ -209,7 +215,7 @@ public class Player extends Rectangle {
             playerIdle.getFlippedCopy(facingLeft, false).draw(playerX, y - 15);
         }
         for (int i = 0; i < ropes.size(); i++) {
-            ropes.get(i).draw();
+            ropes.get(i).draw(graphics);
         }
     }
 
@@ -218,11 +224,11 @@ public class Player extends Rectangle {
      *
      */
     public void move() {
-        if (isFalling())
+        if (isFalling()) {
             fall();
-        else
+        } else {
             vy = 0;
-
+        }
         idle = true;
     }
 
@@ -297,4 +303,61 @@ public class Player extends Rectangle {
         vy += ay;
     }
 
+    /**
+     * Every collidable should return a Map with all CollisionActions
+     * that collidable should process. To prevent class checking, simply
+     * use the class as the key, and a CollisionAction instance as value.
+     * @return A map of all actions this collidable can do on a collision.
+     */
+    @Override
+    public Map<Class<? extends Collidable>, CollisionAction> getCollideActions() {
+        Map<Class<? extends Collidable>, CollisionAction> collisionActionMap =
+                new HashMap<Class<? extends Collidable>, CollisionAction>();
+
+        // Method called on Bubble collision.
+        collisionActionMap.put(Bubble.class, new CollisionAction() {
+            @Override
+            public void onCollision(Collidable collider) {
+                setAlive(false);
+            }
+        });
+
+        // Method called on Wall collision
+        collisionActionMap.put(Wall.class, new CollisionAction() {
+            @Override
+            public void onCollision(Collidable collider) {
+                switch (CollisionHandler.checkCollisionSideX(Player.this, collider)) {
+                    case LEFT:
+                        setRightBlocked(true);
+                        break;
+                    case RIGHT:
+                        setLeftBlocked(true);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+
+        // Method called on Floor collision.
+        collisionActionMap.put(Floor.class, new CollisionAction() {
+            @Override
+            public void onCollision(Collidable collider) {
+                setFalling(false);
+                setY(collider.getY() - getHeight());
+            }
+        });
+
+        return collisionActionMap;
+    }
+
+    /**
+     * Checks for intersection with another Collidable.
+     * @param collidable Check if this collidable intersects with that collidable.
+     * @return True if this object intersects with collidable.
+     */
+    @Override
+    public boolean intersectsCollidable(Collidable collidable) {
+        return this.intersects((Shape) collidable);
+    }
 }

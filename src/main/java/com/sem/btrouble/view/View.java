@@ -62,13 +62,13 @@ public class View {
         drawCountDown(graphics);
         drawPlayers(graphics);
         drawPowers(graphics);
-        drawBubbles(graphics);
+//        drawBubbles(graphics);
         drawTimer(graphics);
         drawBorders(graphics);
 
         drawLives();
         drawScore(graphics);
-        drawDebug(graphics);
+        //drawDebug(graphics);
     }
 
     /**
@@ -104,7 +104,7 @@ public class View {
      */
     private void drawPlayers(Graphics g) throws SlickException {
         for (Player player : Model.getPlayers()) {
-            player.draw();
+            player.draw(g);
         }
     }
     

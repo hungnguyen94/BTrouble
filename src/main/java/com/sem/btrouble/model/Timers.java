@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.Timer;
 
 /**
- * Class which controls all the timers in the game. Created by Hung.
+ * Class which controls all the timers in the game.
  */
 public class Timers {
 
