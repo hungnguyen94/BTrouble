@@ -10,7 +10,7 @@ public interface CollisionAction {
     /**
      * Actions that should be performed during
      * collision between two shapes.
-     * @param collidable Collided object.
+     * @param collider Collided object.
      */
-    void onCollision(Collidable collidable);
+    void onCollision(Collidable collider);
 }

@@ -12,9 +12,9 @@ public interface Collidable {
 
     /**
      * Get a map of the actions on collisions.
-     * @return All actions this collidable can do on a collision.
+     * @return A map of all actions this collidable can do on a collision.
      */
-    Map<Class<? extends Shape>, CollisionAction> getCollideActions();
+    Map<Class<? extends Collidable>, CollisionAction> getCollideActions();
 
     /**
      * This method should return the
@@ -29,5 +29,23 @@ public interface Collidable {
      * @return Center of Y position.
      */
     float getCenterY();
+
+    /**
+     * Get the x location of the left side of this collidable.
+     * @return x location of the left side.
+     */
+    float getX();
+
+    /**
+     * Get the y position of the top of this shape.
+     * @return y position of the top.
+     */
+    float getY();
+
+    /**
+     * Checks for intersection with a shape.
+     * @param collidable Check if this collidable intersectsCollidable with that collidable.
+     */
+    boolean intersectsCollidable(Collidable collidable);
 
 }

@@ -77,7 +77,7 @@ public class Controller extends GameObservable {
 
     /**
      * Draw all collidable objects with a red outline.
-     * 
+     *
      * @param g
      *            Graphics handler from Slick2D
      */
