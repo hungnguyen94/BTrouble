@@ -1,11 +1,7 @@
 package com.sem.btrouble.view;
 
-import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.TrueTypeFont;
-import org.newdawn.slick.Input;
-import org.newdawn.slick.Graphics;
+import org.newdawn.slick.*;
+import org.newdawn.slick.gui.MouseOverArea;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
@@ -28,6 +24,12 @@ public class ShopView extends BasicGameState {
     private Image background;
     private TrueTypeFont font;
     private PowerUp power;
+    private int receiptBubbles = 0;
+    private int receiptTime = 0;
+    private int receiptLife = 0;
+    MouseOverArea bubblesButton;
+    MouseOverArea timeButton;
+    MouseOverArea lifeButton;
 
     /**
      * Initialize method of the slick2d library.
@@ -40,19 +42,15 @@ public class ShopView extends BasicGameState {
      *             when the game could not be initialized.
      */
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
+        //Set objects to draw
         background = new Image("Sprites/store1280x720.png");
-        // load font from a .ttf file
-        try {
-            InputStream inputStream = ResourceLoader.getResourceAsStream("Sprites/IndieFlower.ttf");
 
-            java.awt.Font awtFont = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT,
-                    inputStream);
-            awtFont = awtFont.deriveFont(24f); // set font size
-            font = new TrueTypeFont(awtFont, false);
+        //Buttons
+        bubblesButton = new MouseOverArea(gc,new Image("Sprites/bubbles_button.jpg"), 170, 80);
+        timeButton = new MouseOverArea(gc,new Image("Sprites/time_button.jpg"), 187, 230);
+        lifeButton = new MouseOverArea(gc,new Image("Sprites/life_button.jpg"), 154, 391);
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        loadFont();
     }
 
     /**
@@ -76,28 +74,22 @@ public class ShopView extends BasicGameState {
 
         // Buttons
         if (gc.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
-            float mouseX = gc.getInput().getMouseX();
-            float mouseY = gc.getInput().getMouseY();
-            if (mouseX > 175 && mouseX < 700) {
-                if (mouseY > 80 && mouseY < 155) {
-                    if(GameView.getWallet().getValue() >= 2500) {
-                        GameView.getWallet().decreaseValue(2500);
-                        power = new SlowPowerUp();
-                        GameView.getController().addObserver((Observer) power);
-                        Model.addPowerUp(power);
-                    }
-                } else if (mouseY > 230 && mouseY < 320) {
-                    if(GameView.getWallet().getValue() >= 2500) {
-                        GameView.getWallet().decreaseValue(2500);
-                        power = new TimePowerUp();
-                        Model.addPowerUp(power);
-                    }
-                } else if (mouseY > 390 && mouseY < 475 
-                        && GameView.getWallet().getValue() >= 10000) {
-                    GameView.getWallet().decreaseValue(10000);
-                    power = new LifePowerUp();
-                    Model.addPowerUp(power);
-                }
+            if (bubblesButton.isMouseOver() && GameView.getWallet().getValue() >= 2500) {
+                GameView.getWallet().decreaseValue(2500);
+                power = new SlowPowerUp();
+                GameView.getController().addObserver((Observer) power);
+                Model.addPowerUp(power);
+                receiptBubbles++;
+            } else if (timeButton.isMouseOver() && GameView.getWallet().getValue() >= 2500) {
+                GameView.getWallet().decreaseValue(2500);
+                power = new TimePowerUp();
+                Model.addPowerUp(power);
+                receiptTime++;
+            } else if (lifeButton.isMouseOver() && GameView.getWallet().getValue() >= 10000) {
+                GameView.getWallet().decreaseValue(10000);
+                power = new LifePowerUp();
+                Model.addPowerUp(power);
+                receiptLife++;
             }
         }
     }
@@ -118,10 +110,30 @@ public class ShopView extends BasicGameState {
             throws SlickException {
         graphics.setFont(font);
         background.draw(0f, 0f);
-        String score = "" + GameView.getWallet().getValue();
 
-        graphics.drawString(score, 70, 660);
+        graphics.drawString("" + GameView.getWallet().getValue(), 70, 660);
         graphics.drawString("Press enter", 1000, 660);
+        graphics.drawString("" + receiptBubbles, 1175, 520);
+        graphics.drawString("" + receiptTime, 1175, 570);
+        graphics.drawString("" + receiptLife, 1175, 620);
+    }
+
+    /**
+     * Loads the game font into a TrueTypeFont object to be used by the setFont method.
+     */
+    private void loadFont() {
+        // load font from a .ttf file
+        try {
+            InputStream inputStream = ResourceLoader.getResourceAsStream("Sprites/IndieFlower.ttf");
+
+            java.awt.Font awtFont = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT,
+                    inputStream);
+            awtFont = awtFont.deriveFont(24f); // set font size
+            font = new TrueTypeFont(awtFont, false);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**

@@ -37,6 +37,8 @@ public class Bubble extends Circle implements Drawable, Collidable {
     private static final float INITIAL_HORIZONTAL_SPEED = 3f;
     // factor of acceleration that the bubbles go up with when hit with a rope
     private static final int HIT_SPEED_FACTOR = 30;
+    //
+    private static final int BUBBLE_SCORE = 1000;
 
     /**
      * Bubble class, containing all the data about the bubble.
@@ -368,6 +370,7 @@ public class Bubble extends Circle implements Drawable, Collidable {
                 split();
                 Rope rope = (Rope) collider;
                 rope.setCollided(true);
+                GameView.getWallet().increaseValue(BUBBLE_SCORE);
             }
         });
         return collisionActionMap;

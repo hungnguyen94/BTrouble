@@ -14,7 +14,6 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.util.ResourceLoader;
 
 import java.io.InputStream;
@@ -23,7 +22,6 @@ import java.io.InputStream;
  * Created by rubenwiersma on 18-09-15.
  */
 public class View {
-    private Image background;
     private TrueTypeFont font;
     private GameContainer gc;
     private Timers timers;
@@ -117,7 +115,7 @@ public class View {
             player.draw(graphics);
         }
     }
-    
+
     /**
      * draw powers on screen.
      * @param graphics the graphics
@@ -140,8 +138,6 @@ public class View {
             graphics.setAntiAlias(true);
             graphics.setColor(Color.black);
             graphics.fill(bubble);
-            graphics.draw(bubble);
-            graphics.setColor(Color.red);
         }
     }
 
@@ -172,7 +168,7 @@ public class View {
         SpriteSheet livesImage = new SpriteSheet("Sprites/lives_spritesheet.jpg", 381, 171);
         int lives = Model.getPlayers().get(0).getLives();
         if (lives >= 0) {
-            livesImage.getSprite(lives, 0).draw(225, 851, (float) 0.286);
+            livesImage.getSprite(lives, 0).draw(190, 670, (float) 0.286);
         }
     }
 
@@ -186,8 +182,8 @@ public class View {
      */
     private void drawScore(Graphics graphics) throws SlickException {
         graphics.setColor(Color.white);
-        String score = "" + Model.getPlayers().get(0).getScore();
-        graphics.drawString(score, 891 - font.getWidth(score), 851);
+        String score = "" + GameView.getWallet().getValue();
+        graphics.drawString(score, 1090 - font.getWidth(score), 670);
     }
 
     /**
