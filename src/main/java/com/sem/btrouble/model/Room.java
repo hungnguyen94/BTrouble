@@ -3,8 +3,6 @@ package com.sem.btrouble.model;
 import com.sem.btrouble.controller.Collidable;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.geom.Shape;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -171,7 +169,8 @@ public class Room implements Serializable, Drawable {
             for (Collidable f : moveableBorders) {
                 if (f instanceof Floor) {
                     Floor that = (Floor) f;
-                    that.moveUp();
+                    that.grow(0f, 0.1f);
+                    that.setY(630f - that.getHeight());
                 }
             }
         }
@@ -206,7 +205,7 @@ public class Room implements Serializable, Drawable {
         walls.add(new Wall(1260, 0, 20, 720));
         floors.clear();
         floors.add(new Floor(0, 720 - ((720 / 100) * 14),
-                1280, 50));
+                1280, 10));
         floors.add(new Floor(0, 0, 1280, 50));
         bubbles.clear();
         bubbles.add(new Bubble(2, 1280 / 2, 200));
@@ -223,10 +222,10 @@ public class Room implements Serializable, Drawable {
         walls.add(new Wall(Model.getRoomWidth(), 0, 20, Model.getRoomHeight()));
         floors.clear();
         Floor fTemp = new Floor(0, Model.getRoomHeight() - ((Model.getRoomHeight() / 100) * 14),
-                Model.getRoomWidth(), 50);
+                Model.getRoomWidth(), 10);
         floors.add(fTemp);
         moveableBorders.add(fTemp);
-        floors.add(new Floor(0, 0, 1123, 50));
+        floors.add(new Floor(0, 0, 1280, 50));
         bubbles.clear();
         bubbles.add(new Bubble(2, Model.getRoomWidth() / 5, 200));
         bubbles.add(new Bubble(2, Model.getRoomWidth() - 100, 250));
@@ -245,11 +244,12 @@ public class Room implements Serializable, Drawable {
         graphics.setColor(Color.blue);
         for (Wall w : walls) {
             w.draw(graphics);
-            //graphics.fillRect(w.getX(), w.getY(), 5, w.getHeight());
         }
         for (Floor f : floors) {
             f.draw(graphics);
-            //graphics.fillRect(f.getX(), f.getY(), f.getWidth(), 5);
+        }
+        for (Bubble b: bubbles) {
+            b.draw(graphics);
         }
     }
 

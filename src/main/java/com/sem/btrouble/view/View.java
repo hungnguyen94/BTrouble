@@ -62,13 +62,13 @@ public class View {
         drawCountDown(graphics);
         drawPlayers(graphics);
         drawPowers(graphics);
-        drawBubbles(graphics);
+//        drawBubbles(graphics);
         drawTimer(graphics);
         drawBorders(graphics);
 
         drawLives();
         drawScore(graphics);
-        drawDebug(graphics);
+        //drawDebug(graphics);
     }
 
     /**

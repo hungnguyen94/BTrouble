@@ -4,6 +4,7 @@ import com.sem.btrouble.controller.Collidable;
 import com.sem.btrouble.controller.CollisionAction;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -103,6 +104,6 @@ public abstract class PowerUp extends Rectangle implements Collidable {
      */
     @Override
     public boolean intersectsCollidable(Collidable collidable) {
-        return false;
+        return intersects((Shape) collidable);
     }
 }

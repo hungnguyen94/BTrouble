@@ -278,7 +278,7 @@ public class Bubble extends Circle implements Drawable, Collidable {
      */
     @Override
     public void draw(Graphics graphics) {
-        graphics.setColor(Color.red);
+        graphics.setColor(Color.black);
         graphics.fill(this);
         graphics.draw(this);
     }

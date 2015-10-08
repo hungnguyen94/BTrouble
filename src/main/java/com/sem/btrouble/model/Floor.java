@@ -71,10 +71,8 @@ public class Floor extends Rectangle implements Drawable, Collidable {
      */
     @Override
     public void draw(Graphics graphics) {
-        graphics.setColor(Color.red);
-        graphics.setLineWidth(2);
-        graphics.draw(this);
-        graphics.setLineWidth(1);
+        graphics.setColor(Color.black);
+        graphics.fillRect(getX(), getY(), getWidth(), getHeight());
     }
 
     /**
