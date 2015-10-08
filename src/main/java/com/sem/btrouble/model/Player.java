@@ -229,7 +229,7 @@ public class Player extends Rectangle implements Drawable, Collidable {
         } else {
             vy = 0;
         }
-        //idle = true;
+        idle = true;
     }
 
     /**
