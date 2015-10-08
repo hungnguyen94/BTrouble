@@ -1,17 +1,23 @@
 package com.sem.btrouble.model;
 
+import com.sem.btrouble.controller.Collidable;
+import com.sem.btrouble.controller.CollisionAction;
+import com.sem.btrouble.controller.CollisionHandler;
 import com.sem.btrouble.event.BubbleEvent;
 import com.sem.btrouble.view.GameView;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Circle;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Bubble is a model, which represents the bubbles in the game.
  *
  */
 @SuppressWarnings("serial")
-public class Bubble extends Circle implements Drawable{
+public class Bubble extends Circle implements Drawable, Collidable {
     private int size;
 
     // actual size of a level one bubble in the game in pixels.
@@ -270,5 +276,93 @@ public class Bubble extends Circle implements Drawable{
         graphics.setColor(Color.red);
         graphics.fill(this);
         graphics.draw(this);
+    }
+
+    /**
+     * Get a map of the actions on collisions.
+     *
+     * @return A map with all actions this collidable can do on a collision.
+     */
+    @Override
+    public Map<Class<? extends Collidable>, CollisionAction> getCollideActions() {
+        Map<Class<? extends Collidable>, CollisionAction> collisionActionMap = new HashMap<Class<? extends Collidable>, CollisionAction>();
+
+        // Method called on Wall collision
+        collisionActionMap.put(Wall.class, new CollisionAction() {
+            @Override
+            public void onCollision(Collidable wall) {
+                switch(CollisionHandler.checkCollisionSideX(Bubble.this, wall)) {
+                    case LEFT:
+                        bounceX(true);
+                        break;
+                    case RIGHT:
+                        bounceX(false);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+
+        // Method called on Floor collision
+        collisionActionMap.put(Floor.class, new CollisionAction() {
+            @Override
+            public void onCollision(Collidable floor) {
+                switch(CollisionHandler.checkCollisionSideY(Bubble.this, floor)) {
+                    case TOP:
+                        bounceYFloor();
+                        break;
+                    case BOTTOM:
+                        bounceY();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+
+        // Method called on Bubble collision
+        collisionActionMap.put(Bubble.class, new CollisionAction() {
+            @Override
+            public void onCollision(Collidable b) {
+                Bubble bubble = (Bubble) b;
+                switch(CollisionHandler.checkCollisionSideX(Bubble.this, bubble)) {
+                    case LEFT:
+                        Bubble.this.bounceX(true);
+                        bubble.bounceX(false);
+                        break;
+                    case RIGHT:
+                        Bubble.this.bounceX(false);
+                        bubble.bounceX(true);
+                        break;
+                    default:
+                        break;
+                }
+                switch(CollisionHandler.checkCollisionSideY(Bubble.this, bubble)) {
+                    case TOP:
+                        Bubble.this.bounceY(true);
+                        bubble.bounceY(false);
+                        break;
+                    case BOTTOM:
+                        Bubble.this.bounceY(false);
+                        bubble.bounceY(true);
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+        });
+
+        // Method called on Rope collision
+        collisionActionMap.put(Rope.class, new CollisionAction() {
+            @Override
+            public void onCollision(Collidable collider) {
+                split();
+                Rope rope = (Rope) collider;
+                rope.setCollided(true);
+            }
+        });
+        return collisionActionMap;
     }
 }

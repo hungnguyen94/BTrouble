@@ -1,14 +1,20 @@
 package com.sem.btrouble.model;
 
+import com.sem.btrouble.controller.Collidable;
+import com.sem.btrouble.controller.CollisionAction;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Class representing a floor.
  */
 @SuppressWarnings("serial")
-public class Floor extends Rectangle implements Drawable {
+public class Floor extends Rectangle implements Drawable, Collidable {
 
     private float speed;
     private final float defaultspeed = 0.1f;
@@ -69,5 +75,15 @@ public class Floor extends Rectangle implements Drawable {
         graphics.setLineWidth(2);
         graphics.draw(this);
         graphics.setLineWidth(1);
+    }
+
+    /**
+     * Get a map of the actions on collisions.
+     *
+     * @return A map of all actions this collidable can do on a collision.
+     */
+    @Override
+    public Map<Class<? extends Collidable>, CollisionAction> getCollideActions() {
+        return new HashMap<Class<? extends Collidable>, CollisionAction>();
     }
 }

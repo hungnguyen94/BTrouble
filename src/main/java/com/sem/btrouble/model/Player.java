@@ -1,5 +1,8 @@
 package com.sem.btrouble.model;
 
+import com.sem.btrouble.controller.Collidable;
+import com.sem.btrouble.controller.CollisionAction;
+import com.sem.btrouble.controller.CollisionHandler;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -10,14 +13,16 @@ import org.newdawn.slick.geom.Shape;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.Map;
 
 /**
  * Player class, containing all the data about the player.
  *
  */
 @SuppressWarnings("serial")
-public class Player extends Rectangle implements Drawable{
+public class Player extends Rectangle implements Drawable, Collidable {
     private int lives;
     private int score;
 
@@ -220,12 +225,12 @@ public class Player extends Rectangle implements Drawable{
      *
      */
     public void move() {
-        if (isFalling())
+        if (isFalling()) {
             fall();
-        else
+        } else {
             vy = 0;
-
-        idle = true;
+        }
+        //idle = true;
     }
 
     /**
@@ -297,5 +302,51 @@ public class Player extends Rectangle implements Drawable{
     public void fall() {
         y += vy;
         vy += ay;
+    }
+
+    /**
+     * Get a map of the actions on collisions.
+     *
+     * @return A map of all actions this collidable can do on a collision.
+     */
+    @Override
+    public Map<Class<? extends Collidable>, CollisionAction> getCollideActions() {
+        Map<Class<? extends Collidable>, CollisionAction> collisionActionMap = new HashMap<Class<? extends Collidable>, CollisionAction>();
+
+        // Method called on Bubble collision.
+        collisionActionMap.put(Bubble.class, new CollisionAction() {
+            @Override
+            public void onCollision(Collidable collider) {
+                setAlive(false);
+            }
+        });
+
+        // Method called on Wall collision
+        collisionActionMap.put(Wall.class, new CollisionAction() {
+            @Override
+            public void onCollision(Collidable collider) {
+                switch (CollisionHandler.checkCollisionSideX(Player.this, collider)) {
+                    case LEFT:
+                        setRightBlocked(true);
+                        break;
+                    case RIGHT:
+                        setLeftBlocked(true);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+
+        // Method called on Floor collision.
+        collisionActionMap.put(Floor.class, new CollisionAction() {
+            @Override
+            public void onCollision(Collidable collider) {
+                setFalling(false);
+                setY(collider.getY() - getHeight());
+            }
+        });
+
+        return collisionActionMap;
     }
 }
