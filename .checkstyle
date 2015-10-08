@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<fileset-config file-format-version="1.2.0" simple-config="false" sync-formatter="false">
-  <local-check-config name="SEM" location="C:\Users\Martin\sem\checkstyle.xml" type="external" description="">
-    <additional-data name="protect-config-file" value="true"/>
-  </local-check-config>
-</fileset-config>

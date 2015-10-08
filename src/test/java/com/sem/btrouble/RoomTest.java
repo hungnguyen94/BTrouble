@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Collection;
 
+import com.sem.btrouble.controller.Collidable;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -146,7 +147,7 @@ public class RoomTest {
     @Test
     public void getCollidablesTest() {
         room.addBubble(bubble);
-        Collection<Shape> collection = room.getCollidables();
+        Collection<Collidable> collection = room.getCollidables();
         assertEquals(1, collection.size());
         assertTrue(collection.contains(bubble));
     }

@@ -14,6 +14,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.util.ResourceLoader;
 
 import java.io.InputStream;
@@ -22,6 +23,7 @@ import java.io.InputStream;
  * Created by rubenwiersma on 18-09-15.
  */
 public class View {
+    private Image background;
     private TrueTypeFont font;
     private GameContainer gc;
     private Timers timers;
@@ -60,20 +62,20 @@ public class View {
      * 
      * @param graphics
      *            Graphics object from Slick2D
-     * @throws SlickException occurs when graphics are invalid
+     * @throws SlickException
      */
     public void draw(Graphics graphics) throws SlickException {
         drawBackground(graphics);
         drawCountDown(graphics);
-        drawPlayers();
-        drawPowers();
-        drawBubbles(graphics);
+        drawPlayers(graphics);
+        drawPowers(graphics);
+//        drawBubbles(graphics);
         drawTimer(graphics);
         drawBorders(graphics);
 
         drawLives();
         drawScore(graphics);
-        drawDebug(graphics);
+        //drawDebug(graphics);
     }
 
     /**
@@ -107,23 +109,22 @@ public class View {
 
     /**
      * Draw players on screen.
-     * @param g the graphics
+     * @param graphics the graphics
      * @throws SlickException occurs when graphics are invalid
      */
-    private void drawPlayers() throws SlickException {
+    private void drawPlayers(Graphics graphics) throws SlickException {
         for (Player player : Model.getPlayers()) {
-            player.draw();
+            player.draw(graphics);
         }
     }
     
     /**
      * draw powers on screen.
      * @param graphics the graphics
-     * @throws SlickException occurs when the graphics are invalid
      */
-    private void drawPowers() throws SlickException {
+    private void drawPowers(Graphics graphics) {
     	for (PowerUp power : Model.getShortPower()) {
-    		power.draw();
+    		power.draw(graphics);
     	}
     }
 
@@ -133,6 +134,7 @@ public class View {
      * @param graphics
      *            Graphics object from Slick2D
      */
+    @Deprecated
     private void drawBubbles(Graphics graphics) {
         for (Bubble bubble : Model.getCurrentRoom().getBubbles()) {
             graphics.setAntiAlias(true);

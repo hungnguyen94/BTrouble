@@ -1,12 +1,20 @@
 package com.sem.btrouble.model;
 
+import com.sem.btrouble.controller.Collidable;
+import com.sem.btrouble.controller.CollisionAction;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Class representing a floor.
  */
 @SuppressWarnings("serial")
-public class Floor extends Rectangle {
+public class Floor extends Rectangle implements Drawable, Collidable {
 
     private float speed;
     private static final float DEFAULT_SPEED = 0.1f;
@@ -54,5 +62,37 @@ public class Floor extends Rectangle {
      */
     public void moveDown() {
         y += speed;
+    }
+
+    /**
+     * Draw the object.
+     *
+     * @param graphics
+     */
+    @Override
+    public void draw(Graphics graphics) {
+        graphics.setColor(Color.black);
+        graphics.fillRect(getX(), getY(), getWidth(), getHeight());
+    }
+
+    /**
+     * Every collidable should return a Map with all CollisionActions
+     * that collidable should process. To prevent class checking, simply
+     * use the class as the key, and a CollisionAction instance as value.
+     * @return A map of all actions this collidable can do on a collision.
+     */
+    @Override
+    public Map<Class<? extends Collidable>, CollisionAction> getCollideActions() {
+        return new HashMap<Class<? extends Collidable>, CollisionAction>();
+    }
+
+    /**
+     * Checks for intersection with another Collidable.
+     * @param collidable Check if this collidable intersects with that collidable.
+     * @return True if this object intersects with collidable.
+     */
+    @Override
+    public boolean intersectsCollidable(Collidable collidable) {
+        return intersects((Shape) collidable);
     }
 }

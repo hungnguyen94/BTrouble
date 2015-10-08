@@ -1,8 +1,15 @@
 package com.sem.btrouble.model;
 
+import com.sem.btrouble.controller.Collidable;
+import com.sem.btrouble.controller.CollisionAction;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Represents a rope.
@@ -10,7 +17,7 @@ import org.newdawn.slick.geom.Rectangle;
  *
  */
 @SuppressWarnings("serial")
-public class Rope extends Rectangle {
+public class Rope extends Rectangle implements Drawable, Collidable {
     private int dy;
     private static final int INITIAL_ROPESPEED = 5;
     private Image sprite;
@@ -90,8 +97,13 @@ public class Rope extends Rectangle {
      * @throws SlickException
      *             when the Rope could not be drawn.
      */
-    public void draw() throws SlickException {
-        sprite = new Image("Sprites/rope.png");
+    @Override
+    public void draw(Graphics graphics) {
+        try {
+            sprite = new Image("Sprites/rope.png");
+        } catch(SlickException e) {
+            e.printStackTrace();
+        }
         sprite.draw(x - (int) (sprite.getWidth() / 2), y);
     }
 
@@ -108,5 +120,52 @@ public class Rope extends Rectangle {
             dy = 0;
             setCollided(true);
         }
+    }
+
+    /**
+     * Every collidable should return a Map with all CollisionActions
+     * that collidable should process. To prevent class checking, simply
+     * use the class as the key, and a CollisionAction instance as value.
+     * @return A map of all actions this collidable can do on a collision.
+     */
+    @Override
+    public Map<Class<? extends Collidable>, CollisionAction> getCollideActions() {
+        Map<Class<? extends Collidable>, CollisionAction> collisionActionMap = new HashMap<Class<? extends Collidable>, CollisionAction>();
+
+        // Method called on Floor collision.
+        collisionActionMap.put(Floor.class, new CollisionAction() {
+            @Override
+            public void onCollision(Collidable collider) {
+                setCollided(true);
+            }
+        });
+
+        // Method called on Wall collision.
+        collisionActionMap.put(Wall.class, new CollisionAction() {
+            @Override
+            public void onCollision(Collidable collider) {
+                setCollided(true);
+            }
+        });
+
+        // Method called on Wall collision.
+        collisionActionMap.put(Wall.class, new CollisionAction() {
+            @Override
+            public void onCollision(Collidable collider) {
+                setCollided(true);
+            }
+        });
+
+        return collisionActionMap;
+    }
+
+    /**
+     * Checks for intersection with another Collidable.
+     * @param collidable Check if this collidable intersects with that collidable.
+     * @return True if this object intersects with collidable.
+     */
+    @Override
+    public boolean intersectsCollidable(Collidable collidable) {
+        return intersects((Shape) collidable);
     }
 }

@@ -1,8 +1,9 @@
 package com.sem.btrouble.model;
 
+import com.sem.btrouble.controller.Collidable;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Shape;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -18,8 +19,7 @@ import java.util.List;
  * them on the screen.
  *
  */
-@SuppressWarnings("serial")
-public class Room implements Serializable {
+public class Room implements Serializable, Drawable {
     private int spawnPositionX;
     private int spawnPositionY;
 
@@ -27,7 +27,7 @@ public class Room implements Serializable {
     private List<Floor> floors;
     private List<Bubble> bubbles;
 
-    private List<Shape> moveableBorders;
+    private List<Collidable> moveableBorders;
 
     /**
      * Initializes the room with empty objects.
@@ -36,7 +36,7 @@ public class Room implements Serializable {
         walls = new ArrayList<Wall>();
         floors = new ArrayList<Floor>();
         bubbles = new ArrayList<Bubble>();
-        moveableBorders = new ArrayList<Shape>();
+        moveableBorders = new ArrayList<Collidable>();
         spawnPositionX = 0;
         spawnPositionY = 0;
     }
@@ -60,14 +60,14 @@ public class Room implements Serializable {
         this.walls = walls;
         this.floors = floors;
         this.bubbles = bubbles;
-        this.moveableBorders = new ArrayList<Shape>();
+        this.moveableBorders = new ArrayList<Collidable>();
         spawnPositionX = spawnX;
         spawnPositionY = spawnY;
     }
 
     /**
      * Create an exact copy of the current room with the same parameters and
-     * return it.
+     * return 
      * @return - Return a deep copy of the current room.
      */
     public Room copyRoom() {
@@ -100,19 +100,10 @@ public class Room implements Serializable {
     public boolean equals(Object other) {
         if (other instanceof Room) {
             Room that = (Room) other;
-            return this.bubbles.equals(that.bubbles) && this.spawnPositionX == that.spawnPositionX
-                    && this.spawnPositionY == that.spawnPositionY;
+            return (this.bubbles.equals(that.bubbles) && this.spawnPositionX == that.spawnPositionX
+                    && this.spawnPositionY == that.spawnPositionY);
         }
         return false;
-    }
-    
-    /**
-     * HashCode because of implemented equals method.
-     * @return hashCode
-     */
-    public int hashCode() {
-        assert false : "hashCode not designed";
-        return 42; // any arbitrary constant will do
     }
 
     /**
@@ -120,8 +111,8 @@ public class Room implements Serializable {
      * 
      * @return - all collidable objects in a room
      */
-    public Collection<Shape> getCollidables() {
-        ArrayList<Shape> allCollidables = new ArrayList<Shape>();
+    public Collection<Collidable> getCollidables() {
+        ArrayList<Collidable> allCollidables = new ArrayList<Collidable>();
         allCollidables.addAll(walls);
         allCollidables.addAll(floors);
         allCollidables.addAll(bubbles);
@@ -175,10 +166,11 @@ public class Room implements Serializable {
             b.move();
         }
         if (!moveableBorders.isEmpty()) {
-            for (Shape f : moveableBorders) {
+            for (Collidable f : moveableBorders) {
                 if (f instanceof Floor) {
                     Floor that = (Floor) f;
-                    that.moveUp();
+                    that.grow(0f, 0.1f);
+                    that.setY(630f - that.getHeight());
                 }
             }
         }
@@ -206,17 +198,17 @@ public class Room implements Serializable {
      * Method to load a room with default hard coded data.
      */
     public void loadRoom() {
-        spawnPositionX = Model.getRoomWidth() / 2;
+        spawnPositionX = 1280 / 2;
         spawnPositionY = 400;
         walls.clear();
-        walls.add(new Wall(0, 0, 20, Model.getRoomHeight()));
-        walls.add(new Wall(Model.getRoomWidth(), 0, 20, Model.getRoomHeight()));
+        walls.add(new Wall(0, 0, 20, 720));
+        walls.add(new Wall(1260, 0, 20, 720));
         floors.clear();
-        floors.add(new Floor(0, Model.getRoomHeight() - Model.getRoomHeight() / 100 * 14,
-                Model.getRoomWidth(), 50));
-        floors.add(new Floor(0, 0, Model.getRoomWidth(), 50));
+        floors.add(new Floor(0, 720 - ((720 / 100) * 14),
+                1280, 10));
+        floors.add(new Floor(0, 0, 1280, 50));
         bubbles.clear();
-        bubbles.add(new Bubble(2, Model.getRoomWidth() / 2, 200));
+        bubbles.add(new Bubble(2, 1280 / 2, 200));
     }
 
     /**
@@ -229,11 +221,11 @@ public class Room implements Serializable {
         walls.add(new Wall(0, 0, 20, Model.getRoomHeight()));
         walls.add(new Wall(Model.getRoomWidth(), 0, 20, Model.getRoomHeight()));
         floors.clear();
-        Floor fTemp = new Floor(0, Model.getRoomHeight() - Model.getRoomHeight() / 100 * 14,
-                Model.getRoomWidth(), 50);
+        Floor fTemp = new Floor(0, Model.getRoomHeight() - ((Model.getRoomHeight() / 100) * 14),
+                Model.getRoomWidth(), 10);
         floors.add(fTemp);
         moveableBorders.add(fTemp);
-        floors.add(new Floor(0, 0, 1123, 50));
+        floors.add(new Floor(0, 0, 1280, 50));
         bubbles.clear();
         bubbles.add(new Bubble(2, Model.getRoomWidth() / 5, 200));
         bubbles.add(new Bubble(2, Model.getRoomWidth() - 100, 250));
@@ -243,16 +235,25 @@ public class Room implements Serializable {
 
     /**
      * Draw the walls and floors.
-     * 
-     * @param g
-     *            - graphics handler from Slick2D
+     *
+     * @param graphics
      */
-    public void drawRoom(Graphics g) {
+    @Override
+    public void draw(Graphics graphics) {
+        graphics.setColor(Color.blue);
         for (Wall w : walls) {
-            g.fillRect(w.getX(), w.getY(), 5, w.getHeight());
+            w.draw(graphics);
         }
         for (Floor f : floors) {
-            g.fillRect(f.getX(), f.getY(), f.getWidth(), 5);
+            f.draw(graphics);
         }
+        for (Bubble b: bubbles) {
+            b.draw(graphics);
+        }
+    }
+
+    // Old methods
+    public void drawRoom(Graphics g) {
+        draw(g);
     }
 }

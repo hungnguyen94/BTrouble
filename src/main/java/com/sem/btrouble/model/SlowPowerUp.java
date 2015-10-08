@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -81,9 +82,8 @@ public class SlowPowerUp extends PowerUp implements Observer{
     
     /**
      * Draw the power up.
-     * @throws SlickException occurs when image is invalid
      */
-    public void draw() throws SlickException {
+    public void draw(Graphics graphics) {
         try {
             if (playerIdle == null) {
                 playerIdle = new Image("Sprites/powerup_slow.png");

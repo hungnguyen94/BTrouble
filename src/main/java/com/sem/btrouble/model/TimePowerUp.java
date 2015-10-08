@@ -1,5 +1,6 @@
 package com.sem.btrouble.model;
 
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -55,9 +56,8 @@ public class TimePowerUp extends PowerUp {
     
     /**
      * Draw the power up.
-     * @throws SlickException occurs when image is invalid
      */
-    public void draw() throws SlickException {
+    public void draw(Graphics graphics) {
         try {
             if (playerIdle == null) {
                 playerIdle = new Image("Sprites/powerup_time.png");
