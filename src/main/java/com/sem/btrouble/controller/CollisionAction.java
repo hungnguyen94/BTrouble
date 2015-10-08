@@ -5,11 +5,12 @@ import org.newdawn.slick.geom.Shape;
 /**
  * Interface for a collision action.
  */
-public interface CollisionAction<C extends Shape> {
+public interface CollisionAction {
 
     /**
      * Actions that should be performed during
      * collision between two shapes.
+     * @param collidable Collided object.
      */
-    void onCollision();
+    void onCollision(Collidable collidable);
 }
