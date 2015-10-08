@@ -1,7 +1,5 @@
 package com.sem.btrouble.controller;
 
-import org.newdawn.slick.geom.Shape;
-
 import java.util.Map;
 
 /**
@@ -11,7 +9,9 @@ import java.util.Map;
 public interface Collidable {
 
     /**
-     * Get a map of the actions on collisions.
+     * Every collidable should return a Map with all CollisionActions
+     * that collidable should process. To prevent class checking, simply
+     * use the class as the key, and a CollisionAction instance as value.
      * @return A map of all actions this collidable can do on a collision.
      */
     Map<Class<? extends Collidable>, CollisionAction> getCollideActions();
@@ -43,8 +43,9 @@ public interface Collidable {
     float getY();
 
     /**
-     * Checks for intersection with a shape.
-     * @param collidable Check if this collidable intersectsCollidable with that collidable.
+     * Checks for intersection with another Collidable.
+     * @param collidable Check if this collidable intersects with that collidable.
+     * @return True if this object intersects with collidable.
      */
     boolean intersectsCollidable(Collidable collidable);
 

@@ -78,8 +78,9 @@ public class Floor extends Rectangle implements Drawable, Collidable {
     }
 
     /**
-     * Get a map of the actions on collisions.
-     *
+     * Every collidable should return a Map with all CollisionActions
+     * that collidable should process. To prevent class checking, simply
+     * use the class as the key, and a CollisionAction instance as value.
      * @return A map of all actions this collidable can do on a collision.
      */
     @Override
@@ -88,8 +89,9 @@ public class Floor extends Rectangle implements Drawable, Collidable {
     }
 
     /**
-     * Checks for intersection with a shape.
-     * @param collidable Check if this collidable intersectsCollidable with that collidable.
+     * Checks for intersection with another Collidable.
+     * @param collidable Check if this collidable intersects with that collidable.
+     * @return True if this object intersects with collidable.
      */
     @Override
     public boolean intersectsCollidable(Collidable collidable) {
