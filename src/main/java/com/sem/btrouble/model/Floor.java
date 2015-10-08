@@ -17,7 +17,7 @@ import java.util.Map;
 public class Floor extends Rectangle implements Drawable, Collidable {
 
     private float speed;
-    private final float defaultspeed = 0.1f;
+    private static final float DEFAULT_SPEED = 0.1f;
 
     /**
      * Constructor for floor class.
@@ -33,7 +33,7 @@ public class Floor extends Rectangle implements Drawable, Collidable {
      */
     public Floor(float x, float y, float width, float height) {
         super(x, y, width, height);
-        speed = defaultspeed;
+        speed = DEFAULT_SPEED;
     }
 
     /**

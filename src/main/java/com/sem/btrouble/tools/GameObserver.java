@@ -5,6 +5,11 @@ import com.sem.btrouble.event.GameEvent;
 import java.util.Observable;
 import java.util.Observer;
 
+/**
+ * Observe the game.
+ * @author Martin
+ *
+ */
 public class GameObserver implements Observer {
 
     private boolean consoleLog;
@@ -24,6 +29,8 @@ public class GameObserver implements Observer {
     /**
      * Method called when the observed object fires an event, writing the event
      * to the log file.
+     * @param observable object to observe
+     * @param arg the event
      */
     public void update(Observable observable, Object arg) {
         if (arg instanceof GameEvent) {

@@ -2,12 +2,17 @@ package com.sem.btrouble;
 
 import com.sem.btrouble.controller.Collidable;
 import com.sem.btrouble.controller.CollisionHandler;
-import com.sem.btrouble.model.*;
+import com.sem.btrouble.model.Bubble;
+import com.sem.btrouble.model.Player;
+import com.sem.btrouble.model.Floor;
+import com.sem.btrouble.model.Wall;
+import com.sem.btrouble.model.Rope;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.newdawn.slick.geom.Shape;
 
 import java.util.Collection;
 import java.util.HashSet;

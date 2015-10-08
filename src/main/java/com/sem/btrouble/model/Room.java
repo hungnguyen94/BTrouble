@@ -3,6 +3,7 @@ package com.sem.btrouble.model;
 import com.sem.btrouble.controller.Collidable;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.geom.Shape;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -66,8 +67,7 @@ public class Room implements Serializable, Drawable {
 
     /**
      * Create an exact copy of the current room with the same parameters and
-     * return it.
-     * 
+     * return 
      * @return - Return a deep copy of the current room.
      */
     public Room copyRoom() {
@@ -232,7 +232,6 @@ public class Room implements Serializable, Drawable {
         bubbles.add(new Bubble(2, Model.getRoomWidth() - 200, 200));
         bubbles.add(new Bubble(2, Model.getRoomWidth() - 300, 100));
     }
-
 
     /**
      * Draw the walls and floors.

@@ -113,9 +113,9 @@ public class CollisionHandler extends GameObservable {
                 if(selfAction != null) {
                     selfAction.onCollision(collidee);
                 }
-                if(collideeAction != null) {
-                    collideeAction.onCollision(self);
-                }
+//                if(collideeAction != null) {
+//                    collideeAction.onCollision(self);
+//                }
                 collided = true;
             }
         }

@@ -1,17 +1,20 @@
 package com.sem.btrouble.view;
 
-import org.newdawn.slick.*;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.TrueTypeFont;
+import org.newdawn.slick.Input;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.util.ResourceLoader;
 
-import com.sem.btrouble.controller.Controller;
 import com.sem.btrouble.model.LifePowerUp;
 import com.sem.btrouble.model.Model;
 import com.sem.btrouble.model.PowerUp;
-import com.sem.btrouble.model.Room;
 import com.sem.btrouble.model.SlowPowerUp;
 import com.sem.btrouble.model.TimePowerUp;
 
@@ -25,7 +28,6 @@ public class ShopView extends BasicGameState {
     private Image background;
     private TrueTypeFont font;
     private PowerUp power;
-    private Room room;
 
     /**
      * Initialize method of the slick2d library.
@@ -39,8 +41,6 @@ public class ShopView extends BasicGameState {
      */
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         background = new Image("Sprites/store1280x720.png");
-        room = Model.getCurrentRoom();
-        Controller controller = GameView.getController();
         // load font from a .ttf file
         try {
             InputStream inputStream = ResourceLoader.getResourceAsStream("Sprites/IndieFlower.ttf");
@@ -92,12 +92,11 @@ public class ShopView extends BasicGameState {
                         power = new TimePowerUp();
                         Model.addPowerUp(power);
                     }
-                } else if (mouseY > 390 && mouseY < 475) {
-                    if(GameView.getWallet().getValue() >= 10000) {
-                        GameView.getWallet().decreaseValue(10000);
-                        power = new LifePowerUp();
-                        Model.addPowerUp(power);
-                    }
+                } else if (mouseY > 390 && mouseY < 475 
+                        && GameView.getWallet().getValue() >= 10000) {
+                    GameView.getWallet().decreaseValue(10000);
+                    power = new LifePowerUp();
+                    Model.addPowerUp(power);
                 }
             }
         }
@@ -125,6 +124,10 @@ public class ShopView extends BasicGameState {
         graphics.drawString("Press enter", 1000, 660);
     }
 
+    /**
+     * Get the id of the view.
+     * @return the id
+     */
     public int getID() {
         return 2;
     }

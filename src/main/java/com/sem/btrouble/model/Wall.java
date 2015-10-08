@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Class representing a wall
+ * Class representing a wall.
  */
 @SuppressWarnings("serial")
 public class Wall extends Rectangle implements Drawable, Collidable {
@@ -19,7 +19,7 @@ public class Wall extends Rectangle implements Drawable, Collidable {
     private int speed;
 
     /**
-     * Constructor for wall class
+     * Constructor for wall class.
      * 
      * @param x
      *            - X position of the wall
@@ -35,49 +35,60 @@ public class Wall extends Rectangle implements Drawable, Collidable {
         speed = 1;
     }
 
+    /**
+     * Get the x position.
+     * @return the x position
+     */
     public float getX() {
         return x;
     }
 
+    /**
+     * Get the y position.
+     * @return the y position
+     */
     public float getY() {
         return y;
     }
 
     /**
-     * Move the wall X
+     * Move the wall X.
      */
     public void moveX() {
         x += speed;
     }
 
     /**
-     * Move the floor to the right
+     * Move the floor to the right.
      */
     public void moveRight() {
         x += speed;
     }
 
     /**
-     * Move the floor to the left
+     * Move the floor to the left.
      */
     public void moveLeft() {
         x -= speed;
     }
 
     /**
-     * Move the wall up
+     * Move the wall up.
      */
     public void moveUp() {
         y += speed;
     }
 
     /**
-     * Move the wall down
+     * Move the wall down.
      */
     public void moveDown() {
         y -= speed;
     }
 
+    /**
+     * Change the direction of a wall.
+     */
     public void changeDirection() {
         speed = -speed;
     }

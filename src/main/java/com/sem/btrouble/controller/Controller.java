@@ -8,7 +8,6 @@ import com.sem.btrouble.model.Bubble;
 import com.sem.btrouble.model.Model;
 import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.PowerUp;
-import com.sem.btrouble.model.Room;
 import com.sem.btrouble.model.Rope;
 import com.sem.btrouble.model.Timers;
 import com.sem.btrouble.tools.GameObservable;
@@ -34,9 +33,10 @@ public class Controller extends GameObservable {
     private GameContainer gc;
     private StateBasedGame sbg;
     private CollisionHandler collisionHandler;
-    private static Timers timers;
+    private Timers timers;
+    private int timeLeft;
 
-    private final int delay = 100;
+    private static final int DELAY = 100;
 
     /**
      * Starts a new game by loading data into the room and adding the players.
@@ -49,7 +49,7 @@ public class Controller extends GameObservable {
      *             Throws exception on error
      */
     public Controller(GameContainer container, StateBasedGame sbg) throws SlickException {
-        timers = new Timers(delay);
+        timers = new Timers(DELAY);
         this.gc = container;
         this.sbg = sbg;
 
@@ -123,8 +123,14 @@ public class Controller extends GameObservable {
 	        for (PowerUp power: powers) {
 	        	if(collisionHandler.checkCollision(power)) {
 	        		
+	        		if(timeLeft >= timers.getLevelTimeLeft() + 30000) {
+	        			Model.deleteShortPower(power);
+	        		}
 	        	}
 	        	power.move();
+	        	if(!collisionHandler.checkCollision(power)) {
+	        		timeLeft = timers.getLevelTimeLeft();
+	        	}
 	        }
         }
 
@@ -137,7 +143,7 @@ public class Controller extends GameObservable {
         updateBubble();
     }
 
-    private final double ropeoffset = 0.9;
+    private static final double ROPE_OFFSET = 0.9;
 
     /**
      * Move the player on key presses.
@@ -157,7 +163,7 @@ public class Controller extends GameObservable {
 
         if (input.isKeyPressed(Input.KEY_SPACE)) {
             Rope r = new Rope(p1.getX() + (int) (p1.getWidth() / 2),
-                    (float) (p1.getY() + p1.getHeight() * ropeoffset));
+                    (float) (p1.getY() + p1.getHeight() * ROPE_OFFSET));
             if (p1.fire(r)) {
                 collisionHandler.addCollidable(r);
                 fireEvent(new PlayerEvent(p1, PlayerEvent.SHOOT, "Shot a rope"));
