@@ -18,8 +18,7 @@ public class CollisionHandler extends GameObservable {
     /**
      * Draw hitboxes of all objects in collidables.
      *
-     * @param g
-     *            - graphics handler from Slick2D
+     * @param g graphics handler from Slick2D
      */
     public void hitboxDraw(Graphics g) {
         for (Collidable s : collidables) {
@@ -42,8 +41,7 @@ public class CollisionHandler extends GameObservable {
     /**
      * Add a collidable object to the list.
      *
-     * @param c
-     *            - collidable object
+     * @param c collidable object
      */
     public void addCollidable(Collidable c) {
         collidables.add(c);
@@ -52,8 +50,7 @@ public class CollisionHandler extends GameObservable {
     /**
      * Add collection of collidable objects to the list.
      *
-     * @param c
-     *            - collection of collidable objects
+     * @param c collection of collidable objects
      */
     public void addCollidable(Collection<? extends Collidable> c) {
         collidables.addAll(c);
@@ -62,8 +59,7 @@ public class CollisionHandler extends GameObservable {
     /**
      * Remove all collidable objects that are in c.
      *
-     * @param c
-     *            - collection of collidable objects
+     * @param c collection of collidable objects
      */
     public void removeCollidable(Collection<? extends Collidable> c) {
         collidables.removeAll(c);
@@ -72,8 +68,7 @@ public class CollisionHandler extends GameObservable {
     /**
      * Remove a collidable object from the list.
      *
-     * @param c
-     *            - collidable object
+     * @param c collidable object
      */
     public void removeCollidable(Collidable c) {
         collidables.remove(c);
@@ -82,7 +77,7 @@ public class CollisionHandler extends GameObservable {
     /**
      * Get size of list of collidable objects.
      * 
-     * @return - The number of colliable objects
+     * @return The number of colliable objects
      */
     public int getSize() {
         return collidables.size();
@@ -91,9 +86,8 @@ public class CollisionHandler extends GameObservable {
     /**
      * Check if you collide with any object.
      *
-     * @param self
-     *            - object that is checking for collision
-     * @return - true if Collidable has collided
+     * @param self object that is checking for collision.
+     * @return true if Collidable has collided.
      */
     public boolean checkCollision(Collidable self) {
         boolean collided = false;
@@ -109,7 +103,7 @@ public class CollisionHandler extends GameObservable {
             if (self != collidee && self.intersectsCollidable(collidee)) {
                 // If there is no corresponding CollisionAction for this collision, skip it.
                 CollisionAction selfAction = self.getCollideActions().get(collidee.getClass());
-                CollisionAction collideeAction = collidee.getCollideActions().get(self.getClass());
+//                CollisionAction collideeAction = collidee.getCollideActions().get(self.getClass());
                 if(selfAction != null) {
                     selfAction.onCollision(collidee);
                 }
@@ -132,9 +126,8 @@ public class CollisionHandler extends GameObservable {
     /**
      * Check collision for every Collidables in the collection.
      *
-     * @param colliders
-     *            - collection of Collidables
-     * @return - true if collision
+     * @param colliders collection of Collidables.
+     * @return true if collision.
      */
     public boolean checkCollision(Collection<? extends Collidable> colliders) {
         boolean collided = false;
