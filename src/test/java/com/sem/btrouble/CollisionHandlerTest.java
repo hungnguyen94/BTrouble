@@ -51,12 +51,12 @@ public class CollisionHandlerTest {
      */
     @Test
     public void playerCollideBubbleTest() {
-        when(player.intersects(bubble)).thenReturn(true);
+        when(player.intersectsCollidable(bubble)).thenReturn(true);
         collisionHandler.addCollidable(bubble);
         collisionHandler.addCollidable(player);
         assertTrue(collisionHandler.checkCollision(player));
-        verify(player).intersects(bubble);
-        verify(player).setAlive(false);
+        verify(player).intersectsCollidable(bubble);
+        verify(player).getCollideActions();
     }
 
     /**
@@ -66,12 +66,12 @@ public class CollisionHandlerTest {
     public void playerCollideWallSideRightTest() {
         when(player.getCenterX()).thenReturn(-1f);
         when(wall.getCenterX()).thenReturn(1f);
-        when(player.intersects(wall)).thenReturn(true);
+        when(player.intersectsCollidable(wall)).thenReturn(true);
         collisionHandler.addCollidable(player);
         collisionHandler.addCollidable(wall);
         assertTrue(collisionHandler.checkCollision(player));
-        verify(player).intersects(wall);
-        verify(player).setRightBlocked(true);
+        verify(player).intersectsCollidable(wall);
+        verify(player).getCollideActions();
     }
 
     /**
@@ -81,12 +81,12 @@ public class CollisionHandlerTest {
     public void playerCollideWallSideLeftTest() {
         when(player.getCenterX()).thenReturn(1f);
         when(wall.getCenterX()).thenReturn(-1f);
-        when(player.intersects(wall)).thenReturn(true);
+        when(player.intersectsCollidable(wall)).thenReturn(true);
         collisionHandler.addCollidable(player);
         collisionHandler.addCollidable(wall);
         assertTrue(collisionHandler.checkCollision(player));
-        verify(player).intersects(wall);
-        verify(player).setLeftBlocked(true);
+        verify(player).intersectsCollidable(wall);
+        verify(player).getCollideActions();
     }
 
     /**
@@ -94,12 +94,12 @@ public class CollisionHandlerTest {
      */
     @Test
     public void playerCollideFloorTest() {
-        when(player.intersects(floor)).thenReturn(true);
+        when(player.intersectsCollidable(floor)).thenReturn(true);
         collisionHandler.addCollidable(player);
         collisionHandler.addCollidable(floor);
         assertTrue(collisionHandler.checkCollision(player));
-        verify(player).intersects(floor);
-        verify(player).setFalling(false);
+        verify(player).intersectsCollidable(floor);
+        verify(player).getCollideActions();
     }
 
     /**
@@ -109,12 +109,12 @@ public class CollisionHandlerTest {
     public void bubbleCollideWallLeftTest() {
         when(bubble.getCenterX()).thenReturn(1f);
         when(wall.getCenterX()).thenReturn(-1f);
-        when(bubble.intersects(wall)).thenReturn(true);
+        when(bubble.intersectsCollidable(wall)).thenReturn(true);
         collisionHandler.addCollidable(bubble);
         collisionHandler.addCollidable(wall);
         assertTrue(collisionHandler.checkCollision(bubble));
-        verify(bubble).intersects(wall);
-        verify(bubble).bounceX(false);
+        verify(bubble).intersectsCollidable(wall);
+        verify(bubble).getCollideActions();
     }
 
     /**
@@ -124,12 +124,12 @@ public class CollisionHandlerTest {
     public void bubbleCollideWallRightTest() {
         when(bubble.getCenterX()).thenReturn(-1f);
         when(wall.getCenterX()).thenReturn(1f);
-        when(bubble.intersects(wall)).thenReturn(true);
+        when(bubble.intersectsCollidable(wall)).thenReturn(true);
         collisionHandler.addCollidable(bubble);
         collisionHandler.addCollidable(wall);
         assertTrue(collisionHandler.checkCollision(bubble));
-        verify(bubble).intersects(wall);
-        verify(bubble).bounceX(true);
+        verify(bubble).intersectsCollidable(wall);
+        verify(bubble).getCollideActions();
     }
 
     /**
@@ -137,11 +137,12 @@ public class CollisionHandlerTest {
      */
     @Test
     public void bubbleCollideFloorTest() {
-        when(bubble.intersects(floor)).thenReturn(true);
+        when(bubble.intersectsCollidable(floor)).thenReturn(true);
         collisionHandler.addCollidable(bubble);
         collisionHandler.addCollidable(floor);
         assertTrue(collisionHandler.checkCollision(bubble));
-        verify(bubble).intersects(floor);
+        verify(bubble).intersectsCollidable(floor);
+        verify(bubble).getCollideActions();
     }
 
     /**
@@ -149,13 +150,12 @@ public class CollisionHandlerTest {
      */
     @Test
     public void bubbleCollideRopeTest() {
-        when(bubble.intersects(rope)).thenReturn(true);
+        when(bubble.intersectsCollidable(rope)).thenReturn(true);
         collisionHandler.addCollidable(bubble);
         collisionHandler.addCollidable(rope);
         assertTrue(collisionHandler.checkCollision(bubble));
-        verify(bubble).intersects(rope);
-        verify(bubble).split();
-        verify(rope).setCollided(true);
+        verify(bubble).intersectsCollidable(rope);
+        verify(bubble).getCollideActions();
     }
 
     /**
@@ -229,8 +229,8 @@ public class CollisionHandlerTest {
     public void checkCollisionTestTrue() {
         collisionHandler.addCollidable(player);
         collisionHandler.addCollidable(bubble);
-        when(player.intersects(bubble)).thenReturn(true);
-        when(bubble.intersects(player)).thenReturn(true);
+        when(player.intersectsCollidable(bubble)).thenReturn(true);
+        when(bubble.intersectsCollidable(player)).thenReturn(true);
         assertTrue(collisionHandler.checkCollision(player));
         assertTrue(collisionHandler.checkCollision(bubble));
     }
@@ -244,8 +244,8 @@ public class CollisionHandlerTest {
         listCollidables.add(player);
         listCollidables.add(bubble);
         collisionHandler.addCollidable(listCollidables);
-        when(player.intersects(bubble)).thenReturn(true);
-        when(bubble.intersects(player)).thenReturn(true);
+        when(player.intersectsCollidable(bubble)).thenReturn(true);
+        when(bubble.intersectsCollidable(player)).thenReturn(true);
         assertTrue(collisionHandler.checkCollision(listCollidables));
     }
 
