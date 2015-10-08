@@ -14,7 +14,6 @@ import org.newdawn.slick.geom.Shape;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.LinkedHashSet;
 import java.util.Map;
 
 /**
@@ -163,8 +162,8 @@ public class Player extends Rectangle implements Drawable, Collidable {
     /**
      * Remove collided ropes
      */
-    public Collection<Shape> removeCollidedRopes() {
-        LinkedHashSet<Shape> collidedRopes = new LinkedHashSet<Shape>();
+    public Collection<Collidable> removeCollidedRopes() {
+        Collection<Collidable> collidedRopes = new ArrayList<Collidable>();
         for (Rope r : ropes) {
             if (r.isCollided()) {
                 collidedRopes.add(r);
@@ -311,7 +310,8 @@ public class Player extends Rectangle implements Drawable, Collidable {
      */
     @Override
     public Map<Class<? extends Collidable>, CollisionAction> getCollideActions() {
-        Map<Class<? extends Collidable>, CollisionAction> collisionActionMap = new HashMap<Class<? extends Collidable>, CollisionAction>();
+        Map<Class<? extends Collidable>, CollisionAction> collisionActionMap =
+                new HashMap<Class<? extends Collidable>, CollisionAction>();
 
         // Method called on Bubble collision.
         collisionActionMap.put(Bubble.class, new CollisionAction() {
@@ -348,5 +348,15 @@ public class Player extends Rectangle implements Drawable, Collidable {
         });
 
         return collisionActionMap;
+    }
+
+    /**
+     * Checks for intersection with a shape.
+     *
+     * @param collidable Check if this collidable intersectsCollidable with that collidable.
+     */
+    @Override
+    public boolean intersectsCollidable(Collidable collidable) {
+        return this.intersects((Shape) collidable);
     }
 }

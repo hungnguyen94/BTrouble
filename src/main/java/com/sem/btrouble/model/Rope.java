@@ -128,4 +128,13 @@ public class Rope extends Rectangle implements Drawable, Collidable {
 
         return collisionActionMap;
     }
+
+    /**
+     * Checks for intersection with a shape.
+     * @param collidable Check if this collidable intersectsCollidable with that collidable.
+     */
+    @Override
+    public boolean intersectsCollidable(Collidable collidable) {
+        return intersects((Shape) collidable);
+    }
 }

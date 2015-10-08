@@ -1,5 +1,6 @@
 package com.sem.btrouble.model;
 
+import com.sem.btrouble.controller.Collidable;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Shape;
@@ -27,7 +28,7 @@ public class Room implements Serializable, Drawable {
     private List<Floor> floors;
     private List<Bubble> bubbles;
 
-    private List<Shape> moveableBorders;
+    private List<Collidable> moveableBorders;
 
     /**
      * Initializes the room with empty objects.
@@ -36,7 +37,7 @@ public class Room implements Serializable, Drawable {
         walls = new ArrayList<Wall>();
         floors = new ArrayList<Floor>();
         bubbles = new ArrayList<Bubble>();
-        moveableBorders = new ArrayList<Shape>();
+        moveableBorders = new ArrayList<Collidable>();
         spawnPositionX = 0;
         spawnPositionY = 0;
     }
@@ -60,7 +61,7 @@ public class Room implements Serializable, Drawable {
         this.walls = walls;
         this.floors = floors;
         this.bubbles = bubbles;
-        this.moveableBorders = new ArrayList<Shape>();
+        this.moveableBorders = new ArrayList<Collidable>();
         spawnPositionX = spawnX;
         spawnPositionY = spawnY;
     }
@@ -112,8 +113,8 @@ public class Room implements Serializable, Drawable {
      * 
      * @return - all collidable objects in a room
      */
-    public Collection<Shape> getCollidables() {
-        ArrayList<Shape> allCollidables = new ArrayList<Shape>();
+    public Collection<Collidable> getCollidables() {
+        ArrayList<Collidable> allCollidables = new ArrayList<Collidable>();
         allCollidables.addAll(walls);
         allCollidables.addAll(floors);
         allCollidables.addAll(bubbles);
@@ -167,7 +168,7 @@ public class Room implements Serializable, Drawable {
             b.move();
         }
         if (!moveableBorders.isEmpty()) {
-            for (Shape f : moveableBorders) {
+            for (Collidable f : moveableBorders) {
                 if (f instanceof Floor) {
                     Floor that = (Floor) f;
                     that.moveUp();

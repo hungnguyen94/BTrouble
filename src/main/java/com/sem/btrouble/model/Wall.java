@@ -104,4 +104,13 @@ public class Wall extends Rectangle implements Drawable, Collidable {
     public Map<Class<? extends Collidable>, CollisionAction> getCollideActions() {
         return new HashMap<Class<? extends Collidable>, CollisionAction>();
     }
+
+    /**
+     * Checks for intersection with a shape.
+     * @param collidable Check if this collidable intersectsCollidable with that collidable.
+     */
+    @Override
+    public boolean intersectsCollidable(Collidable collidable) {
+        return intersects((Shape) collidable);
+    }
 }
