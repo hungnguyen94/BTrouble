@@ -1,5 +1,6 @@
 package com.sem.btrouble;
 
+import com.sem.btrouble.controller.Collidable;
 import com.sem.btrouble.controller.CollisionHandler;
 import com.sem.btrouble.model.*;
 import org.junit.Before;
@@ -7,7 +8,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.newdawn.slick.geom.Shape;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -20,7 +20,7 @@ import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
 
 /**
- * Created by hung on 22-9-15.
+ * Test for the CollisionHandler
  */
 @RunWith(MockitoJUnitRunner.class)
 public class CollisionHandlerTest {
@@ -163,7 +163,7 @@ public class CollisionHandlerTest {
      */
     @Test
     public void addCollidablesTest() {
-        Collection<Shape> collidables = new HashSet<Shape>();
+        Collection<Collidable> collidables = new HashSet<Collidable>();
         collidables.add(player);
         collidables.add(bubble);
         collisionHandler.addCollidable(collidables);
@@ -178,14 +178,14 @@ public class CollisionHandlerTest {
      */
     @Test
     public void removeCollidablesTest() {
-        Collection<Shape> collidables = new HashSet<Shape>();
+        Collection<Collidable> collidables = new HashSet<Collidable>();
         collidables.add(player);
         collidables.add(bubble);
         collidables.add(wall);
         collisionHandler.addCollidable(collidables);
         assertEquals(collisionHandler.getSize(), collidables.size());
 
-        Collection<Shape> removedCollidables = new HashSet<Shape>();
+        Collection<Collidable> removedCollidables = new HashSet<Collidable>();
         removedCollidables.add(bubble);
         removedCollidables.add(wall);
         collisionHandler.removeCollidable(removedCollidables);
@@ -240,7 +240,7 @@ public class CollisionHandlerTest {
      */
     @Test
     public void checkCollisionListTest() {
-        Collection<Shape> listCollidables = new HashSet<Shape>();
+        Collection<Collidable> listCollidables = new HashSet<Collidable>();
         listCollidables.add(player);
         listCollidables.add(bubble);
         collisionHandler.addCollidable(listCollidables);
