@@ -110,11 +110,16 @@ public class CollisionHandler extends GameObservable {
         HashSet<Collidable> collidablesClone = new HashSet<Collidable>(collidables);
         for (Collidable collidee : collidablesClone) {
             if (self != collidee && self.intersectsCollidable(collidee)) {
-                collided = true;
-                CollisionAction action = self.getCollideActions().get(collidee.getClass());
-                if(action != null) {
-                    action.onCollision(collidee);
+                // If there is no corresponding CollisionAction for this collision, skip it.
+                CollisionAction selfAction = self.getCollideActions().get(collidee.getClass());
+                CollisionAction collideeAction = collidee.getCollideActions().get(self.getClass());
+                if(selfAction != null) {
+                    selfAction.onCollision(collidee);
                 }
+                if(collideeAction != null) {
+                    collideeAction.onCollision(self);
+                }
+                collided = (selfAction != null || collideeAction != null);
             }
         }
         return collided;
