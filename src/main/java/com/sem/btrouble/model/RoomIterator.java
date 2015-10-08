@@ -82,14 +82,6 @@ public class RoomIterator implements Iterator<Room> {
      * call to {@link #next}. The behavior of an iterator is unspecified if the
      * underlying collection is modified while the iteration is in progress in
      * any way other than by calling this method.
-     *
-     * @throws UnsupportedOperationException
-     *             if the {@code remove} operation is not supported by this
-     *             iterator
-     * @throws IllegalStateException
-     *             if the {@code next} method has not yet been called, or the
-     *             {@code remove} method has already been called after the last
-     *             call to the {@code next} method
      */
     public void remove() {
         roomsList.remove(counter--);
@@ -99,8 +91,6 @@ public class RoomIterator implements Iterator<Room> {
      * Returns the next element in the iteration.
      *
      * @return the next element in the iteration
-     * @throws NoSuchElementException
-     *             if the iteration has no more elements
      */
     public Room next() {
         if (hasNext()) {

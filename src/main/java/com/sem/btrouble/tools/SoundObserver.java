@@ -13,14 +13,27 @@ import com.sem.btrouble.event.PlayerEvent;
 
 import java.util.Observer;
 
+/**
+ * Observes the sound.
+ * @author Martin
+ *
+ */
 public class SoundObserver implements Observer {
 
     private Audio wavEffect;
 
+    /**
+     * Construct a sound observer.
+     */
     public SoundObserver() {
 
     }
 
+    /**
+     * Update the sounds.
+     * @param observable the object to observe
+     * @param arg the event
+     */
     public void update(Observable observable, Object arg) {
         if (arg instanceof ControllerEvent) {
             ControllerEvent event = (ControllerEvent) arg;

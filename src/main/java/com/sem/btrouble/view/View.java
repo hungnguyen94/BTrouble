@@ -1,13 +1,19 @@
 package com.sem.btrouble.view;
 
 import com.sem.btrouble.SlickApp;
-import com.sem.btrouble.model.*;
-import org.newdawn.slick.*;
+import com.sem.btrouble.model.Timers;
+import com.sem.btrouble.model.Model;
+import com.sem.btrouble.model.PowerUp;
+import com.sem.btrouble.model.Player;
+import com.sem.btrouble.model.Bubble;
+import org.newdawn.slick.TrueTypeFont;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.util.ResourceLoader;
 
 import java.io.InputStream;
@@ -16,7 +22,6 @@ import java.io.InputStream;
  * Created by rubenwiersma on 18-09-15.
  */
 public class View {
-    private Image background;
     private TrueTypeFont font;
     private GameContainer gc;
     private Timers timers;
@@ -33,7 +38,7 @@ public class View {
     public View(GameContainer gc, Timers timers) {
         this.gc = gc;
         this.timers = timers;
-        timerBar = new Rectangle(200, gc.getHeight() - ((gc.getHeight() / 100) * 12),
+        timerBar = new Rectangle(200, gc.getHeight() - gc.getHeight() / 100 * 12,
                 gc.getWidth() - 400, 25);
 
         // load font from a .ttf file
@@ -55,13 +60,13 @@ public class View {
      * 
      * @param graphics
      *            Graphics object from Slick2D
-     * @throws SlickException
+     * @throws SlickException occurs when graphics are invalid
      */
     public void draw(Graphics graphics) throws SlickException {
         drawBackground(graphics);
         drawCountDown(graphics);
-        drawPlayers(graphics);
-        drawPowers(graphics);
+        drawPlayers();
+        drawPowers();
         drawBubbles(graphics);
         drawTimer(graphics);
         drawBorders(graphics);
@@ -76,6 +81,7 @@ public class View {
      * 
      * @param graphics
      *            Graphics object from Slick2D
+     * @throws SlickException occurs when graphics are invalid
      */
     private void drawBackground(Graphics graphics) throws SlickException {
         graphics.setFont(font);
@@ -101,14 +107,21 @@ public class View {
 
     /**
      * Draw players on screen.
+     * @param g the graphics
+     * @throws SlickException occurs when graphics are invalid
      */
-    private void drawPlayers(Graphics g) throws SlickException {
+    private void drawPlayers() throws SlickException {
         for (Player player : Model.getPlayers()) {
             player.draw();
         }
     }
     
-    private void drawPowers(Graphics graphics) throws SlickException {
+    /**
+     * draw powers on screen.
+     * @param graphics the graphics
+     * @throws SlickException occurs when the graphics are invalid
+     */
+    private void drawPowers() throws SlickException {
     	for (PowerUp power : Model.getShortPower()) {
     		power.draw();
     	}
@@ -183,7 +196,7 @@ public class View {
     }
 
     /**
-     * Draw the borders
+     * Draw the borders.
      * 
      * @param g
      *            - graphics

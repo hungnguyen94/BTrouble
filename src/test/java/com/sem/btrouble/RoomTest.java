@@ -2,7 +2,6 @@ package com.sem.btrouble;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Collection;
@@ -48,7 +47,7 @@ public class RoomTest {
     }
 
     /**
-     * Test the getter of spawn position X
+     * Test the getter of spawn position X.
      */
     @Test
     public void testGetSpawnPositionX() {
@@ -58,7 +57,7 @@ public class RoomTest {
     }
 
     /**
-     * Test the getter of spawn position Y
+     * Test the getter of spawn position Y.
      */
     @Test
     public void testGetSpawnPositionY() {
@@ -68,7 +67,7 @@ public class RoomTest {
     }
 
     /**
-     * Test the getter of the list of bubbles
+     * Test the getter of the list of bubbles.
      */
     @Test
     public void testGetBubbles() {

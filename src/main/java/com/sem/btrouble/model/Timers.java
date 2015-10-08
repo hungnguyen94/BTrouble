@@ -15,10 +15,10 @@ public class Timers {
     private int levelTimerCounter;
     private int countdownCounter;
     // Max duration in seconds * 10
-    private final int levelMaxDuration = 500;
+    private static final int LEVEL_MAX_DURATION = 500;
     // Countdown delay before level starts in seconds * 10
-    private final int countdownMaxDuration = 30;
-    private final int timerSpeed = 100;
+    private static final int COUNTDOWN_MAX_DURATION = 30;
+    private static final int TIMER_SPEED = 100;
 
     /**
      * Constructor for the timers class. Initializes the timers, but doesn't
@@ -28,11 +28,11 @@ public class Timers {
      *            - delay before the timer actually starts.
      */
     public Timers(int delay) {
-        levelTimerCounter = levelMaxDuration;
-        countdownCounter = countdownMaxDuration;
-        levelTimer = new Timer(timerSpeed, new LevelTimerActionListener());
+        levelTimerCounter = LEVEL_MAX_DURATION;
+        countdownCounter = COUNTDOWN_MAX_DURATION;
+        levelTimer = new Timer(TIMER_SPEED, new LevelTimerActionListener());
         levelTimer.setInitialDelay(delay);
-        countdownTimer = new Timer(timerSpeed, new CountdownTimerActionListener());
+        countdownTimer = new Timer(TIMER_SPEED, new CountdownTimerActionListener());
     }
 
     /**
@@ -41,8 +41,8 @@ public class Timers {
     public void restartTimer() {
         levelTimer.stop();
         countdownTimer.stop();
-        levelTimerCounter = levelMaxDuration;
-        countdownCounter = countdownMaxDuration;
+        levelTimerCounter = LEVEL_MAX_DURATION;
+        countdownCounter = COUNTDOWN_MAX_DURATION;
         countdownTimer.restart();
     }
     
@@ -50,32 +50,36 @@ public class Timers {
      * Restarts the game timer without countdown.
      */
     public void restartTimerWithoutCountdown() {
-        levelTimerCounter = levelMaxDuration;
+        levelTimerCounter = LEVEL_MAX_DURATION;
 
     }
 
+    /**
+     * Set the level timer counter.
+     * @param duration duration
+     */
     public void setLevelTimerCounter(int duration) {
         levelTimer.setInitialDelay(duration);
     }
 
     /**
      * Return the amount of time left in the level in milliseconds. Multiplies
-     * the timerSpeed by the Counter to get the time in ms.
+     * the TIMER_SPEED by the Counter to get the time in ms.
      * 
      * @return - time left in the game in milliseconds.
      */
     public int getLevelTimeLeft() {
-        return levelTimerCounter * timerSpeed;
+        return levelTimerCounter * TIMER_SPEED;
     }
 
     /**
      * Returns the max game duration in milliseconds. Multiplies the value with
-     * the timerSpeed to get the time in ms.
+     * the TIMER_SPEED to get the time in ms.
      * 
      * @return - Max time in a level.
      */
     public int getLevelMaxDuration() {
-        return levelMaxDuration * timerSpeed;
+        return LEVEL_MAX_DURATION * TIMER_SPEED;
     }
 
     /**
@@ -84,17 +88,17 @@ public class Timers {
      * @return - countdown value of the countdownTimer in ms
      */
     public int getCountdownTimeLeft() {
-        return countdownCounter * timerSpeed;
+        return countdownCounter * TIMER_SPEED;
     }
 
     /**
      * Returns the max countdown duration in milliseconds. Multiplies the value
-     * with the timerSpeed to get the time in ms.
+     * with the TIMER_SPEED to get the time in ms.
      * 
      * @return - Max countdown time.
      */
     public int getCountdownMaxDuration() {
-        return countdownMaxDuration * timerSpeed;
+        return COUNTDOWN_MAX_DURATION * TIMER_SPEED;
     }
 
     /**
@@ -127,6 +131,10 @@ public class Timers {
      * executed every timer cycle.
      */
     class LevelTimerActionListener implements ActionListener {
+        /**
+         * Perform action.
+         * @param event the event
+         */
         public void actionPerformed(ActionEvent event) {
             // System.out.println("levelTimerCounter: " + levelTimerCounter);
             levelTimerCounter--;
@@ -141,6 +149,10 @@ public class Timers {
      * should be executed every timer cycle.
      */
     class CountdownTimerActionListener implements ActionListener {
+        /**
+         * Perform action.
+         * @param event the event
+         */
         public void actionPerformed(ActionEvent event) {
             // System.out.println("countdownTimerCounter: " + countdownCounter);
             countdownCounter--;

@@ -3,7 +3,6 @@ package com.sem.btrouble.model;
 import com.sem.btrouble.event.BubbleEvent;
 import com.sem.btrouble.view.GameView;
 
-import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
 
 /**
@@ -195,8 +194,9 @@ public class Bubble extends Circle {
     public boolean equals(Object other) {
         if (other instanceof Bubble) {
             Bubble that = (Bubble) other;
-            return (this.size == that.size && this.x == that.x && this.y == that.y
-                    && this.vx == that.vx && this.vy == that.vy);
+            return this.size == that.size && Math.abs(this.x - that.x) == 0 
+                    && Math.abs(this.y - that.y) == 0
+                    && Math.abs(this.vx - that.vx) == 0 && Math.abs(this.vy - that.vy) == 0;
         }
         return false;
     }

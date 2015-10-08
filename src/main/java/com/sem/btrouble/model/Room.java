@@ -18,6 +18,7 @@ import java.util.List;
  * them on the screen.
  *
  */
+@SuppressWarnings("serial")
 public class Room implements Serializable {
     private int spawnPositionX;
     private int spawnPositionY;
@@ -67,7 +68,6 @@ public class Room implements Serializable {
     /**
      * Create an exact copy of the current room with the same parameters and
      * return it.
-     * 
      * @return - Return a deep copy of the current room.
      */
     public Room copyRoom() {
@@ -100,10 +100,19 @@ public class Room implements Serializable {
     public boolean equals(Object other) {
         if (other instanceof Room) {
             Room that = (Room) other;
-            return (this.bubbles.equals(that.bubbles) && this.spawnPositionX == that.spawnPositionX
-                    && this.spawnPositionY == that.spawnPositionY);
+            return this.bubbles.equals(that.bubbles) && this.spawnPositionX == that.spawnPositionX
+                    && this.spawnPositionY == that.spawnPositionY;
         }
         return false;
+    }
+    
+    /**
+     * HashCode because of implemented equals method.
+     * @return hashCode
+     */
+    public int hashCode() {
+        assert false : "hashCode not designed";
+        return 42; // any arbitrary constant will do
     }
 
     /**
@@ -203,7 +212,7 @@ public class Room implements Serializable {
         walls.add(new Wall(0, 0, 20, Model.getRoomHeight()));
         walls.add(new Wall(Model.getRoomWidth(), 0, 20, Model.getRoomHeight()));
         floors.clear();
-        floors.add(new Floor(0, Model.getRoomHeight() - ((Model.getRoomHeight() / 100) * 14),
+        floors.add(new Floor(0, Model.getRoomHeight() - Model.getRoomHeight() / 100 * 14,
                 Model.getRoomWidth(), 50));
         floors.add(new Floor(0, 0, Model.getRoomWidth(), 50));
         bubbles.clear();
@@ -220,7 +229,7 @@ public class Room implements Serializable {
         walls.add(new Wall(0, 0, 20, Model.getRoomHeight()));
         walls.add(new Wall(Model.getRoomWidth(), 0, 20, Model.getRoomHeight()));
         floors.clear();
-        Floor fTemp = new Floor(0, Model.getRoomHeight() - ((Model.getRoomHeight() / 100) * 14),
+        Floor fTemp = new Floor(0, Model.getRoomHeight() - Model.getRoomHeight() / 100 * 14,
                 Model.getRoomWidth(), 50);
         floors.add(fTemp);
         moveableBorders.add(fTemp);

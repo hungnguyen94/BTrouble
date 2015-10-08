@@ -4,6 +4,11 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 
+/**
+ * Represents a rope.
+ * @author Martin
+ *
+ */
 @SuppressWarnings("serial")
 public class Rope extends Rectangle {
     private int dy;
@@ -39,19 +44,42 @@ public class Rope extends Rectangle {
     public boolean equals(Object other) {
         if (other instanceof Rope) {
             Rope that = (Rope) other;
-            return (this.x == that.x && this.y == that.y && this.dy == that.dy);
+            return Math.abs(this.x - that.x) == 0 
+                    && Math.abs(this.y - that.y) == 0 
+                    && Math.abs(this.dy - that.dy) == 0;
         }
         return false;
     }
+    
+    /**
+     * HashCode because of implemented equals method.
+     * @return hashCode
+     */
+    public int hashCode() {
+        assert false : "hashCode not designed";
+        return 42; // any arbitrary constant will do
+    }
 
+    /**
+     * Get the y distance.
+     * @return dy
+     */
     public int getDy() {
         return dy;
     }
 
+    /**
+     * Return if the rope is collided.
+     * @return boolean
+     */
     public boolean isCollided() {
         return collided;
     }
 
+    /**
+     * Set collided.
+     * @param collided boolean
+     */
     public void setCollided(boolean collided) {
         this.collided = collided;
     }
@@ -71,8 +99,9 @@ public class Rope extends Rectangle {
      * Calculates the next position of the Rope.
      */
     public void move() {
-        if (collided)
+        if (collided) {
             return;
+        }
         grow(0, (float) (1.5 * dy));
         y -= 1.5 * dy;
         if (getY() <= 0) {
