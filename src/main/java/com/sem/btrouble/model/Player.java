@@ -72,13 +72,21 @@ public class Player extends Rectangle {
     public boolean equals(Object other) {
         if (other instanceof Player) {
             Player that = (Player) other;
-            return (this.x == that.x && this.y == that.y && this.ropes.equals(that.ropes)
+            return (Math.abs(this.x - that.x) == 0 && Math.abs(this.y - that.y) == 0 && this.ropes.equals(that.ropes)
                     && this.facingLeft == that.facingLeft && this.idle == that.idle
-                    && this.lives == that.lives && this.score == that.score && this.vy == that.vy
+                    && this.lives == that.lives && this.score == that.score && Math.abs(this.vy - that.vy) == 0
                     && this.rightBlocked == that.rightBlocked
                     && this.leftBlocked == that.leftBlocked);
         }
         return false;
+    }
+    
+    /**
+     * HashCode because of implemented equals method.
+     */
+    public int hashCode() {
+        assert false : "hashCode not designed";
+        return 42; // any arbitrary constant will do
     }
 
     /**

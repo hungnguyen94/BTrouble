@@ -37,6 +37,14 @@ public class Resolution {
         }
         return false;
     }
+    
+    /**
+     * HashCode because of implemented equals method.
+     */
+    public int hashCode() {
+        assert false : "hashCode not designed";
+        return 42; // any arbitrary constant will do
+    }
 
     /**
      * This method returns the background for a certain resolution.

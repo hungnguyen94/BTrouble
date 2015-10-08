@@ -105,6 +105,14 @@ public class Room implements Serializable {
         }
         return false;
     }
+    
+    /**
+     * HashCode because of implemented equals method.
+     */
+    public int hashCode() {
+        assert false : "hashCode not designed";
+        return 42; // any arbitrary constant will do
+    }
 
     /**
      * Return all collidable objects in a room.

@@ -55,12 +55,12 @@ public class LifePowerUp extends PowerUp {
         try {
             if (playerIdle == null) {
                 playerIdle = new Image("Sprites/powerup_life.png");
+                playerIdle.draw(getX(), getY(), 50, 100);
             }
         } catch (SlickException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }
-        playerIdle.draw(getX(), getY(), 50, 100);
+        }      
     }
 
 }

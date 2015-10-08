@@ -33,7 +33,7 @@ public class Controller extends GameObservable {
     private GameContainer gc;
     private StateBasedGame sbg;
     private CollisionHandler collisionHandler;
-    private static Timers timers;
+    private Timers timers;
     private int timeLeft;
 
     private final int delay = 100;

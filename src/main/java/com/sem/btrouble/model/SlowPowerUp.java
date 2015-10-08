@@ -87,12 +87,12 @@ public class SlowPowerUp extends PowerUp implements Observer{
         try {
             if (playerIdle == null) {
                 playerIdle = new Image("Sprites/powerup_slow.png");
+                playerIdle.draw(getX(), getY(), 50, 100);
             }
         } catch (SlickException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        playerIdle.draw(getX(), getY(), 50, 100);
     }
 
 }

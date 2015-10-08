@@ -44,9 +44,19 @@ public class Rope extends Rectangle {
     public boolean equals(Object other) {
         if (other instanceof Rope) {
             Rope that = (Rope) other;
-            return (this.x == that.x && this.y == that.y && this.dy == that.dy);
+            return (Math.abs(this.x - that.x) == 0 
+                    && Math.abs(this.y - that.y) == 0 
+                    && Math.abs(this.dy - that.dy) == 0);
         }
         return false;
+    }
+    
+    /**
+     * HashCode because of implemented equals method.
+     */
+    public int hashCode() {
+        assert false : "hashCode not designed";
+        return 42; // any arbitrary constant will do
     }
 
     /**
