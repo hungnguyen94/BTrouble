@@ -181,6 +181,10 @@ public class Bubble extends Circle implements Drawable, Collidable {
             GameView.getController().addBubble(leftBubble);
             GameView.getController().addBubble(rightBubble);
             GameView.getController().removeBubble(this);
+            PowerUp power = PowerUpGenerator.generate(x, y);
+            if(power != null) {
+            	Model.addShortPowerUp(power);
+            }
         } else {
             GameView.getController().removeBubble(this);
         }

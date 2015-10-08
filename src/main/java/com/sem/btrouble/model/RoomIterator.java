@@ -91,7 +91,6 @@ public class RoomIterator implements Iterator<Room> {
      *             {@code remove} method has already been called after the last
      *             call to the {@code next} method
      */
-    @Override
     public void remove() {
         roomsList.remove(counter--);
     }

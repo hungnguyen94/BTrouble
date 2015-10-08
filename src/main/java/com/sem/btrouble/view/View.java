@@ -61,6 +61,7 @@ public class View {
         drawBackground(graphics);
         drawCountDown(graphics);
         drawPlayers(graphics);
+        drawPowers(graphics);
         drawBubbles(graphics);
         drawTimer(graphics);
         drawBorders(graphics);
@@ -105,6 +106,12 @@ public class View {
         for (Player player : Model.getPlayers()) {
             player.draw(g);
         }
+    }
+    
+    private void drawPowers(Graphics graphics) throws SlickException {
+    	for (PowerUp power : Model.getShortPower()) {
+    		power.draw();
+    	}
     }
 
     /**

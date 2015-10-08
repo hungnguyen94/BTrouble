@@ -228,10 +228,10 @@ public class Room implements Serializable, Drawable {
         moveableBorders.add(fTemp);
         floors.add(new Floor(0, 0, 1123, 50));
         bubbles.clear();
-        bubbles.add(new Bubble(5, Model.getRoomWidth() / 5, 200));
-        bubbles.add(new Bubble(5, Model.getRoomWidth() - 100, 250));
-        bubbles.add(new Bubble(5, Model.getRoomWidth() - 200, 200));
-        bubbles.add(new Bubble(5, Model.getRoomWidth() - 300, 100));
+        bubbles.add(new Bubble(2, Model.getRoomWidth() / 5, 200));
+        bubbles.add(new Bubble(2, Model.getRoomWidth() - 100, 250));
+        bubbles.add(new Bubble(2, Model.getRoomWidth() - 200, 200));
+        bubbles.add(new Bubble(2, Model.getRoomWidth() - 300, 100));
     }
 
 

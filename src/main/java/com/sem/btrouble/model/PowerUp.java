@@ -1,73 +1,108 @@
 package com.sem.btrouble.model;
 
-import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
+import com.sem.btrouble.controller.Collidable;
+import com.sem.btrouble.controller.CollisionAction;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Rectangle;
 
-import com.sem.btrouble.event.BubbleEvent;
-import com.sem.btrouble.view.GameView;
+import java.util.HashMap;
+import java.util.Map;
 
-public class PowerUp implements Observer {
+public abstract class PowerUp extends Rectangle implements Collidable {
+	
+	private boolean falling;
+	private float vy;
+	private float ay;
+	
+	public PowerUp() {
+		super(-50, -50, 50, 100);
+	}
+	
+	public PowerUp(float xpos, float ypos) {
+		super(xpos, ypos, 50, 100);
+		this.falling = true;
+		this.vy = 2;
+		this.ay = .3f;
+	}
 
-    private int type;
-
-    public PowerUp(int type) {
-        this.type = type;
+    public abstract void activate();
+    
+    public abstract void reset();
+    
+    public abstract void draw() throws SlickException;
+    
+    public boolean isFalling() {
+        return falling;
+    }
+    
+    public void setFalling(boolean falling) {
+        this.falling = falling;
+    }
+    
+    public void fall() {
+    	float y = getY();
+        float changeY = y += vy;
+        setY(changeY);
+        vy += ay;
+    }
+    
+    public void move() {
+        if (isFalling())
+            fall();
+        else
+            vy = 0;
     }
 
-    public void update(Observable observable, Object arg) {
-        if (arg instanceof BubbleEvent) {
-            BubbleEvent event = (BubbleEvent) arg;
-            if (event.getId() == BubbleEvent.COLLISION_ROPE && type == 1) {
-                slowBubbles(.3f);
+    /**
+     * Every collidable should return a Map with all CollisionActions
+     * that collidable should process. To prevent class checking, simply
+     * use the class as the key, and a CollisionAction instance as value.
+     *
+     * @return A map of all actions this collidable can do on a collision.
+     */
+    @Override
+    public Map<Class<? extends Collidable>, CollisionAction> getCollideActions() {
+        Map<Class<? extends Collidable>, CollisionAction> collisionActionMap =
+                new HashMap<Class<? extends Collidable>, CollisionAction>();
+
+        // Method called on collision with Floor.
+        collisionActionMap.put(Floor.class, new CollisionAction() {
+            @Override
+            public void onCollision(Collidable collider) {
+                PowerUp.this.setFalling(false);
+                PowerUp.this.setY(collider.getY() - getHeight());
             }
-        }
+        });
+
+        // Method called on collision with Player.
+        collisionActionMap.put(Player.class, new CollisionAction() {
+            @Override
+            public void onCollision(Collidable collider) {
+                Player player = (Player) collider;
+                if(!(PowerUp.this instanceof LifePowerUp) && !(PowerUp.this instanceof TimePowerUp)
+                        && player.getLives() < 5) {
+                    PowerUp.this.activate();
+                }
+                if(PowerUp.this instanceof TimePowerUp) {
+                    TimePowerUp timePower = (TimePowerUp) PowerUp.this;
+                    timePower.activateShort();
+                }
+                Model.deleteShortPower(PowerUp.this);
+                System.out.println(Model.getShortPower());
+            }
+        });
+
+        return collisionActionMap;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    /**
+     * Checks for intersection with another Collidable.
+     *
+     * @param collidable Check if this collidable intersects with that collidable.
+     * @return True if this object intersects with collidable.
+     */
+    @Override
+    public boolean intersectsCollidable(Collidable collidable) {
+        return false;
     }
-
-    public void givePower() {
-        switch (type) {
-        case (0):
-            giveExtraLife();
-            break;
-        case (1):
-            slowBubbles(.3f);
-            break;
-        case (2):
-            GameView.getController().getTimers().setLevelTimerCounter(10000);
-            break;
-        default:
-            break;
-        }
-    }
-
-    public void slowBubbles(float speed) {
-        ArrayList<Bubble> bubbles = Model.getBubbles();
-        for (int i = 0; i < bubbles.size(); i++) {
-            bubbles.get(i).setAY(speed);
-        }
-    }
-
-    public void giveExtraLife() {
-        ArrayList<Player> players = Model.getPlayers();
-        players.get(0).addLife();
-    }
-
-    public void erasePower() {
-        switch (type) {
-        case (0):
-            break;
-        case (1):
-            setType(3);
-        case (2):
-            GameView.getController().getTimers().setLevelTimerCounter(100);
-            break;
-        default:
-            break;
-        }
-    }
-
 }
