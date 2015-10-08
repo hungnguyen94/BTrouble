@@ -1,17 +1,24 @@
 package com.sem.btrouble.model;
 
+import com.sem.btrouble.controller.Collidable;
+import com.sem.btrouble.controller.CollisionAction;
+import com.sem.btrouble.controller.CollisionHandler;
 import com.sem.btrouble.event.BubbleEvent;
 import com.sem.btrouble.view.GameView;
-
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Circle;
+import org.newdawn.slick.geom.Shape;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Bubble is a model, which represents the bubbles in the game.
  *
  */
 @SuppressWarnings("serial")
-public class Bubble extends Circle {
+public class Bubble extends Circle implements Drawable, Collidable {
     private int size;
 
     // actual size of a level one bubble in the game in pixels.
@@ -195,8 +202,9 @@ public class Bubble extends Circle {
     public boolean equals(Object other) {
         if (other instanceof Bubble) {
             Bubble that = (Bubble) other;
-            return (this.size == that.size && this.x == that.x && this.y == that.y
-                    && this.vx == that.vx && this.vy == that.vy);
+            return this.size == that.size && Math.abs(this.x - that.x) == 0 
+                    && Math.abs(this.y - that.y) == 0
+                    && Math.abs(this.vx - that.vx) == 0 && Math.abs(this.vy - that.vy) == 0;
         }
         return false;
     }
@@ -264,5 +272,114 @@ public class Bubble extends Circle {
     public String toString() {
         return "Bubble{" + "size=" + size + ", x=" + x + ", y=" + y + ", vx=" + vx + ", vy=" + vy
                 + ", ay=" + ay + '}';
+    }
+
+    /**
+     * Draws the object.
+     */
+    @Override
+    public void draw(Graphics graphics) {
+        graphics.setColor(Color.black);
+        graphics.fill(this);
+        graphics.draw(this);
+    }
+
+    /**
+     * Every collidable should return a Map with all CollisionActions
+     * that collidable should process. To prevent class checking, simply
+     * use the class as the key, and a CollisionAction instance as value.
+     * @return A map of all actions this collidable can do on a collision.
+     */
+    @Override
+    public Map<Class<? extends Collidable>, CollisionAction> getCollideActions() {
+        Map<Class<? extends Collidable>, CollisionAction> collisionActionMap = new HashMap<Class<? extends Collidable>, CollisionAction>();
+
+        // Method called on Wall collision
+        collisionActionMap.put(Wall.class, new CollisionAction() {
+            @Override
+            public void onCollision(Collidable wall) {
+                switch(CollisionHandler.checkCollisionSideX(Bubble.this, wall)) {
+                    case LEFT:
+                        bounceX(true);
+                        break;
+                    case RIGHT:
+                        bounceX(false);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+
+        // Method called on Floor collision
+        collisionActionMap.put(Floor.class, new CollisionAction() {
+            @Override
+            public void onCollision(Collidable floor) {
+                switch(CollisionHandler.checkCollisionSideY(Bubble.this, floor)) {
+                    case TOP:
+                        bounceYFloor();
+                        break;
+                    case BOTTOM:
+                        bounceY();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+
+        // Method called on Bubble collision
+        collisionActionMap.put(Bubble.class, new CollisionAction() {
+            @Override
+            public void onCollision(Collidable b) {
+                Bubble bubble = (Bubble) b;
+                switch(CollisionHandler.checkCollisionSideX(Bubble.this, bubble)) {
+                    case LEFT:
+                        Bubble.this.bounceX(true);
+                        bubble.bounceX(false);
+                        break;
+                    case RIGHT:
+                        Bubble.this.bounceX(false);
+                        bubble.bounceX(true);
+                        break;
+                    default:
+                        break;
+                }
+                switch(CollisionHandler.checkCollisionSideY(Bubble.this, bubble)) {
+                    case TOP:
+                        Bubble.this.bounceY(true);
+                        bubble.bounceY(false);
+                        break;
+                    case BOTTOM:
+                        Bubble.this.bounceY(false);
+                        bubble.bounceY(true);
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+        });
+
+        // Method called on Rope collision
+        collisionActionMap.put(Rope.class, new CollisionAction() {
+            @Override
+            public void onCollision(Collidable collider) {
+                split();
+                Rope rope = (Rope) collider;
+                rope.setCollided(true);
+            }
+        });
+        return collisionActionMap;
+    }
+
+    /**
+     * Checks for intersection with another Collidable.
+     * @param collidable Check if this collidable intersects with that collidable.
+     * @return True if this object intersects with collidable.
+     */
+    @Override
+    public boolean intersectsCollidable(Collidable collidable) {
+        return intersects((Shape) collidable);
     }
 }

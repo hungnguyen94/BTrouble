@@ -11,7 +11,6 @@ import org.newdawn.slick.util.ResourceLoader;
 import com.sem.btrouble.model.LifePowerUp;
 import com.sem.btrouble.model.Model;
 import com.sem.btrouble.model.PowerUp;
-import com.sem.btrouble.model.Room;
 import com.sem.btrouble.model.SlowPowerUp;
 import com.sem.btrouble.model.TimePowerUp;
 
@@ -137,6 +136,10 @@ public class ShopView extends BasicGameState {
         }
     }
 
+    /**
+     * Get the id of the view.
+     * @return the id
+     */
     public int getID() {
         return 2;
     }

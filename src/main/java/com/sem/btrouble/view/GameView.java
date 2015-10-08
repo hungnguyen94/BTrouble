@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import com.sem.btrouble.SlickApp;
 import com.sem.btrouble.controller.Controller;
-import com.sem.btrouble.model.PowerUp;
 import com.sem.btrouble.model.Timers;
 import com.sem.btrouble.model.Wallet;
 import com.sem.btrouble.tools.GameObserver;
@@ -29,7 +28,7 @@ public class GameView extends BasicGameState {
     private static View view;
     private GameObserver observer;
     private SoundObserver soundObserver;
-    private static Audio wavEffect;
+    private Audio wavEffect;
     private static Wallet wallet;
 
     /**
@@ -106,19 +105,35 @@ public class GameView extends BasicGameState {
         view.draw(graphics);
     }
 
+    /**
+     * Get the id of the view.
+     * @return the id.
+     */
     public int getID() {
         return 1;
     }
 
+    /**
+     * Get the controller of the view.
+     * @return the controller.
+     */
     public static Controller getController() {
         return controller;
     }
 
+    /**
+     * Get the wallet of the view.
+     * @return the wallet.
+     */
     public static Wallet getWallet() {
         return wallet;
     }
 
-    public static Audio getWavEffect() {
+    /**
+     * Get the WavEffect of the view.
+     * @return the wavEffect.
+     */
+    public Audio getWavEffect() {
         return wavEffect;
     }
 }

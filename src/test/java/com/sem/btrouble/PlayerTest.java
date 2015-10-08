@@ -138,7 +138,7 @@ public class PlayerTest {
     @Test
     public void equalsFalseRightTest() {
         Player player2 = new Player(1, 1);
-        player2.setRightBlocked(true);
+        player2.setRightBlock(true);
         assertFalse(player.equals(player2));
     }
 
@@ -148,7 +148,7 @@ public class PlayerTest {
     @Test
     public void equalsFalseLeftTest() {
         Player player2 = new Player(1, 1);
-        player2.setLeftBlocked(true);
+        player2.setLeftBlock(true);
         assertFalse(player.equals(player2));
     }
 

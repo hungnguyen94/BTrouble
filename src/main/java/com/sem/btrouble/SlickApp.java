@@ -26,9 +26,7 @@ public class SlickApp extends StateBasedGame {
 
     /**
      * Init the Slickapp.
-     * 
-     * @param gamename
-     *            is the name of the game
+     * @param gamename is the name of the game.
      */
     public SlickApp(String gamename) {
         super(gamename);

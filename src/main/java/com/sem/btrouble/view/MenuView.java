@@ -3,6 +3,7 @@ package com.sem.btrouble.view;
 import com.sem.btrouble.SlickApp;
 import org.newdawn.slick.*;
 import org.newdawn.slick.gui.MouseOverArea;
+import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
@@ -56,11 +57,13 @@ public class MenuView extends BasicGameState {
         if (gc.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON) && audioButton.isMouseOver()) {
             SlickApp.setAudio(!SlickApp.audioOn());
         }
+        GameView gameView = (GameView) sbg.getState(1);
+        Audio wavEffect = gameView.getWavEffect();
         //Activate audio settings
         if(!SlickApp.audioOn()) {
-            GameView.getWavEffect().stop();
-        } else if(!GameView.getWavEffect().isPlaying()) {
-            GameView.getWavEffect().playAsMusic(1.0f, 1.0f, true);
+            wavEffect.stop();
+        } else if(!wavEffect.isPlaying()) {
+            wavEffect.playAsMusic(1.0f, 1.0f, true);
         }
     }
 
@@ -91,6 +94,10 @@ public class MenuView extends BasicGameState {
         graphics.drawString(audioSetting, 500, 410);
     }
 
+    /**
+     * Get the id of the view.
+     * @return the id
+     */
     public int getID() {
         return 0;
     }

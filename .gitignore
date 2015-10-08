@@ -15,6 +15,7 @@ native/
 
 # Eclipse Core
 .project
+.checkstyle
 
 # External tool builders
 .externalToolBuilders/
@@ -55,3 +56,5 @@ target/
 *.orig
 
 log.txt
+
+jar/

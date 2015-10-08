@@ -8,6 +8,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Date;
 
+/**
+ * Class which represents the logger.
+ * @author Martin
+ *
+ */
 public class Logger {
 
     private static FileWriter fw;
