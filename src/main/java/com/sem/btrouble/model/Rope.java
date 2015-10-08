@@ -44,9 +44,9 @@ public class Rope extends Rectangle {
     public boolean equals(Object other) {
         if (other instanceof Rope) {
             Rope that = (Rope) other;
-            return (Math.abs(this.x - that.x) == 0 
+            return Math.abs(this.x - that.x) == 0 
                     && Math.abs(this.y - that.y) == 0 
-                    && Math.abs(this.dy - that.dy) == 0);
+                    && Math.abs(this.dy - that.dy) == 0;
         }
         return false;
     }

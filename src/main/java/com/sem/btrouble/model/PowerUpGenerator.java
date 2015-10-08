@@ -29,10 +29,8 @@ public class PowerUpGenerator {
 				power = new SlowPowerUp(x, y);
 			}
 		}
-		else if (random >= 0.2 && random <= 0.3) {
-			if(types[2] == 0) {
+		else if (random >= 0.2 && random <= 0.3 && types[2] == 0) {
 				power = new LifePowerUp(x, y);
-			}
 		}
 		return power;
 	}

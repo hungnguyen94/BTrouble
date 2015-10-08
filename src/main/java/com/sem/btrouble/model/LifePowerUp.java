@@ -44,7 +44,6 @@ public class LifePowerUp extends PowerUp {
      * Reset the power up.
      */
     public void reset() {
-        return;
     }
     
     /**
