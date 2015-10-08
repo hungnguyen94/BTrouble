@@ -59,6 +59,8 @@ public class View {
      */
     public void draw(Graphics graphics) throws SlickException {
         drawBackground(graphics);
+        drawLives();
+        drawScore(graphics);
         drawCountDown(graphics);
         drawPlayers(graphics);
         drawPowers(graphics);
@@ -66,8 +68,6 @@ public class View {
         drawTimer(graphics);
         drawBorders(graphics);
 
-        drawLives();
-        drawScore(graphics);
         //drawDebug(graphics);
     }
 

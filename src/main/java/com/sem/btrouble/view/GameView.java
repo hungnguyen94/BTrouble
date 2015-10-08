@@ -2,6 +2,7 @@ package com.sem.btrouble.view;
 
 import java.io.IOException;
 
+import com.sem.btrouble.SlickApp;
 import com.sem.btrouble.controller.Controller;
 import com.sem.btrouble.model.PowerUp;
 import com.sem.btrouble.model.Timers;
@@ -28,7 +29,7 @@ public class GameView extends BasicGameState {
     private static View view;
     private GameObserver observer;
     private SoundObserver soundObserver;
-    private Audio wavEffect;
+    private static Audio wavEffect;
     private static Wallet wallet;
 
     /**
@@ -64,6 +65,7 @@ public class GameView extends BasicGameState {
         }
         wavEffect.playAsSoundEffect(1.0f, 1.0f, true);
         SoundStore.get().poll(0);
+
     }
 
     /**
@@ -81,6 +83,9 @@ public class GameView extends BasicGameState {
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
         if (!timers.getCountdownRunning()) {
             controller.update(delta);
+        }
+        if(!SlickApp.audioOn()) {
+            wavEffect.stop();
         }
     }
 
@@ -111,5 +116,9 @@ public class GameView extends BasicGameState {
 
     public static Wallet getWallet() {
         return wallet;
+    }
+
+    public static Audio getWavEffect() {
+        return wavEffect;
     }
 }

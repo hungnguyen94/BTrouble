@@ -19,6 +19,7 @@ import org.newdawn.slick.state.StateBasedGame;
 public class SlickApp extends StateBasedGame {
 
     private static GraphicSettings graphics;
+    private static boolean audioOn = true;
     public static final int SCREEN_WIDTH = 1280;
     public static final int SCREEN_HEIGHT = 720;
     public static final int DEFAULT_FRAMERATE = 60;
@@ -76,5 +77,21 @@ public class SlickApp extends StateBasedGame {
      */
     public static GraphicSettings returnGraphics() {
         return graphics;
+    }
+
+    /**
+     * Sets the audio setting.
+     * @param audioOnSet boolean to set the audio.
+     */
+    public static void setAudio(boolean audioOnSet) {
+        audioOn = audioOnSet;
+    }
+
+    /**
+     * Get the audio setting.
+     * @return a boolean that is true if the audio is on.
+     */
+    public static boolean audioOn() {
+        return audioOn;
     }
 }
