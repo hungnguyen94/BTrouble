@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?><diagram program="umlet" version="12.1">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>470</x>
+      <y>150</y>
+      <w>280</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+LevelSubject
+--
+/registerObserver(o: LevelObserver): void/
+/removeObserver(o: LevelObserver): void/
+/notifyObservers(): void/</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>220</x>
+      <y>170</y>
+      <w>150</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+LevelObserver
+--
+/levelWon(): void/
+/levelLost(): void/</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>500</x>
+      <y>310</y>
+      <w>200</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>Controller
+--
+/notifyObservers(): void/</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>570</x>
+      <y>220</y>
+      <w>50</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>30;30;30;90</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>200</x>
+      <y>350</y>
+      <w>200</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>GameView
+--
+/levelWon(): void/
+/levelLost(): void/</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>260</x>
+      <y>220</y>
+      <w>50</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>30;30;30;130</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>340</x>
+      <y>180</y>
+      <w>150</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;30;130;30</additional_attributes>
+  </element>
+</diagram>
