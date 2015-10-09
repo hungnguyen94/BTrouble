@@ -1,13 +1,14 @@
 package com.sem.btrouble.model;
 
 import com.sem.btrouble.TestState;
+import com.sem.btrouble.observering.LevelObserver;
 
 import java.util.List;
 
 /**
  * Game class.
  */
-public class Game implements Observer {
+public class Game implements LevelObserver {
     private Player player;
     private Level level;
     private Runnable levelThread;

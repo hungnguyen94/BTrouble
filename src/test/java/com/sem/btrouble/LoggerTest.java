@@ -18,6 +18,8 @@ import com.sem.btrouble.tools.Logger;
 @RunWith(MockitoJUnitRunner.class)
 public class LoggerTest {
 
+    private Logger logger;
+    
     @Mock
     private GameEvent event;
 
@@ -26,7 +28,7 @@ public class LoggerTest {
      */
     @Before
     public void test() {
-        Logger.initLog();
+        logger = new Logger(Logger.DEFAULT_LOGGER_PATH, true);
         when(event.toString()).thenReturn("Log");
     }
 
@@ -35,7 +37,7 @@ public class LoggerTest {
      */
     @Test
     public void logTest() {
-        Logger.log(event);
+        logger.update(event);
     }
 
 }

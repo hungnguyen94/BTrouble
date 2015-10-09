@@ -1,11 +1,13 @@
-package com.sem.btrouble.model;
+package com.sem.btrouble.observering;
 
 import java.util.List;
+
+import com.sem.btrouble.model.Drawable;
 
 /**
  * Observer interface. Observers should implement this.
  */
-public interface Observer {
+public interface LevelObserver {
 
     /**
      * This method is called when the observer is notified about a update.

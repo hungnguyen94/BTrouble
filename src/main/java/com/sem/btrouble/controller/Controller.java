@@ -1,5 +1,15 @@
 package com.sem.btrouble.controller;
 
+import java.util.ArrayList;
+
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.FadeInTransition;
+import org.newdawn.slick.state.transition.FadeOutTransition;
+
 import com.sem.btrouble.SlickApp;
 import com.sem.btrouble.event.ControllerEvent;
 import com.sem.btrouble.event.GameEvent;
@@ -10,31 +20,20 @@ import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.PowerUp;
 import com.sem.btrouble.model.Rope;
 import com.sem.btrouble.model.Timers;
-import com.sem.btrouble.tools.GameObservable;
-import com.sem.btrouble.view.GameView;
-
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.state.transition.FadeInTransition;
-import org.newdawn.slick.state.transition.FadeOutTransition;
-
-import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
+import com.sem.btrouble.observering.EventObserver;
+import com.sem.btrouble.observering.EventSubject;
 
 /**
  * Controller, recalculates the Model, on request of the view.
  */
-public class Controller extends GameObservable {
+public class Controller implements EventSubject {
 
     private GameContainer gc;
     private StateBasedGame sbg;
     private CollisionHandler collisionHandler;
     private Timers timers;
     private int timeLeft;
+    private ArrayList<EventObserver> observers;
 
     private static final int DELAY = 100;
 
@@ -52,15 +51,10 @@ public class Controller extends GameObservable {
         timers = new Timers(DELAY);
         this.gc = container;
         this.sbg = sbg;
+        this.observers = new ArrayList<EventObserver>();
 
         collisionHandler = new CollisionHandler();
-        collisionHandler.addObserver(new Observer() {
-            public void update(Observable o, Object arg) {
-                if (arg instanceof GameEvent) {
-                    GameView.getController().fireEvent((GameEvent) arg);
-                }
-            }
-        });
+        collisionHandler.registerObserver(SlickApp.getLogger());
 
         Model.init(SlickApp.SCREEN_WIDTH, SlickApp.SCREEN_HEIGHT);
         Player p = new Player(0, 0);
@@ -117,21 +111,21 @@ public class Controller extends GameObservable {
                 loseLife(p);
             }
         }
-        
+
         ArrayList<PowerUp> powers = Model.getShortPower();
-        if(powers.size() > 0) {
-	        for (PowerUp power: powers) {
-	        	if(collisionHandler.checkCollision(power)) {
-	        		
-	        		if(timeLeft >= timers.getLevelTimeLeft() + 30000) {
-	        			Model.deleteShortPower(power);
-	        		}
-	        	}
-	        	power.move();
-	        	if(!collisionHandler.checkCollision(power)) {
-	        		timeLeft = timers.getLevelTimeLeft();
-	        	}
-	        }
+        if (powers.size() > 0) {
+            for (PowerUp power : powers) {
+                if (collisionHandler.checkCollision(power)) {
+
+                    if (timeLeft >= timers.getLevelTimeLeft() + 30000) {
+                        Model.deleteShortPower(power);
+                    }
+                }
+                power.move();
+                if (!collisionHandler.checkCollision(power)) {
+                    timeLeft = timers.getLevelTimeLeft();
+                }
+            }
         }
 
         for (Player p : Model.getPlayers()) {
@@ -195,7 +189,7 @@ public class Controller extends GameObservable {
         fireEvent(new ControllerEvent(this, ControllerEvent.RESTARTROOM, "Room restarted"));
         Model.restartRoom();
         ArrayList<PowerUp> powers = Model.getPowerUps();
-        for(PowerUp power: powers) {
+        for (PowerUp power : powers) {
             power.reset();
         }
         Model.clearPowerUps();
@@ -260,6 +254,23 @@ public class Controller extends GameObservable {
     public void endGame(String message) {
         fireEvent(new ControllerEvent(this, ControllerEvent.GAMEOVER, message));
         gc.exit();
+    }
+
+    @Override
+    public void fireEvent(GameEvent gameEvent) {
+        for (EventObserver observer : observers) {
+            observer.update(gameEvent);
+        }
+    }
+
+    @Override
+    public void registerObserver(EventObserver observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(EventObserver observer) {
+        observers.remove(observer);
     }
 
 }

@@ -1,16 +1,15 @@
 package com.sem.btrouble.model;
 
-import java.util.Observable;
-import java.util.Observer;
-
 import com.sem.btrouble.event.BubbleEvent;
+import com.sem.btrouble.event.GameEvent;
+import com.sem.btrouble.observering.EventObserver;
 
 /**
  * Represents a wallet.
  * @author Martin
  *
  */
-public class Wallet implements Observer {
+public class Wallet implements EventObserver {
 
     private int value;
 
@@ -50,11 +49,12 @@ public class Wallet implements Observer {
      * @param observable object to observe
      * @param arg the event
      */
-    public void update(Observable observable, Object arg) {
-        if (arg instanceof BubbleEvent) {
-            BubbleEvent event = (BubbleEvent) arg;
+    @Override
+    public void update(GameEvent event) {
+        if (event instanceof BubbleEvent) {
+            BubbleEvent bubbleEvent = (BubbleEvent) event;
             if (event.getId() == BubbleEvent.COLLISION_ROPE) {
-                int value = event.getSubject().getSize();
+                int value = bubbleEvent.getSubject().getSize();
                 increaseValue(value * 1000);
             }
         }

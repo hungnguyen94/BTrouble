@@ -1,19 +1,20 @@
 package com.sem.btrouble.model;
 
-import com.sem.btrouble.controller.CollisionHandler;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+
+import com.sem.btrouble.controller.CollisionHandler;
+import com.sem.btrouble.observering.LevelObserver;
+import com.sem.btrouble.observering.LevelSubject;
 
 /**
  * Level class.
  */
-public class Level implements Subject {
+public class Level implements LevelSubject {
     private Room room;
     private List<Player> players;
     private CollisionHandler collisionHandler;
-    private List<Observer> observersList;
+    private List<LevelObserver> observersList;
     private Timers timer;
 
     /**
@@ -25,7 +26,7 @@ public class Level implements Subject {
         r1.loadRoom();
         this.room = r1;
         this.players = new ArrayList<Player>();
-        this.observersList = new ArrayList<Observer>();
+        this.observersList = new ArrayList<LevelObserver>();
         this.timer = new Timers(0);
         this.collisionHandler = new CollisionHandler();
         this.collisionHandler.addCollidable(room.getCollidables());
@@ -38,7 +39,7 @@ public class Level implements Subject {
     public Level(Room room) {
         this.room = room;
         this.players = new ArrayList<Player>();
-        this.observersList = new ArrayList<Observer>();
+        this.observersList = new ArrayList<LevelObserver>();
         this.timer = new Timers(0);
         this.collisionHandler = new CollisionHandler();
         this.collisionHandler.addCollidable(room.getCollidables());
@@ -98,7 +99,7 @@ public class Level implements Subject {
      * @param observer Observer to be added.
      */
     @Override
-    public void registerObserver(Observer observer) {
+    public void registerObserver(LevelObserver observer) {
         if(observer == null || observersList.contains(observer)) {
             return;
         }
@@ -111,7 +112,7 @@ public class Level implements Subject {
      * @param observer Observer to be removed.
      */
     @Override
-    public void removeObserver(Observer observer) {
+    public void removeObserver(LevelObserver observer) {
         observersList.remove(observer);
     }
 
@@ -120,7 +121,7 @@ public class Level implements Subject {
      */
     @Override
     public void notifyObserver() {
-        for(Observer obj : observersList) {
+        for(LevelObserver obj : observersList) {
             ArrayList<Drawable> drawables = new ArrayList<Drawable>();
             drawables.add(players.get(0));
             drawables.addAll(room.getBubbles());
@@ -130,17 +131,17 @@ public class Level implements Subject {
         }
 
         if(!playersAlive()) {
-            for(Observer obj: observersList) {
+            for(LevelObserver obj: observersList) {
                 obj.levelLost();
             }
         }
         if(!room.hasBubbles()) {
-            for(Observer obj: observersList) {
+            for(LevelObserver obj: observersList) {
                 obj.levelWon();
             }
         }
         if(!timer.getCountdownRunning() && !timer.getLevelTimerRunning()) {
-            for(Observer obj: observersList) {
+            for(LevelObserver obj: observersList) {
                 obj.levelLost();
             }
         }

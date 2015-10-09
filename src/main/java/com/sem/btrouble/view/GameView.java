@@ -2,22 +2,21 @@ package com.sem.btrouble.view;
 
 import java.io.IOException;
 
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.openal.Audio;
+import org.newdawn.slick.openal.AudioLoader;
+import org.newdawn.slick.openal.SoundStore;
+import org.newdawn.slick.state.BasicGameState;
+import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.util.ResourceLoader;
+
 import com.sem.btrouble.SlickApp;
 import com.sem.btrouble.controller.Controller;
 import com.sem.btrouble.model.Timers;
 import com.sem.btrouble.model.Wallet;
-import com.sem.btrouble.tools.GameObserver;
 import com.sem.btrouble.tools.SoundObserver;
-
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.state.BasicGameState;
-import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.openal.Audio;
-import org.newdawn.slick.openal.AudioLoader;
-import org.newdawn.slick.openal.SoundStore;
-import org.newdawn.slick.util.ResourceLoader;
 
 /**
  * Created by rubenwiersma on 22-09-15.
@@ -26,7 +25,6 @@ public class GameView extends BasicGameState {
     private Timers timers;
     private static Controller controller;
     private static View view;
-    private GameObserver observer;
     private SoundObserver soundObserver;
     private Audio wavEffect;
     private static Wallet wallet;
@@ -43,13 +41,12 @@ public class GameView extends BasicGameState {
      */
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         controller = new Controller(gc, sbg);
-        observer = new GameObserver(true);
         soundObserver = new SoundObserver();
         wallet = new Wallet();
 
-        controller.addObserver(soundObserver);
-        controller.addObserver(observer);
-        controller.addObserver(wallet);
+        controller.registerObserver(soundObserver);
+        controller.registerObserver(SlickApp.getLogger());
+        controller.registerObserver(wallet);
 
         timers = controller.getTimers();
         timers.restartTimer();

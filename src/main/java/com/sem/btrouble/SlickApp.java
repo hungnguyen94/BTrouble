@@ -1,35 +1,46 @@
 package com.sem.btrouble;
 
-import com.sem.btrouble.event.ExceptionEvent;
-import com.sem.btrouble.model.GraphicSettings;
-import com.sem.btrouble.tools.Logger;
-import com.sem.btrouble.view.GameView;
-import com.sem.btrouble.view.MenuView;
+import java.util.ArrayList;
 
-import com.sem.btrouble.view.ShopView;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
+import com.sem.btrouble.event.GameEvent;
+import com.sem.btrouble.model.GraphicSettings;
+import com.sem.btrouble.observering.EventObserver;
+import com.sem.btrouble.observering.EventSubject;
+import com.sem.btrouble.tools.Logger;
+import com.sem.btrouble.view.GameView;
+import com.sem.btrouble.view.MenuView;
+import com.sem.btrouble.view.ShopView;
+
 /**
  * Application running the game.
  *
  */
-public class SlickApp extends StateBasedGame {
+public class SlickApp extends StateBasedGame implements EventSubject {
 
     private static GraphicSettings graphics;
     private static boolean audioOn = true;
     public static final int SCREEN_WIDTH = 1280;
     public static final int SCREEN_HEIGHT = 720;
     public static final int DEFAULT_FRAMERATE = 60;
+    private static Logger logger;
+    private ArrayList<EventObserver> observers;
 
     /**
      * Init the Slickapp.
-     * @param gamename is the name of the game.
+     * 
+     * @param gamename
+     *            is the name of the game.
      */
     public SlickApp(String gamename) {
         super(gamename);
+
+        logger = new Logger(Logger.DEFAULT_LOGGER_PATH, true);
+        observers = new ArrayList<EventObserver>();
     }
 
     /**
@@ -49,8 +60,8 @@ public class SlickApp extends StateBasedGame {
             appgc.setTargetFrameRate(DEFAULT_FRAMERATE);
             appgc.setAlwaysRender(true);
             appgc.start();
-        } catch (SlickException ex) {
-            Logger.log(new ExceptionEvent(ex, "initialisation of the game failed."));
+        } catch (SlickException exception) {
+            exception.printStackTrace();
         }
     }
 
@@ -79,7 +90,9 @@ public class SlickApp extends StateBasedGame {
 
     /**
      * Sets the audio setting.
-     * @param audioOnSet boolean to set the audio.
+     * 
+     * @param audioOnSet
+     *            boolean to set the audio.
      */
     public static void setAudio(boolean audioOnSet) {
         audioOn = audioOnSet;
@@ -87,9 +100,31 @@ public class SlickApp extends StateBasedGame {
 
     /**
      * Get the audio setting.
+     * 
      * @return a boolean that is true if the audio is on.
      */
     public static boolean audioOn() {
         return audioOn;
+    }
+
+    public static Logger getLogger() {
+        return logger;
+    }
+
+    @Override
+    public void fireEvent(GameEvent gameEvent) {
+        for (EventObserver observer : observers) {
+            observer.update(gameEvent);
+        }
+    }
+
+    @Override
+    public void registerObserver(EventObserver observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(EventObserver observer) {
+        observers.remove(observer);
     }
 }

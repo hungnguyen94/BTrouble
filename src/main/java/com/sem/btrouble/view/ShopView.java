@@ -15,7 +15,6 @@ import com.sem.btrouble.model.SlowPowerUp;
 import com.sem.btrouble.model.TimePowerUp;
 
 import java.io.InputStream;
-import java.util.Observer;
 
 /**
  * Created by rubenwiersma on 22-09-15.
@@ -77,7 +76,7 @@ public class ShopView extends BasicGameState {
             if (bubblesButton.isMouseOver() && GameView.getWallet().getValue() >= 2500) {
                 GameView.getWallet().decreaseValue(2500);
                 power = new SlowPowerUp();
-                GameView.getController().addObserver((Observer) power);
+//                GameView.getController().registerObserver((Observer) power);
                 Model.addPowerUp(power);
                 receiptBubbles++;
             } else if (timeButton.isMouseOver() && GameView.getWallet().getValue() >= 2500) {

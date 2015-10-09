@@ -1,21 +1,21 @@
-package com.sem.btrouble.model;
+package com.sem.btrouble.observering;
 
 /**
  * Subject interface. Observable classes should implement this.
  */
-public interface Subject {
+public interface LevelSubject {
 
     /**
      * Register an observer to the subject.
      * @param observer Observer to be added.
      */
-    void registerObserver(Observer observer);
+    void registerObserver(LevelObserver observer);
 
     /**
      * Remove an observer from the observers list.
      * @param observer Observer to be removed.
      */
-    void removeObserver(Observer observer);
+    void removeObserver(LevelObserver observer);
 
     /**
      * Method to notify the observers about a change.

@@ -4,16 +4,16 @@ import com.sem.btrouble.TestState;
 import com.sem.btrouble.model.DeepCopyList;
 import com.sem.btrouble.model.Drawable;
 import com.sem.btrouble.model.Level;
-import com.sem.btrouble.model.Observer;
 import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Room;
+import com.sem.btrouble.observering.LevelObserver;
 
 import java.util.List;
 
 /**
  * Game class.
  */
-public class Game implements Observer {
+public class Game implements LevelObserver {
     private Player player;
     private Level level;
     private Runnable levelThread;

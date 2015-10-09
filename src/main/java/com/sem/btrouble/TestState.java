@@ -3,10 +3,11 @@ package com.sem.btrouble;
 import com.sem.btrouble.event.PlayerEvent;
 import com.sem.btrouble.model.Drawable;
 import com.sem.btrouble.model.Game;
-import com.sem.btrouble.model.Observer;
 import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Room;
 import com.sem.btrouble.model.Rope;
+import com.sem.btrouble.observering.LevelObserver;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -26,7 +27,7 @@ import java.util.List;
 /**
  * Test state
  */
-public class TestState extends BasicGameState implements Observer {
+public class TestState extends BasicGameState implements LevelObserver {
     private TrueTypeFont font;
     private List<Drawable> drawables;
     private Image background;
