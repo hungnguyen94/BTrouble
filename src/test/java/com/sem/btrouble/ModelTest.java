@@ -7,6 +7,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import com.sem.btrouble.model.Model;
 import com.sem.btrouble.model.Player;
+import com.sem.btrouble.model.PowerUp;
 import com.sem.btrouble.model.Room;
 
 import java.util.ArrayList;
@@ -28,6 +29,8 @@ public class ModelTest extends Model {
     private Room room;
     @Mock
     private Player player;
+    @Mock
+    private PowerUp power;
 
     /**
      * Set up the model.
@@ -45,6 +48,59 @@ public class ModelTest extends Model {
     @Test
     public void getRoomHeightTest() {
         assertEquals(Model.getRoomHeight(), 720);
+    }
+    
+    /**
+     * Test the getPowerUps method.
+     */
+    @Test
+    public void getPowerUpsTest() {
+        assertEquals(new ArrayList<PowerUp>(), Model.getPowerUps());
+    }
+    
+    /**
+     * Test the addPowerUps method.
+     */
+    @Test
+    public void addPowerUpsTest() {
+        Model.addPowerUp(power);
+        ArrayList<PowerUp> powers = new ArrayList<PowerUp>();
+        powers.add(power);
+        assertEquals(powers, Model.getPowerUps());
+    }
+    
+    /**
+     * Test the clearPowerUps method.
+     */
+    @Test
+    public void clearPowerUpsTest() {
+        Model.addPowerUp(power);
+        ArrayList<PowerUp> powers = new ArrayList<PowerUp>();
+        powers.add(power);
+        Model.clearPowerUps();
+        assertEquals(new ArrayList<PowerUp>(), Model.getPowerUps());
+    }
+    
+    /**
+     * Test the clearShortPower method.
+     */
+    @Test
+    public void clearShortPowerTest() {
+        Model.addShortPowerUp(power);
+        ArrayList<PowerUp> powers = new ArrayList<PowerUp>();
+        powers.add(power);
+        Model.clearShortPower();
+        assertEquals(new ArrayList<PowerUp>(), Model.getShortPower());
+    }
+    
+    /**
+     * Test the deleteShortPower method.
+     */
+    @Test
+    public void deleteShortPowerTest() {
+        Model.addShortPowerUp(power);
+        Model.deleteShortPower(power);
+        assertEquals(new ArrayList<PowerUp>(), Model.getShortPower());
     }
 
     /**

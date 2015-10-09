@@ -12,7 +12,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.newdawn.slick.geom.Shape;
 
 import static org.mockito.Mockito.verify;
 
@@ -129,6 +128,26 @@ public class RoomTest {
     public void equalsBubbleTest() {
         room.addBubble(bubble);
         Room room2 = new Room();
+        assertFalse(room.equals(room2));
+    }
+    
+    /**
+     * Test the equals method with a false x.
+     */
+    @Test
+    public void equalsXTest() {
+        Room room2 = new Room();
+        room2.setSpawnPositionX(10);
+        assertFalse(room.equals(room2));
+    }
+    
+    /**
+     * Test the equals method with a false y.
+     */
+    @Test
+    public void equalsYTest() {
+        Room room2 = new Room();
+        room2.setSpawnPositionY(10);
         assertFalse(room.equals(room2));
     }
 

@@ -34,6 +34,13 @@ public class ResolutionTest {
         resolution.setScreenWidth(2);
         assertEquals(2, resolution.getScreenWidth());
     }
+    
+    /**
+     * Test the hashCode method.
+     */
+    public void hashCodeTest() {
+        assertEquals(42, resolution.hashCode());
+    }
 
     /**
      * Test the setScreenHeight method.
