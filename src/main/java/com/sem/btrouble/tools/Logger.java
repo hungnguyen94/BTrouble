@@ -17,12 +17,18 @@ public class Logger implements EventObserver {
     private FileWriter fw;
     private BufferedWriter bw;
     private boolean doConsoleLog;
-    public static final String DEFAULT_LOGGER_PATH = "log.txt"; 
+    public static final String DEFAULT_LOGGER_PATH = "log.txt";
 
     /**
      * Initializes the logger, opening the file to which the log data is
      * written. This method should be called before any other Logger method is
      * called.
+     * 
+     * @param fileName
+     *            should be a string representing the file name
+     * @param doConsoleLog
+     *            should be a boolean representing whether to write log lines to
+     *            the console.
      */
     public Logger(String fileName, boolean doConsoleLog) {
         try {
@@ -54,7 +60,7 @@ public class Logger implements EventObserver {
             String currentDate = date.toString();
             String temp = currentDate + " " + event.toString();
             bw.write(temp);
-            if(doConsoleLog){
+            if (doConsoleLog) {
                 System.out.println("Log: " + event.toString());
             }
         } catch (IOException e) {

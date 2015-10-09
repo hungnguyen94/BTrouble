@@ -11,6 +11,7 @@ public interface LevelObserver {
 
     /**
      * This method is called when the observer is notified about a update.
+     * @param drawables the objects that should be drawn.
      */
     void update(List<Drawable> drawables);
 
