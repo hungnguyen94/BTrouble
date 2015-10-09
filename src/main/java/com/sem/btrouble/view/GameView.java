@@ -1,7 +1,11 @@
 package com.sem.btrouble.view;
 
-import java.io.IOException;
-
+import com.sem.btrouble.SlickApp;
+import com.sem.btrouble.controller.Controller;
+import com.sem.btrouble.model.Timers;
+import com.sem.btrouble.model.Wallet;
+import com.sem.btrouble.observering.LevelObserver;
+import com.sem.btrouble.tools.SoundObserver;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -10,24 +14,23 @@ import org.newdawn.slick.openal.AudioLoader;
 import org.newdawn.slick.openal.SoundStore;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.FadeInTransition;
+import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.util.ResourceLoader;
 
-import com.sem.btrouble.SlickApp;
-import com.sem.btrouble.controller.Controller;
-import com.sem.btrouble.model.Timers;
-import com.sem.btrouble.model.Wallet;
-import com.sem.btrouble.tools.SoundObserver;
+import java.io.IOException;
 
 /**
  * Created by rubenwiersma on 22-09-15.
  */
-public class GameView extends BasicGameState {
+public class GameView extends BasicGameState implements LevelObserver {
     private Timers timers;
     private static Controller controller;
     private static View view;
     private SoundObserver soundObserver;
     private Audio wavEffect;
     private static Wallet wallet;
+    private StateBasedGame sbg;
 
     /**
      * Initialize method of the slick2d library.
@@ -40,6 +43,8 @@ public class GameView extends BasicGameState {
      *             when the game could not be initialized.
      */
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
+        this.sbg = sbg;
+
         controller = new Controller(gc, sbg);
         soundObserver = new SoundObserver();
         wallet = new Wallet();
@@ -47,6 +52,7 @@ public class GameView extends BasicGameState {
         controller.registerObserver(soundObserver);
         controller.registerObserver(SlickApp.getLogger());
         controller.registerObserver(wallet);
+        controller.registerObserver(this);
 
         timers = controller.getTimers();
         timers.restartTimer();
@@ -132,5 +138,23 @@ public class GameView extends BasicGameState {
      */
     public Audio getWavEffect() {
         return wavEffect;
+    }
+
+    /**
+     * This method is called when a level is won.
+     */
+    @Override
+    public void levelWon() {
+        sbg.enterState(2, new FadeOutTransition(), new FadeInTransition());
+        System.out.println("LEVELWON INVOKED");
+    }
+
+    /**
+     * This method is called when a level is lost.
+     */
+    @Override
+    public void levelLost() {
+        sbg.enterState(4, new FadeOutTransition(), new FadeInTransition());
+        System.out.println("LEVELOST INVOKED");
     }
 }

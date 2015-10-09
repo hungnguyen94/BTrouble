@@ -15,9 +15,12 @@ public class Model {
     private static int currentLevel;
     private static ArrayList<PowerUp> powers = new ArrayList<PowerUp>();
     private static ArrayList<PowerUp> powersshort = new ArrayList<PowerUp>();
+    private static Timers timers;
 
     private static int roomWidth;
     private static int roomHeight;
+
+    private static final int DELAY = 100;
 
     /**
      * Initializes the model. Should be done before any calls to its methods are
@@ -40,6 +43,15 @@ public class Model {
         r2.loadRoom2();
         Model.addRoom(r);
         Model.addRoom(r2);
+        timers = new Timers(DELAY);
+    }
+
+    /**
+     * Getter for timers.
+     * @return Timers object
+     */
+    public static Timers getTimers() {
+        return timers;
     }
 
     /**
@@ -118,6 +130,10 @@ public class Model {
      */
     public static void restartRoom() {
         roomCurrent = rooms.roomRestart();
+        clearPowerUps();
+        clearShortPower();
+        getTimers().restartTimer();
+
         for (Player p : players) {
             p.resetRope();
         }

@@ -17,5 +17,5 @@ public interface PlayerSubject {
     /**
      * Method to notify the observers about a change.
      */
-    void notifyObserver();
+    void notifyObservers();
 }

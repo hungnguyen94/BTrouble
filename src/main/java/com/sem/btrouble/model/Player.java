@@ -190,7 +190,7 @@ public class Player extends Rectangle implements Drawable, Collidable, PlayerSub
      */
     public void addLife() {
         this.gainedaLife = true;
-        notifyObserver();
+        notifyObservers();
         lives++;
     }
 
@@ -199,7 +199,7 @@ public class Player extends Rectangle implements Drawable, Collidable, PlayerSub
      */
     public void loseLife() {
         this.lostaLife = true;
-        notifyObserver();
+        notifyObservers();
         lives--;
     }
 
@@ -233,7 +233,7 @@ public class Player extends Rectangle implements Drawable, Collidable, PlayerSub
      */
     public void increaseScore(int amount) {
         this.poppedaBubble = true;
-        notifyObserver();
+        notifyObservers();
         score += amount;
     }
 
@@ -279,7 +279,7 @@ public class Player extends Rectangle implements Drawable, Collidable, PlayerSub
      */
     public boolean fire(Rope r) {
         this.shotaRope = true;
-        notifyObserver();
+        notifyObservers();
         if (ropes.size() <= 0) {
             ropes.add(r);
             return true;
@@ -465,7 +465,7 @@ public class Player extends Rectangle implements Drawable, Collidable, PlayerSub
     }
 
     @Override
-    public void notifyObserver() {
+    public void notifyObservers() {
         for(PlayerObserver observer: observers){
             if(lostaLife){
                 observer.lostaLife();

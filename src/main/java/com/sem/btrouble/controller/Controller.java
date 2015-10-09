@@ -1,18 +1,9 @@
 package com.sem.btrouble.controller;
 
-import java.util.ArrayList;
-
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.state.transition.FadeInTransition;
-import org.newdawn.slick.state.transition.FadeOutTransition;
-
 import com.sem.btrouble.SlickApp;
 import com.sem.btrouble.event.ControllerEvent;
 import com.sem.btrouble.event.GameEvent;
+import com.sem.btrouble.event.PlayerEvent;
 import com.sem.btrouble.model.Bubble;
 import com.sem.btrouble.model.Model;
 import com.sem.btrouble.model.Player;
@@ -21,20 +12,26 @@ import com.sem.btrouble.model.Rope;
 import com.sem.btrouble.model.Timers;
 import com.sem.btrouble.observering.EventObserver;
 import com.sem.btrouble.observering.EventSubject;
+import com.sem.btrouble.observering.LevelObserver;
+import com.sem.btrouble.observering.LevelSubject;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.state.StateBasedGame;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Controller, recalculates the Model, on request of the view.
  */
-public class Controller implements EventSubject {
+public class Controller implements EventSubject, LevelSubject {
 
     private GameContainer gc;
-    private StateBasedGame sbg;
     private CollisionHandler collisionHandler;
-    private Timers timers;
     private int timeLeft;
-    private ArrayList<EventObserver> observers;
-
-    private static final int DELAY = 100;
+    private List<EventObserver> observers;
+    private List<LevelObserver> levelObservers;
 
     /**
      * Starts a new game by loading data into the room and adding the players.
@@ -47,10 +44,9 @@ public class Controller implements EventSubject {
      *             Throws exception on error
      */
     public Controller(GameContainer container, StateBasedGame sbg) throws SlickException {
-        timers = new Timers(DELAY);
         this.gc = container;
-        this.sbg = sbg;
         this.observers = new ArrayList<EventObserver>();
+        this.levelObservers = new ArrayList<LevelObserver>();
 
         collisionHandler = new CollisionHandler();
 
@@ -68,17 +64,7 @@ public class Controller implements EventSubject {
      * @return timer
      */
     public Timers getTimers() {
-        return timers;
-    }
-
-    /**
-     * Draw all collidable objects with a red outline.
-     *
-     * @param g
-     *            Graphics handler from Slick2D
-     */
-    public void drawCollidables(Graphics g) {
-        //collisionHandler.hitboxDraw(g);
+        return Model.getTimers();
     }
 
     /**
@@ -98,6 +84,8 @@ public class Controller implements EventSubject {
             }
 
             if (!player.isAlive()) {
+                // Update observers.
+                notifyObserver();
                 loseLife(player);
             }
             collisionHandler.checkCollision(player.getRopes());
@@ -106,6 +94,8 @@ public class Controller implements EventSubject {
         // Check if timer has run out.
         if (this.getTimers().getLevelTimeLeft() <= 0) {
             fireEvent(new ControllerEvent(this, ControllerEvent.OUTOFTIME, "Out of time"));
+            // Update observers.
+            notifyObserver();
             for (Player p : Model.getPlayers()) {
                 loseLife(p);
             }
@@ -116,13 +106,13 @@ public class Controller implements EventSubject {
             for (PowerUp power : powers) {
                 if (collisionHandler.checkCollision(power)) {
 
-                    if (timeLeft >= timers.getLevelTimeLeft() + 30000) {
+                    if (timeLeft >= getTimers().getLevelTimeLeft() + 30000) {
                         Model.deleteShortPower(power);
                     }
                 }
                 power.move();
                 if (!collisionHandler.checkCollision(power)) {
-                    timeLeft = timers.getLevelTimeLeft();
+                    timeLeft = getTimers().getLevelTimeLeft();
                 }
             }
         }
@@ -130,6 +120,9 @@ public class Controller implements EventSubject {
         for (Player p : Model.getPlayers()) {
             p.move();
         }
+        // Update observers.
+        notifyObserver();
+
         processInput(delta);
         // calculate movements
         updateRopes();
@@ -191,9 +184,6 @@ public class Controller implements EventSubject {
         for (PowerUp power: powers) {
             power.reset();
         }
-        Model.clearPowerUps();
-        Model.clearShortPower();
-        getTimers().restartTimer();
         collisionHandler.addCollidable(Model.getCurrentRoom().getCollidables());
     }
 
@@ -206,7 +196,7 @@ public class Controller implements EventSubject {
             collisionHandler.removeCollidable(Model.getCurrentRoom().getCollidables());
             Model.getNextRoom();
             restartRoom();
-            sbg.enterState(2, new FadeOutTransition(), new FadeInTransition());
+            //sbg.enterState(2, new FadeOutTransition(), new FadeInTransition());
         }
         Model.getCurrentRoom().moveBubbles();
     }
@@ -272,4 +262,52 @@ public class Controller implements EventSubject {
         observers.remove(observer);
     }
 
+    /**
+     * Register an observer to the subject.
+     *
+     * @param observer Observer to be added.
+     */
+    @Override
+    public void registerObserver(LevelObserver observer) {
+        if(observer == null || levelObservers.contains(observer)) {
+            return;
+        }
+        levelObservers.add(observer);
+    }
+
+    /**
+     * Remove an observer from the observers list.
+     *
+     * @param observer Observer to be removed.
+     */
+    @Override
+    public void removeObserver(LevelObserver observer) {
+        levelObservers.remove(observer);
+    }
+
+    /**
+     * Method to notify the observers about a change.
+     */
+    @Override
+    public void notifyObserver() {
+        if(!Model.getCurrentRoom().hasBubbles()) {
+            for(LevelObserver levelObserver : levelObservers) {
+                levelObserver.levelWon();
+            }
+        }
+
+        // Hardcoded player 1.
+        if(!Model.getPlayers().get(0).isAlive()) {
+            for(LevelObserver levelObserver : levelObservers) {
+                levelObserver.levelLost();
+            }
+        }
+
+        if(getTimers().getLevelTimeLeft() <= 0) {
+            for(LevelObserver levelObserver : levelObservers) {
+                levelObserver.levelLost();
+            }
+        }
+
+    }
 }

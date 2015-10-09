@@ -1,20 +1,20 @@
 package com.sem.btrouble;
 
-import java.util.ArrayList;
-
-import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.state.StateBasedGame;
-
 import com.sem.btrouble.event.GameEvent;
 import com.sem.btrouble.model.GraphicSettings;
 import com.sem.btrouble.observering.EventObserver;
 import com.sem.btrouble.observering.EventSubject;
 import com.sem.btrouble.tools.Logger;
 import com.sem.btrouble.view.GameView;
+import com.sem.btrouble.view.LostLevelView;
 import com.sem.btrouble.view.MenuView;
 import com.sem.btrouble.view.ShopView;
+import org.newdawn.slick.AppGameContainer;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.state.StateBasedGame;
+
+import java.util.ArrayList;
 
 /**
  * Application running the game.
@@ -77,6 +77,7 @@ public class SlickApp extends StateBasedGame implements EventSubject {
         this.addState(new MenuView());
         this.addState(new GameView());
         this.addState(new ShopView());
+        this.addState(new LostLevelView());
     }
 
     /**
