@@ -1,7 +1,6 @@
 package com.sem.btrouble.view;
 
 import com.sem.btrouble.model.Model;
-import com.sem.btrouble.model.PowerUp;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -23,10 +22,6 @@ import java.io.InputStream;
 public class LostLevelView extends BasicGameState {
     private Image background;
     private TrueTypeFont font;
-    private PowerUp power;
-    private int receiptBubbles = 0;
-    private int receiptTime = 0;
-    private int receiptLife = 0;
 
     /**
      * Initialize method of the slick2d library.

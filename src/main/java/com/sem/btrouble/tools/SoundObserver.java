@@ -1,16 +1,16 @@
 package com.sem.btrouble.tools;
 
-import java.io.IOException;
-
+import com.sem.btrouble.event.ControllerEvent;
+import com.sem.btrouble.event.GameEvent;
+import com.sem.btrouble.event.PlayerEvent;
+import com.sem.btrouble.observering.EventObserver;
+import com.sem.btrouble.observering.PlayerObserver;
 import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.openal.AudioLoader;
 import org.newdawn.slick.openal.SoundStore;
 import org.newdawn.slick.util.ResourceLoader;
 
-import com.sem.btrouble.event.ControllerEvent;
-import com.sem.btrouble.event.GameEvent;
-import com.sem.btrouble.observering.EventObserver;
-import com.sem.btrouble.observering.PlayerObserver;
+import java.io.IOException;
 
 /**
  * Observes the sound.
@@ -23,8 +23,7 @@ public class SoundObserver implements EventObserver, PlayerObserver {
     
     /**
      * Update the sounds.
-     * @param observable the object to observe
-     * @param arg the event
+     * @param event the event
      */
     @Override
     public void update(GameEvent event) {
@@ -52,6 +51,19 @@ public class SoundObserver implements EventObserver, PlayerObserver {
             }
             if (controllerEvent.getId() == ControllerEvent.RESTARTROOM
                     || event.getId() == ControllerEvent.NEXTROOM) {
+                try {
+                    wavEffect = AudioLoader.getAudio("WAV",
+                            ResourceLoader.getResourceAsStream("soundscrate-17-woosh2.wav"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                wavEffect.playAsSoundEffect(1.0f, 1.0f, false);
+                SoundStore.get().poll(0);
+            }
+        }
+        if (event instanceof PlayerEvent) {
+            PlayerEvent event2 = (PlayerEvent) event;
+            if (event2.getId() == PlayerEvent.SHOOT) {
                 try {
                     wavEffect = AudioLoader.getAudio("WAV",
                             ResourceLoader.getResourceAsStream("soundscrate-17-woosh2.wav"));

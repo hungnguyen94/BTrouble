@@ -1,10 +1,9 @@
 package com.sem.btrouble.model;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
+import com.sem.btrouble.controller.Collidable;
+import com.sem.btrouble.controller.CollisionAction;
+import com.sem.btrouble.controller.CollisionHandler;
+import com.sem.btrouble.observering.PlayerObserver;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -13,18 +12,17 @@ import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
-import com.sem.btrouble.controller.Collidable;
-import com.sem.btrouble.controller.CollisionAction;
-import com.sem.btrouble.controller.CollisionHandler;
-import com.sem.btrouble.observering.PlayerObserver;
-import com.sem.btrouble.observering.PlayerSubject;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Player class, containing all the data about the player.
  *
  */
 @SuppressWarnings("serial")
-public class Player extends Rectangle implements Drawable, Collidable, PlayerSubject {
+public class Player extends Rectangle implements Drawable, Collidable {
     private int lives;
     private int score;
 
@@ -38,11 +36,6 @@ public class Player extends Rectangle implements Drawable, Collidable, PlayerSub
     private boolean rightBlocked;
     private boolean alive;
     private boolean falling;
-    
-    private boolean lostaLife;
-    private boolean gainedaLife;
-    private boolean poppedaBubble;
-    private boolean shotaRope;
 
     // Gravity attributes
     private float vy;
@@ -74,11 +67,7 @@ public class Player extends Rectangle implements Drawable, Collidable, PlayerSub
         leftBlocked = false;
         alive = true;
         falling = true;
-        
-        lostaLife = false;
-        gainedaLife = false;
-        poppedaBubble = false;
-        shotaRope = false;
+
         this.observers = new ArrayList<PlayerObserver>();
     }
 
@@ -189,8 +178,6 @@ public class Player extends Rectangle implements Drawable, Collidable, PlayerSub
      * Add a life to the player.
      */
     public void addLife() {
-        this.gainedaLife = true;
-        notifyObservers();
         lives++;
     }
 
@@ -198,8 +185,6 @@ public class Player extends Rectangle implements Drawable, Collidable, PlayerSub
      * Remove a life of the player.
      */
     public void loseLife() {
-        this.lostaLife = true;
-        notifyObservers();
         lives--;
     }
 
@@ -232,8 +217,6 @@ public class Player extends Rectangle implements Drawable, Collidable, PlayerSub
      * @param amount how many the score increases
      */
     public void increaseScore(int amount) {
-        this.poppedaBubble = true;
-        notifyObservers();
         score += amount;
     }
 
@@ -278,8 +261,6 @@ public class Player extends Rectangle implements Drawable, Collidable, PlayerSub
      * @return boolean
      */
     public boolean fire(Rope r) {
-        this.shotaRope = true;
-        notifyObservers();
         if (ropes.size() <= 0) {
             ropes.add(r);
             return true;
@@ -349,7 +330,7 @@ public class Player extends Rectangle implements Drawable, Collidable, PlayerSub
     }
 
     /**
-     * Move the player to the right
+     * Move the player to the right.
      * 
      * @param delta
      *            - speed
@@ -450,39 +431,5 @@ public class Player extends Rectangle implements Drawable, Collidable, PlayerSub
     @Override
     public boolean intersectsCollidable(Collidable collidable) {
         return this.intersects((Shape) collidable);
-    }
-
-    @Override
-    public void registerObserver(PlayerObserver observer) {
-        observers.add(observer);
-
-    }
-
-    @Override
-    public void removeObserver(PlayerObserver observer) {
-        observers.add(observer);
-
-    }
-
-    @Override
-    public void notifyObservers() {
-        for(PlayerObserver observer: observers){
-            if(lostaLife){
-                observer.lostaLife();
-            }
-            if(gainedaLife){
-                observer.gainedaLife();
-            }
-            if(poppedaBubble){
-                observer.poppedaBubble();
-            }
-            if(shotaRope){
-                observer.shotaRope();
-            }
-        }
-        lostaLife = false;
-        gainedaLife = false;
-        poppedaBubble = false;
-        shotaRope = false;
     }
 }

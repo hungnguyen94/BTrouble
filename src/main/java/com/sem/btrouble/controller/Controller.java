@@ -52,7 +52,6 @@ public class Controller implements EventSubject, LevelSubject {
 
         Model.init(SlickApp.SCREEN_WIDTH, SlickApp.SCREEN_HEIGHT);
         Player p = new Player(0, 0);
-        p.registerObserver(SlickApp.getLogger());
         Model.addPlayer(p);
         collisionHandler.addCollidable(p);
         restartRoom();

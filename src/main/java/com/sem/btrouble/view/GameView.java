@@ -146,7 +146,6 @@ public class GameView extends BasicGameState implements LevelObserver {
     @Override
     public void levelWon() {
         sbg.enterState(2, new FadeOutTransition(), new FadeInTransition());
-        System.out.println("LEVELWON INVOKED");
     }
 
     /**
@@ -155,6 +154,5 @@ public class GameView extends BasicGameState implements LevelObserver {
     @Override
     public void levelLost() {
         sbg.enterState(4, new FadeOutTransition(), new FadeInTransition());
-        System.out.println("LEVELOST INVOKED");
     }
 }
