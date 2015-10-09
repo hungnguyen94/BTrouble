@@ -1,35 +1,14 @@
 package com.sem.btrouble.controller;
 
-import com.sem.btrouble.tools.GameObservable;
-import org.newdawn.slick.Color;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.geom.Shape;
-
 import java.util.Collection;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
  * Class to handle collisions.
  */
-public class CollisionHandler extends GameObservable {
+public class CollisionHandler {
 
     private Collection<Collidable> collidables;
-
-    /**
-     * Draw hitboxes of all objects in collidables.
-     *
-     * @param g graphics handler from Slick2D
-     */
-    public void hitboxDraw(Graphics g) {
-        for (Collidable s : collidables) {
-            Shape shape = (Shape) s;
-            g.setColor(Color.red);
-            g.setLineWidth(2);
-            g.draw(shape);
-            g.setLineWidth(1);
-            // g.drawRect(s.getX(), s.getY(), s.getWidth(), s.getHeight());
-        }
-    }
 
     /**
      * Use set to prevent duplicates.
