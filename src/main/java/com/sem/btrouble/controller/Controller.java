@@ -13,7 +13,6 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 import com.sem.btrouble.SlickApp;
 import com.sem.btrouble.event.ControllerEvent;
 import com.sem.btrouble.event.GameEvent;
-import com.sem.btrouble.event.PlayerEvent;
 import com.sem.btrouble.model.Bubble;
 import com.sem.btrouble.model.Model;
 import com.sem.btrouble.model.Player;
@@ -58,6 +57,7 @@ public class Controller implements EventSubject {
 
         Model.init(SlickApp.SCREEN_WIDTH, SlickApp.SCREEN_HEIGHT);
         Player p = new Player(0, 0);
+        p.registerObserver(SlickApp.getLogger());
         Model.addPlayer(p);
         collisionHandler.addCollidable(p);
         restartRoom();
@@ -160,7 +160,6 @@ public class Controller implements EventSubject {
                     (float) (p1.getY() + p1.getHeight() * ROPE_OFFSET));
             if (p1.fire(r)) {
                 collisionHandler.addCollidable(r);
-                fireEvent(new PlayerEvent(p1, PlayerEvent.SHOOT, "Shot a rope"));
             }
         }
     }
@@ -172,7 +171,6 @@ public class Controller implements EventSubject {
      *            should be the player who lost a life
      */
     public void loseLife(Player player) {
-        fireEvent(new PlayerEvent(player, PlayerEvent.LIFE_LOST, "Lost a life"));
         player.loseLife();
         if (!player.hasLives()) {
             endGame("Game over...");

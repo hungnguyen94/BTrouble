@@ -106,7 +106,11 @@ public class SlickApp extends StateBasedGame implements EventSubject {
     public static boolean audioOn() {
         return audioOn;
     }
-
+    
+    /**
+     * Returns the logger the SlickApp uses to log events.
+     * @return returns the logger the SlickApp uses to log events.
+     */
     public static Logger getLogger() {
         return logger;
     }

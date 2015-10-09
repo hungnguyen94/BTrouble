@@ -1,28 +1,24 @@
 package com.sem.btrouble;
 
-import com.sem.btrouble.event.PlayerEvent;
-import com.sem.btrouble.model.Drawable;
-import com.sem.btrouble.model.Game;
-import com.sem.btrouble.model.Player;
-import com.sem.btrouble.model.Room;
-import com.sem.btrouble.model.Rope;
-import com.sem.btrouble.observering.LevelObserver;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
-import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.util.ResourceLoader;
 
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
+import com.sem.btrouble.model.Drawable;
+import com.sem.btrouble.model.Game;
+import com.sem.btrouble.model.Player;
+import com.sem.btrouble.model.Room;
+import com.sem.btrouble.observering.LevelObserver;
 
 /**
  * Test state

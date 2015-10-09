@@ -9,15 +9,15 @@ import org.newdawn.slick.util.ResourceLoader;
 
 import com.sem.btrouble.event.ControllerEvent;
 import com.sem.btrouble.event.GameEvent;
-import com.sem.btrouble.event.PlayerEvent;
 import com.sem.btrouble.observering.EventObserver;
+import com.sem.btrouble.observering.PlayerObserver;
 
 /**
  * Observes the sound.
  * @author Martin
  *
  */
-public class SoundObserver implements EventObserver {
+public class SoundObserver implements EventObserver, PlayerObserver {
 
     private Audio wavEffect;
     
@@ -62,19 +62,48 @@ public class SoundObserver implements EventObserver {
                 SoundStore.get().poll(0);
             }
         }
-        if (event instanceof PlayerEvent) {
-            PlayerEvent playerEvent = (PlayerEvent) event;
-            if (playerEvent.getId() == PlayerEvent.SHOOT) {
-                try {
-                    wavEffect = AudioLoader.getAudio("WAV",
-                            ResourceLoader.getResourceAsStream("soundscrate-17-woosh2.wav"));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                wavEffect.playAsSoundEffect(1.0f, 1.0f, false);
-                SoundStore.get().poll(0);
-            }
+    }
+
+    @Override
+    public void shotaRope() {
+        try {
+            wavEffect = AudioLoader.getAudio("WAV",
+                    ResourceLoader.getResourceAsStream("soundscrate-17-woosh2.wav"));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        wavEffect.playAsSoundEffect(1.0f, 1.0f, false);
+        SoundStore.get().poll(0);
+    }
+
+    @Override
+    public void lostaLife() {
+        
+    }
+
+    @Override
+    public void gainedaLife() {
+       
+    }
+
+    @Override
+    public void collidedWithBubble() {
+        
+    }
+
+    @Override
+    public void collidedLeft() {
+        
+    }
+
+    @Override
+    public void collidedRight() {
+        
+    }
+
+    @Override
+    public void poppedaBubble() {
+        
     }
 
 }
