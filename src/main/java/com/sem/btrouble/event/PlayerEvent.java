@@ -18,7 +18,7 @@ public class PlayerEvent extends GameEvent {
 
     /**
      * Constructs a new PlayerEvent, representing an event in the game.
-     * 
+     *
      * @param subject
      *            should be the object which triggered the event.
      * @param id

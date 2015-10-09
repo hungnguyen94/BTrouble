@@ -70,6 +70,14 @@ public class SlowPowerUp extends PowerUp implements Observer{
     }
     
     /**
+     * Return if the power is on or off.
+     * @return boolean
+     */
+    public boolean getOn() {
+        return on;
+    }
+    
+    /**
      * Slow down the bubbles.
      * @param speed speed of bubbles
      */

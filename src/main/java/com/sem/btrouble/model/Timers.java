@@ -61,6 +61,14 @@ public class Timers {
     public void setLevelTimerCounter(int duration) {
         levelTimer.setInitialDelay(duration);
     }
+    
+    /**
+     * Return the initial delay.
+     * @return initial delay
+     */
+    public int getLevelTimerCounter() {
+        return levelTimer.getInitialDelay();
+    }
 
     /**
      * Return the amount of time left in the level in milliseconds. Multiplies

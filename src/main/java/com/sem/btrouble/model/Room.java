@@ -1,9 +1,10 @@
 package com.sem.btrouble.model;
 
 import com.sem.btrouble.controller.Collidable;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.geom.Shape;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -19,6 +20,7 @@ import java.util.List;
  * them on the screen.
  *
  */
+@SuppressWarnings("serial")
 public class Room implements Serializable, Drawable {
     private int spawnPositionX;
     private int spawnPositionY;
@@ -192,6 +194,22 @@ public class Room implements Serializable, Drawable {
      */
     public int getSpawnPositionY() {
         return spawnPositionY;
+    }
+    
+    /**
+     * Set the position x.
+     * @param x position x
+     */
+    public void setSpawnPositionX(int x) {
+        this.spawnPositionX = x;
+    }
+    
+    /**
+     * Set the position y.
+     * @param y position y
+     */
+    public void setSpawnPositionY(int y) {
+        this.spawnPositionY = y;
     }
 
     /**

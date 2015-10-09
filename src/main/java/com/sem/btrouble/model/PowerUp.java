@@ -3,7 +3,6 @@ package com.sem.btrouble.model;
 import com.sem.btrouble.controller.Collidable;
 import com.sem.btrouble.controller.CollisionAction;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
@@ -38,6 +37,22 @@ public abstract class PowerUp extends Rectangle implements Drawable, Collidable 
         this.falling = true;
         this.vy = 2;
         this.ay = .3f;
+    }
+    
+    /**
+     * Get the vertical speed.
+     * @return the vertical speed
+     */
+    public float getVY() {
+        return vy;
+    }
+    
+    /**
+     * Get the vertical acceleration.
+     * @return vertical acceleration
+     */
+    public float getAY() {
+        return ay;
     }
 
     /**
