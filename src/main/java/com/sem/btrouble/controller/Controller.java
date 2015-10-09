@@ -53,7 +53,6 @@ public class Controller implements EventSubject {
         this.observers = new ArrayList<EventObserver>();
 
         collisionHandler = new CollisionHandler();
-        collisionHandler.registerObserver(SlickApp.getLogger());
 
         Model.init(SlickApp.SCREEN_WIDTH, SlickApp.SCREEN_HEIGHT);
         Player p = new Player(0, 0);
@@ -79,7 +78,7 @@ public class Controller implements EventSubject {
      *            Graphics handler from Slick2D
      */
     public void drawCollidables(Graphics g) {
-        collisionHandler.hitboxDraw(g);
+        //collisionHandler.hitboxDraw(g);
     }
 
     /**
@@ -160,6 +159,7 @@ public class Controller implements EventSubject {
                     (float) (p1.getY() + p1.getHeight() * ROPE_OFFSET));
             if (p1.fire(r)) {
                 collisionHandler.addCollidable(r);
+                fireEvent(new PlayerEvent(p1, PlayerEvent.SHOOT, "Shot a rope"));
             }
         }
     }
@@ -171,6 +171,7 @@ public class Controller implements EventSubject {
      *            should be the player who lost a life
      */
     public void loseLife(Player player) {
+        fireEvent(new PlayerEvent(player, PlayerEvent.LIFE_LOST, "Lost a life"));
         player.loseLife();
         if (!player.hasLives()) {
             endGame("Game over...");
@@ -187,7 +188,7 @@ public class Controller implements EventSubject {
         fireEvent(new ControllerEvent(this, ControllerEvent.RESTARTROOM, "Room restarted"));
         Model.restartRoom();
         ArrayList<PowerUp> powers = Model.getPowerUps();
-        for (PowerUp power : powers) {
+        for (PowerUp power: powers) {
             power.reset();
         }
         Model.clearPowerUps();

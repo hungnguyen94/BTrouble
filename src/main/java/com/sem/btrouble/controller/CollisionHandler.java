@@ -1,55 +1,26 @@
 package com.sem.btrouble.controller;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.CopyOnWriteArraySet;
-
-import org.newdawn.slick.Color;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.geom.Shape;
-
-import com.sem.btrouble.event.GameEvent;
-import com.sem.btrouble.observering.EventObserver;
-import com.sem.btrouble.observering.EventSubject;
 
 /**
  * Class to handle collisions.
  */
-public class CollisionHandler implements EventSubject {
+public class CollisionHandler {
 
     private Collection<Collidable> collidables;
-    private ArrayList<EventObserver> observers;
 
     /**
      * Use set to prevent duplicates.
      */
     public CollisionHandler() {
         collidables = new CopyOnWriteArraySet<Collidable>();
-        observers = new ArrayList<EventObserver>();
-    }
-
-    /**
-     * Draw hitboxes of all objects in collidables.
-     *
-     * @param g
-     *            graphics handler from Slick2D
-     */
-    public void hitboxDraw(Graphics g) {
-        for (Collidable s : collidables) {
-            Shape shape = (Shape) s;
-            g.setColor(Color.red);
-            g.setLineWidth(2);
-            g.draw(shape);
-            g.setLineWidth(1);
-            // g.drawRect(s.getX(), s.getY(), s.getWidth(), s.getHeight());
-        }
     }
 
     /**
      * Add a collidable object to the list.
      *
-     * @param c
-     *            collidable object
+     * @param c collidable object
      */
     public void addCollidable(Collidable c) {
         collidables.add(c);
@@ -58,8 +29,7 @@ public class CollisionHandler implements EventSubject {
     /**
      * Add collection of collidable objects to the list.
      *
-     * @param c
-     *            collection of collidable objects
+     * @param c collection of collidable objects
      */
     public void addCollidable(Collection<? extends Collidable> c) {
         collidables.addAll(c);
@@ -68,8 +38,7 @@ public class CollisionHandler implements EventSubject {
     /**
      * Remove all collidable objects that are in c.
      *
-     * @param c
-     *            collection of collidable objects
+     * @param c collection of collidable objects
      */
     public void removeCollidable(Collection<? extends Collidable> c) {
         collidables.removeAll(c);
@@ -78,8 +47,7 @@ public class CollisionHandler implements EventSubject {
     /**
      * Remove a collidable object from the list.
      *
-     * @param c
-     *            collidable object
+     * @param c collidable object
      */
     public void removeCollidable(Collidable c) {
         collidables.remove(c);
@@ -97,8 +65,7 @@ public class CollisionHandler implements EventSubject {
     /**
      * Check if you collide with any object.
      *
-     * @param self
-     *            object that is checking for collision.
+     * @param self object that is checking for collision.
      * @return true if Collidable has collided.
      */
     public boolean checkCollision(Collidable self) {
@@ -113,17 +80,15 @@ public class CollisionHandler implements EventSubject {
 
         for (Collidable collidee : collidables) {
             if (self != collidee && self.intersectsCollidable(collidee)) {
-                // If there is no corresponding CollisionAction for this
-                // collision, skip it.
+                // If there is no corresponding CollisionAction for this collision, skip it.
                 CollisionAction selfAction = self.getCollideActions().get(collidee.getClass());
-                // CollisionAction collideeAction =
-                // collidee.getCollideActions().get(self.getClass());
-                if (selfAction != null) {
+//                CollisionAction collideeAction = collidee.getCollideActions().get(self.getClass());
+                if(selfAction != null) {
                     selfAction.onCollision(collidee);
                 }
-                // if(collideeAction != null) {
-                // collideeAction.onCollision(self);
-                // }
+//                if(collideeAction != null) {
+//                    collideeAction.onCollision(self);
+//                }
                 collided = true;
             }
         }
@@ -140,8 +105,7 @@ public class CollisionHandler implements EventSubject {
     /**
      * Check collision for every Collidables in the collection.
      *
-     * @param colliders
-     *            collection of Collidables.
+     * @param colliders collection of Collidables.
      * @return true if collision.
      */
     public boolean checkCollision(Collection<? extends Collidable> colliders) {
@@ -163,11 +127,8 @@ public class CollisionHandler implements EventSubject {
 
     /**
      * Return which side the collision occurs for X-axis.
-     * 
-     * @param c1
-     *            collider object.
-     * @param c2
-     *            collidee object.
+     * @param c1 collider object.
+     * @param c2 collidee object.
      * @return CollisionSide enum representing the side
      */
     public static CollisionSide checkCollisionSideX(Collidable c1, Collidable c2) {
@@ -184,11 +145,8 @@ public class CollisionHandler implements EventSubject {
 
     /**
      * Return which side the collision occurs for Y-axis.
-     * 
-     * @param c1
-     *            collider object.
-     * @param c2
-     *            collidee object.
+     * @param c1 collider object.
+     * @param c2 collidee object.
      * @return CollisionSide enum representing the side
      */
     public static CollisionSide checkCollisionSideY(Collidable c1, Collidable c2) {
@@ -201,22 +159,5 @@ public class CollisionHandler implements EventSubject {
             return CollisionSide.BOTTOM;
         }
         return CollisionSide.NONE;
-    }
-
-    @Override
-    public void registerObserver(EventObserver observer) {
-        this.observers.add(observer);
-    }
-
-    @Override
-    public void removeObserver(EventObserver observer) {
-        this.observers.remove(observer);
-    }
-
-    @Override
-    public void fireEvent(GameEvent gameEvent) {
-        for (EventObserver observer : observers) {
-            observer.update(gameEvent);
-        }
     }
 }

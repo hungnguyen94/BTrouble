@@ -148,8 +148,8 @@ public class Rope extends Rectangle implements Drawable, Collidable {
             }
         });
 
-        // Method called on Wall collision.
-        collisionActionMap.put(Wall.class, new CollisionAction() {
+        // Method called on Bubble collision.
+        collisionActionMap.put(Bubble.class, new CollisionAction() {
             @Override
             public void onCollision(Collidable collider) {
                 setCollided(true);
