@@ -73,7 +73,6 @@ public class View {
 
         drawLives();
         drawScore(graphics);
-        //drawDebug(graphics);
     }
 
     /**
@@ -184,13 +183,6 @@ public class View {
         graphics.setColor(Color.white);
         String score = "" + GameView.getWallet().getValue();
         graphics.drawString(score, 1090 - font.getWidth(score), 670);
-    }
-
-    /**
-     * Draw hitboxes for testing.
-     */
-    private void drawDebug(Graphics g) {
-        GameView.getController().drawCollidables(g);
     }
 
     /**

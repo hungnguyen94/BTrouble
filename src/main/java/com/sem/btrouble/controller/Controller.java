@@ -11,10 +11,8 @@ import com.sem.btrouble.model.PowerUp;
 import com.sem.btrouble.model.Rope;
 import com.sem.btrouble.model.Timers;
 import com.sem.btrouble.tools.GameObservable;
-import com.sem.btrouble.view.GameView;
 
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
@@ -22,8 +20,6 @@ import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
 import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
 
 /**
  * Controller, recalculates the Model, on request of the view.
@@ -54,13 +50,6 @@ public class Controller extends GameObservable {
         this.sbg = sbg;
 
         collisionHandler = new CollisionHandler();
-        collisionHandler.addObserver(new Observer() {
-            public void update(Observable o, Object arg) {
-                if (arg instanceof GameEvent) {
-                    GameView.getController().fireEvent((GameEvent) arg);
-                }
-            }
-        });
 
         Model.init(SlickApp.SCREEN_WIDTH, SlickApp.SCREEN_HEIGHT);
         Player p = new Player(0, 0);
@@ -76,16 +65,6 @@ public class Controller extends GameObservable {
      */
     public Timers getTimers() {
         return timers;
-    }
-
-    /**
-     * Draw all collidable objects with a red outline.
-     *
-     * @param g
-     *            Graphics handler from Slick2D
-     */
-    public void drawCollidables(Graphics g) {
-        collisionHandler.hitboxDraw(g);
     }
 
     /**
