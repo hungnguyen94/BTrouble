@@ -1,17 +1,16 @@
 package com.sem.btrouble;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertEquals;
-
-import java.util.ArrayList;
-
+import com.sem.btrouble.model.Player;
+import com.sem.btrouble.model.Rope;
 import org.junit.Before;
 import org.junit.Test;
 import org.newdawn.slick.SlickException;
 
-import com.sem.btrouble.model.Player;
-import com.sem.btrouble.model.Rope;
+import java.util.ArrayList;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Class which tests the Player class.
@@ -221,7 +220,7 @@ public class PlayerTest {
     @Test
     public void moveToXTest() {
         player.moveTo(5, 5);
-        assertEquals(5, player.getX(), 0);
+        assertEquals(5, player.getCenterX(), 0);
     }
 
     /**
@@ -230,7 +229,7 @@ public class PlayerTest {
     @Test
     public void moveToYTest() {
         player.moveTo(5, 5);
-        assertEquals(5, player.getY(), 0);
+        assertEquals(5, player.getCenterY(), 0);
     }
 
     /**
