@@ -297,7 +297,7 @@ public class Player extends Rectangle implements Drawable, Collidable {
                 - ((walkSheet.getWidth() / walkSheet.getHorizontalCount()) - getWidth()) / 2);
         if (!idle) {
             walkAnimation.getCurrentFrame().getFlippedCopy(facingLeft, false).draw(playerX, y - 15);
-        } else {
+        } else if(alive) {
             playerIdle.getFlippedCopy(facingLeft, false).draw(playerX, y - 15);
         }
         for (int i = 0; i < ropes.size(); i++) {
