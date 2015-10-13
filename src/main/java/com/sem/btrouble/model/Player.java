@@ -67,8 +67,6 @@ public class Player extends Rectangle implements Drawable, Collidable {
         leftBlocked = false;
         alive = true;
         falling = true;
-
-        this.observers = new ArrayList<PlayerObserver>();
     }
 
     /**
@@ -282,21 +280,22 @@ public class Player extends Rectangle implements Drawable, Collidable {
                 walkSheet = new SpriteSheet("Sprites/player_spritesheet.png", 100, 175);
                 walkAnimation = new Animation(walkSheet, 20);
             }
+            // Render the sprite at an offset.
+            int playerX = (int) (x
+                    - ((walkSheet.getWidth() / walkSheet.getHorizontalCount()) - getWidth()) / 2);
+            if (!idle) {
+                walkAnimation.getCurrentFrame().getFlippedCopy(facingLeft, false).draw(playerX, y - 15);
+            } else {
+                playerIdle.getFlippedCopy(facingLeft, false).draw(playerX, y - 15);
+            }
+            for (int i = 0; i < ropes.size(); i++) {
+                ropes.get(i).draw(graphics);
+            }
         } catch (SlickException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        // Render the sprite at an offset.
-        int playerX = (int) (x
-                - ((walkSheet.getWidth() / walkSheet.getHorizontalCount()) - getWidth()) / 2);
-        if (!idle) {
-            walkAnimation.getCurrentFrame().getFlippedCopy(facingLeft, false).draw(playerX, y - 15);
-        } else {
-            playerIdle.getFlippedCopy(facingLeft, false).draw(playerX, y - 15);
-        }
-        for (int i = 0; i < ropes.size(); i++) {
-            ropes.get(i).draw(graphics);
-        }
+
     }
 
     /**
@@ -325,7 +324,8 @@ public class Player extends Rectangle implements Drawable, Collidable {
             idle = false;
             facingLeft = true;
             walkAnimation.update(delta);
-            x -= delta * 0.15f * PLAYER_SPEED;
+//            x -= delta * 0.15f * PLAYER_SPEED;
+            setCenterX(getCenterX() - delta * 0.15f * PLAYER_SPEED);
         }
     }
 
@@ -342,7 +342,8 @@ public class Player extends Rectangle implements Drawable, Collidable {
             idle = false;
             facingLeft = false;
             walkAnimation.update(delta);
-            x += delta * 0.15f * PLAYER_SPEED;
+//            x += delta * 0.15f * PLAYER_SPEED;
+            setCenterX(getCenterX() + delta * 0.15f * PLAYER_SPEED);
         }
     }
 
@@ -371,7 +372,8 @@ public class Player extends Rectangle implements Drawable, Collidable {
      * Slowly fall down vertically.
      */
     public void fall() {
-        y += vy;
+        setCenterY(getCenterY() + vy);
+//        y += vy;
         vy += ay;
     }
 
