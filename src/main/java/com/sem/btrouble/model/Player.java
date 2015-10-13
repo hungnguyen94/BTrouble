@@ -363,8 +363,8 @@ public class Player extends Rectangle implements Drawable, Collidable {
      *            - y-coordinate
      */
     public void moveTo(int xpos, int ypos) {
-        this.x = xpos;
-        this.y = ypos;
+        setCenterX(xpos);
+        setCenterY(ypos);
         falling = true;
     }
 
@@ -400,12 +400,15 @@ public class Player extends Rectangle implements Drawable, Collidable {
         collisionActionMap.put(Wall.class, new CollisionAction() {
             @Override
             public void onCollision(Collidable collider) {
+                System.out.println("Collided");
                 switch (CollisionHandler.checkCollisionSideX(Player.this, collider)) {
                     case LEFT:
                         setRightBlock(true);
+                        setCenterX(collider.getCenterX() - (collider.getWidth() + getWidth()) / 2);
                         break;
                     case RIGHT:
                         setLeftBlock(true);
+                        setCenterX(collider.getCenterX() + (collider.getWidth() + getWidth()) / 2);
                         break;
                     default:
                         break;
@@ -418,7 +421,7 @@ public class Player extends Rectangle implements Drawable, Collidable {
             @Override
             public void onCollision(Collidable collider) {
                 setFalling(false);
-                setY(collider.getY() - getHeight());
+                setCenterY(collider.getCenterY() - (collider.getHeight() + getHeight()) / 2);
             }
         });
 
