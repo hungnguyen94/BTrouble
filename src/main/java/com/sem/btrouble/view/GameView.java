@@ -2,9 +2,11 @@ package com.sem.btrouble.view;
 
 import com.sem.btrouble.SlickApp;
 import com.sem.btrouble.controller.Controller;
+import com.sem.btrouble.model.Drawable;
 import com.sem.btrouble.model.Timers;
 import com.sem.btrouble.model.Wallet;
 import com.sem.btrouble.observering.LevelObserver;
+import com.sem.btrouble.observering.LevelSubject;
 import com.sem.btrouble.tools.SoundObserver;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -19,6 +21,8 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.util.ResourceLoader;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by rubenwiersma on 22-09-15.
@@ -31,6 +35,8 @@ public class GameView extends BasicGameState implements LevelObserver {
     private Audio wavEffect;
     private static Wallet wallet;
     private StateBasedGame sbg;
+    // Used for drawing collisionhandler. For testing purposes, can be removed.
+    private List<Drawable> drawables = new ArrayList<Drawable>();
 
     /**
      * Initialize method of the slick2d library.
@@ -106,6 +112,11 @@ public class GameView extends BasicGameState implements LevelObserver {
     public void render(GameContainer gc, StateBasedGame sbg, Graphics graphics)
             throws SlickException {
         view.draw(graphics);
+        // Used for drawing collisionhandler. For testing purposes, can be removed.
+        for(Drawable d : drawables) {
+            d.draw(graphics);
+        }
+        drawables.clear();
     }
 
     /**
@@ -138,6 +149,21 @@ public class GameView extends BasicGameState implements LevelObserver {
      */
     public Audio getWavEffect() {
         return wavEffect;
+    }
+
+    /**
+     * This method is called when the observer is notified about a update.
+     *
+     * @param subject
+     * @param arg
+     */
+    @Override
+    public void update(LevelSubject subject, Object arg) {
+        // Used for drawing collisionhandler. For testing purposes, can be removed.
+        if(arg instanceof Drawable) {
+            Drawable drawable = (Drawable) arg;
+            drawables.add(drawable);
+        }
     }
 
     /**

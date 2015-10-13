@@ -67,8 +67,6 @@ public class Player extends Rectangle implements Drawable, Collidable {
         leftBlocked = false;
         alive = true;
         falling = true;
-
-        this.observers = new ArrayList<PlayerObserver>();
     }
 
     /**
@@ -282,21 +280,22 @@ public class Player extends Rectangle implements Drawable, Collidable {
                 walkSheet = new SpriteSheet("Sprites/player_spritesheet.png", 100, 175);
                 walkAnimation = new Animation(walkSheet, 20);
             }
+            // Render the sprite at an offset.
+            int playerX = (int) (x
+                    - ((walkSheet.getWidth() / walkSheet.getHorizontalCount()) - getWidth()) / 2);
+            if (!idle) {
+                walkAnimation.getCurrentFrame().getFlippedCopy(facingLeft, false).draw(playerX, y - 15);
+            } else {
+                playerIdle.getFlippedCopy(facingLeft, false).draw(playerX, y - 15);
+            }
+            for (int i = 0; i < ropes.size(); i++) {
+                ropes.get(i).draw(graphics);
+            }
         } catch (SlickException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        // Render the sprite at an offset.
-        int playerX = (int) (x
-                - ((walkSheet.getWidth() / walkSheet.getHorizontalCount()) - getWidth()) / 2);
-        if (!idle) {
-            walkAnimation.getCurrentFrame().getFlippedCopy(facingLeft, false).draw(playerX, y - 15);
-        } else {
-            playerIdle.getFlippedCopy(facingLeft, false).draw(playerX, y - 15);
-        }
-        for (int i = 0; i < ropes.size(); i++) {
-            ropes.get(i).draw(graphics);
-        }
+
     }
 
     /**
@@ -325,7 +324,8 @@ public class Player extends Rectangle implements Drawable, Collidable {
             idle = false;
             facingLeft = true;
             walkAnimation.update(delta);
-            x -= delta * 0.15f * PLAYER_SPEED;
+//            x -= delta * 0.15f * PLAYER_SPEED;
+            setCenterX(getCenterX() - delta * 0.15f * PLAYER_SPEED);
         }
     }
 
@@ -342,7 +342,8 @@ public class Player extends Rectangle implements Drawable, Collidable {
             idle = false;
             facingLeft = false;
             walkAnimation.update(delta);
-            x += delta * 0.15f * PLAYER_SPEED;
+//            x += delta * 0.15f * PLAYER_SPEED;
+            setCenterX(getCenterX() + delta * 0.15f * PLAYER_SPEED);
         }
     }
 
@@ -362,8 +363,8 @@ public class Player extends Rectangle implements Drawable, Collidable {
      *            - y-coordinate
      */
     public void moveTo(int xpos, int ypos) {
-        this.x = xpos;
-        this.y = ypos;
+        setCenterX(xpos);
+        setCenterY(ypos);
         falling = true;
     }
 
@@ -371,7 +372,8 @@ public class Player extends Rectangle implements Drawable, Collidable {
      * Slowly fall down vertically.
      */
     public void fall() {
-        y += vy;
+        setCenterY(getCenterY() + vy);
+//        y += vy;
         vy += ay;
     }
 
@@ -398,12 +400,15 @@ public class Player extends Rectangle implements Drawable, Collidable {
         collisionActionMap.put(Wall.class, new CollisionAction() {
             @Override
             public void onCollision(Collidable collider) {
+                System.out.println("Collided");
                 switch (CollisionHandler.checkCollisionSideX(Player.this, collider)) {
                     case LEFT:
                         setRightBlock(true);
+                        setCenterX(collider.getCenterX() - (collider.getWidth() + getWidth()) / 2);
                         break;
                     case RIGHT:
                         setLeftBlock(true);
+                        setCenterX(collider.getCenterX() + (collider.getWidth() + getWidth()) / 2);
                         break;
                     default:
                         break;
@@ -416,7 +421,7 @@ public class Player extends Rectangle implements Drawable, Collidable {
             @Override
             public void onCollision(Collidable collider) {
                 setFalling(false);
-                setY(collider.getY() - getHeight());
+                setCenterY(collider.getCenterY() - (collider.getHeight() + getHeight()) / 2);
             }
         });
 

@@ -42,6 +42,9 @@ public interface Collidable {
      */
     float getY();
 
+    float getWidth();
+    float getHeight();
+
     /**
      * Checks for intersection with another Collidable.
      * @param collidable Check if this collidable intersects with that collidable.

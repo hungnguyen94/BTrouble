@@ -69,7 +69,10 @@ public class View {
         drawPowers(graphics);
 //        drawBubbles(graphics);
         drawTimer(graphics);
-        drawBorders(graphics);
+//        drawBorders(graphics);
+        // Draw borders and bubbles.
+        // Can be separate method(or not)?
+        Model.getCurrentRoom().draw(graphics);
 
         drawLives();
         drawScore(graphics);
