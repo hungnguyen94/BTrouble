@@ -6,6 +6,7 @@ import com.sem.btrouble.model.Model;
 import com.sem.btrouble.model.PowerUp;
 import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Bubble;
+
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
@@ -17,6 +18,7 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.util.ResourceLoader;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 
 /**
  * Created by rubenwiersma on 18-09-15.
@@ -180,9 +182,23 @@ public class View {
      *            Graphics object from Slick2D
      */
     private void drawScore(Graphics graphics) throws SlickException {
+        ArrayList<Player> players = Model.getPlayers();
+        int sum = 0;
         graphics.setColor(Color.white);
-        String score = "" + Model.getWallet(Model.getPlayers().get(0)).getValue();
-        graphics.drawString(score, 1090 - font.getWidth(score), 670);
+        for (int i = 0; i < players.size(); i++) {
+            String value = "Player " + (i + 1) + ": " + Model.getWallet(Model.getPlayers().get(0)).getValue();
+            if (players.size() > 1) {
+                graphics.drawString(value, 900 + i * 190 - font.getWidth(value), 670);
+            }
+            sum += players.get(i).getWallet().getValue();
+        }
+        if (true) {
+            String score = "" + sum;
+            graphics.drawString(score, 1090 - font.getWidth(score), 670);
+        }
+        
+        //String score = "" + Model.getWallet(Model.getPlayers().get(0)).getValue();
+        //graphics.drawString(score, 1090 - font.getWidth(score), 670);
     }
 
     /**
