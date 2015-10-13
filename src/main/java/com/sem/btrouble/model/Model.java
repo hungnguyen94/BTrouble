@@ -190,8 +190,8 @@ public class Model {
     	ArrayList<PowerUp> powers = new ArrayList<PowerUp>();
     	for(int i = 0; i < powersshort.size(); i++) {
     		PowerUp listPower = powersshort.get(i);
-            powers.add(listPower);
-/*    		if(power instanceof LifePowerUp) {
+//            powers.add(listPower);
+    		if(power instanceof LifePowerUp) {
     			if(listPower instanceof SlowPowerUp || listPower instanceof TimePowerUp) {
     				powers.add(listPower);
     			}
@@ -202,7 +202,7 @@ public class Model {
     		} else if (power instanceof TimePowerUp && (listPower instanceof SlowPowerUp
     		        || listPower instanceof LifePowerUp)) {
     			powers.add(listPower);
-    		}*/
+    		}
     	}
 		powersshort = powers;
     }
