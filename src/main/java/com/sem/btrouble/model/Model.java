@@ -45,6 +45,10 @@ public class Model {
         Model.addRoom(r2);
         timers = new Timers(DELAY);
     }
+    
+    public static Wallet getWallet(Player player) {
+         return player.getWallet();
+    }
 
     /**
      * Getter for timers.

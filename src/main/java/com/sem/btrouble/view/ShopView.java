@@ -73,19 +73,19 @@ public class ShopView extends BasicGameState {
 
         // Buttons
         if (gc.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
-            if (bubblesButton.isMouseOver() && GameView.getWallet().getValue() >= 2500) {
-                GameView.getWallet().decreaseValue(2500);
+            if (bubblesButton.isMouseOver() && Model.getWallet(Model.getPlayers().get(0)).getValue() >= 2500) {
+                Model.getWallet(Model.getPlayers().get(0)).decreaseValue(2500);
                 power = new SlowPowerUp();
 //                GameView.getController().registerObserver((Observer) power);
                 Model.addPowerUp(power);
                 receiptBubbles++;
-            } else if (timeButton.isMouseOver() && GameView.getWallet().getValue() >= 2500) {
-                GameView.getWallet().decreaseValue(2500);
+            } else if (timeButton.isMouseOver() && Model.getWallet(Model.getPlayers().get(0)).getValue() >= 2500) {
+                Model.getWallet(Model.getPlayers().get(0)).decreaseValue(2500);
                 power = new TimePowerUp();
                 Model.addPowerUp(power);
                 receiptTime++;
-            } else if (lifeButton.isMouseOver() && GameView.getWallet().getValue() >= 10000) {
-                GameView.getWallet().decreaseValue(10000);
+            } else if (lifeButton.isMouseOver() && Model.getWallet(Model.getPlayers().get(0)).getValue() >= 10000) {
+                Model.getWallet(Model.getPlayers().get(0)).decreaseValue(10000);
                 power = new LifePowerUp();
                 Model.addPowerUp(power);
                 receiptLife++;
@@ -110,7 +110,7 @@ public class ShopView extends BasicGameState {
         graphics.setFont(font);
         background.draw(0f, 0f);
 
-        graphics.drawString("" + GameView.getWallet().getValue(), 70, 660);
+        graphics.drawString("" + Model.getWallet(Model.getPlayers().get(0)).getValue(), 70, 660);
         graphics.drawString("Press enter", 1000, 660);
         graphics.drawString("" + receiptBubbles, 1175, 520);
         graphics.drawString("" + receiptTime, 1175, 570);

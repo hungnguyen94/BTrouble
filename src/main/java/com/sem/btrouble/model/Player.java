@@ -36,6 +36,8 @@ public class Player extends Rectangle implements Drawable, Collidable {
     private boolean rightBlocked;
     private boolean alive;
     private boolean falling;
+    
+    private Wallet wallet;
 
     // Gravity attributes
     private float vy;
@@ -67,8 +69,12 @@ public class Player extends Rectangle implements Drawable, Collidable {
         leftBlocked = false;
         alive = true;
         falling = true;
-
+        wallet = new Wallet();
         this.observers = new ArrayList<PlayerObserver>();
+    }
+    
+    public Wallet getWallet() {
+        return wallet;
     }
 
     /**

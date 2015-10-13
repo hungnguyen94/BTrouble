@@ -77,7 +77,7 @@ public class LostLevelView extends BasicGameState {
         graphics.setFont(font);
         background.draw(0f, 0f);
 
-        graphics.drawString("Wallet: " + GameView.getWallet().getValue(), 500, 660);
+        graphics.drawString("Wallet: " + Model.getWallet(Model.getPlayers().get(0)).getValue(), 500, 660);
         graphics.drawString("You died. Press enter to restart this Level", 350, 250);
         graphics.drawString("Press enter", 1000, 660);
 

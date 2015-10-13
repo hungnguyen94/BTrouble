@@ -2,10 +2,13 @@ package com.sem.btrouble.view;
 
 import com.sem.btrouble.SlickApp;
 import com.sem.btrouble.controller.Controller;
+import com.sem.btrouble.model.Model;
+import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Timers;
 import com.sem.btrouble.model.Wallet;
 import com.sem.btrouble.observering.LevelObserver;
 import com.sem.btrouble.tools.SoundObserver;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -19,6 +22,7 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.util.ResourceLoader;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created by rubenwiersma on 22-09-15.
@@ -29,7 +33,6 @@ public class GameView extends BasicGameState implements LevelObserver {
     private static View view;
     private SoundObserver soundObserver;
     private Audio wavEffect;
-    private static Wallet wallet;
     private StateBasedGame sbg;
 
     /**
@@ -47,11 +50,13 @@ public class GameView extends BasicGameState implements LevelObserver {
 
         controller = new Controller(gc, sbg);
         soundObserver = new SoundObserver();
-        wallet = new Wallet();
+        ArrayList<Player> players = Model.getPlayers();
+        for(Player player: players) {
+            Wallet wallet = player.getWallet();
+            controller.registerObserver(wallet);
+        }
 
         controller.registerObserver(soundObserver);
-        controller.registerObserver(SlickApp.getLogger());
-        controller.registerObserver(wallet);
         controller.registerObserver(this);
 
         timers = controller.getTimers();
@@ -122,14 +127,6 @@ public class GameView extends BasicGameState implements LevelObserver {
      */
     public static Controller getController() {
         return controller;
-    }
-
-    /**
-     * Get the wallet of the view.
-     * @return the wallet.
-     */
-    public static Wallet getWallet() {
-        return wallet;
     }
 
     /**

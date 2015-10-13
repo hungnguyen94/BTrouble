@@ -181,7 +181,7 @@ public class View {
      */
     private void drawScore(Graphics graphics) throws SlickException {
         graphics.setColor(Color.white);
-        String score = "" + GameView.getWallet().getValue();
+        String score = "" + Model.getWallet(Model.getPlayers().get(0)).getValue();
         graphics.drawString(score, 1090 - font.getWidth(score), 670);
     }
 
