@@ -10,11 +10,13 @@ import org.newdawn.slick.util.ResourceLoader;
 
 import com.sem.btrouble.model.LifePowerUp;
 import com.sem.btrouble.model.Model;
+import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.PowerUp;
 import com.sem.btrouble.model.SlowPowerUp;
 import com.sem.btrouble.model.TimePowerUp;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 
 /**
  * Created by rubenwiersma on 22-09-15.
@@ -70,26 +72,41 @@ public class ShopView extends BasicGameState {
             GameView.getController().getTimers().restartTimer();
             sbg.enterState(1, new FadeOutTransition(), new FadeInTransition());
         }
+        int sum = 0;
+        ArrayList<Player> players = Model.getPlayers();
+        for(Player player: players) {
+            sum += player.getWallet().getValue();
+        }
 
         // Buttons
         if (gc.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
-            if (bubblesButton.isMouseOver() && Model.getWallet(Model.getPlayers().get(0)).getValue() >= 2500) {
-                Model.getWallet(Model.getPlayers().get(0)).decreaseValue(2500);
+            if (bubblesButton.isMouseOver() && sum >= 2500) {
+                int amount = (sum - 2500)/players.size();
+                giveValue(amount);
                 power = new SlowPowerUp();
 //                GameView.getController().registerObserver((Observer) power);
                 Model.addPowerUp(power);
                 receiptBubbles++;
-            } else if (timeButton.isMouseOver() && Model.getWallet(Model.getPlayers().get(0)).getValue() >= 2500) {
-                Model.getWallet(Model.getPlayers().get(0)).decreaseValue(2500);
+            } else if (timeButton.isMouseOver() && sum >= 2500) {
+                int amount = (sum - 2500)/players.size();
+                giveValue(amount);
                 power = new TimePowerUp();
                 Model.addPowerUp(power);
                 receiptTime++;
-            } else if (lifeButton.isMouseOver() && Model.getWallet(Model.getPlayers().get(0)).getValue() >= 10000) {
-                Model.getWallet(Model.getPlayers().get(0)).decreaseValue(10000);
+            } else if (lifeButton.isMouseOver() && sum >= 10000) {
+                int amount = (sum - 10000)/players.size();
+                giveValue(amount);
                 power = new LifePowerUp();
                 Model.addPowerUp(power);
                 receiptLife++;
             }
+        }
+    }
+    
+    public void giveValue(int value) {
+        ArrayList<Player> players = Model.getPlayers();
+        for(Player player: players) {
+            player.getWallet().setValue(value);
         }
     }
 

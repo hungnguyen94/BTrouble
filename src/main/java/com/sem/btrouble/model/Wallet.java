@@ -27,6 +27,10 @@ public class Wallet implements EventObserver {
     public int getValue() {
         return value;
     }
+    
+    public void setValue(int value) {
+        this.value = value;
+    }
 
     /**
      * Increase the value.
