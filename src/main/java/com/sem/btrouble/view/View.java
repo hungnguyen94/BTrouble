@@ -88,7 +88,7 @@ public class View {
                 .get(SlickApp.returnGraphics().getCurrentResolution()).getBackground();
         Image background = new Image(backgroundName);
         background.draw(0, 0);
-    }
+    } 
 
     /**
      * Draw the count down timer on screen.
