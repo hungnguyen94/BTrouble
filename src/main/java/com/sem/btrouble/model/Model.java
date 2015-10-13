@@ -100,6 +100,10 @@ public class Model {
     public static ArrayList<Player> getPlayers() {
         return players;
     }
+    
+    public static void removePlayer(Player player) {
+        players.remove(player);
+    }
 
     /**
      * Returns the Model's bubble collection.

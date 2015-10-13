@@ -154,6 +154,29 @@ public class Controller implements EventSubject, LevelSubject {
                 fireEvent(new PlayerEvent(p1, PlayerEvent.SHOOT, "Shot a rope"));
             }
         }
+        if(Model.getPlayers().size() > 1) {
+            secondPlayer(delta);
+        }
+    }
+    
+    public void secondPlayer(int delta) {
+        Input input = gc.getInput();
+        Player p2 = Model.getPlayers().get(1);
+
+        if (input.isKeyDown(Input.KEY_A)) {
+            p2.moveLeft(delta);
+        } else if (input.isKeyDown(Input.KEY_D)) {
+            p2.moveRight(delta);
+        }
+
+        if (input.isKeyPressed(Input.KEY_W)) {
+            Rope r = new Rope(p2.getX() + (int) (p2.getWidth() / 2),
+                    (float) (p2.getY() + p2.getHeight() * ROPE_OFFSET));
+            if (p2.fire(r)) {
+                collisionHandler.addCollidable(r);
+                fireEvent(new PlayerEvent(p2, PlayerEvent.SHOOT, "Shot a rope"));
+            }
+        }
     }
 
     /**
@@ -296,9 +319,15 @@ public class Controller implements EventSubject, LevelSubject {
         }
 
         // Hardcoded player 1.
-        if(!Model.getPlayers().get(0).isAlive()) {
+        if(!Model.getPlayers().get(0).isAlive() && Model.getPlayers().size() == 1) {
             for(LevelObserver levelObserver : levelObservers) {
                 levelObserver.levelLost();
+            }
+        } else if(Model.getPlayers().size() > 1) {
+            if(!Model.getPlayers().get(0).isAlive() && !Model.getPlayers().get(1).isAlive()) {
+                for(LevelObserver levelObserver : levelObservers) {
+                    levelObserver.levelLost();
+                }
             }
         }
 

@@ -187,12 +187,12 @@ public class View {
         graphics.setColor(Color.white);
         for (int i = 0; i < players.size(); i++) {
             String value = "Player " + (i + 1) + ": " + Model.getWallet(Model.getPlayers().get(0)).getValue();
-            if (players.size() > 1) {
+            if (SlickApp.multiplayer() && SlickApp.versus()) {
                 graphics.drawString(value, 900 + i * 190 - font.getWidth(value), 670);
             }
             sum += players.get(i).getWallet().getValue();
         }
-        if (true) {
+        if (!SlickApp.versus() || !SlickApp.multiplayer()) {
             String score = "" + sum;
             graphics.drawString(score, 1090 - font.getWidth(score), 670);
         }

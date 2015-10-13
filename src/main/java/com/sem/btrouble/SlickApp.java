@@ -2,6 +2,8 @@ package com.sem.btrouble;
 
 import com.sem.btrouble.event.GameEvent;
 import com.sem.btrouble.model.GraphicSettings;
+import com.sem.btrouble.model.Model;
+import com.sem.btrouble.model.Player;
 import com.sem.btrouble.observering.EventObserver;
 import com.sem.btrouble.observering.EventSubject;
 import com.sem.btrouble.tools.Logger;
@@ -9,6 +11,7 @@ import com.sem.btrouble.view.GameView;
 import com.sem.btrouble.view.LostLevelView;
 import com.sem.btrouble.view.MenuView;
 import com.sem.btrouble.view.ShopView;
+
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
@@ -123,6 +126,12 @@ public class SlickApp extends StateBasedGame implements EventSubject {
      */
     public static void setMultiplayer(boolean multiplayer) {
         preferences.put("multiplayer", multiplayer);
+        Player player2 = new Player(250, 250);
+        if(multiplayer) {
+            Model.addPlayer(player2);
+        }  else {
+            Model.removePlayer(player2);
+        }
     }
 
     /**

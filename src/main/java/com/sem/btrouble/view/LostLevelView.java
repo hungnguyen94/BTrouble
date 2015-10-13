@@ -1,5 +1,6 @@
 package com.sem.btrouble.view;
 
+import com.sem.btrouble.SlickApp;
 import com.sem.btrouble.model.Model;
 import com.sem.btrouble.model.Player;
 
@@ -101,7 +102,7 @@ public class LostLevelView extends BasicGameState {
         int sum = 0;
 
         for (int i = 0; i < players.size(); i++) {
-            if (players.size() > 1) {
+            if (SlickApp.multiplayer() && SlickApp.versus()) {
                 graphics.drawString(
                         "Wallet Player "
                                 + (i + 1)
@@ -111,7 +112,7 @@ public class LostLevelView extends BasicGameState {
             }
             sum += players.get(i).getWallet().getValue();
         }
-        if (true) {
+        if (!SlickApp.versus() || !SlickApp.multiplayer()) {
             graphics.drawString("Wallet: " + sum, 500, 660);
         }
     }
