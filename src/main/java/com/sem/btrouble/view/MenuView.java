@@ -19,6 +19,9 @@ public class MenuView extends BasicGameState {
     private TrueTypeFont font;
     private Image background;
     private MouseOverArea audioButton;
+    private MouseOverArea multiplayerButton;
+    private MouseOverArea versusButton;
+    private MouseOverArea survivalButton;
 
     /**
      * Initialize method of the slick2d library.
@@ -32,7 +35,10 @@ public class MenuView extends BasicGameState {
      */
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         background = new Image("Sprites/menu1280x720.png");
-        audioButton = new MouseOverArea(gc, background, 500, 410, 250, 240);
+        audioButton = new MouseOverArea(gc, background, 500, 410, 250, 50);
+        multiplayerButton = new MouseOverArea(gc, background, 500, 460, 250, 50);
+        versusButton = new MouseOverArea(gc, background, 500, 510, 250, 50);
+        survivalButton = new MouseOverArea(gc, background, 500, 560, 250, 50);
         loadFont();
     }
 
@@ -53,13 +59,23 @@ public class MenuView extends BasicGameState {
         if (gc.getInput().isKeyPressed(Input.KEY_RETURN)) {
             sbg.enterState(1, new FadeOutTransition(), new FadeInTransition());
         }
-        //Audio settings
-        if (gc.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON) && audioButton.isMouseOver()) {
-            SlickApp.setAudio(!SlickApp.audioOn());
+        //Settings
+        if (gc.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
+            if(audioButton.isMouseOver()) {
+                SlickApp.setAudio(!SlickApp.audioOn());
+            } else if(multiplayerButton.isMouseOver()) {
+                SlickApp.setMultiplayer(!SlickApp.multiplayer());
+            } else if(versusButton.isMouseOver()) {
+                SlickApp.setVersus(!SlickApp.versus());
+            } else if(survivalButton.isMouseOver()) {
+                SlickApp.setSurvival(!SlickApp.survival());
+            }
         }
+
+        //Activate audio settings
         GameView gameView = (GameView) sbg.getState(1);
         Audio wavEffect = gameView.getWavEffect();
-        //Activate audio settings
+
         if(!SlickApp.audioOn()) {
             wavEffect.stop();
         } else if(!wavEffect.isPlaying()) {
@@ -83,15 +99,68 @@ public class MenuView extends BasicGameState {
             throws SlickException {
         background.draw(0f, 0f);
 
-        //Draw audio settings button
         graphics.setFont(font);
+
+        drawAudioButton(graphics);
+        drawMultiplayerButton(graphics);
+        drawVersusButton(graphics);
+        drawSurvivalButton(graphics);
+    }
+
+    /**
+     * Draws the preferences button for audio to the screen.
+     * @param graphics should be the graphics handler of the game.
+     */
+    public void drawAudioButton(Graphics graphics) {
         String audioSetting = "Audio: ";
         if (SlickApp.audioOn()) {
             audioSetting = audioSetting + "on";
         } else {
             audioSetting = audioSetting + "off";
         }
-        graphics.drawString(audioSetting, 500, 410);
+        graphics.drawString(audioSetting, audioButton.getX(), audioButton.getY());
+    }
+
+    /**
+     * Draws the preferences button for multiplayer to the screen.
+     * @param graphics should be the graphics handler of the game.
+     */
+    public void drawMultiplayerButton(Graphics graphics) {
+        String multiplayerSetting = "Multiplayer: ";
+        if (SlickApp.multiplayer()) {
+            multiplayerSetting = multiplayerSetting + "on";
+        } else {
+            multiplayerSetting = multiplayerSetting + "off";
+        }
+        graphics.drawString(multiplayerSetting, multiplayerButton.getX(), multiplayerButton.getY());
+    }
+
+    /**
+     * Draws the preferences button for multiplayer to the screen.
+     * @param graphics should be the graphics handler of the game.
+     */
+    public void drawVersusButton(Graphics graphics) {
+        String versusSetting = "Versus: ";
+        if (SlickApp.versus()) {
+            versusSetting = versusSetting + "on";
+        } else {
+            versusSetting = versusSetting + "off";
+        }
+        graphics.drawString(versusSetting, versusButton.getX(), versusButton.getY());
+    }
+
+    /**
+     * Draws the preferences button for multiplayer to the screen.
+     * @param graphics should be the graphics handler of the game.
+     */
+    public void drawSurvivalButton(Graphics graphics) {
+        String survivalSetting = "Survival: ";
+        if (SlickApp.survival()) {
+            survivalSetting = survivalSetting + "on";
+        } else {
+            survivalSetting = survivalSetting + "off";
+        }
+        graphics.drawString(survivalSetting, survivalButton.getX(), survivalButton.getY());
     }
 
     /**
