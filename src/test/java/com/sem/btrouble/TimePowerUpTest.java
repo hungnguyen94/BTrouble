@@ -1,5 +1,7 @@
 package com.sem.btrouble;
 
+import static org.junit.Assert.*;
+
 //import static org.junit.Assert.assertEquals;
 
 /**
@@ -11,6 +13,7 @@ import org.junit.Test;
 
 import com.sem.btrouble.model.TimePowerUp;
 //import com.sem.btrouble.view.GameView;
+import com.sem.btrouble.view.GameView;
 
 public class TimePowerUpTest extends PowerUpTest {
 
@@ -30,8 +33,7 @@ public class TimePowerUpTest extends PowerUpTest {
      */
     @Test
     public void activateTest() {
-        //power.activate();
-        //assertEquals(10000, GameView.getController().getTimers().getLevelTimerCounter());
+        power.activate();
     }
     
     /**
