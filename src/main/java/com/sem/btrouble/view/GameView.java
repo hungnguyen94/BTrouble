@@ -5,6 +5,7 @@ import com.sem.btrouble.controller.Controller;
 import com.sem.btrouble.model.Timers;
 import com.sem.btrouble.model.Wallet;
 import com.sem.btrouble.observering.LevelObserver;
+import com.sem.btrouble.observering.LevelSubject;
 import com.sem.btrouble.tools.SoundObserver;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -138,6 +139,17 @@ public class GameView extends BasicGameState implements LevelObserver {
      */
     public Audio getWavEffect() {
         return wavEffect;
+    }
+
+    /**
+     * This method is called when the observer is notified about a update.
+     *
+     * @param subject
+     * @param arg
+     */
+    @Override
+    public void update(LevelSubject subject, Object arg) {
+
     }
 
     /**
