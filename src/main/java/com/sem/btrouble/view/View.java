@@ -73,7 +73,7 @@ public class View {
         drawTimer(graphics);
         drawBorders(graphics);
 
-        drawLives();
+        drawLives(graphics);
         drawScore(graphics);
     }
 
@@ -165,11 +165,21 @@ public class View {
      * @throws SlickException
      *             when the lives could not be drawn.
      */
-    private void drawLives() throws SlickException {
+    private void drawLives(Graphics graphics) throws SlickException {
         SpriteSheet livesImage = new SpriteSheet("Sprites/lives_spritesheet.jpg", 381, 171);
         int lives = Model.getPlayers().get(0).getLives();
         if (lives >= 0) {
-            livesImage.getSprite(lives, 0).draw(190, 670, (float) 0.286);
+            if(!SlickApp.multiplayer()) {
+                livesImage.getSprite(lives, 0).draw(190, 670, (float) 0.286);
+            }
+            else if(SlickApp.multiplayer()) {
+                graphics.setColor(Color.white);
+                graphics.drawString("Player 1: ", 190, 670);
+                livesImage.getSprite(lives, 0).draw(310, 670, (float) 0.286);
+                graphics.drawString("Player 2: ", 400, 670);
+                livesImage.getSprite(Model.getPlayers().get(1).getLives(), 0).
+                    draw(520, 670, (float) 0.286);
+            }
         }
     }
 

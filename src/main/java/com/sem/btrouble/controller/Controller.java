@@ -186,6 +186,9 @@ public class Controller implements EventSubject, LevelSubject {
             collisionHandler.removeCollidable(Model.getCurrentRoom().getCollidables());
             // Hardcoded player 1
             collisionHandler.removeCollidable(Model.getPlayers().get(0).getRopes());
+            if(SlickApp.multiplayer()) {
+                collisionHandler.removeCollidable(Model.getPlayers().get(1).getRopes());
+            }
             restartRoom();
             player.setAlive(true);
             ArrayList<Player> players = Model.getPlayers();
