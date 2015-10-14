@@ -127,7 +127,12 @@ public class ShopView extends BasicGameState {
         graphics.setFont(font);
         background.draw(0f, 0f);
 
-        graphics.drawString("" + Model.getWallet(Model.getPlayers().get(0)).getValue(), 70, 660);
+        int sum = 0;
+        ArrayList<Player> players = Model.getPlayers();
+        for(Player player: players) {
+            sum += player.getWallet().getValue();
+        }
+        graphics.drawString("" + sum, 70, 660);
         graphics.drawString("Press enter", 1000, 660);
         graphics.drawString("" + receiptBubbles, 1175, 520);
         graphics.drawString("" + receiptTime, 1175, 570);

@@ -186,7 +186,7 @@ public class View {
         int sum = 0;
         graphics.setColor(Color.white);
         for (int i = 0; i < players.size(); i++) {
-            String value = "Player " + (i + 1) + ": " + Model.getWallet(Model.getPlayers().get(0)).getValue();
+            String value = "Player " + (i + 1) + ": " + Model.getWallet(Model.getPlayers().get(i)).getValue();
             if (SlickApp.multiplayer() && SlickApp.versus()) {
                 graphics.drawString(value, 900 + i * 190 - font.getWidth(value), 670);
             }
