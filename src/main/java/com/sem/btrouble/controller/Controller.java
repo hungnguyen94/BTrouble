@@ -83,7 +83,7 @@ public class Controller implements EventSubject, LevelSubject {
                 player.setFalling(true);
             }
             
-            if (!anyLive()) {
+            if (!anyLife()) {
                 // Update observers.
                 notifyObserver();
                 loseLife(player);
@@ -93,8 +93,7 @@ public class Controller implements EventSubject, LevelSubject {
 
         // Check if timer has run out.
         if (this.getTimers().getLevelTimeLeft() <= 0) {
-            fireEvent(new ControllerEvent(this, ControllerEvent.OUTOFTIME,
-                    "Out of time"));
+            fireEvent(new ControllerEvent(this, ControllerEvent.OUTOFTIME, "Out of time"));
             // Update observers.
             notifyObserver();
             for (Player p : Model.getPlayers()) {
@@ -139,44 +138,35 @@ public class Controller implements EventSubject, LevelSubject {
      *            milliseconds between frames
      */
     public void processInput(int delta) {
-        Input input = gc.getInput();
-        Player p1 = Model.getPlayers().get(0);
-
-        if (input.isKeyDown(Input.KEY_LEFT) && p1.isAlive()) {
-            p1.moveLeft(delta);
-        } else if (input.isKeyDown(Input.KEY_RIGHT) && p1.isAlive()) {
-            p1.moveRight(delta);
-        }
-
-        if (input.isKeyPressed(Input.KEY_SPACE) && p1.isAlive()) {
-            Rope r = new Rope(p1.getX() + (int) (p1.getWidth() / 2),
-                    (float) (p1.getY() + p1.getHeight() * ROPE_OFFSET));
-            if (p1.fire(r)) {
-                collisionHandler.addCollidable(r);
-                fireEvent(new PlayerEvent(p1, PlayerEvent.SHOOT, "Shot a rope"));
-            }
-        }
+        Player player1 = Model.getPlayers().get(0);
+        int[] keys = new int[3];
+        keys[0] = Input.KEY_LEFT;
+        keys[1] = Input.KEY_RIGHT;
+        keys[2] = Input.KEY_SPACE;
+        keys(delta, keys, player1);
         if (Model.getPlayers().size() > 1) {
-            secondPlayer(delta);
+            keys[0] = Input.KEY_A;
+            keys[1] = Input.KEY_D;
+            keys[2] = Input.KEY_W;
+            keys(delta, keys, Model.getPlayers().get(1));
         }
     }
 
-    public void secondPlayer(int delta) {
+    public void keys(int delta, int[] keys, Player player) {
         Input input = gc.getInput();
-        Player p2 = Model.getPlayers().get(1);
 
-        if (input.isKeyDown(Input.KEY_A) && p2.isAlive()) {
-            p2.moveLeft(delta);
-        } else if (input.isKeyDown(Input.KEY_D) && p2.isAlive()) {
-            p2.moveRight(delta);
+        if (input.isKeyDown(keys[0]) && player.isAlive()) {
+            player.moveLeft(delta);
+        } else if (input.isKeyDown(keys[1]) && player.isAlive()) {
+            player.moveRight(delta);
         }
 
-        if (input.isKeyPressed(Input.KEY_W) && p2.isAlive()) {
-            Rope r = new Rope(p2.getX() + (int) (p2.getWidth() / 2),
-                    (float) (p2.getY() + p2.getHeight() * ROPE_OFFSET));
-            if (p2.fire(r)) {
+        if (input.isKeyPressed(keys[2]) && player.isAlive()) {
+            Rope r = new Rope(player.getX() + (int) (player.getWidth() / 2),
+                    (float) (player.getY() + player.getHeight() * ROPE_OFFSET));
+            if (player.fire(r)) {
                 collisionHandler.addCollidable(r);
-                fireEvent(new PlayerEvent(p2, PlayerEvent.SHOOT, "Shot a rope"));
+                fireEvent(new PlayerEvent(player, PlayerEvent.SHOOT, "Shot a rope"));
             }
         }
     }
@@ -193,11 +183,9 @@ public class Controller implements EventSubject, LevelSubject {
         if (!player.hasLives()) {
             endGame("Game over...");
         } else {
-            collisionHandler.removeCollidable(Model.getCurrentRoom()
-                    .getCollidables());
+            collisionHandler.removeCollidable(Model.getCurrentRoom().getCollidables());
             // Hardcoded player 1
-            collisionHandler.removeCollidable(Model.getPlayers().get(0)
-                    .getRopes());
+            collisionHandler.removeCollidable(Model.getPlayers().get(0).getRopes());
             restartRoom();
             player.setAlive(true);
             ArrayList<Player> players = Model.getPlayers();
@@ -211,8 +199,7 @@ public class Controller implements EventSubject, LevelSubject {
     }
 
     private void restartRoom() {
-        fireEvent(new ControllerEvent(this, ControllerEvent.RESTARTROOM,
-                "Room restarted"));
+        fireEvent(new ControllerEvent(this, ControllerEvent.RESTARTROOM, "Room restarted"));
         Model.restartRoom();
         ArrayList<PowerUp> powers = Model.getPowerUps();
         for (PowerUp power : powers) {
@@ -227,12 +214,9 @@ public class Controller implements EventSubject, LevelSubject {
      */
     private void updateBubble() {
         if (!Model.getCurrentRoom().hasBubbles()) {
-            collisionHandler.removeCollidable(Model.getCurrentRoom()
-                    .getCollidables());
+            collisionHandler.removeCollidable(Model.getCurrentRoom().getCollidables());
             Model.getNextRoom();
             restartRoom();
-            // sbg.enterState(2, new FadeOutTransition(), new
-            // FadeInTransition());
         }
         Model.getCurrentRoom().moveBubbles();
     }
@@ -334,7 +318,7 @@ public class Controller implements EventSubject, LevelSubject {
             }
         }
 
-        if (!anyLive()) {
+        if (!anyLife()) {
             for (LevelObserver levelObserver : levelObservers) {
                 levelObserver.levelLost();
             }
@@ -348,7 +332,7 @@ public class Controller implements EventSubject, LevelSubject {
 
     }
     
-    public boolean anyLive() {
+    public boolean anyLife() {
         ArrayList<Player> players = Model.getPlayers();
         boolean alive = false;
         for (Player player : players) {

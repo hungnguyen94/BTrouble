@@ -37,8 +37,7 @@ public class LostLevelView extends BasicGameState {
      * @throws SlickException
      *             when the game could not be initialized.
      */
-    public void init(GameContainer gc, StateBasedGame sbg)
-            throws SlickException {
+    public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         // Set objects to draw
         background = new Image("Sprites/lostlevel1280x720.png");
 
@@ -57,8 +56,7 @@ public class LostLevelView extends BasicGameState {
      * @throws SlickException
      *             when the controller could not be updated
      */
-    public void update(GameContainer gc, StateBasedGame sbg, int delta)
-            throws SlickException {
+    public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
         // Press enter
         if (gc.getInput().isKeyPressed(Input.KEY_RETURN)) {
             GameView.getController().getTimers().restartTimer();
@@ -78,18 +76,16 @@ public class LostLevelView extends BasicGameState {
      * @throws SlickException
      *             when an item could not be drawn.
      */
-    public void render(GameContainer gc, StateBasedGame sbg, Graphics graphics)
+    public void render(GameContainer gc, StateBasedGame sbg, Graphics graphics) 
             throws SlickException {
         graphics.setFont(font);
         background.draw(0f, 0f);
         drawWallet(graphics);
 
-        graphics.drawString("You died. Press enter to restart this Level", 350,
-                250);
+        graphics.drawString("You died. Press enter to restart this Level", 350, 250);
         graphics.drawString("Press enter", 1000, 660);
 
-        SpriteSheet livesImage = new SpriteSheet(
-                "Sprites/lives_spritesheet.jpg", 381, 171);
+        SpriteSheet livesImage = new SpriteSheet("Sprites/lives_spritesheet.jpg", 381, 171);
         int lives = Model.getPlayers().get(0).getLives();
         if (lives >= 0) {
             livesImage.getSprite(lives, 0).draw(190, 670, (float) 0.286);
