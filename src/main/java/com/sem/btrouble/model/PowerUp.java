@@ -67,6 +67,7 @@ public abstract class PowerUp extends Rectangle implements Drawable, Collidable 
     
     /**
      * Draw the power up.
+     * @param graphics Graphics handler
      */
     public abstract void draw(Graphics graphics);
     

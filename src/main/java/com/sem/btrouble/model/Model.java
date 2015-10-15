@@ -191,7 +191,6 @@ public class Model {
         if(powers.contains(power)) {
             powers.remove(power);
         }
-        System.out.println("aaah");
     }
     
     /**
