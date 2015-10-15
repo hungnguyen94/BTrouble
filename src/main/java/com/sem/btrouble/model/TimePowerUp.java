@@ -56,6 +56,7 @@ public class TimePowerUp extends PowerUp {
     
     /**
      * Draw the power up.
+     * @param graphics graphics handler.
      */
     public void draw(Graphics graphics) {
         try {

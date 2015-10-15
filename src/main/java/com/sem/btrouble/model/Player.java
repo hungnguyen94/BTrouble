@@ -389,12 +389,7 @@ public class Player extends Rectangle implements Drawable, Collidable {
                 new HashMap<Class<? extends Collidable>, CollisionAction>();
 
         // Method called on Bubble collision.
-        collisionActionMap.put(Bubble.class, new CollisionAction() {
-            @Override
-            public void onCollision(Collidable collider) {
-                setAlive(false);
-            }
-        });
+        collisionActionMap.put(Bubble.class, new BubbleCollision());
 
         // Method called on Wall collision
         collisionActionMap.put(Wall.class, new WallCollision());
@@ -406,12 +401,21 @@ public class Player extends Rectangle implements Drawable, Collidable {
     }
 
     /**
+     * Class to call method on collision with Bubble.
+     */
+    private class BubbleCollision implements CollisionAction {
+        @Override
+        public void onCollision(Collidable collider) {
+            setAlive(false);
+        }
+    }
+
+    /**
      * Class to call method on collision with Wall.
      */
     private class WallCollision implements CollisionAction {
         @Override
         public void onCollision(Collidable collider) {
-            System.out.println("Collided");
             switch (CollisionHandler.checkCollisionSideX(Player.this, collider)) {
                 case LEFT:
                     setRightBlock(true);
