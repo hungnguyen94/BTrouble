@@ -9,6 +9,7 @@ public interface Drawable {
 
     /**
      * Draw the object.
+     * @param graphics The graphics
      */
     void draw(Graphics graphics);
 }

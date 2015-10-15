@@ -73,6 +73,10 @@ public class Player extends Rectangle implements Drawable, Collidable {
         this.observers = new ArrayList<PlayerObserver>();
     }
     
+    /**
+     * Get the wallet of the player.
+     * @return the wallet
+     */
     public Wallet getWallet() {
         return wallet;
     }
@@ -276,9 +280,7 @@ public class Player extends Rectangle implements Drawable, Collidable {
 
     /**
      * Draws the player on the screen.
-     *
-     * @throws SlickException
-     *             when the player could not be drawn.
+     * @param graphics The graphics
      */
     @Override
     public void draw(Graphics graphics) {

@@ -68,8 +68,7 @@ public class Room implements Serializable, Drawable {
     }
 
     /**
-     * Create an exact copy of the current room with the same parameters and
-     * return 
+     * Create an exact copy of the current room with the same parameters and return. 
      * @return - Return a deep copy of the current room.
      */
     public Room copyRoom() {
@@ -106,6 +105,15 @@ public class Room implements Serializable, Drawable {
                     && this.spawnPositionY == that.spawnPositionY);
         }
         return false;
+    }
+    
+    /**
+     * HashCode because of implemented equals method.
+     * @return hashCode
+     */
+    public int hashCode() {
+        assert false : "hashCode not designed";
+        return 42; // any arbitrary constant will do
     }
 
     /**
@@ -254,7 +262,7 @@ public class Room implements Serializable, Drawable {
     /**
      * Draw the walls and floors.
      *
-     * @param graphics
+     * @param graphics The graphics
      */
     @Override
     public void draw(Graphics graphics) {
@@ -271,6 +279,10 @@ public class Room implements Serializable, Drawable {
     }
 
     // Old methods
+    /**
+     * Draw the room.
+     * @param g The graphics
+     */
     public void drawRoom(Graphics g) {
         draw(g);
     }

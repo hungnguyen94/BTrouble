@@ -152,6 +152,12 @@ public class Controller implements EventSubject, LevelSubject {
         }
     }
 
+    /**
+     * Give the player certain keys for actions.
+     * @param delta how much the player has to move
+     * @param keys the keys for the player
+     * @param player the player who gets the keys
+     */
     public void keys(int delta, int[] keys, Player player) {
         Input input = gc.getInput();
 
@@ -335,6 +341,10 @@ public class Controller implements EventSubject, LevelSubject {
 
     }
     
+    /**
+     * Checks if there is a player in the room who is still alive.
+     * @return a boolean
+     */
     public boolean anyLife() {
         ArrayList<Player> players = Model.getPlayers();
         boolean alive = false;

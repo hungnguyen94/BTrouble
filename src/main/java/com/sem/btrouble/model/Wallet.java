@@ -28,6 +28,10 @@ public class Wallet implements EventObserver {
         return value;
     }
     
+    /**
+     * Set the value of the wallet.
+     * @param value The value
+     */
     public void setValue(int value) {
         this.value = value;
     }
@@ -50,8 +54,7 @@ public class Wallet implements EventObserver {
 
     /**
      * Update the wallet.
-     * @param observable object to observe
-     * @param arg the event
+     * @param event The event which happened
      */
     @Override
     public void update(GameEvent event) {

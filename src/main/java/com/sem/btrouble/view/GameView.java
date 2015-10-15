@@ -5,7 +5,6 @@ import com.sem.btrouble.controller.Controller;
 import com.sem.btrouble.model.Model;
 import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Timers;
-import com.sem.btrouble.model.Wallet;
 import com.sem.btrouble.observering.LevelObserver;
 import com.sem.btrouble.tools.SoundObserver;
 

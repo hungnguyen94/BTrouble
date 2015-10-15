@@ -62,7 +62,7 @@ public class View {
      * 
      * @param graphics
      *            Graphics object from Slick2D
-     * @throws SlickException
+     * @throws SlickException occurs when graphics are invalid
      */
     public void draw(Graphics graphics) throws SlickException {
         drawBackground(graphics);
@@ -196,7 +196,8 @@ public class View {
         int sum = 0;
         graphics.setColor(Color.white);
         for (int i = 0; i < players.size(); i++) {
-            String value = "Player " + (i + 1) + ": " + Model.getWallet(Model.getPlayers().get(i)).getValue();
+            String value = "Player " + (i + 1) + ": " 
+                   + Model.getWallet(Model.getPlayers().get(i)).getValue();
             if (SlickApp.multiplayer() && SlickApp.versus()) {
                 graphics.drawString(value, 900 + i * 190 - font.getWidth(value), 670);
             }

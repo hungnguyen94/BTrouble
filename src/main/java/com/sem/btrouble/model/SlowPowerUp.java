@@ -90,6 +90,7 @@ public class SlowPowerUp extends PowerUp implements Observer{
     
     /**
      * Draw the power up.
+     * @param graphics The graphics
      */
     public void draw(Graphics graphics) {
         try {

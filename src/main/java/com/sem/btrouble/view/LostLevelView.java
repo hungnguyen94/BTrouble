@@ -93,6 +93,10 @@ public class LostLevelView extends BasicGameState {
 
     }
 
+    /**
+     * Draw the value of the wallet.
+     * @param graphics The graphics
+     */
     public void drawWallet(Graphics graphics) {
         ArrayList<Player> players = Model.getPlayers();
         int sum = 0;
