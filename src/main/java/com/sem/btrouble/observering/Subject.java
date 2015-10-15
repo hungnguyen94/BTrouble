@@ -1,21 +1,28 @@
 package com.sem.btrouble.observering;
 
-public interface Subject<Observer> {
+import com.sem.btrouble.event.GameEvent;
+
+/**
+ * Subject interface. Observable classes should implement this.
+ */
+public interface EventSubject {
+    
+    /**
+     * Method to notify the observers about a change.
+     * @param gameEvent the event that the observers should be notified with.
+     */
+    void fireEvent(GameEvent gameEvent);
     
     /**
      * Register an observer to the subject.
      * @param observer Observer to be added.
      */
-    void registerObserver(Observer observer);
-
-    /**
-     * Remove an observer from the observers list.
-     * @param observer Observer to be removed.
-     */
-    void removeObserver(Observer observer);
+    void registerObserver(EventObserver observer);
 
     /**
      * Method to notify the observers about a change.
+     * @param observer the obser to be removed.
      */
-    void notifyObserver();
+    void removeObserver(EventObserver observer);
+    
 }
