@@ -190,15 +190,12 @@ public class Controller implements EventSubject, LevelSubject {
             endGame("Game over...");
         } else {
             collisionHandler.removeCollidable(Model.getCurrentRoom().getCollidables());
-            // Hardcoded player 1
-            collisionHandler.removeCollidable(Model.getPlayers().get(0).getRopes());
-            if(SlickApp.multiplayer()) {
-                collisionHandler.removeCollidable(Model.getPlayers().get(1).getRopes());
+            for(Player otherplayer: Model.getPlayers()) {
+                collisionHandler.removeCollidable(otherplayer.getRopes());
             }
             restartRoom();
             player.setAlive(true);
-            ArrayList<Player> players = Model.getPlayers();
-            for(Player otherPlayer: players) {
+            for(Player otherPlayer: Model.getPlayers()) {
                 if(!otherPlayer.equals(player)) {
                     otherPlayer.loseLife();
                 }
@@ -346,13 +343,11 @@ public class Controller implements EventSubject, LevelSubject {
      * @return a boolean
      */
     public boolean anyLife() {
-        ArrayList<Player> players = Model.getPlayers();
-        boolean alive = false;
-        for (Player player : players) {
+        for (Player player : Model.getPlayers()) {
             if (player.isAlive()) {
-                alive = true;
+                return true;
             }
         }
-        return alive;
+        return false;
     }
 }

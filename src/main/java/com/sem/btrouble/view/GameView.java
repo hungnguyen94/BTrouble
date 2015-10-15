@@ -49,8 +49,7 @@ public class GameView extends BasicGameState implements LevelObserver {
 
         controller = new Controller(gc, sbg);
         soundObserver = new SoundObserver();
-        ArrayList<Player> players = Model.getPlayers();
-        for(Player player: players) {
+        for(Player player: Model.getPlayers()) {
             controller.registerObserver(player.getWallet());
         }
 
