@@ -34,6 +34,24 @@ public class TimePowerUp extends PowerUp {
     }
     
     /**
+     * Test if two object are equal of this instance.
+     * @param other the object to compare with
+     * @return a boolean
+     */
+    public boolean equals(Object other) {
+        if(other instanceof TimePowerUp) {
+            TimePowerUp that = (TimePowerUp) other;
+            return this.isFalling() == that.isFalling() 
+                    && Math.abs(this.x - that.x) == 0
+                    && Math.abs(this.y - that.y) == 0
+                    && Math.abs(this.getVY() - that.getVY()) == 0
+                    && Math.abs(this.getAY() - that.getAY()) == 0;
+        } else {
+            return false;
+        }
+    }
+    
+    /**
      * Active power up bought in the store.
      */
     public void activate() {

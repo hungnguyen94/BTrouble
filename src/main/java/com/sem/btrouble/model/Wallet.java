@@ -28,6 +28,15 @@ public class Wallet implements EventObserver {
         return value;
     }
     
+    public boolean equals(Object other) {
+        if(other instanceof Wallet) {
+            Wallet that = (Wallet) other;
+            return this.value == that.value;
+        } else {
+            return false;
+        }
+    }
+    
     /**
      * Set the value of the wallet.
      * @param value The value

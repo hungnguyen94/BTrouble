@@ -15,11 +15,10 @@ public class PowerUpGenerator {
      * @param y y position
      * @return the power up
      */
-	public static PowerUp generate(float x, float y) {
+	public static PowerUp generate(float x, float y, double random) {
 		PowerUp power = null;
 		int[] types = getTypes();
-		double random = Math.random();
-		if (random < 0.1) {
+		if (random > 0 && random < 0.1) {
 			if(types[0] == 0) {
 				power = new TimePowerUp(x, y);
 			}
