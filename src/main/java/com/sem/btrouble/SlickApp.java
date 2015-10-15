@@ -129,8 +129,10 @@ public class SlickApp extends StateBasedGame implements EventSubject {
         Player player2 = new Player(250, 250);
         if(multiplayer) {
             Model.addPlayer(player2);
+            GameView.getController().getCollisionHandler().addCollidable(player2);
         }  else {
             Model.removePlayer(player2);
+            GameView.getController().getCollisionHandler().removeCollidable(player2);
         }
     }
 

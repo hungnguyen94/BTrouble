@@ -57,6 +57,10 @@ public class Controller implements EventSubject, LevelSubject {
         collisionHandler.addCollidable(p);
         restartRoom();
     }
+    
+    public CollisionHandler getCollisionHandler() {
+        return collisionHandler;
+    }
 
     /**
      * Returns the timers.
