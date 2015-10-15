@@ -11,6 +11,8 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.sem.btrouble.event.BubbleEvent;
+import com.sem.btrouble.event.PlayerEvent;
 import com.sem.btrouble.model.TimePowerUp;
 //import com.sem.btrouble.view.GameView;
 import com.sem.btrouble.view.GameView;
@@ -33,7 +35,8 @@ public class TimePowerUpTest extends PowerUpTest {
      */
     @Test
     public void activateTest() {
-        power.activate();
+        System.out.println(PlayerEvent.valueOf("COLLISION_BUBBLE"));
+        System.out.println(BubbleEvent.COLLISION_CEILING);
     }
     
     /**

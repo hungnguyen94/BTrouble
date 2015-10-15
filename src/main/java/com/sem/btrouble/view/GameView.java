@@ -1,11 +1,7 @@
 package com.sem.btrouble.view;
 
-import com.sem.btrouble.SlickApp;
-import com.sem.btrouble.controller.Controller;
-import com.sem.btrouble.model.Timers;
-import com.sem.btrouble.model.Wallet;
-import com.sem.btrouble.observering.LevelObserver;
-import com.sem.btrouble.tools.SoundObserver;
+import java.io.IOException;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -18,12 +14,19 @@ import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.util.ResourceLoader;
 
-import java.io.IOException;
+import com.sem.btrouble.SlickApp;
+import com.sem.btrouble.controller.Controller;
+import com.sem.btrouble.event.Event;
+import com.sem.btrouble.event.LevelEvent;
+import com.sem.btrouble.model.Timers;
+import com.sem.btrouble.model.Wallet;
+import com.sem.btrouble.observering.Observer;
+import com.sem.btrouble.tools.SoundObserver;
 
 /**
  * Created by rubenwiersma on 22-09-15.
  */
-public class GameView extends BasicGameState implements LevelObserver {
+public class GameView extends BasicGameState implements Observer {
     private Timers timers;
     private static Controller controller;
     private static View view;
@@ -140,19 +143,20 @@ public class GameView extends BasicGameState implements LevelObserver {
         return wavEffect;
     }
 
-    /**
-     * This method is called when a level is won.
-     */
     @Override
-    public void levelWon() {
-        sbg.enterState(2, new FadeOutTransition(), new FadeInTransition());
-    }
-
-    /**
-     * This method is called when a level is lost.
-     */
-    @Override
-    public void levelLost() {
-        sbg.enterState(4, new FadeOutTransition(), new FadeInTransition());
+    public void update(Event event) {
+        if(event instanceof LevelEvent){
+            switch((LevelEvent) event){
+            case LEVELLOST:
+                sbg.enterState(4, new FadeOutTransition(), new FadeInTransition());
+                break;
+            case LEVELWON:
+                sbg.enterState(2, new FadeOutTransition(), new FadeInTransition());
+                break;
+            default:
+                break;
+                
+            }
+        }
     }
 }

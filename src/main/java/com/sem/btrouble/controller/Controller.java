@@ -1,8 +1,17 @@
 package com.sem.btrouble.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.state.StateBasedGame;
+
 import com.sem.btrouble.SlickApp;
 import com.sem.btrouble.event.ControllerEvent;
-import com.sem.btrouble.event.GameEvent;
+import com.sem.btrouble.event.Event;
+import com.sem.btrouble.event.LevelEvent;
 import com.sem.btrouble.event.PlayerEvent;
 import com.sem.btrouble.model.Bubble;
 import com.sem.btrouble.model.Model;
@@ -10,28 +19,18 @@ import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.PowerUp;
 import com.sem.btrouble.model.Rope;
 import com.sem.btrouble.model.Timers;
-import com.sem.btrouble.observering.EventObserver;
-import com.sem.btrouble.observering.EventSubject;
-import com.sem.btrouble.observering.LevelObserver;
-import com.sem.btrouble.observering.LevelSubject;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.state.StateBasedGame;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.sem.btrouble.observering.Observer;
+import com.sem.btrouble.observering.Subject;
 
 /**
  * Controller, recalculates the Model, on request of the view.
  */
-public class Controller implements EventSubject, LevelSubject {
+public class Controller implements Subject {
 
     private GameContainer gc;
     private CollisionHandler collisionHandler;
     private int timeLeft;
-    private List<EventObserver> observers;
-    private List<LevelObserver> levelObservers;
+    private List<Observer> observers;
 
     /**
      * Starts a new game by loading data into the room and adding the players.
@@ -45,8 +44,7 @@ public class Controller implements EventSubject, LevelSubject {
      */
     public Controller(GameContainer container, StateBasedGame sbg) throws SlickException {
         this.gc = container;
-        this.observers = new ArrayList<EventObserver>();
-        this.levelObservers = new ArrayList<LevelObserver>();
+        this.observers = new ArrayList<Observer>();
 
         collisionHandler = new CollisionHandler();
 
@@ -84,7 +82,7 @@ public class Controller implements EventSubject, LevelSubject {
 
             if (!player.isAlive()) {
                 // Update observers.
-                notifyObserver();
+                fireEvent(LevelEvent.LEVELLOST);
                 loseLife(player);
             }
             collisionHandler.checkCollision(player.getRopes());
@@ -92,9 +90,9 @@ public class Controller implements EventSubject, LevelSubject {
 
         // Check if timer has run out.
         if (this.getTimers().getLevelTimeLeft() <= 0) {
-            fireEvent(new ControllerEvent(this, ControllerEvent.OUTOFTIME, "Out of time"));
+            fireEvent(ControllerEvent.OUTOFTIME);
             // Update observers.
-            notifyObserver();
+            fireEvent(LevelEvent.LEVELLOST);
             for (Player p : Model.getPlayers()) {
                 loseLife(p);
             }
@@ -119,8 +117,6 @@ public class Controller implements EventSubject, LevelSubject {
         for (Player p : Model.getPlayers()) {
             p.move();
         }
-        // Update observers.
-        notifyObserver();
 
         processInput(delta);
         // calculate movements
@@ -151,7 +147,7 @@ public class Controller implements EventSubject, LevelSubject {
                     (float) (p1.getY() + p1.getHeight() * ROPE_OFFSET));
             if (p1.fire(r)) {
                 collisionHandler.addCollidable(r);
-                fireEvent(new PlayerEvent(p1, PlayerEvent.SHOOT, "Shot a rope"));
+                fireEvent(PlayerEvent.SHOOT);
             }
         }
     }
@@ -163,7 +159,7 @@ public class Controller implements EventSubject, LevelSubject {
      *            should be the player who lost a life
      */
     public void loseLife(Player player) {
-        fireEvent(new PlayerEvent(player, PlayerEvent.LIFE_LOST, "Lost a life"));
+        fireEvent(PlayerEvent.LIFE_LOST);
         player.loseLife();
         if (!player.hasLives()) {
             endGame("Game over...");
@@ -177,10 +173,10 @@ public class Controller implements EventSubject, LevelSubject {
     }
 
     private void restartRoom() {
-        fireEvent(new ControllerEvent(this, ControllerEvent.RESTARTROOM, "Room restarted"));
+        fireEvent(ControllerEvent.RESTARTROOM);
         Model.restartRoom();
         ArrayList<PowerUp> powers = Model.getPowerUps();
-        for (PowerUp power: powers) {
+        for (PowerUp power : powers) {
             power.reset();
         }
         collisionHandler.addCollidable(Model.getCurrentRoom().getCollidables());
@@ -192,10 +188,12 @@ public class Controller implements EventSubject, LevelSubject {
      */
     private void updateBubble() {
         if (!Model.getCurrentRoom().hasBubbles()) {
+            fireEvent(LevelEvent.LEVELWON);
             collisionHandler.removeCollidable(Model.getCurrentRoom().getCollidables());
             Model.getNextRoom();
             restartRoom();
-            //sbg.enterState(2, new FadeOutTransition(), new FadeInTransition());
+            // sbg.enterState(2, new FadeOutTransition(), new
+            // FadeInTransition());
         }
         Model.getCurrentRoom().moveBubbles();
     }
@@ -240,73 +238,24 @@ public class Controller implements EventSubject, LevelSubject {
      *            should be a String containing the message which is shown.
      */
     public void endGame(String message) {
-        fireEvent(new ControllerEvent(this, ControllerEvent.GAMEOVER, message));
+        fireEvent(ControllerEvent.GAMEOVER);
         gc.exit();
     }
 
     @Override
-    public void fireEvent(GameEvent gameEvent) {
-        for (EventObserver observer : observers) {
+    public void fireEvent(Event gameEvent) {
+        for (Observer observer : observers) {
             observer.update(gameEvent);
         }
     }
 
     @Override
-    public void registerObserver(EventObserver observer) {
+    public void registerObserver(Observer observer) {
         observers.add(observer);
     }
 
     @Override
-    public void removeObserver(EventObserver observer) {
+    public void removeObserver(Observer observer) {
         observers.remove(observer);
-    }
-
-    /**
-     * Register an observer to the subject.
-     *
-     * @param observer Observer to be added.
-     */
-    @Override
-    public void registerObserver(LevelObserver observer) {
-        if(observer == null || levelObservers.contains(observer)) {
-            return;
-        }
-        levelObservers.add(observer);
-    }
-
-    /**
-     * Remove an observer from the observers list.
-     *
-     * @param observer Observer to be removed.
-     */
-    @Override
-    public void removeObserver(LevelObserver observer) {
-        levelObservers.remove(observer);
-    }
-
-    /**
-     * Method to notify the observers about a change.
-     */
-    @Override
-    public void notifyObserver() {
-        if(!Model.getCurrentRoom().hasBubbles()) {
-            for(LevelObserver levelObserver : levelObservers) {
-                levelObserver.levelWon();
-            }
-        }
-
-        // Hardcoded player 1.
-        if(!Model.getPlayers().get(0).isAlive()) {
-            for(LevelObserver levelObserver : levelObservers) {
-                levelObserver.levelLost();
-            }
-        }
-
-        if(getTimers().getLevelTimeLeft() <= 0) {
-            for(LevelObserver levelObserver : levelObservers) {
-                levelObserver.levelLost();
-            }
-        }
-
     }
 }

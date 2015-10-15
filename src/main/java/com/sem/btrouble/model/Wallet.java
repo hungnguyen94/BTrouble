@@ -1,15 +1,16 @@
 package com.sem.btrouble.model;
 
 import com.sem.btrouble.event.BubbleEvent;
-import com.sem.btrouble.event.GameEvent;
-import com.sem.btrouble.observering.EventObserver;
+import com.sem.btrouble.event.Event;
+import com.sem.btrouble.observering.Observer;
 
 /**
  * Represents a wallet.
+ * 
  * @author Martin
  *
  */
-public class Wallet implements EventObserver {
+public class Wallet implements Observer {
 
     private int value;
 
@@ -22,6 +23,7 @@ public class Wallet implements EventObserver {
 
     /**
      * Get the value of the wallet.
+     * 
      * @return the value
      */
     public int getValue() {
@@ -30,7 +32,9 @@ public class Wallet implements EventObserver {
 
     /**
      * Increase the value.
-     * @param extra the extra amount
+     * 
+     * @param extra
+     *            the extra amount
      */
     public void increaseValue(int extra) {
         value += extra;
@@ -38,7 +42,9 @@ public class Wallet implements EventObserver {
 
     /**
      * Decrease the value.
-     * @param less the less amount
+     * 
+     * @param less
+     *            the less amount
      */
     public void decreaseValue(int less) {
         value -= less;
@@ -46,17 +52,17 @@ public class Wallet implements EventObserver {
 
     /**
      * Update the wallet.
-     * @param observable object to observe
-     * @param arg the event
+     * 
+     * @param observable
+     *            object to observe
+     * @param arg
+     *            the event
      */
     @Override
-    public void update(GameEvent event) {
-        if (event instanceof BubbleEvent) {
-            BubbleEvent bubbleEvent = (BubbleEvent) event;
-            if (event.getId() == BubbleEvent.COLLISION_ROPE) {
-                int value = bubbleEvent.getSubject().getSize();
-                increaseValue(value * 1000);
-            }
+    public void update(Event event) {
+        if (event == BubbleEvent.COLLISION_ROPE) {
+            // int value = bubbleEvent.getSubject().getSize();
+            increaseValue(1000);
         }
     }
 

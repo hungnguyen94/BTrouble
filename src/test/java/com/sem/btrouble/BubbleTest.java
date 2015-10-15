@@ -88,8 +88,7 @@ public class BubbleTest {
     @Test
     public void collideFloorTest() {
         double vy = bubble1.getVy();
-        bubble1.bubbleEvent(
-                new BubbleEvent(bubble1, BubbleEvent.COLLISION_FLOOR, "Collided with floor"));
+        bubble1.bubbleEvent(BubbleEvent.COLLISION_FLOOR);
         assertEquals(-vy, bubble1.getVy(), 0);
     }
 
@@ -99,8 +98,7 @@ public class BubbleTest {
     @Test
     public void collideWallTest() {
         double vx = bubble1.getVx();
-        bubble1.bubbleEvent(
-                new BubbleEvent(bubble1, BubbleEvent.COLLISION_WALL, "Collided with wall"));
+        bubble1.bubbleEvent(BubbleEvent.COLLISION_WALL);
         assertEquals(-vx, bubble1.getVx(), 0);
     }
 
@@ -110,7 +108,7 @@ public class BubbleTest {
     @Test
     public void collideDefault() {
         Bubble bubble = bubble1;
-        when(event.getId()).thenReturn(5);
+        when(event.toString()).thenReturn("COLLISION_WALL");
         bubble1.bubbleEvent(event);
         assertEquals(bubble, bubble1);
     }

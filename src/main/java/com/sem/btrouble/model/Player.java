@@ -1,9 +1,10 @@
 package com.sem.btrouble.model;
 
-import com.sem.btrouble.controller.Collidable;
-import com.sem.btrouble.controller.CollisionAction;
-import com.sem.btrouble.controller.CollisionHandler;
-import com.sem.btrouble.observering.PlayerObserver;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -12,17 +13,19 @@ import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import com.sem.btrouble.controller.Collidable;
+import com.sem.btrouble.controller.CollisionAction;
+import com.sem.btrouble.controller.CollisionHandler;
+import com.sem.btrouble.event.Event;
+import com.sem.btrouble.observering.Observer;
+import com.sem.btrouble.observering.Subject;
 
 /**
  * Player class, containing all the data about the player.
  *
  */
 @SuppressWarnings("serial")
-public class Player extends Rectangle implements Drawable, Collidable {
+public class Player extends Rectangle implements Drawable, Collidable, Subject {
     private int lives;
     private int score;
 
@@ -46,8 +49,8 @@ public class Player extends Rectangle implements Drawable, Collidable {
     private static final int INITIAL_SCORE = 0;
 
     private ArrayList<Rope> ropes;
-    
-    private ArrayList<PlayerObserver> observers;
+
+    private ArrayList<Observer> observers;
 
     /**
      * Constructor for the Player class.
@@ -68,7 +71,7 @@ public class Player extends Rectangle implements Drawable, Collidable {
         alive = true;
         falling = true;
 
-        this.observers = new ArrayList<PlayerObserver>();
+        this.observers = new ArrayList<Observer>();
     }
 
     /**
@@ -82,19 +85,19 @@ public class Player extends Rectangle implements Drawable, Collidable {
     public boolean equals(Object other) {
         if (other instanceof Player) {
             Player that = (Player) other;
-            return Math.abs(this.x - that.x) == 0 && Math.abs(this.y - that.y) == 0 
-                    && this.ropes.equals(that.ropes)
-                    && this.facingLeft == that.facingLeft && this.idle == that.idle
-                    && this.lives == that.lives && this.score == that.score 
-                    && Math.abs(this.vy - that.vy) == 0
+            return Math.abs(this.x - that.x) == 0 && Math.abs(this.y - that.y) == 0
+                    && this.ropes.equals(that.ropes) && this.facingLeft == that.facingLeft
+                    && this.idle == that.idle && this.lives == that.lives
+                    && this.score == that.score && Math.abs(this.vy - that.vy) == 0
                     && this.rightBlocked == that.rightBlocked
                     && this.leftBlocked == that.leftBlocked;
         }
         return false;
     }
-    
+
     /**
      * HashCode because of implemented equals method.
+     * 
      * @return hashCode
      */
     public int hashCode() {
@@ -104,6 +107,7 @@ public class Player extends Rectangle implements Drawable, Collidable {
 
     /**
      * Return if player is right blocked.
+     * 
      * @return boolean
      */
     public boolean getRightBlocked() {
@@ -112,6 +116,7 @@ public class Player extends Rectangle implements Drawable, Collidable {
 
     /**
      * Return if the player is left blocked.
+     * 
      * @return boolean
      */
     public boolean getLeftBlocked() {
@@ -120,7 +125,9 @@ public class Player extends Rectangle implements Drawable, Collidable {
 
     /**
      * Set the player to right blocked.
-     * @param block boolean
+     * 
+     * @param block
+     *            boolean
      */
     public void setRightBlock(boolean block) {
         this.rightBlocked = block;
@@ -128,7 +135,9 @@ public class Player extends Rectangle implements Drawable, Collidable {
 
     /**
      * Set the player to left blocked.
-     * @param block boolean
+     * 
+     * @param block
+     *            boolean
      */
     public void setLeftBlock(boolean block) {
         this.leftBlocked = block;
@@ -136,6 +145,7 @@ public class Player extends Rectangle implements Drawable, Collidable {
 
     /**
      * Return if the player is alive.
+     * 
      * @return boolean
      */
     public boolean isAlive() {
@@ -144,7 +154,9 @@ public class Player extends Rectangle implements Drawable, Collidable {
 
     /**
      * Set the player alive.
-     * @param alive boolean
+     * 
+     * @param alive
+     *            boolean
      */
     public void setAlive(boolean alive) {
         this.alive = alive;
@@ -152,6 +164,7 @@ public class Player extends Rectangle implements Drawable, Collidable {
 
     /**
      * Return if the player is falling.
+     * 
      * @return boolean
      */
     public boolean isFalling() {
@@ -160,7 +173,9 @@ public class Player extends Rectangle implements Drawable, Collidable {
 
     /**
      * Set the player to falling.
-     * @param falling boolean
+     * 
+     * @param falling
+     *            boolean
      */
     public void setFalling(boolean falling) {
         this.falling = falling;
@@ -168,6 +183,7 @@ public class Player extends Rectangle implements Drawable, Collidable {
 
     /**
      * Return the ropes which the player has shot.
+     * 
      * @return the ropes
      */
     public ArrayList<Rope> getRopes() {
@@ -190,6 +206,7 @@ public class Player extends Rectangle implements Drawable, Collidable {
 
     /**
      * Return if the player has lives.
+     * 
      * @return boolean
      */
     public boolean hasLives() {
@@ -198,6 +215,7 @@ public class Player extends Rectangle implements Drawable, Collidable {
 
     /**
      * Get the amount of lives of the player.
+     * 
      * @return the lives
      */
     public int getLives() {
@@ -206,6 +224,7 @@ public class Player extends Rectangle implements Drawable, Collidable {
 
     /**
      * Get the score of the player.
+     * 
      * @return the score
      */
     public int getScore() {
@@ -214,7 +233,9 @@ public class Player extends Rectangle implements Drawable, Collidable {
 
     /**
      * Increase the score of the player.
-     * @param amount how many the score increases
+     * 
+     * @param amount
+     *            how many the score increases
      */
     public void increaseScore(int amount) {
         score += amount;
@@ -222,6 +243,7 @@ public class Player extends Rectangle implements Drawable, Collidable {
 
     /**
      * Return the vertical speed of the player.
+     * 
      * @return vertical speed
      */
     public double getVy() {
@@ -239,6 +261,7 @@ public class Player extends Rectangle implements Drawable, Collidable {
 
     /**
      * Remove collided ropes.
+     * 
      * @return Collection without collided ropes
      */
     public Collection<Collidable> removeCollidedRopes() {
@@ -253,8 +276,8 @@ public class Player extends Rectangle implements Drawable, Collidable {
     }
 
     /**
-     * Function which allows the player to fire. 
-     * True if the rope succesfully fires.
+     * Function which allows the player to fire. True if the rope succesfully
+     * fires.
      * 
      * @param r
      *            - rope to be added
@@ -376,15 +399,15 @@ public class Player extends Rectangle implements Drawable, Collidable {
     }
 
     /**
-     * Every collidable should return a Map with all CollisionActions
-     * that collidable should process. To prevent class checking, simply
-     * use the class as the key, and a CollisionAction instance as value.
+     * Every collidable should return a Map with all CollisionActions that
+     * collidable should process. To prevent class checking, simply use the
+     * class as the key, and a CollisionAction instance as value.
+     * 
      * @return A map of all actions this collidable can do on a collision.
      */
     @Override
     public Map<Class<? extends Collidable>, CollisionAction> getCollideActions() {
-        Map<Class<? extends Collidable>, CollisionAction> collisionActionMap =
-                new HashMap<Class<? extends Collidable>, CollisionAction>();
+        Map<Class<? extends Collidable>, CollisionAction> collisionActionMap = new HashMap<Class<? extends Collidable>, CollisionAction>();
 
         // Method called on Bubble collision.
         collisionActionMap.put(Bubble.class, new CollisionAction() {
@@ -399,14 +422,14 @@ public class Player extends Rectangle implements Drawable, Collidable {
             @Override
             public void onCollision(Collidable collider) {
                 switch (CollisionHandler.checkCollisionSideX(Player.this, collider)) {
-                    case LEFT:
-                        setRightBlock(true);
-                        break;
-                    case RIGHT:
-                        setLeftBlock(true);
-                        break;
-                    default:
-                        break;
+                case LEFT:
+                    setRightBlock(true);
+                    break;
+                case RIGHT:
+                    setLeftBlock(true);
+                    break;
+                default:
+                    break;
                 }
             }
         });
@@ -425,11 +448,30 @@ public class Player extends Rectangle implements Drawable, Collidable {
 
     /**
      * Checks for intersection with another Collidable.
-     * @param collidable Check if this collidable intersects with that collidable.
+     * 
+     * @param collidable
+     *            Check if this collidable intersects with that collidable.
      * @return True if this object intersects with collidable.
      */
     @Override
     public boolean intersectsCollidable(Collidable collidable) {
         return this.intersects((Shape) collidable);
+    }
+
+    @Override
+    public void registerObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+    
+    @Override
+    public void fireEvent(Event gameEvent) {
+        for (Observer observer : observers) {
+            observer.update(gameEvent);
+        }
     }
 }

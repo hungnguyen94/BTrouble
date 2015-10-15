@@ -1,9 +1,9 @@
 package com.sem.btrouble;
 
-import com.sem.btrouble.event.GameEvent;
+import com.sem.btrouble.event.Event;
 import com.sem.btrouble.model.GraphicSettings;
-import com.sem.btrouble.observering.EventObserver;
-import com.sem.btrouble.observering.EventSubject;
+import com.sem.btrouble.observering.Observer;
+import com.sem.btrouble.observering.Subject;
 import com.sem.btrouble.tools.Logger;
 import com.sem.btrouble.view.GameView;
 import com.sem.btrouble.view.LostLevelView;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
  * Application running the game.
  *
  */
-public class SlickApp extends StateBasedGame implements EventSubject {
+public class SlickApp extends StateBasedGame implements Subject {
 
     private static GraphicSettings graphics;
     private static boolean audioOn = true;
@@ -28,7 +28,7 @@ public class SlickApp extends StateBasedGame implements EventSubject {
     public static final int SCREEN_HEIGHT = 720;
     public static final int DEFAULT_FRAMERATE = 60;
     private static Logger logger;
-    private ArrayList<EventObserver> observers;
+    private ArrayList<Observer> observers;
 
     /**
      * Init the Slickapp.
@@ -40,7 +40,7 @@ public class SlickApp extends StateBasedGame implements EventSubject {
         super(gamename);
 
         logger = new Logger(Logger.DEFAULT_LOGGER_PATH, true);
-        observers = new ArrayList<EventObserver>();
+        observers = new ArrayList<Observer>();
     }
 
     /**
@@ -117,19 +117,19 @@ public class SlickApp extends StateBasedGame implements EventSubject {
     }
 
     @Override
-    public void fireEvent(GameEvent gameEvent) {
-        for (EventObserver observer : observers) {
+    public void fireEvent(Event gameEvent) {
+        for (Observer observer : observers) {
             observer.update(gameEvent);
         }
     }
 
     @Override
-    public void registerObserver(EventObserver observer) {
+    public void registerObserver(Observer observer) {
         observers.add(observer);
     }
 
     @Override
-    public void removeObserver(EventObserver observer) {
+    public void removeObserver(Observer observer) {
         observers.remove(observer);
     }
 }

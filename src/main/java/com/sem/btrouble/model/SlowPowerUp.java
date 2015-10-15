@@ -1,14 +1,14 @@
 package com.sem.btrouble.model;
 
 import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
 
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import com.sem.btrouble.event.BubbleEvent;
+import com.sem.btrouble.event.Event;
+import com.sem.btrouble.observering.Observer;
 
 /**
  * Represents power up for slow bubbles.
@@ -16,7 +16,7 @@ import com.sem.btrouble.event.BubbleEvent;
  *
  */
 @SuppressWarnings("serial")
-public class SlowPowerUp extends PowerUp implements Observer{
+public class SlowPowerUp extends PowerUp implements Observer {
     
     private boolean on;
 	private Image playerIdle;
@@ -45,12 +45,9 @@ public class SlowPowerUp extends PowerUp implements Observer{
      * @param observable object to observe
      * @param arg the event
      */
-    public void update(Observable observable, Object arg) {
-      if (arg instanceof BubbleEvent) {
-          BubbleEvent event = (BubbleEvent) arg;
-          if (event.getId() == BubbleEvent.COLLISION_ROPE && on) {
-              slowBubbles(.3f);
-          }
+    public void update(Event event) {
+      if(event == BubbleEvent.COLLISION_ROPE && on){
+          slowBubbles(.3f);
       }
     }
     

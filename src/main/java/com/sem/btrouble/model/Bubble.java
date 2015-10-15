@@ -151,14 +151,14 @@ public class Bubble extends Circle implements Drawable, Collidable {
      *            should be a BubbleEvent representing an event in the game.
      */
     public void bubbleEvent(BubbleEvent event) {
-        switch (event.getId()) {
-        case BubbleEvent.COLLISION_FLOOR:
+        switch (event) {
+        case COLLISION_FLOOR:
             vy = -vy;
             break;
-        case BubbleEvent.COLLISION_WALL:
+        case COLLISION_WALL:
             vx = -vx;
             break;
-        case BubbleEvent.COLLISION_ROPE:
+        case COLLISION_ROPE:
             split();
             break;
         default:
