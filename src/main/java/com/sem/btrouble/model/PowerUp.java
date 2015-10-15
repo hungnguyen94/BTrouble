@@ -120,25 +120,35 @@ public abstract class PowerUp extends Rectangle implements Drawable, Collidable 
                 new HashMap<Class<? extends Collidable>, CollisionAction>();
 
         // Method called on collision with Floor.
-        collisionActionMap.put(Floor.class, new CollisionAction() {
-            @Override
-            public void onCollision(Collidable collider) {
-                PowerUp.this.setFalling(false);
-                PowerUp.this.setY(collider.getY() - getHeight());
-            }
-        });
+        collisionActionMap.put(Floor.class, new FloorCollision());
 
         // Method called on collision with Player.
-        collisionActionMap.put(Player.class, new CollisionAction() {
-            @Override
-            public void onCollision(Collidable collider) {
-                PowerUp.this.activate();
-                Model.deleteShortPower(PowerUp.this);
-                System.out.println(Model.getShortPower());
-            }
-        });
+        collisionActionMap.put(Player.class, new PlayerCollision());
 
         return collisionActionMap;
+    }
+
+    /**
+     * Class to call method on collision with Floor.
+     */
+    private class FloorCollision implements CollisionAction {
+        @Override
+        public void onCollision(Collidable collider) {
+            PowerUp.this.setFalling(false);
+            PowerUp.this.setY(collider.getY() - getHeight());
+        }
+    }
+
+    /**
+     * Class to call method on collision with Player.
+     */
+    private class PlayerCollision implements CollisionAction {
+        @Override
+        public void onCollision(Collidable collider) {
+            PowerUp.this.activate();
+            Model.deleteShortPower(PowerUp.this);
+            System.out.println(Model.getShortPower());
+        }
     }
 
     /**

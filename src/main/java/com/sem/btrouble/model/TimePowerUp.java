@@ -82,24 +82,33 @@ public class TimePowerUp extends PowerUp {
                 new HashMap<Class<? extends Collidable>, CollisionAction>();
 
         // Method called on collision with Floor.
-        collisionActionMap.put(Floor.class, new CollisionAction() {
-            @Override
-            public void onCollision(Collidable collider) {
-                setFalling(false);
-                setY(collider.getY() - getHeight());
-            }
-        });
+        collisionActionMap.put(Floor.class, new FloorCollision());
 
         // Method called on collision with Player.
-        collisionActionMap.put(Player.class, new CollisionAction() {
-            @Override
-            public void onCollision(Collidable collider) {
-                GameView.getController().getTimers().increaseLevelTimerCounter(50);
-                Model.deleteShortPower(TimePowerUp.this);
-            }
-        });
+        collisionActionMap.put(Player.class, new PlayerCollision());
 
         return collisionActionMap;
     }
 
+    /**
+     * Class to call method on collision with floor.
+     */
+    private class FloorCollision implements CollisionAction {
+        @Override
+        public void onCollision(Collidable collider) {
+            setFalling(false);
+            setY(collider.getY() - getHeight());
+        }
+    }
+
+    /**
+     * Class to call method on collision with player.
+     */
+    private class PlayerCollision implements CollisionAction {
+        @Override
+        public void onCollision(Collidable collider) {
+            GameView.getController().getTimers().increaseLevelTimerCounter(50);
+            Model.deleteShortPower(TimePowerUp.this);
+        }
+    }
 }
