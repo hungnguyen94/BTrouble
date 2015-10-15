@@ -1,9 +1,8 @@
 package com.sem.btrouble.model;
 
+import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.Timer;
 
 /**
  * Class which controls all the timers in the game.
@@ -14,8 +13,9 @@ public class Timers {
     private Timer countdownTimer;
     private int levelTimerCounter;
     private int countdownCounter;
+    private int additionalTime;
     // Max duration in seconds * 10
-    private static final int LEVEL_MAX_DURATION = 500;
+    public static final int LEVEL_MAX_DURATION = 500;
     // Countdown delay before level starts in seconds * 10
     private static final int COUNTDOWN_MAX_DURATION = 30;
     private static final int TIMER_SPEED = 100;
@@ -28,6 +28,7 @@ public class Timers {
      *            - delay before the timer actually starts.
      */
     public Timers(int delay) {
+        additionalTime = 0;
         levelTimerCounter = LEVEL_MAX_DURATION;
         countdownCounter = COUNTDOWN_MAX_DURATION;
         levelTimer = new Timer(TIMER_SPEED, new LevelTimerActionListener());
@@ -41,33 +42,43 @@ public class Timers {
     public void restartTimer() {
         levelTimer.stop();
         countdownTimer.stop();
-        levelTimerCounter = LEVEL_MAX_DURATION;
+        levelTimerCounter = LEVEL_MAX_DURATION + additionalTime;
         countdownCounter = COUNTDOWN_MAX_DURATION;
         countdownTimer.restart();
     }
-    
+
     /**
-     * Restarts the game timer without countdown.
+     * Reset the level timer counter.
      */
-    public void restartTimerWithoutCountdown() {
+    public void resetLevelTimerCounter() {
         levelTimerCounter = LEVEL_MAX_DURATION;
-
     }
 
     /**
-     * Set the level timer counter.
-     * @param duration duration
+     * Add time to the clock.
+     * @param time time to be added.
      */
-    public void setLevelTimerCounter(int duration) {
-        levelTimer.setInitialDelay(duration);
+    public void addAdditionalTime(int time) {
+        additionalTime += time;
     }
-    
+
     /**
-     * Return the initial delay.
-     * @return initial delay
+     * Reset additional time to zero.
+     * Used for powerups.
      */
-    public int getLevelTimerCounter() {
-        return levelTimer.getInitialDelay();
+    public void resetAdditionalTime() {
+        this.additionalTime = 0;
+    }
+
+    /**
+     * Set level timer. Cannot go higher than MAX
+     * @param time increase time with this value.
+     */
+    public void increaseLevelTimerCounter(int time) {
+        levelTimerCounter += time;
+        if(levelTimerCounter > LEVEL_MAX_DURATION + additionalTime) {
+            levelTimerCounter = LEVEL_MAX_DURATION + additionalTime;
+        }
     }
 
     /**
@@ -87,7 +98,7 @@ public class Timers {
      * @return - Max time in a level.
      */
     public int getLevelMaxDuration() {
-        return LEVEL_MAX_DURATION * TIMER_SPEED;
+        return (LEVEL_MAX_DURATION + additionalTime) * TIMER_SPEED;
     }
 
     /**
@@ -144,7 +155,7 @@ public class Timers {
          * @param event the event
          */
         public void actionPerformed(ActionEvent event) {
-            // System.out.println("levelTimerCounter: " + levelTimerCounter);
+//             System.out.println("levelTimerCounter: " + levelTimerCounter);
             levelTimerCounter--;
             if (levelTimerCounter <= 0) {
                 levelTimer.stop();

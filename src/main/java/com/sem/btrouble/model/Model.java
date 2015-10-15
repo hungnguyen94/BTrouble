@@ -1,6 +1,8 @@
 package com.sem.btrouble.model;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Model contains all data of the game. Model is updated by the Controller and
@@ -13,8 +15,8 @@ public class Model {
     private static ArrayList<Player> players;
     private static Room roomCurrent;
     private static int currentLevel;
-    private static ArrayList<PowerUp> powers = new ArrayList<PowerUp>();
-    private static ArrayList<PowerUp> powersshort = new ArrayList<PowerUp>();
+    private static List<PowerUp> powers = new CopyOnWriteArrayList<PowerUp>();
+//    private static ArrayList<PowerUp> powersshort = new ArrayList<PowerUp>();
     private static Timers timers;
 
     private static int roomWidth;
@@ -131,7 +133,6 @@ public class Model {
     public static void restartRoom() {
         roomCurrent = rooms.roomRestart();
         clearPowerUps();
-        clearShortPower();
         getTimers().restartTimer();
 
         for (Player p : players) {
@@ -144,10 +145,10 @@ public class Model {
     }
     
     /**
-     * Get the power ups bought in the store.
+     * Get all the power ups bought in the store.
      * @return the power ups
      */
-    public static ArrayList<PowerUp> getPowerUps() {
+    public static List<PowerUp> getPowerUps() {
         return powers;
     }
     
@@ -170,8 +171,8 @@ public class Model {
      * Get power ups received in the game.
      * @return the power ups
      */
-    public static ArrayList<PowerUp> getShortPower() {
-    	return powersshort;
+    public static List<PowerUp> getShortPower() {
+    	return powers;
     }
     
     /**
@@ -179,7 +180,7 @@ public class Model {
      * @param power the power up
      */
     public static void addShortPowerUp(PowerUp power) {
-    	powersshort.add(power);
+    	powers.add(power);
     }
     
     /**
@@ -187,31 +188,17 @@ public class Model {
      * @param power the power up
      */
     public static void deleteShortPower(PowerUp power) {
-    	ArrayList<PowerUp> powers = new ArrayList<PowerUp>();
-    	for(int i = 0; i < powersshort.size(); i++) {
-    		PowerUp listPower = powersshort.get(i);
-//            powers.add(listPower);
-    		if(power instanceof LifePowerUp) {
-    			if(listPower instanceof SlowPowerUp || listPower instanceof TimePowerUp) {
-    				powers.add(listPower);
-    			}
-    		} else if (power instanceof SlowPowerUp) {
-    			if(listPower instanceof LifePowerUp || listPower instanceof TimePowerUp) {
-    				powers.add(listPower);
-    			}
-    		} else if (power instanceof TimePowerUp && (listPower instanceof SlowPowerUp
-    		        || listPower instanceof LifePowerUp)) {
-    			powers.add(listPower);
-    		}
-    	}
-		powersshort = powers;
+        if(powers.contains(power)) {
+            powers.remove(power);
+        }
+        System.out.println("aaah");
     }
     
     /**
      * Remove all power ups received in the game.
      */
     public static void clearShortPower() {
-    	powersshort.clear();
+    	clearPowerUps();
     }
 
     /**

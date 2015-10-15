@@ -132,15 +132,7 @@ public abstract class PowerUp extends Rectangle implements Drawable, Collidable 
         collisionActionMap.put(Player.class, new CollisionAction() {
             @Override
             public void onCollision(Collidable collider) {
-                Player player = (Player) collider;
-                if(!(PowerUp.this instanceof LifePowerUp) && !(PowerUp.this instanceof TimePowerUp)
-                        && player.getLives() < 5) {
-                    PowerUp.this.activate();
-                }
-                if(PowerUp.this instanceof TimePowerUp) {
-                    TimePowerUp timePower = (TimePowerUp) PowerUp.this;
-                    timePower.activateShort();
-                }
+                PowerUp.this.activate();
                 Model.deleteShortPower(PowerUp.this);
                 System.out.println(Model.getShortPower());
             }

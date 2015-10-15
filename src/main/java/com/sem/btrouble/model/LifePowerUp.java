@@ -1,10 +1,10 @@
 package com.sem.btrouble.model;
 
-import java.util.ArrayList;
-
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+
+import java.util.ArrayList;
 
 /**
  * Representing the Power up for an extra life.
@@ -38,7 +38,8 @@ public class LifePowerUp extends PowerUp {
      */
     public void activate() {
         ArrayList<Player> players = Model.getPlayers();
-        players.get(0).addLife();
+        if(players.get(0).getLives() < 5)
+            players.get(0).addLife();
     }
     
     /**

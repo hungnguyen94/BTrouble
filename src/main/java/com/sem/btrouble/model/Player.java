@@ -392,7 +392,7 @@ public class Player extends Rectangle implements Drawable, Collidable {
         collisionActionMap.put(Bubble.class, new CollisionAction() {
             @Override
             public void onCollision(Collidable collider) {
-                setAlive(false);
+//                setAlive(false);
             }
         });
 
