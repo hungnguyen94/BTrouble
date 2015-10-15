@@ -307,10 +307,10 @@ public class PlayerTest {
         verify(rope).move();
     }
     
-    @Test
-    public void hashCodeTest() {
-        assertEquals(player.hashCode(), 42);
-    }
+//    @Test
+//    public void hashCodeTest() {
+//        assertEquals(player.hashCode(), 42);
+//    }
 
     /**
      * Test the move method with isFalling false.
