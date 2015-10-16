@@ -389,43 +389,57 @@ public class Player extends Rectangle implements Drawable, Collidable {
                 new HashMap<Class<? extends Collidable>, CollisionAction>();
 
         // Method called on Bubble collision.
-        collisionActionMap.put(Bubble.class, new CollisionAction() {
-            @Override
-            public void onCollision(Collidable collider) {
-                setAlive(false);
-            }
-        });
+        collisionActionMap.put(Bubble.class, new BubbleCollision());
 
         // Method called on Wall collision
-        collisionActionMap.put(Wall.class, new CollisionAction() {
-            @Override
-            public void onCollision(Collidable collider) {
-                System.out.println("Collided");
-                switch (CollisionHandler.checkCollisionSideX(Player.this, collider)) {
-                    case LEFT:
-                        setRightBlock(true);
-                        setCenterX(collider.getCenterX() - (collider.getWidth() + getWidth()) / 2);
-                        break;
-                    case RIGHT:
-                        setLeftBlock(true);
-                        setCenterX(collider.getCenterX() + (collider.getWidth() + getWidth()) / 2);
-                        break;
-                    default:
-                        break;
-                }
-            }
-        });
+        collisionActionMap.put(Wall.class, new WallCollision());
 
         // Method called on Floor collision.
-        collisionActionMap.put(Floor.class, new CollisionAction() {
-            @Override
-            public void onCollision(Collidable collider) {
-                setFalling(false);
-                setCenterY(collider.getCenterY() - (collider.getHeight() + getHeight()) / 2);
-            }
-        });
+        collisionActionMap.put(Floor.class, new FloorCollision());
 
         return collisionActionMap;
+    }
+
+    /**
+     * Class to call method on collision with Bubble.
+     */
+    private class BubbleCollision implements CollisionAction {
+        @Override
+        public void onCollision(Collidable collider) {
+            setAlive(false);
+        }
+    }
+
+    /**
+     * Class to call method on collision with Wall.
+     */
+    private class WallCollision implements CollisionAction {
+        @Override
+        public void onCollision(Collidable collider) {
+            switch (CollisionHandler.checkCollisionSideX(Player.this, collider)) {
+                case LEFT:
+                    setRightBlock(true);
+                    setCenterX(collider.getCenterX() - (collider.getWidth() + getWidth()) / 2);
+                    break;
+                case RIGHT:
+                    setLeftBlock(true);
+                    setCenterX(collider.getCenterX() + (collider.getWidth() + getWidth()) / 2);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    /**
+     * Class to call method on collision with Floor.
+     */
+    private class FloorCollision implements CollisionAction {
+        @Override
+        public void onCollision(Collidable collider) {
+            setFalling(false);
+            setCenterY(collider.getCenterY() - (collider.getHeight() + getHeight()) / 2);
+        }
     }
 
     /**

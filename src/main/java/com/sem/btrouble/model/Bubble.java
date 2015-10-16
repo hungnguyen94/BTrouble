@@ -298,83 +298,102 @@ public class Bubble extends Circle implements Drawable, Collidable {
                 new HashMap<Class<? extends Collidable>, CollisionAction>();
 
         // Method called on Wall collision
-        collisionActionMap.put(Wall.class, new CollisionAction() {
-            @Override
-            public void onCollision(Collidable wall) {
-                switch(CollisionHandler.checkCollisionSideX(Bubble.this, wall)) {
-                    case LEFT:
-                        bounceX(true);
-                        break;
-                    case RIGHT:
-                        bounceX(false);
-                        break;
-                    default:
-                        break;
-                }
-            }
-        });
+        collisionActionMap.put(Wall.class, new WallCollision());
 
         // Method called on Floor collision
-        collisionActionMap.put(Floor.class, new CollisionAction() {
-            @Override
-            public void onCollision(Collidable floor) {
-                switch(CollisionHandler.checkCollisionSideY(Bubble.this, floor)) {
-                    case TOP:
-                        bounceYFloor();
-                        break;
-                    case BOTTOM:
-                        bounceY();
-                        break;
-                    default:
-                        break;
-                }
-            }
-        });
+        collisionActionMap.put(Floor.class, new FloorCollision());
 
         // Method called on Bubble collision
-        collisionActionMap.put(Bubble.class, new CollisionAction() {
-            @Override
-            public void onCollision(Collidable b) {
-                Bubble bubble = (Bubble) b;
-                switch(CollisionHandler.checkCollisionSideX(Bubble.this, bubble)) {
-                    case LEFT:
-                        Bubble.this.bounceX(true);
-                        bubble.bounceX(false);
-                        break;
-                    case RIGHT:
-                        Bubble.this.bounceX(false);
-                        bubble.bounceX(true);
-                        break;
-                    default:
-                        break;
-                }
-                switch(CollisionHandler.checkCollisionSideY(Bubble.this, bubble)) {
-                    case TOP:
-                        Bubble.this.bounceY(true);
-                        bubble.bounceY(false);
-                        break;
-                    case BOTTOM:
-                        Bubble.this.bounceY(false);
-                        bubble.bounceY(true);
-                        break;
-                    default:
-                        break;
-                }
-
-            }
-        });
+        collisionActionMap.put(Bubble.class, new BubbleCollision());
 
         // Method called on Rope collision
-        collisionActionMap.put(Rope.class, new CollisionAction() {
-            @Override
-            public void onCollision(Collidable collider) {
-                split();
-                Rope rope = (Rope) collider;
-                rope.setCollided(true);
-                GameView.getWallet().increaseValue(BUBBLE_SCORE);
-            }
-        });
+        collisionActionMap.put(Rope.class, new RopeCollision());
         return collisionActionMap;
+    }
+
+    /**
+     * Class to method on collision with Wall.
+     */
+    private class WallCollision implements CollisionAction {
+        @Override
+        public void onCollision(Collidable wall) {
+            switch(CollisionHandler.checkCollisionSideX(Bubble.this, wall)) {
+                case LEFT:
+                    bounceX(true);
+                    break;
+                case RIGHT:
+                    bounceX(false);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    /**
+     * Class to call method on collision with Floor.
+     */
+    private class FloorCollision implements CollisionAction {
+        @Override
+        public void onCollision(Collidable floor) {
+            switch(CollisionHandler.checkCollisionSideY(Bubble.this, floor)) {
+                case TOP:
+                    bounceYFloor();
+                    break;
+                case BOTTOM:
+                    bounceY();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    /**
+     * Class to call method on collision with bubble.
+     */
+    private class BubbleCollision implements CollisionAction {
+        @Override
+        public void onCollision(Collidable b) {
+            Bubble bubble = (Bubble) b;
+            switch(CollisionHandler.checkCollisionSideX(Bubble.this, bubble)) {
+                case LEFT:
+                    Bubble.this.bounceX(true);
+                    bubble.bounceX(false);
+                    break;
+                case RIGHT:
+                    Bubble.this.bounceX(false);
+                    bubble.bounceX(true);
+                    break;
+                default:
+                    break;
+            }
+            switch(CollisionHandler.checkCollisionSideY(Bubble.this, bubble)) {
+                case TOP:
+                    Bubble.this.bounceY(true);
+                    bubble.bounceY(false);
+                    break;
+                case BOTTOM:
+                    Bubble.this.bounceY(false);
+                    bubble.bounceY(true);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    /**
+     * Class to call method on collision with rope.
+     */
+    private class RopeCollision implements CollisionAction {
+        @Override
+        public void onCollision(Collidable collider) {
+            split();
+            Rope rope = (Rope) collider;
+            rope.setCollided(true);
+            GameView.getWallet().increaseValue(BUBBLE_SCORE);
+        }
     }
 
     /**

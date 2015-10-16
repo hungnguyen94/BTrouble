@@ -100,11 +100,10 @@ public class Controller implements EventSubject, LevelSubject {
             }
         }
 
-        ArrayList<PowerUp> powers = Model.getShortPower();
+        List<PowerUp> powers = Model.getShortPower();
         if (powers.size() > 0) {
             for (PowerUp power : powers) {
                 if (collisionHandler.checkCollision(power)) {
-
                     if (timeLeft >= getTimers().getLevelTimeLeft() + 30000) {
                         Model.deleteShortPower(power);
                     }
@@ -179,7 +178,7 @@ public class Controller implements EventSubject, LevelSubject {
     private void restartRoom() {
         fireEvent(new ControllerEvent(this, ControllerEvent.RESTARTROOM, "Room restarted"));
         Model.restartRoom();
-        ArrayList<PowerUp> powers = Model.getPowerUps();
+        List<PowerUp> powers = Model.getPowerUps();
         for (PowerUp power: powers) {
             power.reset();
         }
