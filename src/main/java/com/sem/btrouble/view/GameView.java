@@ -54,7 +54,7 @@ public class GameView extends BasicGameState implements Observer {
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         this.sbg = sbg;
 
-        controller = new Controller(gc, sbg);
+        controller = new Controller(gc);
         soundObserver = new SoundObserver();
         for(Player player: Model.getPlayers()) {
             controller.registerObserver(player.getWallet());
