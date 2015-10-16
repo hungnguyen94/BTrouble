@@ -297,8 +297,8 @@ public class Bubble extends Circle implements Drawable, Collidable {
      */
     @Override
     public Map<Class<? extends Collidable>, CollisionAction> getCollideActions() {
-        Map<Class<? extends Collidable>, CollisionAction> collisionActionMap 
-            = new HashMap<Class<? extends Collidable>, CollisionAction>();
+        Map<Class<? extends Collidable>, CollisionAction> collisionActionMap =
+                new HashMap<Class<? extends Collidable>, CollisionAction>();
 
         // Method called on Wall collision
         collisionActionMap.put(Wall.class, new CollisionAction() {

@@ -5,11 +5,12 @@ package com.sem.btrouble.observering;
  */
 public interface LevelObserver {
 
-    /**
+   /**
      * This method is called when the observer is notified about a update.
-     * @param drawables the objects that should be drawn.
+     * @param subject The observable subject.
+     * @param arg Arguments that can be passed.
      */
-    //void update(List<Drawable> drawables);
+    void update(LevelSubject subject, Object arg);
 
     /**
      * This method is called when a level is won.

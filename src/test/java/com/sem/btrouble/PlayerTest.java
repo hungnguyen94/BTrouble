@@ -257,7 +257,7 @@ public class PlayerTest {
     @Test
     public void moveToXTest() {
         player.moveTo(5, 5);
-        assertEquals(5, player.getX(), 0);
+        assertEquals(5, player.getCenterX(), 0);
     }
 
     /**
@@ -266,7 +266,7 @@ public class PlayerTest {
     @Test
     public void moveToYTest() {
         player.moveTo(5, 5);
-        assertEquals(5, player.getY(), 0);
+        assertEquals(5, player.getCenterY(), 0);
     }
 
     /**

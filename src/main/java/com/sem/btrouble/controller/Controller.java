@@ -322,8 +322,11 @@ public class Controller implements EventSubject, LevelSubject {
      */
     @Override
     public void notifyObserver() {
-        if (!Model.getCurrentRoom().hasBubbles()) {
-            for (LevelObserver levelObserver : levelObservers) {
+        for(LevelObserver levelObserver : levelObservers) {
+            levelObserver.update(this, collisionHandler);
+        }
+        if(!Model.getCurrentRoom().hasBubbles()) {
+            for(LevelObserver levelObserver : levelObservers) {
                 levelObserver.levelWon();
             }
         }
