@@ -1,15 +1,15 @@
 package com.sem.btrouble;
 
-import com.sem.btrouble.event.GameEvent;
-import com.sem.btrouble.model.Model;
-import com.sem.btrouble.model.Player;
-import com.sem.btrouble.observering.EventObserver;
-import com.sem.btrouble.observering.EventSubject;
+import com.sem.btrouble.event.Event;
+import com.sem.btrouble.observering.Observer;
+import com.sem.btrouble.observering.Subject;
 import com.sem.btrouble.tools.Logger;
 import com.sem.btrouble.view.GameView;
 import com.sem.btrouble.view.LostLevelView;
 import com.sem.btrouble.view.MenuView;
 import com.sem.btrouble.view.ShopView;
+import com.sem.btrouble.model.Model;
+import com.sem.btrouble.model.Player;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
@@ -23,14 +23,14 @@ import java.util.HashMap;
  * Application running the game.
  *
  */
-public class SlickApp extends StateBasedGame implements EventSubject {
+public class SlickApp extends StateBasedGame implements Subject {
 
     private static HashMap<String, Boolean> preferences;
     public static final int SCREEN_WIDTH = 1280;
     public static final int SCREEN_HEIGHT = 720;
     public static final int DEFAULT_FRAMERATE = 60;
     private static Logger logger;
-    private ArrayList<EventObserver> observers;
+    private ArrayList<Observer> observers;
 
     /**
      * Init the Slickapp.
@@ -42,7 +42,7 @@ public class SlickApp extends StateBasedGame implements EventSubject {
         super(gamename);
 
         logger = new Logger(Logger.DEFAULT_LOGGER_PATH, true);
-        observers = new ArrayList<EventObserver>();
+        observers = new ArrayList<Observer>();
         preferences = new HashMap<String, Boolean>();
         preferences.put("audio", true);
         preferences.put("multiplayer", false);
@@ -179,19 +179,19 @@ public class SlickApp extends StateBasedGame implements EventSubject {
     }
 
     @Override
-    public void fireEvent(GameEvent gameEvent) {
-        for (EventObserver observer : observers) {
+    public void fireEvent(Event gameEvent) {
+        for (Observer observer : observers) {
             observer.update(gameEvent);
         }
     }
 
     @Override
-    public void registerObserver(EventObserver observer) {
+    public void registerObserver(Observer observer) {
         observers.add(observer);
     }
 
     @Override
-    public void removeObserver(EventObserver observer) {
+    public void removeObserver(Observer observer) {
         observers.remove(observer);
     }
 }

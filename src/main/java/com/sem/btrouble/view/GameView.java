@@ -1,14 +1,16 @@
 package com.sem.btrouble.view;
 
+
 import com.sem.btrouble.SlickApp;
 import com.sem.btrouble.controller.Controller;
 import com.sem.btrouble.model.Model;
 import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Drawable;
 import com.sem.btrouble.model.Timers;
-import com.sem.btrouble.observering.LevelObserver;
-import com.sem.btrouble.observering.LevelSubject;
 import com.sem.btrouble.tools.SoundObserver;
+import com.sem.btrouble.event.Event;
+import com.sem.btrouble.event.LevelEvent;
+import com.sem.btrouble.observering.Observer;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -29,7 +31,7 @@ import java.util.List;
 /**
  * Created by rubenwiersma on 22-09-15.
  */
-public class GameView extends BasicGameState implements LevelObserver {
+public class GameView extends BasicGameState implements Observer {
     private Timers timers;
     private static Controller controller;
     private static View view;
@@ -52,7 +54,7 @@ public class GameView extends BasicGameState implements LevelObserver {
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         this.sbg = sbg;
 
-        controller = new Controller(gc, sbg);
+        controller = new Controller(gc);
         soundObserver = new SoundObserver();
         for(Player player: Model.getPlayers()) {
             controller.registerObserver(player.getWallet());
@@ -140,36 +142,22 @@ public class GameView extends BasicGameState implements LevelObserver {
         return wavEffect;
     }
 
-    /**
-     * This method is called when the observer is notified about a update.
-     *
-     * @param subject
-     * @param arg
-     */
     @Override
-    public void update(LevelSubject subject, Object arg) {
-        // Used for drawing collisionhandler. For testing purposes, can be removed.
-        if(arg instanceof Drawable) {
-            Drawable drawable = (Drawable) arg;
-            drawables.add(drawable);
+    public void update(Event event) {
+        if(event instanceof LevelEvent){
+            switch((LevelEvent) event){
+            case LEVELLOST:
+                sbg.enterState(4, new FadeOutTransition(), new FadeInTransition());
+                break;
+            case LEVELWON:
+                if(!(SlickApp.multiplayer() && SlickApp.versus())) {
+                    sbg.enterState(2, new FadeOutTransition(), new FadeInTransition());
+                }
+                break;
+            default:
+                break;
+                
+            }
         }
-    }
-
-    /**
-     * This method is called when a level is won.
-     */
-    @Override
-    public void levelWon() {
-        if(!(SlickApp.multiplayer() && SlickApp.versus())) {
-            sbg.enterState(2, new FadeOutTransition(), new FadeInTransition());
-        }
-    }
-
-    /**
-     * This method is called when a level is lost.
-     */
-    @Override
-    public void levelLost() {
-        sbg.enterState(4, new FadeOutTransition(), new FadeInTransition());
     }
 }

@@ -68,11 +68,7 @@ public class View {
         drawCountDown(graphics);
         drawPlayers(graphics);
         drawPowers(graphics);
-//        drawBubbles(graphics);
         drawTimer(graphics);
-//        drawBorders(graphics);
-        // Draw borders and bubbles.
-        // Can be separate method(or not)?
         Model.getCurrentRoom().draw(graphics);
 
         drawLives(graphics);
@@ -114,8 +110,9 @@ public class View {
      */
     private void drawPlayers(Graphics graphics) throws SlickException {
         for (Player player : Model.getPlayers()) {
-            if(player.isAlive())
+            if(player.isAlive()) {
                 player.draw(graphics);
+            }
         }
     }
 

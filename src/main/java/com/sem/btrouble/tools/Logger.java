@@ -1,20 +1,19 @@
 package com.sem.btrouble.tools;
 
-import com.sem.btrouble.event.GameEvent;
-import com.sem.btrouble.observering.EventObserver;
-import com.sem.btrouble.observering.PlayerObserver;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Date;
 
+import com.sem.btrouble.event.Event;
+import com.sem.btrouble.observering.Observer;
+
 /**
  * Class which represents the logger.
  *
  */
-public class Logger implements EventObserver, PlayerObserver {
+public class Logger implements Observer {
 
     private FileWriter fw;
     private BufferedWriter bw;
@@ -47,15 +46,6 @@ public class Logger implements EventObserver, PlayerObserver {
             e.printStackTrace();
         }
     }
-
-    /**
-     * Logs a GameEvent to the log file. 
-     * @param event
-     *            should be the GameEvent to be written to the log file.
-     */
-    private void log(GameEvent event) {
-        log(event.toString());
-    }
     
     /**
      * Logs a String to the log file. This method writes a new line in the
@@ -79,46 +69,14 @@ public class Logger implements EventObserver, PlayerObserver {
         }
     }
 
+    /**
+     * Logs a GameEvent to the log file. 
+     * @param event
+     *            should be the GameEvent to be written to the log file.
+     */
     @Override
-    public void update(GameEvent gameEvent) {
-        log(gameEvent);
-    }
-
-    @Override
-    public void shotaRope() {
-        log("<PlayerEvent: shot a rope>");
-        
-    }
-
-    @Override
-    public void lostaLife() {
-        log("<PlayerEvent: lost a life>");
-        
-    }
-
-    @Override
-    public void gainedaLife() {
-        log("<PlayerEvent: gained a life>");
-    }
-
-    @Override
-    public void collidedWithBubble() {
-        log("<PlayerEvent: collided with bubble>");
-    }
-
-    @Override
-    public void collidedLeft() {
-        log("<PlayerEvent: collided at left side>");
-    }
-
-    @Override
-    public void collidedRight() {
-        log("<PlayerEvent: collided at right side>");
-    }
-
-    @Override
-    public void poppedaBubble() {
-        log("<PlayerEvent: popped a bubble>");
+    public void update(Event event) {
+        log("<"+ event.getClass().getSimpleName()+": "+event.toString() + ">");
     }
 
 }

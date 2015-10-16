@@ -54,11 +54,19 @@ public abstract class PowerUp extends Rectangle implements Drawable, Collidable 
     public float getAccelerationY() {
         return accelerationY;
     }
-    
+
+    /**
+     * Sets the vertical velocity of a powerup.
+     * @param velocityY the vertical velocity
+     */
     public void setVelocityY(float velocityY) {
         this.velocityY = velocityY;
     }
-    
+
+    /**
+     * Sets the vertical acceleration of a powerup.
+     * @param accelerationY the vertical acceleration
+     */
     public void setAccelerationY(float accelerationY) {
         this.accelerationY = accelerationY;
     }
