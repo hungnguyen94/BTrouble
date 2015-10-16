@@ -2,11 +2,9 @@ package com.sem.btrouble;
 
 import com.sem.btrouble.model.Bubble;
 import com.sem.btrouble.model.Floor;
-import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Wall;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.Spy;
 
@@ -17,8 +15,6 @@ import static org.junit.Assert.assertTrue;
  */
 public class BubbleCollisionTests {
 
-    @Mock
-    Player player;
 //    @Mock
     Bubble bubble;
     @Spy
@@ -70,6 +66,42 @@ public class BubbleCollisionTests {
         bubble.move();
         bubble.getCollideActions().get(Floor.class).onCollision(floor);
         assertTrue(bubble.getVelocityY() < 0);
+    }
+
+    @Test
+    public void bubbleBubbleLeftCollision() {
+        Bubble otherBubble = new Bubble(10, CENTER_X + 10, CENTER_Y);
+        bubble.getCollideActions().get(Bubble.class).onCollision(otherBubble);
+        assertTrue(bubble.getVelocityX() < 0);
+        assertTrue(otherBubble.getVelocityX() > 0);
+    }
+
+    @Test
+    public void bubbleBubbleRightCollision() {
+        Bubble otherBubble = new Bubble(10, CENTER_X - 10, CENTER_Y);
+        bubble.getCollideActions().get(Bubble.class).onCollision(otherBubble);
+        assertTrue(bubble.getVelocityX() > 0);
+        assertTrue(otherBubble.getVelocityX() < 0);
+    }
+
+    @Test
+    public void bubbleBubbleTopCollision() {
+        Bubble otherBubble = new Bubble(10, CENTER_X, CENTER_Y - 10);
+        bubble.move();
+        otherBubble.move();
+        bubble.getCollideActions().get(Bubble.class).onCollision(otherBubble);
+        assertTrue(bubble.getVelocityY() > 0);
+        assertTrue(otherBubble.getVelocityY() < 0);
+    }
+
+    @Test
+    public void bubbleBubbleBottomCollision() {
+        Bubble otherBubble = new Bubble(10, CENTER_X, CENTER_Y + 10);
+        bubble.move();
+        otherBubble.move();
+        bubble.getCollideActions().get(Bubble.class).onCollision(otherBubble);
+        assertTrue(bubble.getVelocityY() < 0);
+        assertTrue(otherBubble.getVelocityY() > 0);
     }
 
 
