@@ -39,8 +39,8 @@ public class Player extends Rectangle implements Drawable, Collidable {
     private Wallet wallet;
 
     // Gravity attributes
-    private float vy;
-    private float ay = .3f;
+    private float velocityY;
+    private float accelerationY = .3f;
 
     private static final int PLAYER_SPEED = 3;
     private static final int INITIAL_LIVES = 5;
@@ -62,7 +62,7 @@ public class Player extends Rectangle implements Drawable, Collidable {
         ropes = new ArrayList<Rope>();
         lives = INITIAL_LIVES;
         score = INITIAL_SCORE;
-        vy = 2;
+        velocityY = 2;
         rightBlocked = false;
         leftBlocked = false;
         alive = true;
@@ -93,7 +93,7 @@ public class Player extends Rectangle implements Drawable, Collidable {
                     && this.ropes.equals(that.ropes)
                     && this.facingLeft == that.facingLeft && this.idle == that.idle
                     && this.lives == that.lives && this.score == that.score 
-                    && Math.abs(this.vy - that.vy) == 0
+                    && Math.abs(this.velocityY - that.velocityY) == 0
                     && this.rightBlocked == that.rightBlocked
                     && this.leftBlocked == that.leftBlocked;
         }
@@ -239,12 +239,16 @@ public class Player extends Rectangle implements Drawable, Collidable {
      * Return the vertical speed of the player.
      * @return vertical speed
      */
-    public double getVy() {
-        return vy;
+    public double getVelocityY() {
+        return velocityY;
     }
-    
-    public void setVY(float vy) {
-        this.vy = vy;
+
+    /**
+     * Sets the vertical velocity of the player
+     * @param velocityY the vertical velocity
+     */
+    public void setVelocityY(float velocityY) {
+        this.velocityY = velocityY;
     }
 
     /**
@@ -335,7 +339,7 @@ public class Player extends Rectangle implements Drawable, Collidable {
         if (isFalling()) {
             fall();
         } else {
-            vy = 0;
+            velocityY = 0;
         }
         idle = true;
     }
@@ -401,9 +405,9 @@ public class Player extends Rectangle implements Drawable, Collidable {
      * Slowly fall down vertically.
      */
     public void fall() {
-        setCenterY(getCenterY() + vy);
-//        y += vy;
-        vy += ay;
+        setCenterY(getCenterY() + velocityY);
+//        y += velocityY;
+        velocityY += accelerationY;
     }
 
     /**

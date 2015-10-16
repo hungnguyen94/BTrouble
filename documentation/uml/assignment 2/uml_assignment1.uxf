@@ -20,7 +20,7 @@
 -idle = true: boolean
 -leftBlocked: boolean
 -rightBlocked: boolean
--vy: float
+-velocityY: float
 -ay = .5f: float
 -PLAYER_SPEED = 3: int
 -INITIAL_LIVES = 5: int
@@ -59,15 +59,15 @@
 --
 -size: int
 -GAME_SIZE = 10f: float
--vx: float
--vy: float
+-velocityX: float
+-velocityY: float
 -ay: float
 -G = .4f: float
 -INITIAL_HORIZONTAL_SPEED = 3f: float
 -HIT_SPEED_FACTOR = 30: int
 --
 +Bubble(int size, float x, float y): ctor
-+Bubble(int size, float x, float y, float vx, float vy): ctor
++Bubble(int size, float x, float y, float velocityX, float velocityY): ctor
 +getSize(): int
 +getVX(): double
 +getVY(): double

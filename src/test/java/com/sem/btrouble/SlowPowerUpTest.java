@@ -55,7 +55,7 @@ public class SlowPowerUpTest extends PowerUpTest {
     public void activateTest() {
         //power.activate();
         //assertTrue(power.getOn());
-        //verify(bubble).setAY(.3f);
+        //verify(bubble).setAccelerationY(.3f);
     }
     
     /**
@@ -97,16 +97,16 @@ public class SlowPowerUpTest extends PowerUpTest {
     }
     
     @Test
-    public void equalsFalseVYTest() {
+    public void equalsFalseVelocityYTest() {
         SlowPowerUp power2 = new SlowPowerUp(1, 1);
-        power2.setVY(10);
+        power2.setVelocityY(10);
         assertFalse(power.equals(power2));
     }
     
     @Test
-    public void equalsFalseAYTest() {
+    public void equalsFalseAccelerationYTest() {
         SlowPowerUp power2 = new SlowPowerUp(1, 1);
-        power2.setAY(10);
+        power2.setAccelerationY(10);
         assertFalse(power.equals(power2));
     }
 

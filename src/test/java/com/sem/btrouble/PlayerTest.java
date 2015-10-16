@@ -79,9 +79,9 @@ public class PlayerTest {
     }
     
     @Test
-    public void equalsFalseVYTest() {
+    public void equalsFalseVelocityYTest() {
         Player player2 = new Player(1, 1);
-        player2.setVY(10);
+        player2.setVelocityY(10);
         assertFalse(player.equals(player2));
     }
     
@@ -274,9 +274,9 @@ public class PlayerTest {
      * Test the effect of the fall method on vy.
      */
     @Test
-    public void fallVYTest() {
+    public void fallVelocityYTest() {
         player.fall();
-        assertEquals(2 + .3f, player.getVy(), 0);
+        assertEquals(2 + .3f, player.getVelocityY(), 0);
     }
 
     /**
@@ -347,7 +347,7 @@ public class PlayerTest {
     public void moveFalseTest() {
         player.setFalling(false);
         player.move();
-        assertEquals(0, player.getVy(), 0);
+        assertEquals(0, player.getVelocityY(), 0);
     }
 
     /**
@@ -357,10 +357,10 @@ public class PlayerTest {
     public void moveTrueTest() {
         player.setFalling(true);
         double y = player.getY();
-        double vy = player.getVy();
+        double vy = player.getVelocityY();
         player.move();
         assertEquals(y + vy, player.getY(), 0);
-        assertEquals(vy + .3, player.getVy(), 0.000001);
+        assertEquals(vy + .3, player.getVelocityY(), 0.000001);
     }
 
 }

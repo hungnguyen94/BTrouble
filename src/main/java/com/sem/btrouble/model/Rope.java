@@ -18,7 +18,7 @@ import java.util.Map;
  */
 @SuppressWarnings("serial")
 public class Rope extends Rectangle implements Drawable, Collidable {
-    private int dy;
+    private int distanceY;
     private static final int INITIAL_ROPESPEED = 5;
     private Image sprite;
     private boolean collided;
@@ -35,7 +35,7 @@ public class Rope extends Rectangle implements Drawable, Collidable {
      */
     public Rope(float xpos, float ypos) {
         super(xpos, ypos, 2f, 2f);
-        this.dy = INITIAL_ROPESPEED;
+        this.distanceY = INITIAL_ROPESPEED;
         collided = false;
         // sprite = new Image("Sprites/rope.png");
     }
@@ -53,7 +53,7 @@ public class Rope extends Rectangle implements Drawable, Collidable {
             Rope that = (Rope) other;
             return Math.abs(this.x - that.x) == 0 
                     && Math.abs(this.y - that.y) == 0 
-                    && Math.abs(this.dy - that.dy) == 0;
+                    && Math.abs(this.distanceY - that.distanceY) == 0;
         }
         return false;
     }
@@ -69,18 +69,18 @@ public class Rope extends Rectangle implements Drawable, Collidable {
 
     /**
      * Get the y distance.
-     * @return dy
+     * @return distanceY
      */
-    public int getDy() {
-        return dy;
+    public int getDistanceY() {
+        return distanceY;
     }
     
     /**
      * Set the vertical distance.
-     * @param dy the vertical distance
+     * @param distanceY the vertical distance
      */
-    public void setDY(int dy) {
-        this.dy = dy;
+    public void setDistanceY(int distanceY) {
+        this.distanceY = distanceY;
     }
 
     /**
@@ -120,10 +120,10 @@ public class Rope extends Rectangle implements Drawable, Collidable {
         if (collided) {
             return;
         }
-        grow(0, (float) (1.5 * dy));
-        y -= 1.5 * dy;
+        grow(0, (float) (1.5 * distanceY));
+        y -= 1.5 * distanceY;
         if (getY() <= 0) {
-            dy = 0;
+            distanceY = 0;
             setCollided(true);
         }
     }

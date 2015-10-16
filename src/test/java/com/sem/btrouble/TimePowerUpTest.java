@@ -75,16 +75,16 @@ public class TimePowerUpTest extends PowerUpTest {
     }
     
     @Test
-    public void equalsFalseVYTest() {
+    public void equalsFalseVelocityYTest() {
         TimePowerUp power2 = new TimePowerUp(1, 1);
-        power2.setVY(10);
+        power2.setVelocityY(10);
         assertFalse(power.equals(power2));
     }
     
     @Test
-    public void equalsFalseAYTest() {
+    public void equalsFalseAccelerationYTest() {
         TimePowerUp power2 = new TimePowerUp(1, 1);
-        power2.setAY(10);
+        power2.setAccelerationY(10);
         assertFalse(power.equals(power2));
     }
 

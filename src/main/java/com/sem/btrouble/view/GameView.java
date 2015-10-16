@@ -164,7 +164,9 @@ public class GameView extends BasicGameState implements LevelObserver {
      */
     @Override
     public void levelWon() {
-        sbg.enterState(2, new FadeOutTransition(), new FadeInTransition());
+        if(!(SlickApp.multiplayer() && SlickApp.versus())) {
+            sbg.enterState(2, new FadeOutTransition(), new FadeInTransition());
+        }
     }
 
     /**
