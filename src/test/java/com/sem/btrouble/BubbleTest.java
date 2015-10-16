@@ -15,14 +15,13 @@ import com.sem.btrouble.event.BubbleEvent;
 
 /**
  * Class which tests the Bubble class.
- * 
+ *
  * @author Martin
  *
  */
 @RunWith(MockitoJUnitRunner.class)
 public class BubbleTest {
 
-    @Mock
     private Bubble bubble1 = new Bubble(1, 1, 1);
     private Bubble bubble2 = new Bubble(2, 2, 2, 2, 2);
 
