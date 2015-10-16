@@ -1,8 +1,16 @@
 package com.sem.btrouble.model;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import com.sem.btrouble.controller.Collidable;
 import com.sem.btrouble.controller.CollisionAction;
 import com.sem.btrouble.controller.CollisionHandler;
+import com.sem.btrouble.event.Event;
+import com.sem.btrouble.observering.Observer;
+import com.sem.btrouble.observering.Subject;
+
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -11,17 +19,12 @@ import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Player class, containing all the data about the player.
  *
  */
 @SuppressWarnings("serial")
-public class Player extends Rectangle implements Drawable, Collidable {
+public class Player extends Rectangle implements Drawable, Collidable, Subject {
     private int lives;
     private int score;
 
@@ -47,7 +50,7 @@ public class Player extends Rectangle implements Drawable, Collidable {
     private static final int INITIAL_SCORE = 0;
 
     private ArrayList<Rope> ropes;
-    
+    private ArrayList<Observer> observers;
 
     /**
      * Constructor for the Player class.
@@ -67,6 +70,7 @@ public class Player extends Rectangle implements Drawable, Collidable {
         leftBlocked = false;
         alive = true;
         falling = true;
+        this.observers = new ArrayList<Observer>();
         wallet = new Wallet();
     }
     
@@ -99,26 +103,36 @@ public class Player extends Rectangle implements Drawable, Collidable {
         }
         return false;
     }
-    
+
     /**
      * HashCode because of implemented equals method.
+     * 
      * @return hashCode
      */
     public int hashCode() {
         assert false : "hashCode not designed";
         return 42; // any arbitrary constant will do
     }
-    
+
+    /**
+     * Sets if the player is facing left or not.
+     * @param facing boolean stating if the player is facing left
+     */
     public void setFacingLeft(boolean facing) {
         this.facingLeft = facing;
     }
-    
+
+    /**
+     * Sets if the player is idle or not.
+     * @param idle boolean stating if the player is idle
+     */
     public void setIdle(boolean idle) {
         this.idle = idle;
     }
 
     /**
      * Return if player is right blocked.
+     * 
      * @return boolean
      */
     public boolean getRightBlocked() {
@@ -127,6 +141,7 @@ public class Player extends Rectangle implements Drawable, Collidable {
 
     /**
      * Return if the player is left blocked.
+     * 
      * @return boolean
      */
     public boolean getLeftBlocked() {
@@ -135,7 +150,9 @@ public class Player extends Rectangle implements Drawable, Collidable {
 
     /**
      * Set the player to right blocked.
-     * @param block boolean
+     * 
+     * @param block
+     *            boolean
      */
     public void setRightBlock(boolean block) {
         this.rightBlocked = block;
@@ -143,7 +160,9 @@ public class Player extends Rectangle implements Drawable, Collidable {
 
     /**
      * Set the player to left blocked.
-     * @param block boolean
+     * 
+     * @param block
+     *            boolean
      */
     public void setLeftBlock(boolean block) {
         this.leftBlocked = block;
@@ -151,6 +170,7 @@ public class Player extends Rectangle implements Drawable, Collidable {
 
     /**
      * Return if the player is alive.
+     * 
      * @return boolean
      */
     public boolean isAlive() {
@@ -159,7 +179,9 @@ public class Player extends Rectangle implements Drawable, Collidable {
 
     /**
      * Set the player alive.
-     * @param alive boolean
+     * 
+     * @param alive
+     *            boolean
      */
     public void setAlive(boolean alive) {
         this.alive = alive;
@@ -167,6 +189,7 @@ public class Player extends Rectangle implements Drawable, Collidable {
 
     /**
      * Return if the player is falling.
+     * 
      * @return boolean
      */
     public boolean isFalling() {
@@ -175,7 +198,9 @@ public class Player extends Rectangle implements Drawable, Collidable {
 
     /**
      * Set the player to falling.
-     * @param falling boolean
+     * 
+     * @param falling
+     *            boolean
      */
     public void setFalling(boolean falling) {
         this.falling = falling;
@@ -183,6 +208,7 @@ public class Player extends Rectangle implements Drawable, Collidable {
 
     /**
      * Return the ropes which the player has shot.
+     * 
      * @return the ropes
      */
     public ArrayList<Rope> getRopes() {
@@ -205,6 +231,7 @@ public class Player extends Rectangle implements Drawable, Collidable {
 
     /**
      * Return if the player has lives.
+     * 
      * @return boolean
      */
     public boolean hasLives() {
@@ -213,6 +240,7 @@ public class Player extends Rectangle implements Drawable, Collidable {
 
     /**
      * Get the amount of lives of the player.
+     * 
      * @return the lives
      */
     public int getLives() {
@@ -221,6 +249,7 @@ public class Player extends Rectangle implements Drawable, Collidable {
 
     /**
      * Get the score of the player.
+     * 
      * @return the score
      */
     public int getScore() {
@@ -229,7 +258,9 @@ public class Player extends Rectangle implements Drawable, Collidable {
 
     /**
      * Increase the score of the player.
-     * @param amount how many the score increases
+     * 
+     * @param amount
+     *            how many the score increases
      */
     public void increaseScore(int amount) {
         score += amount;
@@ -237,6 +268,7 @@ public class Player extends Rectangle implements Drawable, Collidable {
 
     /**
      * Return the vertical speed of the player.
+     * 
      * @return vertical speed
      */
     public double getVelocityY() {
@@ -244,7 +276,7 @@ public class Player extends Rectangle implements Drawable, Collidable {
     }
 
     /**
-     * Sets the vertical velocity of the player
+     * Sets the vertical velocity of the player.
      * @param velocityY the vertical velocity
      */
     public void setVelocityY(float velocityY) {
@@ -262,6 +294,7 @@ public class Player extends Rectangle implements Drawable, Collidable {
 
     /**
      * Remove collided ropes.
+     * 
      * @return Collection without collided ropes
      */
     public Collection<Collidable> removeCollidedRopes() {
@@ -276,8 +309,8 @@ public class Player extends Rectangle implements Drawable, Collidable {
     }
 
     /**
-     * Function which allows the player to fire. 
-     * True if the rope succesfully fires.
+     * Function which allows the player to fire. True if the rope succesfully
+     * fires.
      * 
      * @param r
      *            - rope to be added
@@ -304,10 +337,11 @@ public class Player extends Rectangle implements Drawable, Collidable {
                 walkAnimation = new Animation(walkSheet, 20);
             }
             // Render the sprite at an offset.
-            int playerX = (int) (x
-                    - ((walkSheet.getWidth() / walkSheet.getHorizontalCount()) - getWidth()) / 2);
+            int playerX = (int) (x - ((walkSheet.getWidth()
+                    / walkSheet.getHorizontalCount()) - getWidth()) / 2);
             if (!idle) {
-                walkAnimation.getCurrentFrame().getFlippedCopy(facingLeft, false).draw(playerX, y - 15);
+                walkAnimation.getCurrentFrame().getFlippedCopy(facingLeft, false)
+                        .draw(playerX, y - 15);
             } else {
                 playerIdle.getFlippedCopy(facingLeft, false).draw(playerX, y - 15);
             }
@@ -357,7 +391,6 @@ public class Player extends Rectangle implements Drawable, Collidable {
             idle = false;
             facingLeft = true;
             walkAnimation.update(delta);
-//            x -= delta * 0.15f * PLAYER_SPEED;
             setCenterX(getCenterX() - delta * 0.15f * PLAYER_SPEED);
         }
     }
@@ -375,7 +408,6 @@ public class Player extends Rectangle implements Drawable, Collidable {
             idle = false;
             facingLeft = false;
             walkAnimation.update(delta);
-//            x += delta * 0.15f * PLAYER_SPEED;
             setCenterX(getCenterX() + delta * 0.15f * PLAYER_SPEED);
         }
     }
@@ -411,9 +443,10 @@ public class Player extends Rectangle implements Drawable, Collidable {
     }
 
     /**
-     * Every collidable should return a Map with all CollisionActions
-     * that collidable should process. To prevent class checking, simply
-     * use the class as the key, and a CollisionAction instance as value.
+     * Every collidable should return a Map with all CollisionActions that
+     * collidable should process. To prevent class checking, simply use the
+     * class as the key, and a CollisionAction instance as value.
+     * 
      * @return A map of all actions this collidable can do on a collision.
      */
     @Override
@@ -477,11 +510,30 @@ public class Player extends Rectangle implements Drawable, Collidable {
 
     /**
      * Checks for intersection with another Collidable.
-     * @param collidable Check if this collidable intersects with that collidable.
+     * 
+     * @param collidable
+     *            Check if this collidable intersects with that collidable.
      * @return True if this object intersects with collidable.
      */
     @Override
     public boolean intersectsCollidable(Collidable collidable) {
         return this.intersects((Shape) collidable);
+    }
+
+    @Override
+    public void registerObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+    
+    @Override
+    public void fireEvent(Event gameEvent) {
+        for (Observer observer : observers) {
+            observer.update(gameEvent);
+        }
     }
 }

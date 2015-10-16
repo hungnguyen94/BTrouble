@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.mockito.Mockito.when;
-import com.sem.btrouble.event.GameEvent;
+import com.sem.btrouble.event.Event;
 import com.sem.btrouble.tools.Logger;
 
 /**
@@ -21,7 +21,7 @@ public class LoggerTest {
     private Logger logger;
     
     @Mock
-    private GameEvent event;
+    private Event event;
 
     /**
      * Setup the logger.

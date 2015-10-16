@@ -10,21 +10,18 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import static org.mockito.Mockito.when;
 
 import com.sem.btrouble.event.BubbleEvent;
 
 /**
  * Class which tests the Bubble class.
- * 
+ *
  * @author Martin
  *
  */
 @RunWith(MockitoJUnitRunner.class)
 public class BubbleTest {
 
-    @Mock
-    private BubbleEvent event;
     private Bubble bubble1 = new Bubble(1, 1, 1);
     private Bubble bubble2 = new Bubble(2, 2, 2, 2, 2);
 
@@ -88,8 +85,7 @@ public class BubbleTest {
     @Test
     public void collideFloorTest() {
         double vy = bubble1.getVelocityY();
-        bubble1.bubbleEvent(
-                new BubbleEvent(bubble1, BubbleEvent.COLLISION_FLOOR, "Collided with floor"));
+        bubble1.bubbleEvent(BubbleEvent.COLLISION_FLOOR);
         assertEquals(-vy, bubble1.getVelocityY(), 0);
     }
 
@@ -99,8 +95,7 @@ public class BubbleTest {
     @Test
     public void collideWallTest() {
         double vx = bubble1.getVelocityX();
-        bubble1.bubbleEvent(
-                new BubbleEvent(bubble1, BubbleEvent.COLLISION_WALL, "Collided with wall"));
+        bubble1.bubbleEvent(BubbleEvent.COLLISION_WALL);
         assertEquals(-vx, bubble1.getVelocityX(), 0);
     }
 
@@ -110,8 +105,7 @@ public class BubbleTest {
     @Test
     public void collideDefault() {
         Bubble bubble = bubble1;
-        when(event.getId()).thenReturn(5);
-        bubble1.bubbleEvent(event);
+        bubble1.bubbleEvent(BubbleEvent.COLLISION_WALL);
         assertEquals(bubble, bubble1);
     }
 
@@ -177,8 +171,8 @@ public class BubbleTest {
      */
     @Test
     public void setAccelerationYTest() {
-        bubble1.setAY(1);
-        assertEquals(1, bubble1.getAY(), 0);
+        bubble1.setAccelerationY(1);
+        assertEquals(1, bubble1.getAccelerationY(), 0);
     }
 
     /**

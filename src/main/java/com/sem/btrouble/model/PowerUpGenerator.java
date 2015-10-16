@@ -7,8 +7,12 @@ import java.util.List;
  * @author Martin
  *
  */
-public class PowerUpGenerator {
-	
+public final class PowerUpGenerator {
+    /**
+     * The constructor should not be called, as this is a utility class.
+     */
+	private PowerUpGenerator() {};
+
     /**
      * Generate a random power up.
      * @param x x position
@@ -42,14 +46,14 @@ public class PowerUpGenerator {
 	public static int[] getTypes() {
 		List<PowerUp> powers = Model.getShortPower();
 		int[] types = {0, 0, 0};
-		for(int i = 0; i < powers.size(); i++) {
-			if(powers.get(i) instanceof TimePowerUp) {
+		for(PowerUp power : powers) {
+			if(power instanceof TimePowerUp) {
 				types[0] = 1;
 			}
-			if(powers.get(i) instanceof LifePowerUp) {
+			if(power instanceof LifePowerUp) {
 				types[2] = 1;
 			}
-			if(powers.get(i) instanceof SlowPowerUp) {
+			if(power instanceof SlowPowerUp) {
 				types[1] = 1;
 			}
 		}

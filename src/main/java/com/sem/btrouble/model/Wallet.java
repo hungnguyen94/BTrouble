@@ -1,15 +1,16 @@
 package com.sem.btrouble.model;
 
 import com.sem.btrouble.event.BubbleEvent;
-import com.sem.btrouble.event.GameEvent;
-import com.sem.btrouble.observering.EventObserver;
+import com.sem.btrouble.event.Event;
+import com.sem.btrouble.observering.Observer;
 
 /**
  * Represents a wallet.
+ * 
  * @author Martin
  *
  */
-public class Wallet implements EventObserver {
+public class Wallet implements Observer {
 
     private int value;
 
@@ -22,12 +23,18 @@ public class Wallet implements EventObserver {
 
     /**
      * Get the value of the wallet.
+     * 
      * @return the value
      */
     public int getValue() {
         return value;
     }
-    
+
+    /**
+     * Checks to see whether this Wallet equals another Object.
+     * @param other the other object to check against.
+     * @return boolean that represents the equality
+     */
     public boolean equals(Object other) {
         if(other instanceof Wallet) {
             Wallet that = (Wallet) other;
@@ -47,7 +54,9 @@ public class Wallet implements EventObserver {
 
     /**
      * Increase the value.
-     * @param extra the extra amount
+     * 
+     * @param extra
+     *            the extra amount
      */
     public void increaseValue(int extra) {
         value += extra;
@@ -55,7 +64,9 @@ public class Wallet implements EventObserver {
 
     /**
      * Decrease the value.
-     * @param less the less amount
+     * 
+     * @param less
+     *            the less amount
      */
     public void decreaseValue(int less) {
         value -= less;
@@ -66,13 +77,10 @@ public class Wallet implements EventObserver {
      * @param event The event which happened
      */
     @Override
-    public void update(GameEvent event) {
-        if (event instanceof BubbleEvent) {
-            BubbleEvent bubbleEvent = (BubbleEvent) event;
-            if (event.getId() == BubbleEvent.COLLISION_ROPE) {
-                int value = bubbleEvent.getSubject().getSize();
-                increaseValue(value * 1000);
-            }
+    public void update(Event event) {
+        if (event == BubbleEvent.COLLISION_ROPE) {
+            // int value = bubbleEvent.getSubject().getSize();
+            increaseValue(1000);
         }
     }
 
