@@ -192,7 +192,7 @@ public class CollisionHandler implements Drawable {
     /**
      * Draw the object.
      *
-     * @param graphics
+     * @param graphics Graphics handler
      */
     @Override
     public void draw(Graphics graphics) {
