@@ -37,12 +37,10 @@ public class Controller implements Subject {
      * 
      * @param container
      *            GameContainer from Slick2D
-     * @param sbg
-     *            State of the game
      * @throws SlickException
      *             Throws exception on error
      */
-    public Controller(GameContainer container, StateBasedGame sbg)
+    public Controller(GameContainer container)
             throws SlickException {
         this.gc = container;
         this.observers = new ArrayList<Observer>();
@@ -110,10 +108,9 @@ public class Controller implements Subject {
         List<PowerUp> powers = Model.getShortPower();
         if (powers.size() > 0) {
             for (PowerUp power : powers) {
-                if (collisionHandler.checkCollision(power)) {
-                    if (timeLeft >= getTimers().getLevelTimeLeft() + 30000) {
-                        Model.deleteShortPower(power);
-                    }
+                if (collisionHandler.checkCollision(power)
+                        && timeLeft >= getTimers().getLevelTimeLeft() + 30000) {
+                    Model.deleteShortPower(power);
                 }
                 power.move();
                 if (!collisionHandler.checkCollision(power)) {

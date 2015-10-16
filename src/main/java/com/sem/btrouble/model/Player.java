@@ -276,7 +276,7 @@ public class Player extends Rectangle implements Drawable, Collidable, Subject {
     }
 
     /**
-     * Sets the vertical velocity of the player
+     * Sets the vertical velocity of the player.
      * @param velocityY the vertical velocity
      */
     public void setVelocityY(float velocityY) {
@@ -340,7 +340,8 @@ public class Player extends Rectangle implements Drawable, Collidable, Subject {
             int playerX = (int) (x - ((walkSheet.getWidth()
                     / walkSheet.getHorizontalCount()) - getWidth()) / 2);
             if (!idle) {
-                walkAnimation.getCurrentFrame().getFlippedCopy(facingLeft, false).draw(playerX, y - 15);
+                walkAnimation.getCurrentFrame().getFlippedCopy(facingLeft, false)
+                        .draw(playerX, y - 15);
             } else {
                 playerIdle.getFlippedCopy(facingLeft, false).draw(playerX, y - 15);
             }
@@ -450,7 +451,8 @@ public class Player extends Rectangle implements Drawable, Collidable, Subject {
      */
     @Override
     public Map<Class<? extends Collidable>, CollisionAction> getCollideActions() {
-        Map<Class<? extends Collidable>, CollisionAction> collisionActionMap = new HashMap<Class<? extends Collidable>, CollisionAction>();
+        Map<Class<? extends Collidable>, CollisionAction> collisionActionMap =
+                new HashMap<Class<? extends Collidable>, CollisionAction>();
 
         // Method called on Bubble collision.
         collisionActionMap.put(Bubble.class, new BubbleCollision());
