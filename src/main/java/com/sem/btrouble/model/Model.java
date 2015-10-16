@@ -16,7 +16,6 @@ public class Model {
     private static Room roomCurrent;
     private static int currentLevel;
     private static List<PowerUp> powers = new CopyOnWriteArrayList<PowerUp>();
-//    private static ArrayList<PowerUp> powersshort = new ArrayList<PowerUp>();
     private static Timers timers;
 
     private static int roomWidth;
