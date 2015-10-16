@@ -87,10 +87,6 @@ public class SoundObserver implements Observer {
 
     @Override
     public void update(Event event) {
-        if (event instanceof ControllerEvent) {
-            update((ControllerEvent) event);
-        } else if (event instanceof PlayerEvent) {
-            update((PlayerEvent) event);
-        }
+        update(event);
     }
 }
