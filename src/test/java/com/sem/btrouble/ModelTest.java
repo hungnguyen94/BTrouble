@@ -1,20 +1,18 @@
 package com.sem.btrouble;
 
-import static org.junit.Assert.assertEquals;
-
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
-
 import com.sem.btrouble.model.Model;
 import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.PowerUp;
 import com.sem.btrouble.model.Room;
-
-import java.util.ArrayList;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
+
+import java.util.ArrayList;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Class which tests the model class.
@@ -90,16 +88,6 @@ public class ModelTest extends Model {
         ArrayList<PowerUp> powers = new ArrayList<PowerUp>();
         powers.add(power);
         Model.clearShortPower();
-        assertEquals(new ArrayList<PowerUp>(), Model.getShortPower());
-    }
-    
-    /**
-     * Test the deleteShortPower method.
-     */
-    @Test
-    public void deleteShortPowerTest() {
-        Model.addShortPowerUp(power);
-        Model.deleteShortPower(power);
         assertEquals(new ArrayList<PowerUp>(), Model.getShortPower());
     }
 

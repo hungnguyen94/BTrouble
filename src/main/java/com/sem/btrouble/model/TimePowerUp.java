@@ -1,10 +1,15 @@
 package com.sem.btrouble.model;
 
+import com.sem.btrouble.controller.Collidable;
+import com.sem.btrouble.controller.CollisionAction;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import com.sem.btrouble.view.GameView;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Represents power up which slows down the time.
@@ -53,28 +58,24 @@ public class TimePowerUp extends PowerUp {
     
     /**
      * Active power up bought in the store.
+     * Active power up.
      */
     public void activate() {
-        GameView.getController().getTimers().setLevelTimerCounter(10000);
+        Timers timers = GameView.getController().getTimers();
+        timers.addAdditionalTime(50);
     }
-    
-    /**
-     * Activate power up received in the game.
-     */
-    public void activateShort() {
-    	GameView.getController().getTimers().restartTimerWithoutCountdown();
-    }
+
     
     /**
      * Reset the power up.
      */
     public void reset() {
-        GameView.getController().getTimers().setLevelTimerCounter(100);
+        GameView.getController().getTimers().resetAdditionalTime();
     }
     
     /**
      * Draw the power up.
-     * @param graphics The graphics
+     * @param graphics graphics handler.
      */
     public void draw(Graphics graphics) {
         try {
@@ -88,5 +89,46 @@ public class TimePowerUp extends PowerUp {
         }
     }
 
+    /**
+     * Every collidable should return a Map with all CollisionActions
+     * that collidable should process. To prevent class checking, simply
+     * use the class as the key, and a CollisionAction instance as value.
+     *
+     * @return A map of all actions this collidable can do on a collision.
+     */
+    @Override
+    public Map<Class<? extends Collidable>, CollisionAction> getCollideActions() {
+        Map<Class<? extends Collidable>, CollisionAction> collisionActionMap =
+                new HashMap<Class<? extends Collidable>, CollisionAction>();
 
+        // Method called on collision with Floor.
+        collisionActionMap.put(Floor.class, new FloorCollision());
+
+        // Method called on collision with Player.
+        collisionActionMap.put(Player.class, new PlayerCollision());
+
+        return collisionActionMap;
+    }
+
+    /**
+     * Class to call method on collision with floor.
+     */
+    private class FloorCollision implements CollisionAction {
+        @Override
+        public void onCollision(Collidable collider) {
+            setFalling(false);
+            setY(collider.getY() - getHeight());
+        }
+    }
+
+    /**
+     * Class to call method on collision with player.
+     */
+    private class PlayerCollision implements CollisionAction {
+        @Override
+        public void onCollision(Collidable collider) {
+            GameView.getController().getTimers().increaseLevelTimerCounter(50);
+            Model.deleteShortPower(TimePowerUp.this);
+        }
+    }
 }

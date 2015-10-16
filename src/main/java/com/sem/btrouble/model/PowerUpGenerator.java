@@ -1,6 +1,6 @@
 package com.sem.btrouble.model;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class which generates a random power up.
@@ -40,7 +40,7 @@ public class PowerUpGenerator {
 	 * @return array with types
 	 */
 	public static int[] getTypes() {
-		ArrayList<PowerUp> powers = Model.getShortPower();
+		List<PowerUp> powers = Model.getShortPower();
 		int[] types = {0, 0, 0};
 		for(int i = 0; i < powers.size(); i++) {
 			if(powers.get(i) instanceof TimePowerUp) {
