@@ -153,6 +153,7 @@ public class Model {
 
         for (Player p : players) {
             p.resetRope();
+            p.setAlive(true);
         }
 
         for (Player p : players) {

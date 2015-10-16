@@ -116,7 +116,8 @@ public class View {
      */
     private void drawPlayers(Graphics graphics) throws SlickException {
         for (Player player : Model.getPlayers()) {
-            player.draw(graphics);
+            if(player.isAlive())
+                player.draw(graphics);
         }
     }
 
