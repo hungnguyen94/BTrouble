@@ -115,10 +115,6 @@ public class GameView extends BasicGameState implements Observer {
     public void render(GameContainer gc, StateBasedGame sbg, Graphics graphics)
             throws SlickException {
         view.draw(graphics);
-        // Used for drawing collisionhandler. For testing purposes, can be removed.
-        for(Drawable d : drawables) {
-            d.draw(graphics);
-        }
         drawables.clear();
     }
 

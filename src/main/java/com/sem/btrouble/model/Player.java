@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-
+import com.sem.btrouble.controller.Collidable;
+import com.sem.btrouble.controller.CollisionAction;
+import com.sem.btrouble.controller.CollisionHandler;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -43,15 +45,14 @@ public class Player extends Rectangle implements Drawable, Collidable, Subject {
     private Wallet wallet;
 
     // Gravity attributes
-    private float vy;
-    private float ay = .3f;
+    private float velocityY;
+    private float accelerationY = .3f;
 
     private static final int PLAYER_SPEED = 3;
     private static final int INITIAL_LIVES = 5;
     private static final int INITIAL_SCORE = 0;
 
     private ArrayList<Rope> ropes;
-
     private ArrayList<Observer> observers;
 
     /**
@@ -67,7 +68,7 @@ public class Player extends Rectangle implements Drawable, Collidable, Subject {
         ropes = new ArrayList<Rope>();
         lives = INITIAL_LIVES;
         score = INITIAL_SCORE;
-        vy = 2;
+        velocityY = 2;
         rightBlocked = false;
         leftBlocked = false;
         alive = true;
@@ -95,10 +96,11 @@ public class Player extends Rectangle implements Drawable, Collidable, Subject {
     public boolean equals(Object other) {
         if (other instanceof Player) {
             Player that = (Player) other;
-            return Math.abs(this.x - that.x) == 0 && Math.abs(this.y - that.y) == 0
-                    && this.ropes.equals(that.ropes) && this.facingLeft == that.facingLeft
-                    && this.idle == that.idle && this.lives == that.lives
-                    && this.score == that.score && Math.abs(this.vy - that.vy) == 0
+            return Math.abs(this.x - that.x) == 0 && Math.abs(this.y - that.y) == 0 
+                    && this.ropes.equals(that.ropes)
+                    && this.facingLeft == that.facingLeft && this.idle == that.idle
+                    && this.lives == that.lives && this.score == that.score 
+                    && Math.abs(this.velocityY - that.velocityY) == 0
                     && this.rightBlocked == that.rightBlocked
                     && this.leftBlocked == that.leftBlocked;
         }
@@ -113,6 +115,14 @@ public class Player extends Rectangle implements Drawable, Collidable, Subject {
     public int hashCode() {
         assert false : "hashCode not designed";
         return 42; // any arbitrary constant will do
+    }
+    
+    public void setFacingLeft(boolean facing) {
+        this.facingLeft = facing;
+    }
+    
+    public void setIdle(boolean idle) {
+        this.idle = idle;
     }
 
     /**
@@ -256,8 +266,16 @@ public class Player extends Rectangle implements Drawable, Collidable, Subject {
      * 
      * @return vertical speed
      */
-    public double getVy() {
-        return vy;
+    public double getVelocityY() {
+        return velocityY;
+    }
+
+    /**
+     * Sets the vertical velocity of the player
+     * @param velocityY the vertical velocity
+     */
+    public void setVelocityY(float velocityY) {
+        this.velocityY = velocityY;
     }
 
     /**
@@ -349,7 +367,7 @@ public class Player extends Rectangle implements Drawable, Collidable, Subject {
         if (isFalling()) {
             fall();
         } else {
-            vy = 0;
+            velocityY = 0;
         }
         idle = true;
     }
@@ -415,9 +433,9 @@ public class Player extends Rectangle implements Drawable, Collidable, Subject {
      * Slowly fall down vertically.
      */
     public void fall() {
-        setCenterY(getCenterY() + vy);
-//        y += vy;
-        vy += ay;
+        setCenterY(getCenterY() + velocityY);
+//        y += velocityY;
+        velocityY += accelerationY;
     }
 
     /**

@@ -77,6 +77,27 @@ public class PlayerTest {
     public void equalsTrueTest() {
         assertTrue(player.equals(player));
     }
+    
+    @Test
+    public void equalsFalseVelocityYTest() {
+        Player player2 = new Player(1, 1);
+        player2.setVelocityY(10);
+        assertFalse(player.equals(player2));
+    }
+    
+    @Test
+    public void equalsFalseFacingTest() {
+        Player player2 = new Player(1, 1);
+        player2.setFacingLeft(false);
+        assertFalse(player.equals(player2));
+    }
+
+    @Test
+    public void equalsFalseIdleTest() {
+        Player player2 = new Player(1, 1);
+        player2.setIdle(false);
+        assertFalse(player.equals(player2));
+    }
 
     /**
      * Test the equals method with a false x.
@@ -85,13 +106,20 @@ public class PlayerTest {
     public void equalsFalseXTest() {
         assertFalse(player.equals(new Player(2, 1)));
     }
+    
+    @Test
+    public void equalsFalseRopeTest() {
+        Player player2 = new Player(1, 1);
+        player2.fire(rope);
+        assertFalse(player.equals(player2));
+    }
 
     /**
      * Test the equals method with a false y.
      */
     @Test
     public void equalsFalseYTest() {
-        assertFalse(player.equals(new Player(3, 1)));
+        assertFalse(player.equals(new Player(1, 2)));
     }
 
     /**
@@ -246,9 +274,9 @@ public class PlayerTest {
      * Test the effect of the fall method on vy.
      */
     @Test
-    public void fallVYTest() {
+    public void fallVelocityYTest() {
         player.fall();
-        assertEquals(2 + .3f, player.getVy(), 0);
+        assertEquals(2 + .3f, player.getVelocityY(), 0);
     }
 
     /**
@@ -319,7 +347,7 @@ public class PlayerTest {
     public void moveFalseTest() {
         player.setFalling(false);
         player.move();
-        assertEquals(0, player.getVy(), 0);
+        assertEquals(0, player.getVelocityY(), 0);
     }
 
     /**
@@ -329,10 +357,10 @@ public class PlayerTest {
     public void moveTrueTest() {
         player.setFalling(true);
         double y = player.getY();
-        double vy = player.getVy();
+        double vy = player.getVelocityY();
         player.move();
         assertEquals(y + vy, player.getY(), 0);
-        assertEquals(vy + .3, player.getVy(), 0.000001);
+        assertEquals(vy + .3, player.getVelocityY(), 0.000001);
     }
 
 }

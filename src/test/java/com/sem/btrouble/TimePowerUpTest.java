@@ -8,6 +8,9 @@ import static org.junit.Assert.*;
  * Test the Time power up.
  * @author Martin
  */
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -45,6 +48,49 @@ public class TimePowerUpTest extends PowerUpTest {
     @Test
     public void resetTest() {
         
+    }
+    
+    @Test
+    public void equalsTrueTest() {
+        assertTrue(power.equals(power));
+    }
+    
+    @Test
+    public void equalsOtherTest() {
+        assertFalse(power.equals(new String("power")));
+    }
+    
+    @Test
+    public void equalsFalseFallingTest() {
+        TimePowerUp power2 = new TimePowerUp(1, 1);
+        power2.setFalling(false);
+        assertFalse(power.equals(power2));
+    }
+    
+    @Test
+    public void equalsFalseXTest() {
+        TimePowerUp power2 = new TimePowerUp(2, 1);
+        assertFalse(power.equals(power2));
+    }
+    
+    @Test
+    public void equalsFalseYTest() {
+        TimePowerUp power2 = new TimePowerUp(1, 2);
+        assertFalse(power.equals(power2));
+    }
+    
+    @Test
+    public void equalsFalseVelocityYTest() {
+        TimePowerUp power2 = new TimePowerUp(1, 1);
+        power2.setVelocityY(10);
+        assertFalse(power.equals(power2));
+    }
+    
+    @Test
+    public void equalsFalseAccelerationYTest() {
+        TimePowerUp power2 = new TimePowerUp(1, 1);
+        power2.setAccelerationY(10);
+        assertFalse(power.equals(power2));
     }
 
 }
