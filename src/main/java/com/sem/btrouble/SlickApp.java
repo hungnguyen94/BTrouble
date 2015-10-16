@@ -1,7 +1,6 @@
 package com.sem.btrouble;
 
 import com.sem.btrouble.event.GameEvent;
-import com.sem.btrouble.model.GraphicSettings;
 import com.sem.btrouble.model.Model;
 import com.sem.btrouble.model.Player;
 import com.sem.btrouble.observering.EventObserver;
@@ -26,7 +25,6 @@ import java.util.HashMap;
  */
 public class SlickApp extends StateBasedGame implements EventSubject {
 
-    private static GraphicSettings graphics;
     private static HashMap<String, Boolean> preferences;
     public static final int SCREEN_WIDTH = 1280;
     public static final int SCREEN_HEIGHT = 720;
@@ -60,7 +58,6 @@ public class SlickApp extends StateBasedGame implements EventSubject {
      */
     public static void main(String[] args) {
         try {
-            graphics = new GraphicSettings(true, true, 0);
             AppGameContainer appgc;
             appgc = new AppGameContainer(new SlickApp("Bubble Trouble"));
             appgc.setDisplayMode(SCREEN_WIDTH, SCREEN_HEIGHT, false);
@@ -87,15 +84,6 @@ public class SlickApp extends StateBasedGame implements EventSubject {
         this.addState(new GameView());
         this.addState(new ShopView());
         this.addState(new LostLevelView());
-    }
-
-    /**
-     * Returns the graphics settings.
-     * 
-     * @return the graphics
-     */
-    public static GraphicSettings returnGraphics() {
-        return graphics;
     }
 
     /**
