@@ -29,7 +29,12 @@ public class Wallet implements Observer {
     public int getValue() {
         return value;
     }
-    
+
+    /**
+     * Checks to see whether this Wallet equals another Object.
+     * @param other the other object to check against.
+     * @return boolean that represents the equality
+     */
     public boolean equals(Object other) {
         if(other instanceof Wallet) {
             Wallet that = (Wallet) other;

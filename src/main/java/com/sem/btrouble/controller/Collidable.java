@@ -43,14 +43,14 @@ public interface Collidable {
     float getY();
 
     /**
-     * Get the width of this shape
-     * @return the width
+     * Get the width of this shape.
+     * @return the width.
      */
     float getWidth();
 
     /**
-     * Get the height of this shape
-     * @return the height
+     * Get the height of this shape.
+     * @return the height.
      */
     float getHeight();
 

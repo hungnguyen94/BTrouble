@@ -208,7 +208,8 @@ public class Bubble extends Circle implements Drawable, Collidable {
             Bubble that = (Bubble) other;
             return this.size == that.size && Math.abs(this.x - that.x) == 0 
                     && Math.abs(this.y - that.y) == 0
-                    && Math.abs(this.velocityX - that.velocityX) == 0 && Math.abs(this.velocityY - that.velocityY) == 0;
+                    && Math.abs(this.velocityX - that.velocityX) == 0
+                    && Math.abs(this.velocityY - that.velocityY) == 0;
         }
         return false;
     }
@@ -274,7 +275,8 @@ public class Bubble extends Circle implements Drawable, Collidable {
 
     @Override
     public String toString() {
-        return "Bubble{" + "size=" + size + ", x=" + x + ", y=" + y + ", velocityX=" + velocityX + ", velocityY=" + velocityY
+        return "Bubble{" + "size=" + size + ", x=" + x + ", y=" + y
+                + ", velocityX=" + velocityX + ", velocityY=" + velocityY
                 + ", accelerationY=" + accelerationY + '}';
     }
 

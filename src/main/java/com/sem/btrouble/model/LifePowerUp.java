@@ -56,8 +56,9 @@ public class LifePowerUp extends PowerUp {
      */
     public void activate() {
         ArrayList<Player> players = Model.getPlayers();
-        if(players.get(0).getLives() < 5)
+        if(players.get(0).getLives() < 5) {
             players.get(0).addLife();
+        }
     }
     
     /**

@@ -7,6 +7,10 @@ import java.util.Map;
 import com.sem.btrouble.controller.Collidable;
 import com.sem.btrouble.controller.CollisionAction;
 import com.sem.btrouble.controller.CollisionHandler;
+import com.sem.btrouble.event.Event;
+import com.sem.btrouble.observering.Observer;
+import com.sem.btrouble.observering.Subject;
+
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -14,13 +18,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
-
-import com.sem.btrouble.controller.Collidable;
-import com.sem.btrouble.controller.CollisionAction;
-import com.sem.btrouble.controller.CollisionHandler;
-import com.sem.btrouble.event.Event;
-import com.sem.btrouble.observering.Observer;
-import com.sem.btrouble.observering.Subject;
 
 /**
  * Player class, containing all the data about the player.
@@ -116,11 +113,19 @@ public class Player extends Rectangle implements Drawable, Collidable, Subject {
         assert false : "hashCode not designed";
         return 42; // any arbitrary constant will do
     }
-    
+
+    /**
+     * Sets if the player is facing left or not.
+     * @param facing boolean stating if the player is facing left
+     */
     public void setFacingLeft(boolean facing) {
         this.facingLeft = facing;
     }
-    
+
+    /**
+     * Sets if the player is idle or not.
+     * @param idle boolean stating if the player is idle
+     */
     public void setIdle(boolean idle) {
         this.idle = idle;
     }
@@ -332,8 +337,8 @@ public class Player extends Rectangle implements Drawable, Collidable, Subject {
                 walkAnimation = new Animation(walkSheet, 20);
             }
             // Render the sprite at an offset.
-            int playerX = (int) (x
-                    - ((walkSheet.getWidth() / walkSheet.getHorizontalCount()) - getWidth()) / 2);
+            int playerX = (int) (x - ((walkSheet.getWidth()
+                    / walkSheet.getHorizontalCount()) - getWidth()) / 2);
             if (!idle) {
                 walkAnimation.getCurrentFrame().getFlippedCopy(facingLeft, false).draw(playerX, y - 15);
             } else {
@@ -385,7 +390,6 @@ public class Player extends Rectangle implements Drawable, Collidable, Subject {
             idle = false;
             facingLeft = true;
             walkAnimation.update(delta);
-//            x -= delta * 0.15f * PLAYER_SPEED;
             setCenterX(getCenterX() - delta * 0.15f * PLAYER_SPEED);
         }
     }
@@ -403,7 +407,6 @@ public class Player extends Rectangle implements Drawable, Collidable, Subject {
             idle = false;
             facingLeft = false;
             walkAnimation.update(delta);
-//            x += delta * 0.15f * PLAYER_SPEED;
             setCenterX(getCenterX() + delta * 0.15f * PLAYER_SPEED);
         }
     }

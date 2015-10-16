@@ -22,6 +22,11 @@ public class SoundObserver implements Observer {
 
     private Audio wavEffect;
 
+    /**
+     * The update method for audio.
+     * When an event is triggered, the audio is updated.
+     * @param event the event that is triggered
+     */
     public void update(ControllerEvent event) {
         try {
             switch (event) {
@@ -59,10 +64,7 @@ public class SoundObserver implements Observer {
     /**
      * Update the sounds.
      * 
-     * @param observable
-     *            the object to observe
-     * @param arg
-     *            the event
+     * @param event the event
      */
     public void update(PlayerEvent event) {
         if (event instanceof PlayerEvent) {

@@ -60,8 +60,7 @@ public class SlowPowerUp extends PowerUp implements Observer {
     
     /**
      * Update the speed of the bubbles.
-     * @param observable object to observe
-     * @param arg the event
+     * @param event the event that happens to the bubble
      */
     public void update(Event event) {
       if(event == BubbleEvent.COLLISION_ROPE && on){

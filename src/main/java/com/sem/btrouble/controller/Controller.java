@@ -55,7 +55,11 @@ public class Controller implements Subject {
         collisionHandler.addCollidable(p);
         restartRoom();
     }
-    
+
+    /**
+     * Get the collision handler.
+     * @return the collision handler
+     */
     public CollisionHandler getCollisionHandler() {
         return collisionHandler;
     }
