@@ -87,13 +87,13 @@ public class CollisionHandler implements Drawable {
             if (self != collidee && self.intersectsCollidable(collidee)) {
                 // If there is no corresponding CollisionAction for this collision, skip it.
                 CollisionAction selfAction = self.getCollideActions().get(collidee.getClass());
-                CollisionAction collideeAction = collidee.getCollideActions().get(self.getClass());
+//                CollisionAction collideeAction = collidee.getCollideActions().get(self.getClass());
                 if(selfAction != null) {
                     selfAction.onCollision(collidee);
                 }
-                if(collideeAction != null) {
-                    collideeAction.onCollision(self);
-                }
+//                if(collideeAction != null) {
+//                    collideeAction.onCollision(self);
+//                }
                 collided = true;
             }
         }
