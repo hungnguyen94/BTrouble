@@ -27,11 +27,11 @@ public class Bubble extends Circle implements Drawable, Collidable {
     private static final float GAME_SIZE = 10f;
 
     // speed (pixels / step)
-    private float vx;
-    private float vy;
+    private float velocityX;
+    private float velocityY;
 
     // acceleration (pixels / step^2)
-    private float ay;
+    private float accelerationY;
 
     // gravity
     private static final float GRAVITY = .4f;
@@ -56,8 +56,8 @@ public class Bubble extends Circle implements Drawable, Collidable {
         super(xpos, ypos, size * GAME_SIZE);
 
         this.size = size;
-        this.ay = GRAVITY;
-        this.vx = INITIAL_HORIZONTAL_SPEED;
+        this.accelerationY = GRAVITY;
+        this.velocityX = INITIAL_HORIZONTAL_SPEED;
     }
 
     /**
@@ -69,18 +69,18 @@ public class Bubble extends Circle implements Drawable, Collidable {
      *            horizontal starting position of the bubble in the room
      * @param ypos
      *            vertical starting position of the bubble in the room
-     * @param vx
+     * @param velocityX
      *            horizontal starting speed of the bubble
-     * @param vy
+     * @param velocityY
      *            vertical starting speed of the bubble
      */
-    public Bubble(int size, float xpos, float ypos, float vx, float vy) {
+    public Bubble(int size, float xpos, float ypos, float velocityX, float velocityY) {
         super(xpos, ypos, size * GAME_SIZE);
 
         this.size = size;
-        this.ay = GRAVITY;
-        this.vx = vx;
-        this.vy = vy;
+        this.accelerationY = GRAVITY;
+        this.velocityX = velocityX;
+        this.velocityY = velocityY;
     }
 
     /**
@@ -98,8 +98,8 @@ public class Bubble extends Circle implements Drawable, Collidable {
      * @return returns a double representing the velocity of the bubble in x
      *         direction.
      */
-    public double getVx() {
-        return vx;
+    public double getVelocityX() {
+        return velocityX;
     }
 
     /**
@@ -108,19 +108,19 @@ public class Bubble extends Circle implements Drawable, Collidable {
      * @return returns a double representing the velocity of the bubble in y
      *         direction.
      */
-    public double getVy() {
-        return vy;
+    public double getVelocityY() {
+        return velocityY;
     }
 
     /**
      * Sets the acceleration of the bubble in y direction.
      * 
-     * @param ay
+     * @param accelerationY
      *            should be an integer representing the acceleration of the
      *            bubble in y direction.
      */
-    public void setAY(float ay) {
-        this.ay = ay;
+    public void setAY(float accelerationY) {
+        this.accelerationY = accelerationY;
     }
 
     /**
@@ -130,17 +130,17 @@ public class Bubble extends Circle implements Drawable, Collidable {
      *         direction.
      */
     public float getAY() {
-        return ay;
+        return accelerationY;
     }
 
     /**
      * Calculates the next location of the Bubble.
      */
     public void move() {
-        this.vy += ay;
+        this.velocityY += accelerationY;
 
-        float newX = getCenterX() + vx;
-        float newY = getCenterY() + vy;
+        float newX = getCenterX() + velocityX;
+        float newY = getCenterY() + velocityY;
 
         setCenterX(newX);
         setCenterY(newY);
@@ -155,10 +155,10 @@ public class Bubble extends Circle implements Drawable, Collidable {
     public void bubbleEvent(BubbleEvent event) {
         switch (event.getId()) {
         case BubbleEvent.COLLISION_FLOOR:
-            vy = -vy;
+            velocityY = -velocityY;
             break;
         case BubbleEvent.COLLISION_WALL:
-            vx = -vx;
+            velocityX = -velocityX;
             break;
         case BubbleEvent.COLLISION_ROPE:
             split();
@@ -177,11 +177,11 @@ public class Bubble extends Circle implements Drawable, Collidable {
         setRadius(size * GAME_SIZE);
         if (size > 0) {
             // give upward speed
-            vy = -Math.abs(ay) * HIT_SPEED_FACTOR;
-            vx = Math.abs(vx);
+            velocityY = -Math.abs(accelerationY) * HIT_SPEED_FACTOR;
+            velocityX = Math.abs(velocityX);
             // add an extra bubble to the game
-            Bubble leftBubble = new Bubble(size, x, y, -vx, vy);
-            Bubble rightBubble = new Bubble(size, x, y, vx, vy);
+            Bubble leftBubble = new Bubble(size, x, y, -velocityX, velocityY);
+            Bubble rightBubble = new Bubble(size, x, y, velocityX, velocityY);
             GameView.getController().addBubble(leftBubble);
             GameView.getController().addBubble(rightBubble);
             GameView.getController().removeBubble(this);
@@ -208,7 +208,7 @@ public class Bubble extends Circle implements Drawable, Collidable {
             Bubble that = (Bubble) other;
             return this.size == that.size && Math.abs(this.x - that.x) == 0 
                     && Math.abs(this.y - that.y) == 0
-                    && Math.abs(this.vx - that.vx) == 0 && Math.abs(this.vy - that.vy) == 0;
+                    && Math.abs(this.velocityX - that.velocityX) == 0 && Math.abs(this.velocityY - that.velocityY) == 0;
         }
         return false;
     }
@@ -225,14 +225,14 @@ public class Bubble extends Circle implements Drawable, Collidable {
      * Invert the y direction on collision.
      */
     public void bounceY() {
-        vy = -vy;
+        velocityY = -velocityY;
     }
 
     /**
      * Invert the x direction on collision.
      */
     public void bounceX() {
-        vx = -vx;
+        velocityX = -velocityX;
     }
 
     /**
@@ -243,9 +243,9 @@ public class Bubble extends Circle implements Drawable, Collidable {
      */
     public void bounceX(boolean left) {
         if (left) {
-            vx = -Math.abs(vx);
+            velocityX = -Math.abs(velocityX);
         } else {
-            vx = Math.abs(vx);
+            velocityX = Math.abs(velocityX);
         }
     }
 
@@ -257,9 +257,9 @@ public class Bubble extends Circle implements Drawable, Collidable {
      */
     public void bounceY(boolean up) {
         if (up) {
-            vy = -Math.abs(vy);
+            velocityY = -Math.abs(velocityY);
         } else {
-            vy = Math.abs(vy);
+            velocityY = Math.abs(velocityY);
         }
     }
 
@@ -269,13 +269,13 @@ public class Bubble extends Circle implements Drawable, Collidable {
      * Bounce up on collision with floor.
      */
     public void bounceYFloor() {
-        vy = -Math.abs(bounceconstant + 2 * (size));
+        velocityY = -Math.abs(bounceconstant + 2 * (size));
     }
 
     @Override
     public String toString() {
-        return "Bubble{" + "size=" + size + ", x=" + x + ", y=" + y + ", vx=" + vx + ", vy=" + vy
-                + ", ay=" + ay + '}';
+        return "Bubble{" + "size=" + size + ", x=" + x + ", y=" + y + ", velocityX=" + velocityX + ", velocityY=" + velocityY
+                + ", accelerationY=" + accelerationY + '}';
     }
 
     /**

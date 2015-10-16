@@ -31,11 +31,11 @@ public class RopeTest {
     }
 
     /**
-     * Test the getDy method.
+     * Test the getDistanceY method.
      */
     @Test
-    public void getDyTest() {
-        assertEquals(5, rope.getDy());
+    public void getDistanceYTest() {
+        assertEquals(5, rope.getDistanceY());
     }
 
     /**
@@ -66,9 +66,9 @@ public class RopeTest {
      * Test the equals method with false dy.
      */
     @Test
-    public void equalsFalseDYTest() {
+    public void equalsFalseDistanceYTest() {
         Rope rope2 = new Rope(1, 1);
-        rope2.move();
+        rope2.setDistanceY(10);
         assertFalse(rope.equals(rope2));
     }
 
@@ -95,19 +95,19 @@ public class RopeTest {
      * Test the effect of the move method on dy.
      */
     @Test
-    public void moveDYTest() {
+    public void moveDistanceYTest() {
         rope.move();
-        assertEquals(0, rope.getDy());
+        assertEquals(0, rope.getDistanceY());
     }
 
     /**
      * Test the effect of the move method with no dy.
      */
     @Test
-    public void moveNoDYTest() {
+    public void moveNoDistanceYTest() {
         Rope rope2 = new Rope(20, 20);
         rope2.move();
-        assertEquals(5, rope2.getDy(), 0);
+        assertEquals(5, rope2.getDistanceY(), 0);
     }
 
 }

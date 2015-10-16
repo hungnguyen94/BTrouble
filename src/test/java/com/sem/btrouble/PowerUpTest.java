@@ -59,11 +59,11 @@ public abstract class PowerUpTest {
     @Test
     public void fallTest() {
         float firstY = power.getY();
-        float vy = power.getVY();
-        float ay = power.getAY();
+        float vy = power.getVelocityY();
+        float ay = power.getAccelerationY();
         power.fall();
         assertEquals(firstY + vy, power.getY(), 0);
-        assertEquals(vy + ay, power.getVY(), 0);
+        assertEquals(vy + ay, power.getVelocityY(), 0);
     }
     
     /**
@@ -72,7 +72,7 @@ public abstract class PowerUpTest {
     @Test
     public void moveTrueTest() {
         float y = power.getY();
-        float vy = power.getVY();
+        float vy = power.getVelocityY();
         power.move();
         assertEquals(y + vy, power.getY(), 0);
     }
@@ -84,7 +84,7 @@ public abstract class PowerUpTest {
     public void moveFalseTest() {
         power.setFalling(false);
         power.move();
-        assertEquals(0, power.getVY(), 0);
+        assertEquals(0, power.getVelocityY(), 0);
     }
     
     

@@ -278,12 +278,4 @@ public class Room implements Serializable, Drawable {
         }
     }
 
-    // Old methods
-    /**
-     * Draw the room.
-     * @param g The graphics
-     */
-    public void drawRoom(Graphics g) {
-        draw(g);
-    }
 }

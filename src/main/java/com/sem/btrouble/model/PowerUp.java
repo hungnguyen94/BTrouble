@@ -17,8 +17,8 @@ import java.util.Map;
 public abstract class PowerUp extends Rectangle implements Drawable, Collidable {
 	
         private boolean falling;
-        private float vy;
-        private float ay;
+        private float velocityY;
+        private float accelerationY;
 
     /**
      * Construct power up bought in the store.
@@ -35,24 +35,32 @@ public abstract class PowerUp extends Rectangle implements Drawable, Collidable 
     public PowerUp(float xpos, float ypos) {
         super(xpos, ypos, 50, 100);
         this.falling = true;
-        this.vy = 2;
-        this.ay = .3f;
+        this.velocityY = 2;
+        this.accelerationY = .3f;
     }
     
     /**
      * Get the vertical speed.
      * @return the vertical speed
      */
-    public float getVY() {
-        return vy;
+    public float getVelocityY() {
+        return velocityY;
     }
     
     /**
      * Get the vertical acceleration.
      * @return vertical acceleration
      */
-    public float getAY() {
-        return ay;
+    public float getAccelerationY() {
+        return accelerationY;
+    }
+    
+    public void setVelocityY(float velocityY) {
+        this.velocityY = velocityY;
+    }
+    
+    public void setAccelerationY(float accelerationY) {
+        this.accelerationY = accelerationY;
     }
 
     /**
@@ -92,9 +100,9 @@ public abstract class PowerUp extends Rectangle implements Drawable, Collidable 
      */
     public void fall() {
     	float y = getY();
-        float changeY = y + vy;
+        float changeY = y + velocityY;
         setY(changeY);
-        vy += ay;
+        velocityY += accelerationY;
     }
     
     /**
@@ -105,7 +113,7 @@ public abstract class PowerUp extends Rectangle implements Drawable, Collidable 
             fall();
         }
         else {
-            vy = 0;
+            velocityY = 0;
         }    
     }
 /**
