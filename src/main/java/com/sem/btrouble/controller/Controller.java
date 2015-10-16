@@ -30,6 +30,7 @@ public class Controller implements EventSubject, LevelSubject {
     private GameContainer gc;
     private CollisionHandler collisionHandler;
     private int timeLeft;
+    private int lastBubbleTime = 0;
     private List<EventObserver> observers;
     private List<LevelObserver> levelObservers;
 
@@ -81,6 +82,9 @@ public class Controller implements EventSubject, LevelSubject {
      */
     public void update(int delta) throws SlickException {
         collisionHandler.checkCollision(Model.getCurrentRoom().getBubbles());
+        if(SlickApp.survival()) {
+            survivalMode();
+        }
 
         for (Player player : Model.getPlayers()) {
             if (!collisionHandler.checkCollision(player)) {
@@ -222,7 +226,7 @@ public class Controller implements EventSubject, LevelSubject {
      * calculates the new position of each bubble.
      */
     private void updateBubble() {
-        if (!Model.getCurrentRoom().hasBubbles()) {
+        if (!Model.getCurrentRoom().hasBubbles() && !SlickApp.survival()) {
             collisionHandler.removeCollidable(Model.getCurrentRoom().getCollidables());
             Model.getNextRoom();
             restartRoom();
@@ -324,7 +328,7 @@ public class Controller implements EventSubject, LevelSubject {
         for(LevelObserver levelObserver : levelObservers) {
             levelObserver.update(this, collisionHandler);
         }
-        if(!Model.getCurrentRoom().hasBubbles()) {
+        if(!Model.getCurrentRoom().hasBubbles() && !SlickApp.survival()) {
             for(LevelObserver levelObserver : levelObservers) {
                 levelObserver.levelWon();
             }
@@ -355,5 +359,24 @@ public class Controller implements EventSubject, LevelSubject {
             }
         }
         return false;
+    }
+
+    /**
+     * Runs the survival mode
+     */
+    public void survivalMode() {
+        if(lastBubbleTime == 0) {
+            lastBubbleTime = getTimers().getLevelTimeLeft();
+        }
+        if (getTimers().getLevelTimeLeft() == lastBubbleTime - 8000
+                || getTimers().getLevelTimeLeft() > lastBubbleTime) {
+            Bubble bubble = new Bubble(3, 1280 / 2, 200);
+            Model.getCurrentRoom().addBubble(bubble);
+            lastBubbleTime = getTimers().getLevelTimeLeft();
+        }
+
+        if (getTimers().getLevelTimeLeft() < 10) {
+            Model.getTimers().survivalTimer();
+        }
     }
 }
