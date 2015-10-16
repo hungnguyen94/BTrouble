@@ -41,6 +41,24 @@ public class SlowPowerUp extends PowerUp implements Observer {
     }
     
     /**
+     * Test if two object are equal of this instance.
+     * @param other the object to compare with
+     * @return a boolean
+     */
+    public boolean equals(Object other) {
+        if(other instanceof SlowPowerUp) {
+            SlowPowerUp that = (SlowPowerUp) other;
+            return this.isFalling() == that.isFalling() 
+                    && Math.abs(this.x - that.x) == 0
+                    && Math.abs(this.y - that.y) == 0
+                    && Math.abs(this.getVY() - that.getVY()) == 0
+                    && Math.abs(this.getAY() - that.getAY()) == 0;
+        } else {
+            return false;
+        }
+    }
+    
+    /**
      * Update the speed of the bubbles.
      * @param observable object to observe
      * @param arg the event
@@ -87,6 +105,7 @@ public class SlowPowerUp extends PowerUp implements Observer {
     
     /**
      * Draw the power up.
+     * @param graphics The graphics
      */
     public void draw(Graphics graphics) {
         try {

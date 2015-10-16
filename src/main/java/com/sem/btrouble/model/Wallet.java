@@ -29,6 +29,23 @@ public class Wallet implements Observer {
     public int getValue() {
         return value;
     }
+    
+    public boolean equals(Object other) {
+        if(other instanceof Wallet) {
+            Wallet that = (Wallet) other;
+            return this.value == that.value;
+        } else {
+            return false;
+        }
+    }
+    
+    /**
+     * Set the value of the wallet.
+     * @param value The value
+     */
+    public void setValue(int value) {
+        this.value = value;
+    }
 
     /**
      * Increase the value.
@@ -52,11 +69,7 @@ public class Wallet implements Observer {
 
     /**
      * Update the wallet.
-     * 
-     * @param observable
-     *            object to observe
-     * @param arg
-     *            the event
+     * @param event The event which happened
      */
     @Override
     public void update(Event event) {

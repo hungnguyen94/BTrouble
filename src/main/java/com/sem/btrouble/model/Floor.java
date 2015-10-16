@@ -67,7 +67,7 @@ public class Floor extends Rectangle implements Drawable, Collidable {
     /**
      * Draw the object.
      *
-     * @param graphics
+     * @param graphics The graphics
      */
     @Override
     public void draw(Graphics graphics) {

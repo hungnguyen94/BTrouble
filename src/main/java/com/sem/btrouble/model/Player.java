@@ -39,6 +39,8 @@ public class Player extends Rectangle implements Drawable, Collidable, Subject {
     private boolean rightBlocked;
     private boolean alive;
     private boolean falling;
+    
+    private Wallet wallet;
 
     // Gravity attributes
     private float vy;
@@ -70,8 +72,16 @@ public class Player extends Rectangle implements Drawable, Collidable, Subject {
         leftBlocked = false;
         alive = true;
         falling = true;
-
         this.observers = new ArrayList<Observer>();
+        wallet = new Wallet();
+    }
+    
+    /**
+     * Get the wallet of the player.
+     * @return the wallet
+     */
+    public Wallet getWallet() {
+        return wallet;
     }
 
     /**
@@ -293,9 +303,7 @@ public class Player extends Rectangle implements Drawable, Collidable, Subject {
 
     /**
      * Draws the player on the screen.
-     *
-     * @throws SlickException
-     *             when the player could not be drawn.
+     * @param graphics The graphics
      */
     @Override
     public void draw(Graphics graphics) {
@@ -304,6 +312,17 @@ public class Player extends Rectangle implements Drawable, Collidable, Subject {
                 playerIdle = new Image("Sprites/idle.png");
                 walkSheet = new SpriteSheet("Sprites/player_spritesheet.png", 100, 175);
                 walkAnimation = new Animation(walkSheet, 20);
+            }
+            // Render the sprite at an offset.
+            int playerX = (int) (x
+                    - ((walkSheet.getWidth() / walkSheet.getHorizontalCount()) - getWidth()) / 2);
+            if (!idle) {
+                walkAnimation.getCurrentFrame().getFlippedCopy(facingLeft, false).draw(playerX, y - 15);
+            } else {
+                playerIdle.getFlippedCopy(facingLeft, false).draw(playerX, y - 15);
+            }
+            for (int i = 0; i < ropes.size(); i++) {
+                ropes.get(i).draw(graphics);
             }
         } catch (SlickException e) {
             // TODO Auto-generated catch block
@@ -314,7 +333,7 @@ public class Player extends Rectangle implements Drawable, Collidable, Subject {
                 - ((walkSheet.getWidth() / walkSheet.getHorizontalCount()) - getWidth()) / 2);
         if (!idle) {
             walkAnimation.getCurrentFrame().getFlippedCopy(facingLeft, false).draw(playerX, y - 15);
-        } else {
+        } else if(alive) {
             playerIdle.getFlippedCopy(facingLeft, false).draw(playerX, y - 15);
         }
         for (int i = 0; i < ropes.size(); i++) {
@@ -348,7 +367,8 @@ public class Player extends Rectangle implements Drawable, Collidable, Subject {
             idle = false;
             facingLeft = true;
             walkAnimation.update(delta);
-            x -= delta * 0.15f * PLAYER_SPEED;
+//            x -= delta * 0.15f * PLAYER_SPEED;
+            setCenterX(getCenterX() - delta * 0.15f * PLAYER_SPEED);
         }
     }
 
@@ -365,7 +385,8 @@ public class Player extends Rectangle implements Drawable, Collidable, Subject {
             idle = false;
             facingLeft = false;
             walkAnimation.update(delta);
-            x += delta * 0.15f * PLAYER_SPEED;
+//            x += delta * 0.15f * PLAYER_SPEED;
+            setCenterX(getCenterX() + delta * 0.15f * PLAYER_SPEED);
         }
     }
 
@@ -385,8 +406,8 @@ public class Player extends Rectangle implements Drawable, Collidable, Subject {
      *            - y-coordinate
      */
     public void moveTo(int xpos, int ypos) {
-        this.x = xpos;
-        this.y = ypos;
+        setCenterX(xpos);
+        setCenterY(ypos);
         falling = true;
     }
 
@@ -394,7 +415,8 @@ public class Player extends Rectangle implements Drawable, Collidable, Subject {
      * Slowly fall down vertically.
      */
     public void fall() {
-        y += vy;
+        setCenterY(getCenterY() + vy);
+//        y += vy;
         vy += ay;
     }
 
@@ -410,40 +432,57 @@ public class Player extends Rectangle implements Drawable, Collidable, Subject {
         Map<Class<? extends Collidable>, CollisionAction> collisionActionMap = new HashMap<Class<? extends Collidable>, CollisionAction>();
 
         // Method called on Bubble collision.
-        collisionActionMap.put(Bubble.class, new CollisionAction() {
-            @Override
-            public void onCollision(Collidable collider) {
-                setAlive(false);
-            }
-        });
+        collisionActionMap.put(Bubble.class, new BubbleCollision());
 
         // Method called on Wall collision
-        collisionActionMap.put(Wall.class, new CollisionAction() {
-            @Override
-            public void onCollision(Collidable collider) {
-                switch (CollisionHandler.checkCollisionSideX(Player.this, collider)) {
+        collisionActionMap.put(Wall.class, new WallCollision());
+
+        // Method called on Floor collision.
+        collisionActionMap.put(Floor.class, new FloorCollision());
+
+        return collisionActionMap;
+    }
+
+    /**
+     * Class to call method on collision with Bubble.
+     */
+    private class BubbleCollision implements CollisionAction {
+        @Override
+        public void onCollision(Collidable collider) {
+            setAlive(false);
+        }
+    }
+
+    /**
+     * Class to call method on collision with Wall.
+     */
+    private class WallCollision implements CollisionAction {
+        @Override
+        public void onCollision(Collidable collider) {
+            switch (CollisionHandler.checkCollisionSideX(Player.this, collider)) {
                 case LEFT:
                     setRightBlock(true);
+                    setCenterX(collider.getCenterX() - (collider.getWidth() + getWidth()) / 2);
                     break;
                 case RIGHT:
                     setLeftBlock(true);
+                    setCenterX(collider.getCenterX() + (collider.getWidth() + getWidth()) / 2);
                     break;
                 default:
                     break;
-                }
             }
-        });
+        }
+    }
 
-        // Method called on Floor collision.
-        collisionActionMap.put(Floor.class, new CollisionAction() {
-            @Override
-            public void onCollision(Collidable collider) {
-                setFalling(false);
-                setY(collider.getY() - getHeight());
-            }
-        });
-
-        return collisionActionMap;
+    /**
+     * Class to call method on collision with Floor.
+     */
+    private class FloorCollision implements CollisionAction {
+        @Override
+        public void onCollision(Collidable collider) {
+            setFalling(false);
+            setCenterY(collider.getCenterY() - (collider.getHeight() + getHeight()) / 2);
+        }
     }
 
     /**
