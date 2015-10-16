@@ -93,9 +93,7 @@ public class Rope extends Rectangle implements Drawable, Collidable {
 
     /**
      * Draws the Rope on the screen.
-     * 
-     * @throws SlickException
-     *             when the Rope could not be drawn.
+     * @param graphics The graphics
      */
     @Override
     public void draw(Graphics graphics) {
@@ -130,7 +128,8 @@ public class Rope extends Rectangle implements Drawable, Collidable {
      */
     @Override
     public Map<Class<? extends Collidable>, CollisionAction> getCollideActions() {
-        Map<Class<? extends Collidable>, CollisionAction> collisionActionMap = new HashMap<Class<? extends Collidable>, CollisionAction>();
+        Map<Class<? extends Collidable>, CollisionAction> collisionActionMap 
+            = new HashMap<Class<? extends Collidable>, CollisionAction>();
 
         // Method called on Floor collision.
         collisionActionMap.put(Floor.class, new CollisionAction() {

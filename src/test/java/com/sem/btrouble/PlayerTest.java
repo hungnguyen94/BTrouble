@@ -1,16 +1,23 @@
 package com.sem.btrouble;
 
-import com.sem.btrouble.model.Player;
-import com.sem.btrouble.model.Rope;
-import org.junit.Before;
-import org.junit.Test;
-import org.newdawn.slick.SlickException;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertEquals;
+
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
+import static org.mockito.Mockito.verify;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.newdawn.slick.SlickException;
+
+import com.sem.btrouble.model.Player;
+import com.sem.btrouble.model.Rope;
+import com.sem.btrouble.model.Wallet;
 
 /**
  * Class which tests the Player class.
@@ -18,9 +25,11 @@ import static org.junit.Assert.assertTrue;
  * @author Martin
  *
  */
+@RunWith(MockitoJUnitRunner.class)
 public class PlayerTest {
 
     private Player player;
+    @Mock private Rope rope;
 
     /**
      * Set up the Player.
@@ -31,6 +40,34 @@ public class PlayerTest {
     @Before
     public void setUp() throws SlickException {
         player = new Player(1, 1);
+    }
+    
+    @Test
+    public void fireTrueTest() {
+        assertTrue(player.fire(rope));
+    }
+    
+    @Test
+    public void fireFalseTest() {
+        player.fire(rope);
+        assertFalse(player.fire(rope));
+    }
+    
+    @Test
+    public void getWalletTest() {
+        assertEquals(player.getWallet(), new Wallet());
+    }
+    
+    @Test
+    public void setRightBlockTest() {
+        player.setRightBlock(false);
+        assertFalse(player.getRightBlocked());
+    }
+    
+    @Test
+    public void setLeftBlockTest() {
+        player.setLeftBlock(false);
+        assertFalse(player.getLeftBlocked());
     }
 
     /**
@@ -262,6 +299,18 @@ public class PlayerTest {
         player.moveLeft(1);
         assertEquals(player1, player);
     }
+    
+    @Test
+    public void moveRopesTest() {
+        player.fire(rope);
+        player.moveRopes();
+        verify(rope).move();
+    }
+    
+//    @Test
+//    public void hashCodeTest() {
+//        assertEquals(player.hashCode(), 42);
+//    }
 
     /**
      * Test the move method with isFalling false.

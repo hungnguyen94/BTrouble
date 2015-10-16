@@ -36,6 +36,8 @@ public class Player extends Rectangle implements Drawable, Collidable {
     private boolean rightBlocked;
     private boolean alive;
     private boolean falling;
+    
+    private Wallet wallet;
 
     // Gravity attributes
     private float vy;
@@ -67,6 +69,16 @@ public class Player extends Rectangle implements Drawable, Collidable {
         leftBlocked = false;
         alive = true;
         falling = true;
+        wallet = new Wallet();
+        this.observers = new ArrayList<PlayerObserver>();
+    }
+    
+    /**
+     * Get the wallet of the player.
+     * @return the wallet
+     */
+    public Wallet getWallet() {
+        return wallet;
     }
 
     /**
@@ -268,9 +280,7 @@ public class Player extends Rectangle implements Drawable, Collidable {
 
     /**
      * Draws the player on the screen.
-     *
-     * @throws SlickException
-     *             when the player could not be drawn.
+     * @param graphics The graphics
      */
     @Override
     public void draw(Graphics graphics) {
@@ -295,7 +305,17 @@ public class Player extends Rectangle implements Drawable, Collidable {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
+        // Render the sprite at an offset.
+        int playerX = (int) (x
+                - ((walkSheet.getWidth() / walkSheet.getHorizontalCount()) - getWidth()) / 2);
+        if (!idle) {
+            walkAnimation.getCurrentFrame().getFlippedCopy(facingLeft, false).draw(playerX, y - 15);
+        } else if(alive) {
+            playerIdle.getFlippedCopy(facingLeft, false).draw(playerX, y - 15);
+        }
+        for (int i = 0; i < ropes.size(); i++) {
+            ropes.get(i).draw(graphics);
+        }
     }
 
     /**

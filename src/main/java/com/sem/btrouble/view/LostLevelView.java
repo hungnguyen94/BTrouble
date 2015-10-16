@@ -1,6 +1,9 @@
 package com.sem.btrouble.view;
 
+import com.sem.btrouble.SlickApp;
 import com.sem.btrouble.model.Model;
+import com.sem.btrouble.model.Player;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -15,6 +18,7 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.util.ResourceLoader;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 
 /**
  * Created by rubenwiersma on 22-09-15.
@@ -34,7 +38,7 @@ public class LostLevelView extends BasicGameState {
      *             when the game could not be initialized.
      */
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        //Set objects to draw
+        // Set objects to draw
         background = new Image("Sprites/lostlevel1280x720.png");
 
         loadFont();
@@ -72,12 +76,12 @@ public class LostLevelView extends BasicGameState {
      * @throws SlickException
      *             when an item could not be drawn.
      */
-    public void render(GameContainer gc, StateBasedGame sbg, Graphics graphics)
+    public void render(GameContainer gc, StateBasedGame sbg, Graphics graphics) 
             throws SlickException {
         graphics.setFont(font);
         background.draw(0f, 0f);
+        drawWallet(graphics);
 
-        graphics.drawString("Wallet: " + GameView.getWallet().getValue(), 500, 660);
         graphics.drawString("You died. Press enter to restart this Level", 350, 250);
         graphics.drawString("Press enter", 1000, 660);
 
@@ -90,15 +94,41 @@ public class LostLevelView extends BasicGameState {
     }
 
     /**
-     * Loads the game font into a TrueTypeFont object to be used by the setFont method.
+     * Draw the value of the wallet.
+     * @param graphics The graphics
+     */
+    public void drawWallet(Graphics graphics) {
+        ArrayList<Player> players = Model.getPlayers();
+        int sum = 0;
+
+        for (int i = 0; i < players.size(); i++) {
+            if (SlickApp.multiplayer() && SlickApp.versus()) {
+                graphics.drawString(
+                        "Wallet Player "
+                                + (i + 1)
+                                + " : "
+                                + Model.getWallet(players.get(i))
+                                        .getValue(), 300 + (i * 450), 450);
+            }
+            sum += players.get(i).getWallet().getValue();
+        }
+        if (!SlickApp.versus() || !SlickApp.multiplayer()) {
+            graphics.drawString("Wallet: " + sum, 500, 660);
+        }
+    }
+
+    /**
+     * Loads the game font into a TrueTypeFont object to be used by the setFont
+     * method.
      */
     private void loadFont() {
         // load font from a .ttf file
         try {
-            InputStream inputStream = ResourceLoader.getResourceAsStream("Sprites/IndieFlower.ttf");
+            InputStream inputStream = ResourceLoader
+                    .getResourceAsStream("Sprites/IndieFlower.ttf");
 
-            java.awt.Font awtFont = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT,
-                    inputStream);
+            java.awt.Font awtFont = java.awt.Font.createFont(
+                    java.awt.Font.TRUETYPE_FONT, inputStream);
             awtFont = awtFont.deriveFont(24f); // set font size
             font = new TrueTypeFont(awtFont, false);
 
@@ -109,6 +139,7 @@ public class LostLevelView extends BasicGameState {
 
     /**
      * Get the id of the view.
+     * 
      * @return the id
      */
     public int getID() {

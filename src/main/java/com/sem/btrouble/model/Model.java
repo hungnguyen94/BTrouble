@@ -46,6 +46,15 @@ public class Model {
         Model.addRoom(r2);
         timers = new Timers(DELAY);
     }
+    
+    /**
+     * Get the wallet of a player.
+     * @param player from who you want the wallet
+     * @return the wallet
+     */
+    public static Wallet getWallet(Player player) {
+         return player.getWallet();
+    }
 
     /**
      * Getter for timers.
@@ -96,6 +105,14 @@ public class Model {
      */
     public static ArrayList<Player> getPlayers() {
         return players;
+    }
+    
+    /**
+     * Remove a player from the model.
+     * @param player Player to be removed
+     */
+    public static void removePlayer(Player player) {
+        players.remove(player);
     }
 
     /**

@@ -43,7 +43,8 @@ public class Controller implements EventSubject, LevelSubject {
      * @throws SlickException
      *             Throws exception on error
      */
-    public Controller(GameContainer container, StateBasedGame sbg) throws SlickException {
+    public Controller(GameContainer container, StateBasedGame sbg)
+            throws SlickException {
         this.gc = container;
         this.observers = new ArrayList<EventObserver>();
         this.levelObservers = new ArrayList<LevelObserver>();
@@ -55,6 +56,10 @@ public class Controller implements EventSubject, LevelSubject {
         Model.addPlayer(p);
         collisionHandler.addCollidable(p);
         restartRoom();
+    }
+    
+    public CollisionHandler getCollisionHandler() {
+        return collisionHandler;
     }
 
     /**
@@ -81,8 +86,8 @@ public class Controller implements EventSubject, LevelSubject {
             if (!collisionHandler.checkCollision(player)) {
                 player.setFalling(true);
             }
-
-            if (!player.isAlive()) {
+            
+            if (!anyLife()) {
                 // Update observers.
                 notifyObserver();
                 loseLife(player);
@@ -136,21 +141,41 @@ public class Controller implements EventSubject, LevelSubject {
      *            milliseconds between frames
      */
     public void processInput(int delta) {
-        Input input = gc.getInput();
-        Player p1 = Model.getPlayers().get(0);
+        Player player1 = Model.getPlayers().get(0);
+        int[] keys = new int[3];
+        keys[0] = Input.KEY_LEFT;
+        keys[1] = Input.KEY_RIGHT;
+        keys[2] = Input.KEY_SPACE;
+        keys(delta, keys, player1);
+        if (Model.getPlayers().size() > 1) {
+            keys[0] = Input.KEY_A;
+            keys[1] = Input.KEY_D;
+            keys[2] = Input.KEY_W;
+            keys(delta, keys, Model.getPlayers().get(1));
+        }
+    }
 
-        if (input.isKeyDown(Input.KEY_LEFT)) {
-            p1.moveLeft(delta);
-        } else if (input.isKeyDown(Input.KEY_RIGHT)) {
-            p1.moveRight(delta);
+    /**
+     * Give the player certain keys for actions.
+     * @param delta how much the player has to move
+     * @param keys the keys for the player
+     * @param player the player who gets the keys
+     */
+    public void keys(int delta, int[] keys, Player player) {
+        Input input = gc.getInput();
+
+        if (input.isKeyDown(keys[0]) && player.isAlive()) {
+            player.moveLeft(delta);
+        } else if (input.isKeyDown(keys[1]) && player.isAlive()) {
+            player.moveRight(delta);
         }
 
-        if (input.isKeyPressed(Input.KEY_SPACE)) {
-            Rope r = new Rope(p1.getX() + (int) (p1.getWidth() / 2),
-                    (float) (p1.getY() + p1.getHeight() * ROPE_OFFSET));
-            if (p1.fire(r)) {
+        if (input.isKeyPressed(keys[2]) && player.isAlive()) {
+            Rope r = new Rope(player.getX() + (int) (player.getWidth() / 2),
+                    (float) (player.getY() + player.getHeight() * ROPE_OFFSET));
+            if (player.fire(r)) {
                 collisionHandler.addCollidable(r);
-                fireEvent(new PlayerEvent(p1, PlayerEvent.SHOOT, "Shot a rope"));
+                fireEvent(new PlayerEvent(player, PlayerEvent.SHOOT, "Shot a rope"));
             }
         }
     }
@@ -168,10 +193,17 @@ public class Controller implements EventSubject, LevelSubject {
             endGame("Game over...");
         } else {
             collisionHandler.removeCollidable(Model.getCurrentRoom().getCollidables());
-            // Hardcoded player 1
-            collisionHandler.removeCollidable(Model.getPlayers().get(0).getRopes());
+            for(Player otherplayer: Model.getPlayers()) {
+                collisionHandler.removeCollidable(otherplayer.getRopes());
+            }
             restartRoom();
             player.setAlive(true);
+            for(Player otherPlayer: Model.getPlayers()) {
+                if(!otherPlayer.equals(player)) {
+                    otherPlayer.loseLife();
+                }
+                otherPlayer.setAlive(true);
+            }
         }
     }
 
@@ -194,7 +226,6 @@ public class Controller implements EventSubject, LevelSubject {
             collisionHandler.removeCollidable(Model.getCurrentRoom().getCollidables());
             Model.getNextRoom();
             restartRoom();
-            //sbg.enterState(2, new FadeOutTransition(), new FadeInTransition());
         }
         Model.getCurrentRoom().moveBubbles();
     }
@@ -263,11 +294,12 @@ public class Controller implements EventSubject, LevelSubject {
     /**
      * Register an observer to the subject.
      *
-     * @param observer Observer to be added.
+     * @param observer
+     *            Observer to be added.
      */
     @Override
     public void registerObserver(LevelObserver observer) {
-        if(observer == null || levelObservers.contains(observer)) {
+        if (observer == null || levelObservers.contains(observer)) {
             return;
         }
         levelObservers.add(observer);
@@ -276,7 +308,8 @@ public class Controller implements EventSubject, LevelSubject {
     /**
      * Remove an observer from the observers list.
      *
-     * @param observer Observer to be removed.
+     * @param observer
+     *            Observer to be removed.
      */
     @Override
     public void removeObserver(LevelObserver observer) {
@@ -297,18 +330,30 @@ public class Controller implements EventSubject, LevelSubject {
             }
         }
 
-        // Hardcoded player 1.
-        if(!Model.getPlayers().get(0).isAlive()) {
-            for(LevelObserver levelObserver : levelObservers) {
+        if (!anyLife()) {
+            for (LevelObserver levelObserver : levelObservers) {
                 levelObserver.levelLost();
             }
         }
 
-        if(getTimers().getLevelTimeLeft() <= 0) {
-            for(LevelObserver levelObserver : levelObservers) {
+        if (getTimers().getLevelTimeLeft() <= 0) {
+            for (LevelObserver levelObserver : levelObservers) {
                 levelObserver.levelLost();
             }
         }
 
+    }
+    
+    /**
+     * Checks if there is a player in the room who is still alive.
+     * @return a boolean
+     */
+    public boolean anyLife() {
+        for (Player player : Model.getPlayers()) {
+            if (player.isAlive()) {
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -6,6 +6,7 @@ import com.sem.btrouble.model.Model;
 import com.sem.btrouble.model.PowerUp;
 import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Bubble;
+
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
@@ -17,6 +18,7 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.util.ResourceLoader;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 
 /**
  * Created by rubenwiersma on 18-09-15.
@@ -60,7 +62,7 @@ public class View {
      * 
      * @param graphics
      *            Graphics object from Slick2D
-     * @throws SlickException
+     * @throws SlickException occurs when graphics are invalid
      */
     public void draw(Graphics graphics) throws SlickException {
         drawBackground(graphics);
@@ -74,7 +76,7 @@ public class View {
         // Can be separate method(or not)?
         Model.getCurrentRoom().draw(graphics);
 
-        drawLives();
+        drawLives(graphics);
         drawScore(graphics);
     }
 
@@ -91,7 +93,7 @@ public class View {
                 .get(SlickApp.returnGraphics().getCurrentResolution()).getBackground();
         Image background = new Image(backgroundName);
         background.draw(0, 0);
-    }
+    } 
 
     /**
      * Draw the count down timer on screen.
@@ -166,11 +168,21 @@ public class View {
      * @throws SlickException
      *             when the lives could not be drawn.
      */
-    private void drawLives() throws SlickException {
+    private void drawLives(Graphics graphics) throws SlickException {
         SpriteSheet livesImage = new SpriteSheet("Sprites/lives_spritesheet.jpg", 381, 171);
         int lives = Model.getPlayers().get(0).getLives();
         if (lives >= 0) {
-            livesImage.getSprite(lives, 0).draw(190, 670, (float) 0.286);
+            if(!SlickApp.multiplayer()) {
+                livesImage.getSprite(lives, 0).draw(190, 670, (float) 0.286);
+            }
+            else if(SlickApp.multiplayer()) {
+                graphics.setColor(Color.white);
+                graphics.drawString("Player 1: ", 190, 670);
+                livesImage.getSprite(lives, 0).draw(310, 670, (float) 0.286);
+                graphics.drawString("Player 2: ", 400, 670);
+                livesImage.getSprite(Model.getPlayers().get(1).getLives(), 0).
+                    draw(520, 670, (float) 0.286);
+            }
         }
     }
 
@@ -183,9 +195,24 @@ public class View {
      *            Graphics object from Slick2D
      */
     private void drawScore(Graphics graphics) throws SlickException {
+        ArrayList<Player> players = Model.getPlayers();
+        int sum = 0;
         graphics.setColor(Color.white);
-        String score = "" + GameView.getWallet().getValue();
-        graphics.drawString(score, 1090 - font.getWidth(score), 670);
+        for (int i = 0; i < players.size(); i++) {
+            String value = "Player " + (i + 1) + ": " 
+                   + Model.getWallet(Model.getPlayers().get(i)).getValue();
+            if (SlickApp.multiplayer() && SlickApp.versus()) {
+                graphics.drawString(value, 900 + i * 190 - font.getWidth(value), 670);
+            }
+            sum += players.get(i).getWallet().getValue();
+        }
+        if (!SlickApp.versus() || !SlickApp.multiplayer()) {
+            String score = "" + sum;
+            graphics.drawString(score, 1090 - font.getWidth(score), 670);
+        }
+        
+        //String score = "" + Model.getWallet(Model.getPlayers().get(0)).getValue();
+        //graphics.drawString(score, 1090 - font.getWidth(score), 670);
     }
 
     /**

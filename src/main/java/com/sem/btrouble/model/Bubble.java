@@ -5,11 +5,13 @@ import com.sem.btrouble.controller.CollisionAction;
 import com.sem.btrouble.controller.CollisionHandler;
 import com.sem.btrouble.event.BubbleEvent;
 import com.sem.btrouble.view.GameView;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Shape;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -183,7 +185,7 @@ public class Bubble extends Circle implements Drawable, Collidable {
             GameView.getController().addBubble(leftBubble);
             GameView.getController().addBubble(rightBubble);
             GameView.getController().removeBubble(this);
-            PowerUp power = PowerUpGenerator.generate(x, y);
+            PowerUp power = PowerUpGenerator.generate(x, y, Math.random());
             if(power != null) {
             	Model.addShortPowerUp(power);
             }
@@ -278,6 +280,7 @@ public class Bubble extends Circle implements Drawable, Collidable {
 
     /**
      * Draws the object.
+     * @param graphics the graphics
      */
     @Override
     public void draw(Graphics graphics) {
@@ -392,7 +395,16 @@ public class Bubble extends Circle implements Drawable, Collidable {
             split();
             Rope rope = (Rope) collider;
             rope.setCollided(true);
-            GameView.getWallet().increaseValue(BUBBLE_SCORE);
+            ArrayList<Player> players= Model.getPlayers();
+            Player player = null;
+            for(Player play: players) {
+                if(play.getRopes().contains(rope)) {
+                    player = play;
+                }
+            }
+            if(player != null) {
+                Model.getWallet(player).increaseValue(BUBBLE_SCORE);
+            }
         }
     }
 
