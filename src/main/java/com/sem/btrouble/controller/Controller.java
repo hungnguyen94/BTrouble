@@ -30,6 +30,7 @@ public class Controller implements Subject {
     private GameContainer gc;
     private CollisionHandler collisionHandler;
     private int timeLeft;
+    private int lastBubbleTime = 0;
     private List<Observer> observers;
 
     /**
@@ -81,6 +82,9 @@ public class Controller implements Subject {
      */
     public void update(int delta) throws SlickException {
         collisionHandler.checkCollision(Model.getCurrentRoom().getBubbles());
+        if(SlickApp.survival()) {
+            survivalMode();
+        }
 
         for (Player player : Model.getPlayers()) {
             if (!collisionHandler.checkCollision(player)) {
@@ -219,7 +223,7 @@ public class Controller implements Subject {
      * calculates the new position of each bubble.
      */
     private void updateBubble() {
-        if (!Model.getCurrentRoom().hasBubbles()) {
+        if (!Model.getCurrentRoom().hasBubbles() && !SlickApp.survival()) {
             fireEvent(LevelEvent.LEVELWON);
             collisionHandler.removeCollidable(Model.getCurrentRoom().getCollidables());
             Model.getNextRoom();
@@ -300,5 +304,24 @@ public class Controller implements Subject {
             }
         }
         return false;
+    }
+
+    /**
+     * Runs the survival mode
+     */
+    public void survivalMode() {
+        if(lastBubbleTime == 0) {
+            lastBubbleTime = getTimers().getLevelTimeLeft();
+        }
+        if (getTimers().getLevelTimeLeft() == lastBubbleTime - 8000
+                || getTimers().getLevelTimeLeft() > lastBubbleTime) {
+            Bubble bubble = new Bubble(3, 1280 / 2, 200);
+            Model.getCurrentRoom().addBubble(bubble);
+            lastBubbleTime = getTimers().getLevelTimeLeft();
+        }
+
+        if (getTimers().getLevelTimeLeft() < 10) {
+            Model.getTimers().survivalTimer();
+        }
     }
 }

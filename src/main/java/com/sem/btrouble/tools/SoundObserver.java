@@ -2,6 +2,7 @@ package com.sem.btrouble.tools;
 
 import java.io.IOException;
 
+import com.sem.btrouble.model.Player;
 import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.openal.AudioLoader;
 import org.newdawn.slick.openal.SoundStore;
@@ -87,6 +88,10 @@ public class SoundObserver implements Observer {
 
     @Override
     public void update(Event event) {
-        update(event);
+        if (event instanceof PlayerEvent) {
+            update((PlayerEvent) event);
+        } else if(event instanceof ControllerEvent) {
+            update((ControllerEvent) event);
+        }
     }
 }

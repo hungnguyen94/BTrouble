@@ -48,6 +48,13 @@ public class Timers {
     }
 
     /**
+     * Restarts only the timer (not the game)
+     */
+    public void survivalTimer() {
+        levelTimerCounter = LEVEL_MAX_DURATION + additionalTime;
+        countdownCounter = COUNTDOWN_MAX_DURATION;
+    }
+    /**
      * Reset the level timer counter.
      */
     public void resetLevelTimerCounter() {
