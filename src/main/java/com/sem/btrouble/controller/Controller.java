@@ -30,13 +30,8 @@ public class Controller implements Subject {
     private GameContainer gc;
     private CollisionHandler collisionHandler;
     private int timeLeft;
-<<<<<<< HEAD
     private int lastBubbleTime = 0;
-    private List<EventObserver> observers;
-    private List<LevelObserver> levelObservers;
-=======
     private List<Observer> observers;
->>>>>>> master
 
     /**
      * Starts a new game by loading data into the room and adding the players.
