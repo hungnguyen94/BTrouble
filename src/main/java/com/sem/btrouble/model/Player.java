@@ -3,7 +3,6 @@ package com.sem.btrouble.model;
 import com.sem.btrouble.controller.Collidable;
 import com.sem.btrouble.controller.CollisionAction;
 import com.sem.btrouble.controller.CollisionHandler;
-import com.sem.btrouble.observering.PlayerObserver;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -49,7 +48,6 @@ public class Player extends Rectangle implements Drawable, Collidable {
 
     private ArrayList<Rope> ropes;
     
-    private ArrayList<PlayerObserver> observers;
 
     /**
      * Constructor for the Player class.
@@ -70,7 +68,6 @@ public class Player extends Rectangle implements Drawable, Collidable {
         alive = true;
         falling = true;
         wallet = new Wallet();
-        this.observers = new ArrayList<PlayerObserver>();
     }
     
     /**
@@ -110,6 +107,14 @@ public class Player extends Rectangle implements Drawable, Collidable {
     public int hashCode() {
         assert false : "hashCode not designed";
         return 42; // any arbitrary constant will do
+    }
+    
+    public void setFacingLeft(boolean facing) {
+        this.facingLeft = facing;
+    }
+    
+    public void setIdle(boolean idle) {
+        this.idle = idle;
     }
 
     /**
@@ -236,6 +241,10 @@ public class Player extends Rectangle implements Drawable, Collidable {
      */
     public double getVy() {
         return vy;
+    }
+    
+    public void setVY(float vy) {
+        this.vy = vy;
     }
 
     /**

@@ -27,7 +27,6 @@ import java.util.HashMap;
 public class SlickApp extends StateBasedGame implements EventSubject {
 
     private static GraphicSettings graphics;
-    private static boolean audioOn = true;
     private static HashMap<String, Boolean> preferences;
     public static final int SCREEN_WIDTH = 1280;
     public static final int SCREEN_HEIGHT = 720;

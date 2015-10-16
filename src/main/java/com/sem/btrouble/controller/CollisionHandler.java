@@ -166,28 +166,6 @@ public class CollisionHandler implements Drawable {
         return CollisionSide.NONE;
     }
 
-    /**
-     * Use Axis-Aligned Bounding Box collision detection.
-     * @param c1 collidable to check collision with c2.
-     * @param c2 collidable to check collision with c1.
-     * @return True if they collided.
-     */
-    private boolean collisionCheckAABB(Collidable c1, Collidable c2) {
-        float c1minX = c1.getX();
-        float c1maxX = c1.getX() + c1.getWidth();
-        float c2minX = c2.getX();
-        float c2maxX = c2.getX() + c2.getWidth();
-
-        float c1minY = c1.getY();
-        float c1maxY = c1.getY() + c1.getHeight();
-        float c2minY = c2.getY();
-        float c2maxY = c2.getY() + c2.getHeight();
-
-        return c1maxX > c2minX
-                && c1minX < c2maxX
-                && c1maxY > c2minY
-                && c1minY < c2maxY;
-    }
 
     /**
      * Draw the object.

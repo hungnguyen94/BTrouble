@@ -74,6 +74,14 @@ public class Rope extends Rectangle implements Drawable, Collidable {
     public int getDy() {
         return dy;
     }
+    
+    /**
+     * Set the vertical distance.
+     * @param dy the vertical distance
+     */
+    public void setDY(int dy) {
+        this.dy = dy;
+    }
 
     /**
      * Return if the rope is collided.

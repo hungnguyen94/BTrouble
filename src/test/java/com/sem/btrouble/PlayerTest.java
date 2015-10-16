@@ -77,6 +77,27 @@ public class PlayerTest {
     public void equalsTrueTest() {
         assertTrue(player.equals(player));
     }
+    
+    @Test
+    public void equalsFalseVYTest() {
+        Player player2 = new Player(1, 1);
+        player2.setVY(10);
+        assertFalse(player.equals(player2));
+    }
+    
+    @Test
+    public void equalsFalseFacingTest() {
+        Player player2 = new Player(1, 1);
+        player2.setFacingLeft(false);
+        assertFalse(player.equals(player2));
+    }
+
+    @Test
+    public void equalsFalseIdleTest() {
+        Player player2 = new Player(1, 1);
+        player2.setIdle(false);
+        assertFalse(player.equals(player2));
+    }
 
     /**
      * Test the equals method with a false x.
@@ -85,13 +106,20 @@ public class PlayerTest {
     public void equalsFalseXTest() {
         assertFalse(player.equals(new Player(2, 1)));
     }
+    
+    @Test
+    public void equalsFalseRopeTest() {
+        Player player2 = new Player(1, 1);
+        player2.fire(rope);
+        assertFalse(player.equals(player2));
+    }
 
     /**
      * Test the equals method with a false y.
      */
     @Test
     public void equalsFalseYTest() {
-        assertFalse(player.equals(new Player(3, 1)));
+        assertFalse(player.equals(new Player(1, 2)));
     }
 
     /**

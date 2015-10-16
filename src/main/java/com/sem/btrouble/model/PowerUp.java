@@ -54,6 +54,14 @@ public abstract class PowerUp extends Rectangle implements Drawable, Collidable 
     public float getAY() {
         return ay;
     }
+    
+    public void setVY(float vy) {
+        this.vy = vy;
+    }
+    
+    public void setAY(float ay) {
+        this.ay = ay;
+    }
 
     /**
      * Activate the power up.

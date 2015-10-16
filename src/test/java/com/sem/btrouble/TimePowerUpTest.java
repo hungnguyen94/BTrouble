@@ -6,6 +6,9 @@ package com.sem.btrouble;
  * Test the Time power up.
  * @author Martin
  */
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -40,6 +43,49 @@ public class TimePowerUpTest extends PowerUpTest {
     @Test
     public void resetTest() {
         
+    }
+    
+    @Test
+    public void equalsTrueTest() {
+        assertTrue(power.equals(power));
+    }
+    
+    @Test
+    public void equalsOtherTest() {
+        assertFalse(power.equals(new String("power")));
+    }
+    
+    @Test
+    public void equalsFalseFallingTest() {
+        TimePowerUp power2 = new TimePowerUp(1, 1);
+        power2.setFalling(false);
+        assertFalse(power.equals(power2));
+    }
+    
+    @Test
+    public void equalsFalseXTest() {
+        TimePowerUp power2 = new TimePowerUp(2, 1);
+        assertFalse(power.equals(power2));
+    }
+    
+    @Test
+    public void equalsFalseYTest() {
+        TimePowerUp power2 = new TimePowerUp(1, 2);
+        assertFalse(power.equals(power2));
+    }
+    
+    @Test
+    public void equalsFalseVYTest() {
+        TimePowerUp power2 = new TimePowerUp(1, 1);
+        power2.setVY(10);
+        assertFalse(power.equals(power2));
+    }
+    
+    @Test
+    public void equalsFalseAYTest() {
+        TimePowerUp power2 = new TimePowerUp(1, 1);
+        power2.setAY(10);
+        assertFalse(power.equals(power2));
     }
 
 }

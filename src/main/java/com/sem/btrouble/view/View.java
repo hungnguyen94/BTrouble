@@ -5,7 +5,6 @@ import com.sem.btrouble.model.Timers;
 import com.sem.btrouble.model.Model;
 import com.sem.btrouble.model.PowerUp;
 import com.sem.btrouble.model.Player;
-import com.sem.btrouble.model.Bubble;
 
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.GameContainer;
@@ -132,21 +131,6 @@ public class View {
     }
 
     /**
-     * Draw bubbles on screen.
-     * 
-     * @param graphics
-     *            Graphics object from Slick2D
-     */
-    @Deprecated
-    private void drawBubbles(Graphics graphics) {
-        for (Bubble bubble : Model.getCurrentRoom().getBubbles()) {
-            graphics.setAntiAlias(true);
-            graphics.setColor(Color.black);
-            graphics.fill(bubble);
-        }
-    }
-
-    /**
      * Draw timer progress bar.
      * 
      * @param graphics
@@ -216,13 +200,4 @@ public class View {
         //graphics.drawString(score, 1090 - font.getWidth(score), 670);
     }
 
-    /**
-     * Draw the borders.
-     * 
-     * @param g
-     *            - graphics
-     */
-    private void drawBorders(Graphics g) {
-        Model.getCurrentRoom().drawRoom(g);
-    }
 }

@@ -68,7 +68,7 @@ public class RopeTest {
     @Test
     public void equalsFalseDYTest() {
         Rope rope2 = new Rope(1, 1);
-        rope2.move();
+        rope2.setDY(10);
         assertFalse(rope.equals(rope2));
     }
 
