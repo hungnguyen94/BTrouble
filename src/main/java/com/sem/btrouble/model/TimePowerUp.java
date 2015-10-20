@@ -111,6 +111,18 @@ public class TimePowerUp extends PowerUp {
     }
 
     /**
+     * This method is to check if a collidable
+     * should be removed from the level. If this method
+     * returns true, it will be removed.
+     *
+     * @return True if object should be removed.
+     */
+    @Override
+    public boolean getCollidedStatus() {
+        return false;
+    }
+
+    /**
      * Class to call method on collision with floor.
      */
     private class FloorCollision implements CollisionAction {

@@ -55,6 +55,14 @@ public interface Collidable {
     float getHeight();
 
     /**
+     * This method is to check if a collidable
+     * should be removed from the level. If this method
+     * returns true, it will be removed.
+     * @return True if object should be removed.
+     */
+    boolean getCollidedStatus();
+
+    /**
      * Checks for intersection with another Collidable.
      * @param collidable Check if this collidable intersects with that collidable.
      * @return True if this object intersects with collidable.

@@ -10,7 +10,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * Objects and Players.
  */
 public class Model {
-    
+
     private static RoomIterator rooms;
     private static ArrayList<Player> players;
     private static Room roomCurrent;
@@ -26,7 +26,7 @@ public class Model {
     /**
      * Initializes the model. Should be done before any calls to its methods are
      * done.
-     * 
+     *
      * @param width
      *            should be the width of the room.
      * @param height
@@ -46,7 +46,7 @@ public class Model {
         Model.addRoom(r2);
         timers = new Timers(DELAY);
     }
-    
+
     /**
      * Get the wallet of a player.
      * @param player from who you want the wallet
@@ -77,7 +77,7 @@ public class Model {
 
     /**
      * Get the next room.
-     * 
+     *
      * @return returns the next room
      */
     public static Room getNextRoom() {
@@ -106,7 +106,7 @@ public class Model {
     public static ArrayList<Player> getPlayers() {
         return players;
     }
-    
+
     /**
      * Remove a player from the model.
      * @param player Player to be removed
@@ -160,7 +160,7 @@ public class Model {
             p.moveTo(getCurrentRoom().getSpawnPositionX(), getCurrentRoom().getSpawnPositionY());
         }
     }
-    
+
     /**
      * Get all the power ups bought in the store.
      * @return the power ups
@@ -168,7 +168,7 @@ public class Model {
     public static List<PowerUp> getPowerUps() {
         return powers;
     }
-    
+
     /**
      * Add a store power up.
      * @param power the power up
@@ -176,14 +176,14 @@ public class Model {
     public static void addPowerUp(PowerUp power) {
         powers.add(power);
     }
-    
+
     /**
      * Clear the power up bought in the store.
      */
     public static void clearPowerUps() {
         powers.clear();
     }
-    
+
     /**
      * Get power ups received in the game.
      * @return the power ups
@@ -191,7 +191,7 @@ public class Model {
     public static List<PowerUp> getShortPower() {
     	return powers;
     }
-    
+
     /**
      * Add a power up received in the game.
      * @param power the power up
@@ -199,7 +199,7 @@ public class Model {
     public static void addShortPowerUp(PowerUp power) {
     	powers.add(power);
     }
-    
+
     /**
      * Delete a specific power up received in the game.
      * @param power the power up
@@ -209,7 +209,7 @@ public class Model {
             powers.remove(power);
         }
     }
-    
+
     /**
      * Remove all power ups received in the game.
      */
@@ -229,7 +229,7 @@ public class Model {
 
     /**
      * Get the current room.
-     * 
+     *
      * @return returns the current room.
      */
     public static int getRoom_current() {

@@ -1,14 +1,13 @@
 package com.sem.btrouble.model;
 
-import java.util.ArrayList;
-
+import com.sem.btrouble.event.BubbleEvent;
+import com.sem.btrouble.event.Event;
+import com.sem.btrouble.observering.Observer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import com.sem.btrouble.event.BubbleEvent;
-import com.sem.btrouble.event.Event;
-import com.sem.btrouble.observering.Observer;
+import java.util.ArrayList;
 
 /**
  * Represents power up for slow bubbles.
@@ -117,5 +116,4 @@ public class SlowPowerUp extends PowerUp implements Observer {
             e.printStackTrace();
         }
     }
-
 }

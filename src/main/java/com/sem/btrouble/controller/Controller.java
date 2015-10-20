@@ -1,13 +1,5 @@
 package com.sem.btrouble.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.state.StateBasedGame;
-
 import com.sem.btrouble.SlickApp;
 import com.sem.btrouble.event.ControllerEvent;
 import com.sem.btrouble.event.Event;
@@ -21,6 +13,12 @@ import com.sem.btrouble.model.Rope;
 import com.sem.btrouble.model.Timers;
 import com.sem.btrouble.observering.Observer;
 import com.sem.btrouble.observering.Subject;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Controller, recalculates the Model, on request of the view.
@@ -35,7 +33,7 @@ public class Controller implements Subject {
 
     /**
      * Starts a new game by loading data into the room and adding the players.
-     * 
+     *
      * @param container
      *            GameContainer from Slick2D
      * @throws SlickException
@@ -65,7 +63,7 @@ public class Controller implements Subject {
 
     /**
      * Returns the timers.
-     * 
+     *
      * @return timer
      */
     public Timers getTimers() {
@@ -74,7 +72,7 @@ public class Controller implements Subject {
 
     /**
      * Updates the model, should be done on request of the view.
-     * 
+     *
      * @param delta
      *            milliseconds between frames
      * @throws SlickException
@@ -90,7 +88,7 @@ public class Controller implements Subject {
             if (!collisionHandler.checkCollision(player)) {
                 player.setFalling(true);
             }
-            
+
             if (!anyLife()) {
                 // Update observers.
                 fireEvent(LevelEvent.LEVELLOST);

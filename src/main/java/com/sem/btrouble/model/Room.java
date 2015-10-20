@@ -125,8 +125,8 @@ public class Room implements Serializable, Drawable {
         ArrayList<Collidable> allCollidables = new ArrayList<Collidable>();
         allCollidables.addAll(walls);
         allCollidables.addAll(floors);
-        allCollidables.addAll(bubbles);
-        allCollidables.addAll(moveableBorders);
+//        allCollidables.addAll(bubbles);
+//        allCollidables.addAll(moveableBorders);
         return allCollidables;
     }
 
@@ -273,9 +273,9 @@ public class Room implements Serializable, Drawable {
         for (Floor f : floors) {
             f.draw(graphics);
         }
-        for (Bubble b: bubbles) {
-            b.draw(graphics);
-        }
+//        for (Bubble b: bubbles) {
+//            b.draw(graphics);
+//        }
     }
 
 }

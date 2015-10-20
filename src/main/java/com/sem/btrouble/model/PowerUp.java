@@ -13,12 +13,13 @@ import java.util.Map;
  * @author Martin
  *
  */
-@SuppressWarnings("serial")
-public abstract class PowerUp extends Rectangle implements Drawable, Collidable {
+public abstract class PowerUp extends Rectangle implements Drawable, Movable {
 	
-        private boolean falling;
-        private float velocityY;
-        private float accelerationY;
+    private boolean falling;
+    private boolean collided;
+
+    private float velocityY;
+    private float accelerationY;
 
     /**
      * Construct power up bought in the store.
@@ -37,6 +38,7 @@ public abstract class PowerUp extends Rectangle implements Drawable, Collidable 
         this.falling = true;
         this.velocityY = 2;
         this.accelerationY = .3f;
+        this.collided = false;
     }
     
     /**
@@ -124,7 +126,20 @@ public abstract class PowerUp extends Rectangle implements Drawable, Collidable 
             velocityY = 0;
         }    
     }
-/**
+
+    /**
+     * This method is to check if a collidable
+     * should be removed from the level. If this method
+     * returns true, it will be removed.
+     *
+     * @return True if object should be removed.
+     */
+    @Override
+    public boolean getCollidedStatus() {
+        return collided;
+    }
+
+    /**
      * Every collidable should return a Map with all CollisionActions
      * that collidable should process. To prevent class checking, simply
      * use the class as the key, and a CollisionAction instance as value.
@@ -162,9 +177,8 @@ public abstract class PowerUp extends Rectangle implements Drawable, Collidable 
     private class PlayerCollision implements CollisionAction {
         @Override
         public void onCollision(Collidable collider) {
-            PowerUp.this.activate();
-            Model.deleteShortPower(PowerUp.this);
-            System.out.println(Model.getShortPower());
+//            PowerUp.this.activate();
+            PowerUp.this.collided = true;
         }
     }
 

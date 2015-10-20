@@ -52,6 +52,18 @@ public class Wall extends Rectangle implements Drawable, Collidable {
     }
 
     /**
+     * This method is to check if a collidable
+     * should be removed from the level. If this method
+     * returns true, it will be removed.
+     *
+     * @return True if object should be removed.
+     */
+    @Override
+    public boolean getCollidedStatus() {
+        return false;
+    }
+
+    /**
      * Move the wall X.
      */
     public void moveX() {

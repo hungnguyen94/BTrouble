@@ -1,17 +1,13 @@
 package com.sem.btrouble;
 
+import com.sem.btrouble.model.Bubble;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.runners.MockitoJUnitRunner;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
-import com.sem.btrouble.model.Bubble;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
-
-import com.sem.btrouble.event.BubbleEvent;
 
 /**
  * Class which tests the Bubble class.
@@ -85,7 +81,7 @@ public class BubbleTest {
     @Test
     public void collideFloorTest() {
         double vy = bubble1.getVelocityY();
-        bubble1.bubbleEvent(BubbleEvent.COLLISION_FLOOR);
+//        bubble1.bubbleEvent(BubbleEvent.COLLISION_FLOOR);
         assertEquals(-vy, bubble1.getVelocityY(), 0);
     }
 
@@ -95,7 +91,7 @@ public class BubbleTest {
     @Test
     public void collideWallTest() {
         double vx = bubble1.getVelocityX();
-        bubble1.bubbleEvent(BubbleEvent.COLLISION_WALL);
+//        bubble1.bubbleEvent(BubbleEvent.COLLISION_WALL);
         assertEquals(-vx, bubble1.getVelocityX(), 0);
     }
 
@@ -105,7 +101,7 @@ public class BubbleTest {
     @Test
     public void collideDefault() {
         Bubble bubble = bubble1;
-        bubble1.bubbleEvent(BubbleEvent.COLLISION_WALL);
+//        bubble1.bubbleEvent(BubbleEvent.COLLISION_WALL);
         assertEquals(bubble, bubble1);
     }
 
@@ -201,7 +197,7 @@ public class BubbleTest {
     @Test
     public void bounceXTrueTest() {
         double vx = bubble1.getVelocityX();
-        bubble1.bounceX(true);
+        bubble1.bounceXLeft();
         assertEquals(-vx, bubble1.getVelocityX(), 0);
     }
 
@@ -211,7 +207,7 @@ public class BubbleTest {
     @Test
     public void bounceXFalseTest() {
         double vx = bubble1.getVelocityX();
-        bubble1.bounceX(false);
+        bubble1.bounceXRight();
         assertEquals(vx, bubble1.getVelocityX(), 0);
     }
 
@@ -221,7 +217,7 @@ public class BubbleTest {
     @Test
     public void bounceYTrueTest() {
         double vy = bubble1.getVelocityY();
-        bubble1.bounceY(true);
+        bubble1.bounceYUp();
         assertEquals(-vy, bubble1.getVelocityY(), 0);
     }
 
@@ -231,7 +227,7 @@ public class BubbleTest {
     @Test
     public void bounceYFalseTest() {
         double vy = bubble1.getVelocityY();
-        bubble1.bounceY(false);
+        bubble1.bounceYDown ();
         assertEquals(vy, bubble1.getVelocityY(), 0);
     }
 

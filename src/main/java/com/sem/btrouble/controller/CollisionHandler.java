@@ -177,14 +177,14 @@ public class CollisionHandler implements Drawable {
 
         for(Collidable collidable : collidables) {
             graphics.setColor(Color.red);
-            graphics.drawRect(collidable.getX(), collidable.getY(),
-//                    Math.abs(collidable.getCenterX() - collidable.getX()),
-//                    Math.abs(collidable.getCenterY() - collidable.gCenteretY())
-                    collidable.getWidth(), collidable.getHeight()
-            );
+//            graphics.drawRect(collidable.getX(), collidable.getY(),
+////                    Math.abs(collidable.getCenterX() - collidable.getX()),
+////                    Math.abs(collidable.getCenterY() - collidable.gCenteretY())
+//                    collidable.getWidth(), collidable.getHeight()
+//            );
             graphics.setColor(Color.green);
             graphics.drawRect(collidable.getCenterX()+1 - (collidable.getWidth()/2),
-                    collidable.getCenterY()+1 - (collidable.getWidth()/2),
+                    collidable.getCenterY()+1 - (collidable.getHeight()/2),
                     collidable.getWidth(), collidable.getHeight()
             );
         }

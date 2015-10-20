@@ -1,16 +1,9 @@
 package com.sem.btrouble.model;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 import com.sem.btrouble.controller.Collidable;
 import com.sem.btrouble.controller.CollisionAction;
 import com.sem.btrouble.controller.CollisionHandler;
-import com.sem.btrouble.event.Event;
 import com.sem.btrouble.observering.Observer;
-import com.sem.btrouble.observering.Subject;
-
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -19,12 +12,17 @@ import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Player class, containing all the data about the player.
  *
  */
 @SuppressWarnings("serial")
-public class Player extends Rectangle implements Drawable, Collidable, Subject {
+public class Player extends Rectangle implements Drawable, Movable {
     private int lives;
     private int score;
 
@@ -49,6 +47,9 @@ public class Player extends Rectangle implements Drawable, Collidable, Subject {
     private static final int INITIAL_LIVES = 5;
     private static final int INITIAL_SCORE = 0;
 
+    private int currentRopesCounter;
+    private int maxAmountRopes;
+
     private ArrayList<Rope> ropes;
     private ArrayList<Observer> observers;
 
@@ -62,7 +63,8 @@ public class Player extends Rectangle implements Drawable, Collidable, Subject {
      */
     public Player(float xpos, float ypos) {
         super(xpos, ypos, 50f, 160f);
-        ropes = new ArrayList<Rope>();
+        currentRopesCounter = 0;
+        maxAmountRopes = 2;
         lives = INITIAL_LIVES;
         score = INITIAL_SCORE;
         velocityY = 2;
@@ -70,8 +72,11 @@ public class Player extends Rectangle implements Drawable, Collidable, Subject {
         leftBlocked = false;
         alive = true;
         falling = true;
+
+
         this.observers = new ArrayList<Observer>();
         wallet = new Wallet();
+        ropes = new ArrayList<Rope>();
     }
     
     /**
@@ -80,6 +85,30 @@ public class Player extends Rectangle implements Drawable, Collidable, Subject {
      */
     public Wallet getWallet() {
         return wallet;
+    }
+
+    /**
+     * The player can fire a rope
+     * when currentRopesCounter is smaller
+     * than the maxRopeCounter.
+     * @return True when the player can fire a rope.
+     */
+    public boolean canFireRope() {
+        return currentRopesCounter < maxAmountRopes;
+    }
+
+    /**
+     * Increases the counter of current fired rope.
+     */
+    public void increaseRopeCount() {
+        currentRopesCounter++;
+    }
+
+    /**
+     * Decreases the counter of current fired rope.
+     */
+    public void decreaseRopeCount() {
+        currentRopesCounter--;
     }
 
     /**
@@ -93,7 +122,7 @@ public class Player extends Rectangle implements Drawable, Collidable, Subject {
     public boolean equals(Object other) {
         if (other instanceof Player) {
             Player that = (Player) other;
-            return Math.abs(this.x - that.x) == 0 && Math.abs(this.y - that.y) == 0 
+            return Math.abs(this.x - that.x) == 0 && Math.abs(this.y - that.y) == 0
                     && this.ropes.equals(that.ropes)
                     && this.facingLeft == that.facingLeft && this.idle == that.idle
                     && this.lives == that.lives && this.score == that.score 
@@ -208,7 +237,7 @@ public class Player extends Rectangle implements Drawable, Collidable, Subject {
 
     /**
      * Return the ropes which the player has shot.
-     * 
+     *
      * @return the ropes
      */
     public ArrayList<Rope> getRopes() {
@@ -294,7 +323,7 @@ public class Player extends Rectangle implements Drawable, Collidable, Subject {
 
     /**
      * Remove collided ropes.
-     * 
+     *
      * @return Collection without collided ropes
      */
     public Collection<Collidable> removeCollidedRopes() {
@@ -311,7 +340,7 @@ public class Player extends Rectangle implements Drawable, Collidable, Subject {
     /**
      * Function which allows the player to fire. True if the rope succesfully
      * fires.
-     * 
+     *
      * @param r
      *            - rope to be added
      * @return boolean
@@ -467,12 +496,24 @@ public class Player extends Rectangle implements Drawable, Collidable, Subject {
     }
 
     /**
+     * This method is to check if a collidable
+     * should be removed from the level. If this method
+     * returns true, it will be removed.
+     *
+     * @return True if object should be removed.
+     */
+    @Override
+    public boolean getCollidedStatus() {
+        return !isAlive();
+    }
+
+    /**
      * Class to call method on collision with Bubble.
      */
     private class BubbleCollision implements CollisionAction {
         @Override
         public void onCollision(Collidable collider) {
-            setAlive(false);
+//            setAlive(false);
         }
     }
 
@@ -518,22 +559,5 @@ public class Player extends Rectangle implements Drawable, Collidable, Subject {
     @Override
     public boolean intersectsCollidable(Collidable collidable) {
         return this.intersects((Shape) collidable);
-    }
-
-    @Override
-    public void registerObserver(Observer observer) {
-        observers.add(observer);
-    }
-
-    @Override
-    public void removeObserver(Observer observer) {
-        observers.remove(observer);
-    }
-    
-    @Override
-    public void fireEvent(Event gameEvent) {
-        for (Observer observer : observers) {
-            observer.update(gameEvent);
-        }
     }
 }

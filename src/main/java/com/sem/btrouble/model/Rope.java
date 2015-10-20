@@ -16,16 +16,16 @@ import java.util.Map;
  * @author Martin
  *
  */
-@SuppressWarnings("serial")
-public class Rope extends Rectangle implements Drawable, Collidable {
-    private int distanceY;
+public class Rope extends Rectangle implements Drawable, Movable {
+    private int speedY;
     private static final int INITIAL_ROPESPEED = 5;
     private Image sprite;
     private boolean collided;
+    private Player player;
 
     /**
      * Constructs a new rope at the given position.
-     * 
+     *
      * @param xpos
      *            should be a float representing the horizontal position of the
      *            rope.
@@ -35,9 +35,25 @@ public class Rope extends Rectangle implements Drawable, Collidable {
      */
     public Rope(float xpos, float ypos) {
         super(xpos, ypos, 2f, 2f);
-        this.distanceY = INITIAL_ROPESPEED;
+        this.speedY = INITIAL_ROPESPEED;
         collided = false;
-        // sprite = new Image("Sprites/rope.png");
+    }
+
+    /**
+     * Constructs a new rope at the given position.
+     *
+     * @param xpos  should be a float representing the horizontal position of the
+     *              rope.
+     * @param ypos  should be a float representing the vertical position of the
+     *              rope.
+     * @param player Owner of the rope.
+     */
+    public Rope(float xpos, float ypos, Player player) {
+        super(xpos, ypos, 2f, 2f);
+        this.speedY = INITIAL_ROPESPEED;
+        collided = false;
+        this.player = player;
+        player.increaseRopeCount();
     }
 
     /**
@@ -53,7 +69,7 @@ public class Rope extends Rectangle implements Drawable, Collidable {
             Rope that = (Rope) other;
             return Math.abs(this.x - that.x) == 0 
                     && Math.abs(this.y - that.y) == 0 
-                    && Math.abs(this.distanceY - that.distanceY) == 0;
+                    && Math.abs(this.speedY - that.speedY) == 0;
         }
         return false;
     }
@@ -69,18 +85,18 @@ public class Rope extends Rectangle implements Drawable, Collidable {
 
     /**
      * Get the y distance.
-     * @return distanceY
+     * @return speedY
      */
-    public int getDistanceY() {
-        return distanceY;
+    public int getSpeedY() {
+        return speedY;
     }
     
     /**
      * Set the vertical distance.
-     * @param distanceY the vertical distance
+     * @param speedY the vertical distance
      */
-    public void setDistanceY(int distanceY) {
-        this.distanceY = distanceY;
+    public void setSpeedY(int speedY) {
+        this.speedY = speedY;
     }
 
     /**
@@ -97,6 +113,7 @@ public class Rope extends Rectangle implements Drawable, Collidable {
      */
     public void setCollided(boolean collided) {
         this.collided = collided;
+        player.decreaseRopeCount();
     }
 
     /**
@@ -105,26 +122,23 @@ public class Rope extends Rectangle implements Drawable, Collidable {
      */
     @Override
     public void draw(Graphics graphics) {
-        try {
-            sprite = new Image("Sprites/rope.png");
-        } catch(SlickException e) {
-            e.printStackTrace();
+        if(!isCollided()) {
+            try {
+                sprite = new Image("Sprites/rope.png");
+            } catch(SlickException e) {
+                e.printStackTrace();
+            }
+            sprite.draw(x - (int) (sprite.getWidth() / 2), y);
         }
-        sprite.draw(x - (int) (sprite.getWidth() / 2), y);
     }
 
     /**
      * Calculates the next position of the Rope.
      */
     public void move() {
-        if (collided) {
-            return;
-        }
-        grow(0, (float) (1.5 * distanceY));
-        y -= 1.5 * distanceY;
-        if (getY() <= 0) {
-            distanceY = 0;
-            setCollided(true);
+        if (!isCollided()) {
+            grow(0, (float) (1.5 * speedY));
+            setCenterY(getCenterY() - 1.5f * speedY);
         }
     }
 
@@ -164,6 +178,18 @@ public class Rope extends Rectangle implements Drawable, Collidable {
         });
 
         return collisionActionMap;
+    }
+
+    /**
+     * This method is to check if a collidable
+     * should be removed from the level. If this method
+     * returns true, it will be removed.
+     *
+     * @return True if object should be removed.
+     */
+    @Override
+    public boolean getCollidedStatus() {
+        return collided;
     }
 
     /**
