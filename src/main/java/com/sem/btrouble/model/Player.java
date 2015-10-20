@@ -513,7 +513,7 @@ public class Player extends Rectangle implements Drawable, Movable {
     private class BubbleCollision implements CollisionAction {
         @Override
         public void onCollision(Collidable collider) {
-//            setAlive(false);
+            setAlive(false);
         }
     }
 

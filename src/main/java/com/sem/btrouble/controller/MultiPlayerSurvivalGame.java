@@ -77,9 +77,9 @@ public class MultiPlayerSurvivalGame extends AbstractGame {
     public void spawnBubbles() {
 //        bubbleController.addBubble(new Bubble(3, 500, 200).split());
         List<Bubble> bubbleList = new ArrayList<>();
-        bubbleList.add(new Bubble(3, 100, 250));
-        bubbleList.add(new Bubble(3, 300, 190));
-        bubbleList.add(new Bubble(3, 700, 150));
+        bubbleList.add(new Bubble(2, 100, 250));
+        bubbleList.add(new Bubble(1, 300, 190));
+        bubbleList.add(new Bubble(1, 700, 150));
         getBubbleController().addBubble(bubbleList);
     }
 
