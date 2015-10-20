@@ -1,6 +1,7 @@
 package com.sem.btrouble.view;
 
 import com.sem.btrouble.SlickApp;
+import com.sem.btrouble.Test;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.SlickException;
@@ -67,7 +68,7 @@ public class MenuView extends BasicGameState {
         //Settings
         if (gc.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
             if(audioButton.isMouseOver()) {
-                SlickApp.setAudio(!SlickApp.audioOn());
+                Test.setAudio(!SlickApp.audioOn());
             } else if(multiplayerButton.isMouseOver()) {
                 SlickApp.setMultiplayer(!SlickApp.multiplayer());
             } else if(versusButton.isMouseOver()) {
