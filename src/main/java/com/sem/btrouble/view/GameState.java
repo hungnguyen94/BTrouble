@@ -1,7 +1,11 @@
 package com.sem.btrouble.view;
 
+import com.sem.btrouble.BTrouble;
 import com.sem.btrouble.controller.AbstractGame;
+import com.sem.btrouble.controller.MultiPlayerGame;
 import com.sem.btrouble.controller.MultiPlayerSurvivalGame;
+import com.sem.btrouble.controller.SinglePlayerGame;
+import com.sem.btrouble.controller.SinglePlayerSurvivalGame;
 import com.sem.btrouble.model.Drawable;
 import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Room;
@@ -15,6 +19,8 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.FadeInTransition;
+import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.util.ResourceLoader;
 
 import java.io.InputStream;
@@ -24,14 +30,15 @@ import java.util.List;
 /**
  * Test state.
  */
-public class TestState extends BasicGameState implements LevelObserver {
+public class GameState extends BasicGameState implements LevelObserver {
     private TrueTypeFont font;
     private List<Drawable> drawables;
     private Image background;
     private AbstractGame game;
     private Player player;
-    private boolean multiplayer = true;
     private Player secondPlayer;
+
+    private StateBasedGame stateBasedGame;
 
     /**
      * Initialize method of the slick2d library.
@@ -42,6 +49,7 @@ public class TestState extends BasicGameState implements LevelObserver {
      */
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
+        this.stateBasedGame = sbg;
         // load font from a .ttf file
         try {
             InputStream inputStream = ResourceLoader.getResourceAsStream("Sprites/IndieFlower.ttf");
@@ -54,14 +62,6 @@ public class TestState extends BasicGameState implements LevelObserver {
         }
         drawables = new ArrayList<Drawable>();
         background = new Image("Sprites/background1280x720.png");
-
-        player = new Player(1f, 1f);
-        secondPlayer = new Player(2f, 2f);
-        newGame();
-        game.addPlayer(player);
-        if(multiplayer) {
-            game.addPlayer(secondPlayer);
-        }
     }
 
     /**
@@ -70,7 +70,25 @@ public class TestState extends BasicGameState implements LevelObserver {
     private void newGame() {
         Room room = new Room();
         room.loadRoom();
-        game = new MultiPlayerSurvivalGame(room, this);
+        if(BTrouble.getMultiplayer()) {
+            if(BTrouble.getMultiplayer()) {
+                if(BTrouble.getSurvival()) {
+                    game = new MultiPlayerSurvivalGame(room, this);
+                } else {
+                    game = new MultiPlayerGame(room, this);
+                }
+                secondPlayer = new Player(2f, 2f);
+                game.addPlayer(secondPlayer);
+            }
+        } else {
+            if(BTrouble.getSurvival()) {
+                game = new SinglePlayerSurvivalGame(room, this);
+            } else {
+                game = new SinglePlayerGame(room, this);
+            }
+        }
+        player = new Player(1f, 1f);
+        game.addPlayer(player);
         game.startLevel();
     }
 
@@ -93,7 +111,7 @@ public class TestState extends BasicGameState implements LevelObserver {
         if(input.isKeyPressed(Input.KEY_SPACE)) {
             game.fireRope(player);
         }
-        if(multiplayer) {
+        if(BTrouble.getMultiplayer()) {
             if (input.isKeyDown(Input.KEY_A)) {
                 game.movePlayer(secondPlayer, Direction.LEFT, delta);
             } else if (input.isKeyDown(Input.KEY_D)) {
@@ -132,10 +150,14 @@ public class TestState extends BasicGameState implements LevelObserver {
         game.draw(graphics);
     }
 
+    @Override
+    public void enter(GameContainer container, StateBasedGame game) throws SlickException {
+        newGame();
+    }
 
     @Override
     public int getID() {
-        return 0;
+        return 1;
     }
 
     /**
@@ -151,6 +173,6 @@ public class TestState extends BasicGameState implements LevelObserver {
      */
     @Override
     public void levelLost() {
-
+        stateBasedGame.enterState(0, new FadeOutTransition(), new FadeInTransition());
     }
 }

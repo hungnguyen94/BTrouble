@@ -7,7 +7,7 @@ import com.sem.btrouble.model.Room;
 import com.sem.btrouble.model.Rope;
 import com.sem.btrouble.observering.Direction;
 import com.sem.btrouble.observering.LevelObserver;
-import com.sem.btrouble.view.TestState;
+import com.sem.btrouble.view.GameState;
 import org.newdawn.slick.Graphics;
 
 import javax.swing.Timer;
@@ -19,7 +19,7 @@ import java.util.List;
  */
 public abstract class AbstractGame implements LevelObserver {
     private Level level;
-    private TestState view;
+    private GameState view;
     private BubbleController bubbleController;
 
     /**
@@ -34,7 +34,7 @@ public abstract class AbstractGame implements LevelObserver {
      * @param room Room.
      * @param view View connected to this controller.
      */
-    public AbstractGame(Room room, TestState view) {
+    public AbstractGame(Room room, GameState view) {
         this.view = view;
         loadLevel(room);
     }
@@ -111,7 +111,7 @@ public abstract class AbstractGame implements LevelObserver {
      * @param delta delta
      */
     public void movePlayer(Player player, Direction direction, int delta) {
-        if(isLevelRunning() && player.isAlive()) {
+        if(player.isAlive() && isLevelRunning()) {
             switch(direction) {
                 case LEFT:
                     player.moveLeft(delta);

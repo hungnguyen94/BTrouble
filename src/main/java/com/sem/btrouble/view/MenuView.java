@@ -1,15 +1,13 @@
 package com.sem.btrouble.view;
 
-import com.sem.btrouble.SlickApp;
-import com.sem.btrouble.Test;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.TrueTypeFont;
-import org.newdawn.slick.SlickException;
+import com.sem.btrouble.BTrouble;
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.gui.MouseOverArea;
-import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
@@ -68,25 +66,21 @@ public class MenuView extends BasicGameState {
         //Settings
         if (gc.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
             if(audioButton.isMouseOver()) {
-                Test.setAudio(!SlickApp.audioOn());
+                BTrouble.setAudio(!BTrouble.getAudioOn());
             } else if(multiplayerButton.isMouseOver()) {
-                SlickApp.setMultiplayer(!SlickApp.multiplayer());
+                BTrouble.setMultiplayer(!BTrouble.getMultiplayer());
             } else if(versusButton.isMouseOver()) {
-                SlickApp.setVersus(!SlickApp.versus());
+                BTrouble.setVersus(!BTrouble.getVersus());
             } else if(survivalButton.isMouseOver()) {
-                SlickApp.setSurvival(!SlickApp.survival());
+                BTrouble.setSurvival(!BTrouble.getSurvival());
             }
         }
 
-        //Activate audio settings
-        GameView gameView = (GameView) sbg.getState(1);
-        Audio wavEffect = gameView.getWavEffect();
-
-        if(!SlickApp.audioOn()) {
-            wavEffect.stop();
-        } else if(!wavEffect.isPlaying()) {
-            wavEffect.playAsMusic(1.0f, 1.0f, true);
-        }
+//        if(!BTrouble.getAudioOn()) {
+//            wavEffect.stop();
+//        } else if(!wavEffect.isPlaying()) {
+//            wavEffect.playAsMusic(1.0f, 1.0f, true);
+//        }
     }
 
     /**
@@ -119,7 +113,7 @@ public class MenuView extends BasicGameState {
      */
     public void drawAudioButton(Graphics graphics) {
         String audioSetting = "Audio: ";
-        if (SlickApp.audioOn()) {
+        if (BTrouble.getAudioOn()) {
             audioSetting = audioSetting + "on";
         } else {
             audioSetting = audioSetting + "off";
@@ -133,7 +127,7 @@ public class MenuView extends BasicGameState {
      */
     public void drawMultiplayerButton(Graphics graphics) {
         String multiplayerSetting = "Multiplayer: ";
-        if (SlickApp.multiplayer()) {
+        if (BTrouble.getMultiplayer()) {
             multiplayerSetting = multiplayerSetting + "on";
         } else {
             multiplayerSetting = multiplayerSetting + "off";
@@ -147,7 +141,7 @@ public class MenuView extends BasicGameState {
      */
     public void drawVersusButton(Graphics graphics) {
         String versusSetting = "Versus: ";
-        if (SlickApp.versus()) {
+        if (BTrouble.getVersus()) {
             versusSetting = versusSetting + "on";
         } else {
             versusSetting = versusSetting + "off";
@@ -161,7 +155,7 @@ public class MenuView extends BasicGameState {
      */
     public void drawSurvivalButton(Graphics graphics) {
         String survivalSetting = "Survival: ";
-        if (SlickApp.survival()) {
+        if (BTrouble.getSurvival()) {
             survivalSetting = survivalSetting + "on";
         } else {
             survivalSetting = survivalSetting + "off";

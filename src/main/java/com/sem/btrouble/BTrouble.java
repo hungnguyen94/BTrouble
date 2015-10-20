@@ -1,7 +1,7 @@
 package com.sem.btrouble;
 
 import com.sem.btrouble.view.MenuView;
-import com.sem.btrouble.view.TestState;
+import com.sem.btrouble.view.GameState;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
@@ -24,6 +24,10 @@ public class BTrouble extends StateBasedGame {
     public BTrouble(String gamename) {
         super(gamename);
         preferences = new HashMap<>();
+        preferences.put("audio", true);
+        preferences.put("multiplayer", false);
+        preferences.put("versus", false);
+        preferences.put("survival", false);
     }
 
     public static void main(String[] args) {
@@ -44,7 +48,7 @@ public class BTrouble extends StateBasedGame {
     @Override
     public void initStatesList(GameContainer gameContainer) throws SlickException {
         this.addState(new MenuView());
-        this.addState(new TestState());
+        this.addState(new GameState());
     }
 
     /**
