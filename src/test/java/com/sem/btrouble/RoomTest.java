@@ -43,7 +43,7 @@ public class RoomTest {
         room = new Room();
         Model.init(1280, 720);
         Model.addPlayer(player);
-        Model.addRoom(room);
+//        Model.addRoom(room);
     }
 
     /**

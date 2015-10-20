@@ -84,9 +84,7 @@ public class View {
      */
     private void drawBackground(Graphics graphics) throws SlickException {
         graphics.setFont(font);
-        String backgroundName = "Sprites/background1280x720.png";
-        Image background = new Image(backgroundName);
-        background.draw(0, 0);
+        Model.getCurrentRoom().getBackground().draw(0, 0);
     } 
 
     /**

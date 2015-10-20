@@ -45,7 +45,7 @@ public class Room implements Serializable, Drawable {
         spawnPositionX = 0;
         spawnPositionY = 0;
         try {
-            background = new Image("Sprites/background1280x720.png");
+            setBackground(new Image("Sprites/background1280x720.png"));
         } catch (SlickException e) {
             e.printStackTrace();
         }
@@ -74,7 +74,7 @@ public class Room implements Serializable, Drawable {
         spawnPositionX = spawnX;
         spawnPositionY = spawnY;
         try {
-            background = new Image("Sprites/" + backgroundLocation);
+            setBackground(new Image("Sprites/" + backgroundLocation));
         } catch (SlickException e) {
             e.printStackTrace();
         }
@@ -280,15 +280,23 @@ public class Room implements Serializable, Drawable {
     @Override
     public void draw(Graphics graphics) {
         graphics.setColor(Color.blue);
-        for (Wall w : walls) {
-            w.draw(graphics);
-        }
+//        for (Wall w : walls) {
+//            w.draw(graphics);
+//        }
         for (Floor f : floors) {
             f.draw(graphics);
         }
         for (Bubble b: bubbles) {
             b.draw(graphics);
         }
+    }
+
+    public Image getBackground() {
+        return background;
+    }
+
+    public void setBackground(Image background) {
+        this.background = background;
     }
 
 }

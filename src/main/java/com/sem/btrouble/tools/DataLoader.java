@@ -1,19 +1,16 @@
 package com.sem.btrouble.tools;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 import com.sem.btrouble.model.Bubble;
 import com.sem.btrouble.model.Floor;
@@ -24,12 +21,6 @@ public class DataLoader {
     private File file;
     private DocumentBuilderFactory factory;
     public static final String STANDARD_LOCATION = "src/main/resources/data.xml";
-
-    public static void main(String[] args)
-            throws ParserConfigurationException, SAXException, IOException {
-        DataLoader loader = new DataLoader("src/main/resources/data.xml");
-        loader.loadRoom(0);
-    }
 
     public DataLoader(String file) {
         this.file = new File(file);
@@ -133,7 +124,7 @@ public class DataLoader {
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document data = builder.parse(file);
             data.getDocumentElement().normalize();
-            res = data.getElementsByTagName("Level").item(10) != null;
+            res = data.getElementsByTagName("Level").getLength() > currentLevel;
         } catch (Exception e) {
             res = false;
         }

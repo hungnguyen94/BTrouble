@@ -1,9 +1,18 @@
 <LevelData>
-<Level spawnX="300" spawnY="200" background="asian.png">
+<Level spawnX="300" spawnY="200" background="background1280x720.png">
 <Wall x="0" y="0" width="20" height="720"></Wall>
 <Wall x="1260" y="0" width="20" height="720"></Wall>
-<Floor x="0" y="619.2" width="1280" height="10"></Floor>
-<Floor x="0" y="0" width="1280" height="50"></Floor>
+<Floor x="0" y="612" width="1280" height="14"></Floor>
+<Floor x="0" y="-50" width="1280" height="50"></Floor>
+<Bubble size="2" x="640" y="200"></Bubble> 
+</Level>
+
+<Level spawnX="300" spawnY="200" background="asian1280x720.png">
+<Wall x="0" y="0" width="20" height="720"></Wall>
+<Wall x="1260" y="0" width="20" height="720"></Wall>
+<Wall x="1131" y="257" width="152" height="383"></Wall>
+<Floor x="0" y="612" width="1280" height="14"></Floor>
+<Floor x="0" y="-50" width="1280" height="50"></Floor>
 <Bubble size="2" x="640" y="200"></Bubble> 
 </Level>
 </LevelData>

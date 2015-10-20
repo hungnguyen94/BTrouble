@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import com.sem.btrouble.SlickApp;
 import com.sem.btrouble.tools.DataLoader;
+import com.sem.btrouble.view.GameView;
 
 /**
  * Model contains all data of the game. Model is updated by the Controller and
@@ -12,7 +14,7 @@ import com.sem.btrouble.tools.DataLoader;
  * Objects and Players.
  */
 public class Model {
-    
+
     private static ArrayList<Player> players;
     private static Room roomCurrent;
     private static int currentLevel;
@@ -39,29 +41,32 @@ public class Model {
         roomHeight = height;
         dataLoader = new DataLoader(DataLoader.STANDARD_LOCATION);
         players = new ArrayList<Player>();
-        currentLevel = 1;
+        currentLevel = 0;
         DataLoader dataloader = new DataLoader(DataLoader.STANDARD_LOCATION);
         roomCurrent = dataloader.loadRoom(0);
         timers = new Timers(DELAY);
     }
-    
+
     /**
      * Get the wallet of a player.
-     * @param player from who you want the wallet
+     * 
+     * @param player
+     *            from who you want the wallet
      * @return the wallet
      */
     public static Wallet getWallet(Player player) {
-         return player.getWallet();
+        return player.getWallet();
     }
 
     /**
      * Getter for timers.
+     * 
      * @return Timers object
      */
     public static Timers getTimers() {
         return timers;
     }
-    
+
     /**
      * Get the next room.
      * 
@@ -72,6 +77,7 @@ public class Model {
         if (dataLoader.hasRoom(currentLevel)) {
             return dataLoader.loadRoom(currentLevel);
         } else {
+            GameView.getController().endGame("Game won");
             return null;
         }
     }
@@ -93,10 +99,12 @@ public class Model {
     public static ArrayList<Player> getPlayers() {
         return players;
     }
-    
+
     /**
      * Remove a player from the model.
-     * @param player Player to be removed
+     * 
+     * @param player
+     *            Player to be removed
      */
     public static void removePlayer(Player player) {
         players.remove(player);
@@ -134,74 +142,87 @@ public class Model {
      * but preserves the players and their scores.
      */
     public static void restartRoom() {
-        roomCurrent = dataLoader.loadRoom(currentLevel);
-        clearPowerUps();
-        getTimers().restartTimer();
+        if (dataLoader.hasRoom(currentLevel)) {
+            roomCurrent = dataLoader.loadRoom(currentLevel);
+            clearPowerUps();
+            getTimers().restartTimer();
 
-        for (Player p : players) {
-            p.resetRope();
-            p.setAlive(true);
-        }
+            for (Player p : players) {
+                p.resetRope();
+                p.setAlive(true);
+            }
 
-        for (Player p : players) {
-            p.moveTo(getCurrentRoom().getSpawnPositionX(), getCurrentRoom().getSpawnPositionY());
+            for (Player p : players) {
+                p.moveTo(getCurrentRoom().getSpawnPositionX(),
+                        getCurrentRoom().getSpawnPositionY());
+            }
+        } else {
+            GameView.getController().endGame("Game won");
         }
     }
-    
+
     /**
      * Get all the power ups bought in the store.
+     * 
      * @return the power ups
      */
     public static List<PowerUp> getPowerUps() {
         return powers;
     }
-    
+
     /**
      * Add a store power up.
-     * @param power the power up
+     * 
+     * @param power
+     *            the power up
      */
     public static void addPowerUp(PowerUp power) {
         powers.add(power);
     }
-    
+
     /**
      * Clear the power up bought in the store.
      */
     public static void clearPowerUps() {
         powers.clear();
     }
-    
+
     /**
      * Get power ups received in the game.
+     * 
      * @return the power ups
      */
     public static List<PowerUp> getShortPower() {
-    	return powers;
+        return powers;
     }
-    
+
     /**
      * Add a power up received in the game.
-     * @param power the power up
+     * 
+     * @param power
+     *            the power up
      */
     public static void addShortPowerUp(PowerUp power) {
-    	powers.add(power);
+        powers.add(power);
     }
-    
+
     /**
      * Delete a specific power up received in the game.
-     * @param power the power up
+     * 
+     * @param power
+     *            the power up
      */
     public static void deleteShortPower(PowerUp power) {
-        if(powers.contains(power)) {
+        if (powers.contains(power)) {
             powers.remove(power);
         }
     }
-    
+
     /**
      * Remove all power ups received in the game.
      */
     public static void clearShortPower() {
-    	clearPowerUps();
+        clearPowerUps();
     }
 
     /**
