@@ -111,7 +111,7 @@ public abstract class AbstractGame implements LevelObserver {
      * @param delta delta
      */
     public void movePlayer(Player player, Direction direction, int delta) {
-        if(isLevelRunning()) {
+        if(isLevelRunning() && player.isAlive()) {
             switch(direction) {
                 case LEFT:
                     player.moveLeft(delta);
@@ -125,7 +125,7 @@ public abstract class AbstractGame implements LevelObserver {
 
     // PlayerController?
     public void fireRope(Player player) {
-        if(player.canFireRope()) {
+        if(player.canFireRope() && player.isAlive()) {
             Rope rope = new Rope(player.getCenterX(), player.getY() + player.getHeight() - 5, player);
             level.addMovable(rope);
         }

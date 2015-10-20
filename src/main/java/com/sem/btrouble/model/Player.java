@@ -359,38 +359,26 @@ public class Player extends Rectangle implements Drawable, Movable {
      */
     @Override
     public void draw(Graphics graphics) {
-        try {
-            if (playerIdle == null && walkSheet == null && walkAnimation == null) {
-                playerIdle = new Image("Sprites/idle.png");
-                walkSheet = new SpriteSheet("Sprites/player_spritesheet.png", 100, 175);
-                walkAnimation = new Animation(walkSheet, 20);
+        if(isAlive()) {
+            try {
+                if(playerIdle == null && walkSheet == null && walkAnimation == null) {
+                    playerIdle = new Image("Sprites/idle.png");
+                    walkSheet = new SpriteSheet("Sprites/player_spritesheet.png", 100, 175);
+                    walkAnimation = new Animation(walkSheet, 20);
+                }
+                // Render the sprite at an offset.
+                int playerX = (int) (x - ((walkSheet.getWidth()
+                        / walkSheet.getHorizontalCount()) - getWidth()) / 2);
+                if(!idle) {
+                    walkAnimation.getCurrentFrame().getFlippedCopy(facingLeft, false)
+                            .draw(playerX, y - 15);
+                } else {
+                    playerIdle.getFlippedCopy(facingLeft, false).draw(playerX, y - 15);
+                }
+            } catch(SlickException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
-            // Render the sprite at an offset.
-            int playerX = (int) (x - ((walkSheet.getWidth()
-                    / walkSheet.getHorizontalCount()) - getWidth()) / 2);
-            if (!idle) {
-                walkAnimation.getCurrentFrame().getFlippedCopy(facingLeft, false)
-                        .draw(playerX, y - 15);
-            } else {
-                playerIdle.getFlippedCopy(facingLeft, false).draw(playerX, y - 15);
-            }
-            for (int i = 0; i < ropes.size(); i++) {
-                ropes.get(i).draw(graphics);
-            }
-        } catch (SlickException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        // Render the sprite at an offset.
-        int playerX = (int) (x
-                - ((walkSheet.getWidth() / walkSheet.getHorizontalCount()) - getWidth()) / 2);
-        if (!idle) {
-            walkAnimation.getCurrentFrame().getFlippedCopy(facingLeft, false).draw(playerX, y - 15);
-        } else if(alive) {
-            playerIdle.getFlippedCopy(facingLeft, false).draw(playerX, y - 15);
-        }
-        for (int i = 0; i < ropes.size(); i++) {
-            ropes.get(i).draw(graphics);
         }
     }
 
@@ -467,7 +455,6 @@ public class Player extends Rectangle implements Drawable, Movable {
      */
     public void fall() {
         setCenterY(getCenterY() + velocityY);
-//        y += velocityY;
         velocityY += accelerationY;
     }
 
@@ -514,6 +501,7 @@ public class Player extends Rectangle implements Drawable, Movable {
         @Override
         public void onCollision(Collidable collider) {
             setAlive(false);
+//            System.out.println("PLAYER");
         }
     }
 

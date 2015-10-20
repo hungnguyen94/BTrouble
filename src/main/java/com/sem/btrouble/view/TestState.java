@@ -56,10 +56,10 @@ public class TestState extends BasicGameState implements LevelObserver {
         background = new Image("Sprites/background1280x720.png");
 
         player = new Player(1f, 1f);
+        secondPlayer = new Player(2f, 2f);
         newGame();
         game.addPlayer(player);
         if(multiplayer) {
-            secondPlayer = new Player(1f, 1f);
             game.addPlayer(secondPlayer);
         }
     }
