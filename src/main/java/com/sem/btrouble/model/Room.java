@@ -4,6 +4,8 @@ import com.sem.btrouble.controller.Collidable;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -28,6 +30,7 @@ public class Room implements Serializable, Drawable {
     private List<Wall> walls;
     private List<Floor> floors;
     private List<Bubble> bubbles;
+    private Image background;
 
     private List<Collidable> moveableBorders;
 
@@ -41,6 +44,11 @@ public class Room implements Serializable, Drawable {
         moveableBorders = new ArrayList<Collidable>();
         spawnPositionX = 0;
         spawnPositionY = 0;
+        try {
+            background = new Image("Sprites/background1280x720.png");
+        } catch (SlickException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -58,13 +66,18 @@ public class Room implements Serializable, Drawable {
      *            - spawn position on y-axis
      */
     public Room(List<Wall> walls, List<Floor> floors, List<Bubble> bubbles, int spawnX,
-            int spawnY) {
+            int spawnY, String backgroundLocation) {
         this.walls = walls;
         this.floors = floors;
         this.bubbles = bubbles;
         this.moveableBorders = new ArrayList<Collidable>();
         spawnPositionX = spawnX;
         spawnPositionY = spawnY;
+        try {
+            background = new Image("Sprites/" + backgroundLocation);
+        } catch (SlickException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
