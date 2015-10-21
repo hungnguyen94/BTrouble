@@ -2,6 +2,7 @@ package com.sem.btrouble.tools;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -48,10 +49,6 @@ public class DataLoader {
                 Element levelData = (Element) item;
 
                 NamedNodeMap attributes = levelData.getAttributes();
-                // int roomHeight =
-                // Integer.parseInt(attributes.getNamedItem("roomHeight").getNodeValue());
-                // int roomWidth =
-                // Integer.parseInt(attributes.getNamedItem("roomWidth").getNodeValue());
                 int spawnX = Integer.parseInt(attributes.getNamedItem("spawnX").getNodeValue());
                 int spawnY = Integer.parseInt(attributes.getNamedItem("spawnY").getNodeValue());
                 String background = attributes.getNamedItem("background").getNodeValue();
@@ -59,13 +56,34 @@ public class DataLoader {
                 ArrayList<Wall> walls = parseWalls(levelData);
                 ArrayList<Floor> floors = parseFloors(levelData);
                 ArrayList<Bubble> bubbles = parseBubbles(levelData);
+                ArrayList<Floor> movableFloors = parseMovableFloors(levelData);
+                floors.addAll(movableFloors);
 
                 room = new Room(walls, floors, bubbles, spawnX, spawnY, background);
+                room.addMovables(movableFloors);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return room;
+    }
+
+    private ArrayList<Floor> parseMovableFloors(Element levelData) {
+        NodeList floorData = levelData.getElementsByTagName("MovableFloor");
+        ArrayList<Floor> floors = new ArrayList<Floor>();
+        NamedNodeMap attributes;
+
+        for (int i = 0; i < floorData.getLength(); i++) {
+            attributes = floorData.item(i).getAttributes();
+
+            float x = Float.parseFloat(attributes.getNamedItem("x").getNodeValue());
+            float y = Float.parseFloat(attributes.getNamedItem("y").getNodeValue());
+            float width = Float.parseFloat(attributes.getNamedItem("width").getNodeValue());
+            float height = Float.parseFloat(attributes.getNamedItem("height").getNodeValue());
+
+            floors.add(new Floor(x, y, width, height));
+        }
+        return floors;
     }
 
     private ArrayList<Wall> parseWalls(Element levelData) {
@@ -97,6 +115,7 @@ public class DataLoader {
             float y = Float.parseFloat(attributes.getNamedItem("y").getNodeValue());
             float width = Float.parseFloat(attributes.getNamedItem("width").getNodeValue());
             float height = Float.parseFloat(attributes.getNamedItem("height").getNodeValue());
+
             floors.add(new Floor(x, y, width, height));
         }
         return floors;

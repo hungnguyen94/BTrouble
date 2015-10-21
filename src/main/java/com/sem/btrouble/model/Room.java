@@ -299,4 +299,8 @@ public class Room implements Serializable, Drawable {
         this.background = background;
     }
 
+    public void addMovables(ArrayList<Floor> movableFloors) {
+        moveableBorders.addAll(movableFloors);
+    }
+
 }

@@ -419,4 +419,8 @@ public class Bubble extends Circle implements Drawable, Collidable {
     public boolean intersectsCollidable(Collidable collidable) {
         return intersects((Shape) collidable);
     }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
 }
