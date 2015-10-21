@@ -12,17 +12,20 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * This class handles all the logic for the bubbles.
  * @author Hung
  */
-public class BubbleController extends MainControllerDecorator implements Drawable {
+public class BubbleController extends ControllerDecorator implements Drawable {
 
     private List<Bubble> bubbleList;
+    private Controller controller;
 
     /**
      * Constructor for bubble controller.
+     * @param controller Controller that will be decorated.
      */
-    public BubbleController(MainController control) {
-        super(control);
+    public BubbleController(Controller controller) {
+        super(controller);
+        this.controller = controller;
         this.bubbleList = new CopyOnWriteArrayList<>();
-        control.addListReference(this.bubbleList);
+        this.controller.addListReference(this.bubbleList);
     }
 
     /**
@@ -80,7 +83,7 @@ public class BubbleController extends MainControllerDecorator implements Drawabl
                 addBubble(bubble.split());
             }
         }
-        control.update();
+        controller.update();
     }
 
 
@@ -94,6 +97,6 @@ public class BubbleController extends MainControllerDecorator implements Drawabl
         for(Bubble bubble : bubbleList) {
             bubble.draw(graphics);
         }
-        control.draw(graphics);
+        controller.draw(graphics);
     }
 }

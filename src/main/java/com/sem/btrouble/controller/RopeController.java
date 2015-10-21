@@ -10,19 +10,21 @@ import java.util.concurrent.CopyOnWriteArrayList;
 /**
  * @author Hung
  */
-public class RopeController extends MainControllerDecorator implements Drawable {
+public class RopeController extends ControllerDecorator implements Drawable {
 
     private List<Rope> ropesList;
+    private Controller controller;
 
     /**
-     * Constructor for the control decorator.
+     * Constructor for the controller decorator.
      *
-     * @param control control to be decorated.
+     * @param controller controller to be decorated.
      */
-    public RopeController(MainController control) {
-        super(control);
+    public RopeController(Controller controller) {
+        super(controller);
+        this.controller = controller;
         this.ropesList = new CopyOnWriteArrayList<>();
-        control.addListReference(this.ropesList);
+        controller.addListReference(this.ropesList);
     }
 
     /**
@@ -42,7 +44,7 @@ public class RopeController extends MainControllerDecorator implements Drawable 
         for(Rope rope : ropesList) {
             rope.move();
         }
-        control.update();
+        controller.update();
     }
 
     @Override
@@ -50,6 +52,6 @@ public class RopeController extends MainControllerDecorator implements Drawable 
         for(Rope rope : ropesList) {
             rope.draw(graphics);
         }
-        control.draw(graphics);
+        controller.draw(graphics);
     }
 }

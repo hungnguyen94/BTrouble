@@ -42,7 +42,7 @@ public class MultiPlayerSurvivalGame extends AbstractGame {
     @Override
     public void runGameLoop() {
         if(waveTime <= 0) {
-            spawnBubbles();
+            spawnRandomBubbles();
             waveTime = TIME;
         } else {
             --waveTime;

@@ -10,25 +10,25 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @author Hung
- * Controller to control the powerUps.
+ * Controller to controller the powerUps.
  */
-public class PowerUpController extends MainControllerDecorator implements MainController {
+public class PowerUpController extends ControllerDecorator implements Controller {
 
     private List<PowerUp> powerUpList;
     private List<Bubble> bubbleList;
-    private BubbleController bubbleController;
+    private BubbleController controller;
 
     /**
      * Constructor for the powerupController. The
      * powerUpController can only decorate the bubbleController.
-     * @param bubbleControl bubble controller that will be decorated.
+     * @param controller bubble controller that will be decorated.
      */
-    public PowerUpController(BubbleController bubbleControl) {
-        super(bubbleControl);
-        this.bubbleController = bubbleControl;
+    public PowerUpController(BubbleController controller) {
+        super(controller);
+        this.controller = controller;
         this.powerUpList = new CopyOnWriteArrayList<>();
-        control.addListReference(this.powerUpList);
-        this.bubbleList = bubbleController.getBubbleList();
+        this.controller.addListReference(this.powerUpList);
+        this.bubbleList = controller.getBubbleList();
     }
 
 
@@ -61,7 +61,7 @@ public class PowerUpController extends MainControllerDecorator implements MainCo
         for(PowerUp powerUp : powerUpList) {
             powerUp.move();
         }
-        control.update();
+        controller.update();
     }
 
     /**
@@ -74,6 +74,6 @@ public class PowerUpController extends MainControllerDecorator implements MainCo
         for(PowerUp powerUp : powerUpList) {
             powerUp.draw(graphics);
         }
-        control.draw(graphics);
+        controller.draw(graphics);
     }
 }

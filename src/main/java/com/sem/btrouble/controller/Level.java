@@ -24,7 +24,7 @@ public class Level implements LevelSubject, Drawable {
     private List<Movable> movables;
     private List<LevelObserver> observersList;
     private boolean levelRunning;
-    private MainController ultimateController;
+    private Controller ultimateController;
     private BubbleController bubbleController;
     private PowerUpController powerUpController;
     private RopeController ropeController;

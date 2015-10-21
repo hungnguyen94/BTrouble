@@ -7,10 +7,10 @@ import java.util.Collection;
 /**
  * @author Hung
  */
-public interface MainController extends Drawable {
+public interface Controller extends Drawable {
 
     /**
-     * Update method for the MainController.
+     * Update method for the Controller.
      */
     void update();
 

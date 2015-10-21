@@ -11,9 +11,9 @@ import java.util.concurrent.CopyOnWriteArraySet;
 /**
  * Class to handle collisions.
  */
-public class CollisionHandler implements Drawable, MainController {
+public class CollisionHandler implements Drawable, Controller {
 
-    protected Collection<Collidable> collidables;
+    private Collection<Collidable> collidables;
     private Collection<Collection<? extends Collidable>> collidableListsReference;
 
     /**
@@ -101,7 +101,7 @@ public class CollisionHandler implements Drawable, MainController {
             if (self != collidee && self.intersectsCollidable(collidee)) {
                 // If there is no corresponding CollisionAction for this collision, skip it.
                 CollisionAction selfAction = self.getCollideActions().get(collidee.getClass());
-//                CollisionAction collideeAction = collidee.getCollideActions().get(self.getClass());
+//              CollisionAction collideeAction = collidee.getCollideActions().get(self.getClass());
                 if(selfAction != null) {
                     selfAction.onCollision(collidee);
                 }
@@ -214,7 +214,7 @@ public class CollisionHandler implements Drawable, MainController {
     }
 
     /**
-     * Update method for the MainController.
+     * Update method for the Controller.
      */
     @Override
     public void update() {
