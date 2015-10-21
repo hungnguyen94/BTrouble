@@ -115,7 +115,7 @@ public abstract class AbstractGame implements LevelObserver {
     public void fireRope(Player player) {
         if(player.canFireRope() && player.isAlive()) {
             Rope rope = new Rope(player.getCenterX(), player.getY() + player.getHeight() - 5, player);
-            level.addMovable(rope);
+            level.addRope(rope);
         }
     }
 

@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * Controller, recalculates the Model, on request of the view.
  */
-public class Controller implements Subject {
+public class OldController implements Subject {
 
     private GameContainer gc;
     private CollisionHandler collisionHandler;
@@ -39,7 +39,7 @@ public class Controller implements Subject {
      * @throws SlickException
      *             Throws exception on error
      */
-    public Controller(GameContainer container)
+    public OldController(GameContainer container)
             throws SlickException {
         this.gc = container;
         this.observers = new ArrayList<Observer>();

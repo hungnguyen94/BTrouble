@@ -11,9 +11,9 @@ import java.util.concurrent.CopyOnWriteArraySet;
 /**
  * Class to handle collisions.
  */
-public class CollisionHandler implements Drawable, Control {
+public class CollisionHandler implements Drawable, MainController {
 
-    private Collection<Collidable> collidables;
+    protected Collection<Collidable> collidables;
     private Collection<Collection<? extends Collidable>> collidableListsReference;
 
     /**
@@ -26,6 +26,9 @@ public class CollisionHandler implements Drawable, Control {
 
     /**
      * Adds a reference to a list.
+     * These lists are used to check for collisions. A reference to
+     * the list itself is used, instead of a (shallow) copy. Changes in a list
+     * will automatically be reflected in the implementing class.
      * @param collidableCollection Collection of collidables.
      */
     public void addListReference(Collection<? extends Collidable> collidableCollection) {
@@ -115,12 +118,13 @@ public class CollisionHandler implements Drawable, Control {
      * Checks collisions for all objects in the collisionhandler.
      */
     public void checkAllCollisions() {
-        for(Collidable collidable : collidables) {
-            if(collidable.getCollidedStatus()) {
-                collidables.remove(collidable);
-            }
-        }
         for(Collection<? extends Collidable> collidableList : collidableListsReference) {
+            for(Collidable collidable : collidableList) {
+                if(collidable.getCollidedStatus()) {
+                    collidableList.remove(collidable);
+                    collidables.remove(collidable);
+                }
+            }
             addCollidable(collidableList);
         }
         checkCollision(collidables);
@@ -196,11 +200,11 @@ public class CollisionHandler implements Drawable, Control {
 
         for(Collidable collidable : collidables) {
             graphics.setColor(Color.red);
-//            graphics.drawRect(collidable.getX(), collidable.getY(),
-////                    Math.abs(collidable.getCenterX() - collidable.getX()),
-////                    Math.abs(collidable.getCenterY() - collidable.gCenteretY())
-//                    collidable.getWidth(), collidable.getHeight()
-//            );
+            graphics.drawRect(collidable.getX(), collidable.getY(),
+//                    Math.abs(collidable.getCenterX() - collidable.getX()),
+//                    Math.abs(collidable.getCenterY() - collidable.gCenteretY())
+                    collidable.getWidth(), collidable.getHeight()
+            );
             graphics.setColor(Color.green);
             graphics.drawRect(collidable.getCenterX()+1 - (collidable.getWidth()/2),
                     collidable.getCenterY()+1 - (collidable.getHeight()/2),
@@ -210,7 +214,7 @@ public class CollisionHandler implements Drawable, Control {
     }
 
     /**
-     * Update method for the Control.
+     * Update method for the MainController.
      */
     @Override
     public void update() {

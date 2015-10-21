@@ -6,21 +6,22 @@ import org.newdawn.slick.Graphics;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * This class handles all the logic for the bubbles.
  * @author Hung
  */
-public class BubbleController extends ControlDecorator implements Drawable {
+public class BubbleController extends MainControllerDecorator implements Drawable {
 
     private List<Bubble> bubbleList;
 
     /**
      * Constructor for bubble controller.
      */
-    public BubbleController(Control control, List<Bubble> bubbleList) {
+    public BubbleController(MainController control) {
         super(control);
-        this.bubbleList = bubbleList;
+        this.bubbleList = new CopyOnWriteArrayList<>();
         control.addListReference(this.bubbleList);
     }
 
@@ -36,7 +37,7 @@ public class BubbleController extends ControlDecorator implements Drawable {
      * Return the reference of the list.
      * @return BubbleList
      */
-    public List<Bubble> getBubbleList() {
+    protected List<Bubble> getBubbleList() {
         return bubbleList;
     }
 
@@ -49,7 +50,8 @@ public class BubbleController extends ControlDecorator implements Drawable {
     }
 
     /**
-     * Add a collection of bubbles to the BubbleController.
+     * Add a collection of bubbles to the BubbleController. This will
+     * automatically be reflected in the CollisionHandler.
      * @param bubbles This is the collection of bubbles that will be added.
      */
     public void addBubble(Collection<Bubble> bubbles) {
@@ -66,12 +68,6 @@ public class BubbleController extends ControlDecorator implements Drawable {
         bubbleList.remove(bubble);
     }
 
-    @Override
-    public void removeCollidable(Collidable collidable) {
-        removeBubble(collidable);
-        control.removeCollidable(collidable);
-    }
-
     /**
      * Moves the bubbles and checks if bubbles are split.
      * If they are, add the splitted bubbles
@@ -82,7 +78,6 @@ public class BubbleController extends ControlDecorator implements Drawable {
             bubble.move();
             if(bubble.getCollidedStatus()) {
                 addBubble(bubble.split());
-                removeCollidable(bubble);
             }
         }
         control.update();

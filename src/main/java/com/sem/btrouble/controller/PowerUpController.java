@@ -6,23 +6,29 @@ import com.sem.btrouble.model.PowerUpGenerator;
 import org.newdawn.slick.Graphics;
 
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @author Hung
  * Controller to control the powerUps.
  */
-public class PowerUpController extends ControlDecorator implements Control {
+public class PowerUpController extends MainControllerDecorator implements MainController {
 
     private List<PowerUp> powerUpList;
+    private List<Bubble> bubbleList;
+    private BubbleController bubbleController;
 
     /**
-     * Constructor for the powerupController.
-     * @param control control that will be decorated.
+     * Constructor for the powerupController. The
+     * powerUpController can only decorate the bubbleController.
+     * @param bubbleControl bubble controller that will be decorated.
      */
-    public PowerUpController(Control control, List<PowerUp> powerUpList) {
-        super(control);
-        this.powerUpList = powerUpList;
+    public PowerUpController(BubbleController bubbleControl) {
+        super(bubbleControl);
+        this.bubbleController = bubbleControl;
+        this.powerUpList = new CopyOnWriteArrayList<>();
         control.addListReference(this.powerUpList);
+        this.bubbleList = bubbleController.getBubbleList();
     }
 
 
@@ -42,22 +48,18 @@ public class PowerUpController extends ControlDecorator implements Control {
         powerUpList.remove(powerUp);
     }
 
-    @Override
-    public void removeCollidable(Collidable collidable) {
-        if(collidable instanceof Bubble) {
-            powerUpList.add(PowerUpGenerator.generate(collidable.getX(), collidable.getY(), Math.random()));
-        }
-        control.removeCollidable(collidable);
-    }
-
     /**
-     * Check if powerups need to be removed.
+     * Drop the powerUps on bubbleCollision.
+     * Move the powerUps.
      */
     public void update() {
-        for(PowerUp powerUp : powerUpList) {
-            if(powerUp.getCollidedStatus()) {
-                removePowerUp(powerUp);
+        for(Bubble bubble : bubbleList) {
+            if(bubble.getCollidedStatus()) {
+                addPowerUp(PowerUpGenerator.generate(bubble.getX(), bubble.getY(), Math.random()));
             }
+        }
+        for(PowerUp powerUp : powerUpList) {
+            powerUp.move();
         }
         control.update();
     }
@@ -69,6 +71,9 @@ public class PowerUpController extends ControlDecorator implements Control {
      */
     @Override
     public void draw(Graphics graphics) {
+        for(PowerUp powerUp : powerUpList) {
+            powerUp.draw(graphics);
+        }
         control.draw(graphics);
     }
 }

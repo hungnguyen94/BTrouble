@@ -5,24 +5,24 @@ import java.util.Collection;
 /**
  * @author Hung
  */
-abstract class ControlDecorator implements Control {
+abstract class MainControllerDecorator implements MainController {
 
-    protected Control control;
+    protected MainController control;
 
     /**
      * Constructor for the control decorator.
      * @param control control to be decorated.
      */
-    public ControlDecorator(Control control) {
+    public MainControllerDecorator(MainController control) {
         this.control = control;
     }
 
     /**
-     * Adds a collidable.
-     * @param collidable Collidable that is added.
+     * Set the control that needs to be decorated.
+     * @param control MainController that needs to be decorated.
      */
-    public void addCollidable(Collidable collidable) {
-        this.control.addCollidable(collidable);
+    public void setControl(MainController control) {
+        this.control = control;
     }
 
     /**

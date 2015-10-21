@@ -189,7 +189,7 @@ public class Rope extends Rectangle implements Drawable, Movable {
      */
     @Override
     public boolean getCollidedStatus() {
-        return collided;
+        return isCollided();
     }
 
     /**

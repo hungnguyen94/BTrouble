@@ -2,7 +2,7 @@ package com.sem.btrouble.view;
 
 
 import com.sem.btrouble.SlickApp;
-import com.sem.btrouble.controller.Controller;
+import com.sem.btrouble.controller.OldController;
 import com.sem.btrouble.model.Model;
 import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Drawable;
@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class GameView extends BasicGameState implements Observer {
     private Timers timers;
-    private static Controller controller;
+    private static OldController controller;
     private static View view;
     private SoundObserver soundObserver;
     private Audio wavEffect;
@@ -54,7 +54,7 @@ public class GameView extends BasicGameState implements Observer {
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         this.sbg = sbg;
 
-        controller = new Controller(gc);
+        controller = new OldController(gc);
         soundObserver = new SoundObserver();
         for(Player player: Model.getPlayers()) {
             controller.registerObserver(player.getWallet());
@@ -130,7 +130,7 @@ public class GameView extends BasicGameState implements Observer {
      * Get the controller of the view.
      * @return the controller.
      */
-    public static Controller getController() {
+    public static OldController getController() {
         return controller;
     }
 
