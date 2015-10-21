@@ -1,7 +1,6 @@
 package com.sem.btrouble.controller;
 
 import com.sem.btrouble.model.Bubble;
-import com.sem.btrouble.model.Level;
 import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Room;
 import com.sem.btrouble.model.Rope;
@@ -20,7 +19,6 @@ import java.util.List;
 public abstract class AbstractGame implements LevelObserver {
     private Level level;
     private GameState view;
-    private BubbleController bubbleController;
 
     /**
      * Constructor for a game.
@@ -48,14 +46,6 @@ public abstract class AbstractGame implements LevelObserver {
     }
 
     /**
-     * Returns the bubbleController.
-     * @return Returns the bubbleController.
-     */
-    protected BubbleController getBubbleController() {
-        return bubbleController;
-    }
-
-    /**
      * Loads a new level with the given room.
      * @param room Room of the level that should be loaded.
      */
@@ -64,7 +54,6 @@ public abstract class AbstractGame implements LevelObserver {
         this.level = new Level(room);
         level.registerObserver(this);
         level.registerObserver(view);
-        this.bubbleController = new BubbleController(level);
     }
 
     /**
@@ -88,7 +77,6 @@ public abstract class AbstractGame implements LevelObserver {
     public void updateGame() {
         if(isLevelRunning()) {
             level.moveObjects();
-            bubbleController.checkBubbleSplit();
             runGameLoop();
         }
     }
@@ -140,7 +128,7 @@ public abstract class AbstractGame implements LevelObserver {
         bubbleList.add(new Bubble(3, 100, 250));
         bubbleList.add(new Bubble(3, 300, 190));
         bubbleList.add(new Bubble(3, 700, 150));
-        bubbleController.addBubble(bubbleList);
+        level.addBubble(bubbleList);
     }
 
     /**

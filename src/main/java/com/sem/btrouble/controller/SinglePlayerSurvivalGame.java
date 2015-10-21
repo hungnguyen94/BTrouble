@@ -41,7 +41,7 @@ public class SinglePlayerSurvivalGame extends AbstractGame {
     @Override
     public void runGameLoop() {
         if(waveTime <= 0) {
-            spawnBubbles();
+            spawnRandomBubbles();
             waveTime = TIME;
         } else {
             --waveTime;
@@ -65,7 +65,7 @@ public class SinglePlayerSurvivalGame extends AbstractGame {
         for(int i = 0; i < Math.random()*5; i++) {
             bubbleList.add(new Bubble((int)(Math.random()*3), (float)(Math.random()*720), 250));
         }
-        getBubbleController().addBubble(bubbleList);
+        getLevel().addBubble(bubbleList);
     }
 
 
@@ -79,7 +79,7 @@ public class SinglePlayerSurvivalGame extends AbstractGame {
         bubbleList.add(new Bubble(3, 100, 250));
         bubbleList.add(new Bubble(3, 300, 190));
         bubbleList.add(new Bubble(3, 700, 150));
-        getBubbleController().addBubble(bubbleList);
+        getLevel().addBubble(bubbleList);
     }
 
     /**

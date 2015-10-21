@@ -66,7 +66,7 @@ public class MultiPlayerSurvivalGame extends AbstractGame {
         for(int i = 0; i < Math.random()*5; i++) {
             bubbleList.add(new Bubble((int)(Math.random()*3), (float)(Math.random()*720), 250));
         }
-        getBubbleController().addBubble(bubbleList);
+        getLevel().addBubble(bubbleList);
     }
 
 
@@ -80,7 +80,7 @@ public class MultiPlayerSurvivalGame extends AbstractGame {
         bubbleList.add(new Bubble(2, 100, 250));
         bubbleList.add(new Bubble(1, 300, 190));
         bubbleList.add(new Bubble(1, 700, 150));
-        getBubbleController().addBubble(bubbleList);
+        getLevel().addBubble(bubbleList);
     }
 
     /**

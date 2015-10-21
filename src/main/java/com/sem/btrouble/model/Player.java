@@ -366,9 +366,9 @@ public class Player extends Rectangle implements Drawable, Movable {
                     walkSheet = new SpriteSheet("Sprites/player_spritesheet.png", 100, 175);
                     walkAnimation = new Animation(walkSheet, 20);
                 }
-                // Render the sprite at an offset.
-                int playerX = (int) (x - ((walkSheet.getWidth()
-                        / walkSheet.getHorizontalCount()) - getWidth()) / 2);
+                //Render the sprite at an offset.
+                float playerX = x - ((walkSheet.getWidth()
+                        / walkSheet.getHorizontalCount()) - getWidth()) / 2;
                 if(!idle) {
                     walkAnimation.getCurrentFrame().getFlippedCopy(facingLeft, false)
                             .draw(playerX, y - 15);

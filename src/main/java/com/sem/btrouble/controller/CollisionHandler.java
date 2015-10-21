@@ -4,21 +4,32 @@ import com.sem.btrouble.model.Drawable;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
  * Class to handle collisions.
  */
-public class CollisionHandler implements Drawable {
+public class CollisionHandler implements Drawable, Control {
 
     private Collection<Collidable> collidables;
+    private Collection<Collection<? extends Collidable>> collidableListsReference;
 
     /**
      * Use set to prevent duplicates.
      */
     public CollisionHandler() {
         collidables = new CopyOnWriteArraySet<Collidable>();
+        collidableListsReference = new ArrayList<>();
+    }
+
+    /**
+     * Adds a reference to a list.
+     * @param collidableCollection Collection of collidables.
+     */
+    public void addListReference(Collection<? extends Collidable> collidableCollection) {
+        collidableListsReference.add(collidableCollection);
     }
 
     /**
@@ -104,6 +115,14 @@ public class CollisionHandler implements Drawable {
      * Checks collisions for all objects in the collisionhandler.
      */
     public void checkAllCollisions() {
+        for(Collidable collidable : collidables) {
+            if(collidable.getCollidedStatus()) {
+                collidables.remove(collidable);
+            }
+        }
+        for(Collection<? extends Collidable> collidableList : collidableListsReference) {
+            addCollidable(collidableList);
+        }
         checkCollision(collidables);
     }
 
@@ -188,5 +207,13 @@ public class CollisionHandler implements Drawable {
                     collidable.getWidth(), collidable.getHeight()
             );
         }
+    }
+
+    /**
+     * Update method for the Control.
+     */
+    @Override
+    public void update() {
+        checkAllCollisions();
     }
 }

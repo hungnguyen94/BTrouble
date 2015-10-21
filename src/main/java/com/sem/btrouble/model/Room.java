@@ -118,13 +118,27 @@ public class Room implements Serializable, Drawable {
 
     /**
      * Return all collidable objects in a room.
-     * 
+     *
      * @return - all collidable objects in a room
      */
     public Collection<Collidable> getCollidables() {
         ArrayList<Collidable> allCollidables = new ArrayList<Collidable>();
         allCollidables.addAll(walls);
         allCollidables.addAll(floors);
+//        allCollidables.addAll(bubbles);
+//        allCollidables.addAll(moveableBorders);
+        return allCollidables;
+    }
+
+    /**
+     * Return all collidable objects in a room.
+     *
+     * @return - all collidable objects in a room
+     */
+    public Collection<Collection<? extends Collidable>> getCollidablesLists() {
+        Collection<Collection<? extends Collidable>> allCollidables = new ArrayList<>();
+        allCollidables.add(walls);
+        allCollidables.add(floors);
 //        allCollidables.addAll(bubbles);
 //        allCollidables.addAll(moveableBorders);
         return allCollidables;

@@ -1,6 +1,11 @@
-package com.sem.btrouble.model;
+package com.sem.btrouble.controller;
 
-import com.sem.btrouble.controller.CollisionHandler;
+import com.sem.btrouble.model.Bubble;
+import com.sem.btrouble.model.Drawable;
+import com.sem.btrouble.model.Movable;
+import com.sem.btrouble.model.Player;
+import com.sem.btrouble.model.PowerUp;
+import com.sem.btrouble.model.Room;
 import com.sem.btrouble.observering.LevelObserver;
 import com.sem.btrouble.observering.LevelSubject;
 import org.newdawn.slick.Graphics;
@@ -16,11 +21,12 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class Level implements LevelSubject, Drawable {
     private Room room;
     private List<Player> players;
-    private CollisionHandler collisionHandler;
     private List<Movable> movables;
     private List<LevelObserver> observersList;
-    private List<PowerUp> powerUpList;
     private boolean levelRunning;
+    private Control ultimateController;
+    private List<Bubble> bubbleList;
+    private List<PowerUp> powerUpList;
 
     /**
      * Constructor for the level class with room parameter.
@@ -31,9 +37,11 @@ public class Level implements LevelSubject, Drawable {
         this.players = new ArrayList<Player>();
         this.observersList = new ArrayList<LevelObserver>();
         this.movables = new CopyOnWriteArrayList<>();
-        this.powerUpList = new ArrayList<>();
-        this.collisionHandler = new CollisionHandler();
-        this.collisionHandler.addCollidable(room.getCollidables());
+        this.bubbleList = new CopyOnWriteArrayList<>();
+        this.powerUpList = new CopyOnWriteArrayList<>();
+        this.ultimateController = new PowerUpController(new BubbleController(new CollisionHandler(), bubbleList), powerUpList);
+        this.ultimateController.addListReference(room.getCollidables());
+        this.ultimateController.addListReference(movables);
     }
 
     /**
@@ -49,21 +57,27 @@ public class Level implements LevelSubject, Drawable {
     }
 
     /**
+     * This method adds a bubble to the list.
+     * @param bubble This bubble will be added.
+     */
+    public void addBubble(Bubble bubble) {
+        bubbleList.add(bubble);
+    }
+
+    /**
+     * This method adds a collection of bubbles to the list.
+     * @param bubbles These bubbles will be added.
+     */
+    public void addBubble(Collection<Bubble> bubbles) {
+        bubbleList.addAll(bubbles);
+    }
+
+    /**
      * Adds a movable object to the level.
      * @param movable
      */
     public void addMovable(Movable movable) {
         movables.add(movable);
-        collisionHandler.addCollidable(movable);
-    }
-
-    /**
-     * Adds movable objects to the level.
-     * @param movables
-     */
-    public void addMovables(Collection<Movable> movables) {
-        movables.addAll(movables);
-        collisionHandler.addCollidable(movables);
     }
 
     /**
@@ -72,7 +86,6 @@ public class Level implements LevelSubject, Drawable {
      */
     public void removeMovable(Movable movable) {
         movables.remove(movable);
-        collisionHandler.removeCollidable(movable);
     }
 
     /**
@@ -92,12 +105,11 @@ public class Level implements LevelSubject, Drawable {
      * Calls the move method on all objects in the level.
      */
     public synchronized void moveObjects() {
-        collisionHandler.checkAllCollisions();
-
+        ultimateController.update();
         for(Player player : players) {
-            if (!collisionHandler.checkCollision(player)) {
-                player.setFalling(true);
-            }
+//            if (!collisionHandler.checkCollision(player)) {
+//                player.setFalling(true);
+//            }
         }
         for(Movable movable : movables) {
             movable.move();
@@ -184,7 +196,7 @@ public class Level implements LevelSubject, Drawable {
             }
         }
         room.draw(graphics);
-        collisionHandler.draw(graphics);
+        ultimateController.draw(graphics);
         for(Player player : players) {
             player.draw(graphics);
         }

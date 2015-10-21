@@ -1,33 +1,43 @@
 package com.sem.btrouble.controller;
 
 import com.sem.btrouble.model.Bubble;
-import com.sem.btrouble.model.Level;
-import com.sem.btrouble.model.Movable;
-import com.sem.btrouble.model.PowerUp;
-import com.sem.btrouble.model.PowerUpGenerator;
+import com.sem.btrouble.model.Drawable;
+import org.newdawn.slick.Graphics;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
+ * This class handles all the logic for the bubbles.
  * @author Hung
  */
-public class BubbleController {
+public class BubbleController extends ControlDecorator implements Drawable {
 
     private List<Bubble> bubbleList;
-    private List<PowerUp> powerUpList;
-    private Level level;
 
     /**
      * Constructor for bubble controller.
-     * @param level Level that the controller needs to handle.
      */
-    public BubbleController(Level level) {
-        this.level = level;
-        this.bubbleList = new CopyOnWriteArrayList<>();
-        this.powerUpList = new ArrayList<>();
+    public BubbleController(Control control, List<Bubble> bubbleList) {
+        super(control);
+        this.bubbleList = bubbleList;
+        control.addListReference(this.bubbleList);
+    }
+
+    /**
+     * Returns the size of the bubbleList.
+     * @return size of the bubbleList.
+     */
+    public int getSize() {
+        return bubbleList.size();
+    }
+
+    /**
+     * Return the reference of the list.
+     * @return BubbleList
+     */
+    public List<Bubble> getBubbleList() {
+        return bubbleList;
     }
 
     /**
@@ -36,19 +46,10 @@ public class BubbleController {
      */
     public void addBubble(Bubble bubble) {
         bubbleList.add(bubble);
-        addMovableLevel(bubble);
     }
 
     /**
-     * Adds a movable to the level.
-     * @param movable This is the movable.
-     */
-    private void addMovableLevel(Movable movable) {
-        level.addMovable(movable);
-    }
-
-    /**
-     * Adds bubbles to the BubbleController.
+     * Add a collection of bubbles to the BubbleController.
      * @param bubbles This is the collection of bubbles that will be added.
      */
     public void addBubble(Collection<Bubble> bubbles) {
@@ -61,47 +62,43 @@ public class BubbleController {
      * Removes a bubble from the BubbleController.
      * @param bubble This is the bubble that will be removed.
      */
-    public void removeBubble(Bubble bubble) {
+    public void removeBubble(Collidable bubble) {
         bubbleList.remove(bubble);
-        level.removeMovable(bubble);
+    }
+
+    @Override
+    public void removeCollidable(Collidable collidable) {
+        removeBubble(collidable);
+        control.removeCollidable(collidable);
     }
 
     /**
-     * Drop a powerup in the level.
-     * @param powerUp Add this powerup.
-     */
-    public void addPowerUp(PowerUp powerUp) {
-        powerUpList.add(powerUp);
-        addMovableLevel(powerUp);
-    }
-
-    /**
-     * Checks if bubbles are split, and adds the splitted bubbles
+     * Moves the bubbles and checks if bubbles are split.
+     * If they are, add the splitted bubbles
      * to the list.
      */
-    public void checkBubbleSplit() {
+    public void update() {
         for(Bubble bubble : bubbleList) {
-            // If the bubble has been split.
+            bubble.move();
             if(bubble.getCollidedStatus()) {
                 addBubble(bubble.split());
-                // Add powerup.
-                addPowerUp(PowerUpGenerator.generate(bubble.getX(), bubble.getY(), Math.random()));
-                removeBubble(bubble);
+                removeCollidable(bubble);
             }
         }
-        checkPowerUp();
+        control.update();
     }
+
 
     /**
-     * Check if powerups need to be removed.
+     * Draw the object.
+     *
+     * @param graphics The graphics
      */
-    public void checkPowerUp() {
-//        for(PowerUp powerUp : powerUpList) {
-//            if(powerUp.getCollidedStatus()) {
-//                powerUpList.remove(powerUp);
-//            }
-//
-//        }
+    @Override
+    public void draw(Graphics graphics) {
+        for(Bubble bubble : bubbleList) {
+            bubble.draw(graphics);
+        }
+        control.draw(graphics);
     }
-
 }

@@ -59,7 +59,6 @@ public class LostLevelView extends BasicGameState {
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
         // Press enter
         if (gc.getInput().isKeyPressed(Input.KEY_RETURN)) {
-            GameView.getController().getTimers().restartTimer();
             sbg.enterState(1, new FadeOutTransition(), new FadeInTransition());
         }
     }
@@ -86,11 +85,6 @@ public class LostLevelView extends BasicGameState {
         graphics.drawString("Press enter", 1000, 660);
 
         SpriteSheet livesImage = new SpriteSheet("Sprites/lives_spritesheet.jpg", 381, 171);
-        int lives = Model.getPlayers().get(0).getLives();
-        if (lives >= 0) {
-            livesImage.getSprite(lives, 0).draw(190, 670, (float) 0.286);
-        }
-
     }
 
     /**

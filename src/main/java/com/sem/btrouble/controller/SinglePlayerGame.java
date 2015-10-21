@@ -62,7 +62,7 @@ public class SinglePlayerGame extends AbstractGame {
         bubbleList.add(new Bubble(3, 100, 250));
         bubbleList.add(new Bubble(3, 300, 190));
         bubbleList.add(new Bubble(3, 700, 150));
-        getBubbleController().addBubble(bubbleList);
+        getLevel().addBubble(bubbleList);
     }
 
     /**
