@@ -1,4 +1,4 @@
-package com.sem.btrouble.controller;
+package com.sem.btrouble.Game;
 
 import com.sem.btrouble.model.Bubble;
 import com.sem.btrouble.model.Player;
@@ -12,13 +12,13 @@ import java.util.List;
 /**
  * AbstractGame class.
  */
-public class MultiPlayerGame extends AbstractGame {
-    private List<Player> players;
+public class SinglePlayerGame extends AbstractGame {
+    private Player player;
 
     /**
      * Constructor for a game.
      */
-    public MultiPlayerGame(Room room) {
+    public SinglePlayerGame(Room room) {
         super(room);
 
     }
@@ -28,9 +28,8 @@ public class MultiPlayerGame extends AbstractGame {
      * @param room Room.
      * @param view View connected to this controller.
      */
-    public MultiPlayerGame(Room room, GameState view) {
+    public SinglePlayerGame(Room room, GameState view) {
         super(room, view);
-        players = new ArrayList<>();
     }
 
     /**
@@ -48,23 +47,10 @@ public class MultiPlayerGame extends AbstractGame {
      */
     @Override
     public void addPlayer(Player player) {
-        players.add(player);
+        this.player = player;
         getLevel().addPlayer(player);
     }
 
-    /**
-     * Returns true if theres a player with
-     * a life left.
-     * @return
-     */
-    private boolean anyPlayerHasLife() {
-        for(Player player : players) {
-            if(player.isAlive()) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     /**
      * Spawns bubbles in the level.
@@ -94,7 +80,7 @@ public class MultiPlayerGame extends AbstractGame {
     @Override
     public void levelLost() {
         getLevel().stop();
-        if(anyPlayerHasLife()) {
+        if(player.hasLives()) {
             System.out.println("Level restart");
             //startLevel();
         } else {
