@@ -20,7 +20,7 @@ public class MultiPlayerGame extends AbstractGame {
      */
     public MultiPlayerGame(Room room) {
         super(room);
-
+        players = new ArrayList<>();
     }
 
     /**

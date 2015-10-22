@@ -381,7 +381,7 @@ public class Player extends Rectangle implements Drawable, Movable {
                     walkAnimation.getCurrentFrame().getFlippedCopy(facingLeft, false)
                             .draw(playerX, y - 15);
                 } else {
-                    playerIdle.getFlippedCopy(facingLeft, false).draw(playerX, y - 15, 0.7f);
+                    playerIdle.getFlippedCopy(facingLeft, false).draw(playerX, y - 15);
                 }
             } catch(SlickException e) {
                 // TODO Auto-generated catch block
@@ -415,7 +415,9 @@ public class Player extends Rectangle implements Drawable, Movable {
             leftBlocked = false;
             idle = false;
             facingLeft = true;
-            walkAnimation.update(delta);
+            if(walkAnimation != null) {
+                walkAnimation.update(delta);
+            }
             setCenterX(getCenterX() - delta * 0.15f * PLAYER_SPEED);
         }
     }
@@ -432,7 +434,9 @@ public class Player extends Rectangle implements Drawable, Movable {
             leftBlocked = false;
             idle = false;
             facingLeft = false;
-            walkAnimation.update(delta);
+            if(walkAnimation != null) {
+                walkAnimation.update(delta);
+            }
             setCenterX(getCenterX() + delta * 0.15f * PLAYER_SPEED);
         }
     }
@@ -508,7 +512,7 @@ public class Player extends Rectangle implements Drawable, Movable {
     private class BubbleCollision implements CollisionAction {
         @Override
         public void onCollision(Collidable collider) {
-//            setAlive(false);
+            setAlive(false);
         }
     }
 
