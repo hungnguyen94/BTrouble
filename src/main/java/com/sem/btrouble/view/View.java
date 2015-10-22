@@ -3,7 +3,7 @@ package com.sem.btrouble.view;
 import com.sem.btrouble.SlickApp;
 import com.sem.btrouble.model.Timers;
 import com.sem.btrouble.model.Model;
-import com.sem.btrouble.model.PowerUp;
+import com.sem.btrouble.model.PlayerPowerUp;
 import com.sem.btrouble.model.Player;
 
 import org.newdawn.slick.TrueTypeFont;
@@ -121,7 +121,7 @@ public class View {
      * @param graphics the graphics
      */
     private void drawPowers(Graphics graphics) {
-    	for (PowerUp power : Model.getShortPower()) {
+    	for (PlayerPowerUp power : Model.getShortPower()) {
     		power.draw(graphics);
     	}
     }

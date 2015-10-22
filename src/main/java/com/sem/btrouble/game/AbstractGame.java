@@ -1,10 +1,11 @@
-package com.sem.btrouble.Game;
+package com.sem.btrouble.game;
 
 import com.sem.btrouble.controller.Level;
 import com.sem.btrouble.model.Bubble;
 import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Room;
 import com.sem.btrouble.model.Rope;
+import com.sem.btrouble.model.RopeFactory;
 import com.sem.btrouble.observering.Direction;
 import com.sem.btrouble.observering.LevelObserver;
 import com.sem.btrouble.view.GameState;
@@ -115,7 +116,7 @@ public abstract class AbstractGame implements LevelObserver {
     // PlayerController?
     public void fireRope(Player player) {
         if(player.canFireRope() && player.isAlive()) {
-            Rope rope = new Rope(player.getCenterX(), player.getY() + player.getHeight() - 5, player);
+            Rope rope = RopeFactory.makeRope(player);
             level.addRope(rope);
         }
     }

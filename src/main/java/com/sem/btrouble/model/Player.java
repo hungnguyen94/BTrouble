@@ -15,6 +15,7 @@ import org.newdawn.slick.geom.Shape;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -53,6 +54,8 @@ public class Player extends Rectangle implements Drawable, Movable {
     private ArrayList<Rope> ropes;
     private ArrayList<Observer> observers;
 
+    private List<PowerUpType> powerUps;
+
     /**
      * Constructor for the Player class.
      *
@@ -64,7 +67,7 @@ public class Player extends Rectangle implements Drawable, Movable {
     public Player(float xpos, float ypos) {
         super(xpos, ypos, 50f, 160f);
         currentRopesCounter = 0;
-        maxAmountRopes = 2;
+        maxAmountRopes = 1;
         lives = INITIAL_LIVES;
         score = INITIAL_SCORE;
         velocityY = 2;
@@ -72,13 +75,17 @@ public class Player extends Rectangle implements Drawable, Movable {
         leftBlocked = false;
         alive = true;
         falling = true;
-
+        powerUps = new ArrayList<>();
 
         this.observers = new ArrayList<Observer>();
         wallet = new Wallet();
         ropes = new ArrayList<Rope>();
     }
-    
+
+    public void addPowerUp(PowerUpType type) {
+        powerUps.add(type);
+    }
+
     /**
      * Get the wallet of the player.
      * @return the wallet
@@ -248,6 +255,7 @@ public class Player extends Rectangle implements Drawable, Movable {
      * Add a life to the player.
      */
     public void addLife() {
+        System.out.println("add lives: " + lives);
         lives++;
     }
 
@@ -373,7 +381,7 @@ public class Player extends Rectangle implements Drawable, Movable {
                     walkAnimation.getCurrentFrame().getFlippedCopy(facingLeft, false)
                             .draw(playerX, y - 15);
                 } else {
-                    playerIdle.getFlippedCopy(facingLeft, false).draw(playerX, y - 15);
+                    playerIdle.getFlippedCopy(facingLeft, false).draw(playerX, y - 15, 0.7f);
                 }
             } catch(SlickException e) {
                 // TODO Auto-generated catch block
@@ -392,7 +400,7 @@ public class Player extends Rectangle implements Drawable, Movable {
         } else {
             velocityY = 0;
         }
-        idle = true;
+//        idle = true;
     }
 
     /**

@@ -17,7 +17,7 @@ import java.util.Map;
  *
  */
 @SuppressWarnings("serial")
-public class TimePowerUp extends PowerUp {
+public class TimePowerUp extends GamePowerUp {
     
 	private Image playerIdle;
 	
@@ -35,7 +35,7 @@ public class TimePowerUp extends PowerUp {
 	 * @param ypos y position
 	 */
     public TimePowerUp(float xpos, float ypos) {
-        super(xpos, ypos);
+        super(xpos, ypos, 1);
     }
     
     /**
@@ -140,7 +140,7 @@ public class TimePowerUp extends PowerUp {
         @Override
         public void onCollision(Collidable collider) {
             GameView.getController().getTimers().increaseLevelTimerCounter(50);
-            Model.deleteShortPower(TimePowerUp.this);
+//            Model.deleteShortPower(TimePowerUp.this);
         }
     }
 }

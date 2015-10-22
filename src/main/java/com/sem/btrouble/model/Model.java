@@ -15,7 +15,7 @@ public class Model {
     private static ArrayList<Player> players;
     private static Room roomCurrent;
     private static int currentLevel;
-    private static List<PowerUp> powers = new CopyOnWriteArrayList<PowerUp>();
+    private static List<PlayerPowerUp> powers = new CopyOnWriteArrayList<PlayerPowerUp>();
     private static Timers timers;
 
     private static int roomWidth;
@@ -165,7 +165,7 @@ public class Model {
      * Get all the power ups bought in the store.
      * @return the power ups
      */
-    public static List<PowerUp> getPowerUps() {
+    public static List<PlayerPowerUp> getPowerUps() {
         return powers;
     }
 
@@ -173,7 +173,7 @@ public class Model {
      * Add a store power up.
      * @param power the power up
      */
-    public static void addPowerUp(PowerUp power) {
+    public static void addPowerUp(PlayerPowerUp power) {
         powers.add(power);
     }
 
@@ -188,7 +188,7 @@ public class Model {
      * Get power ups received in the game.
      * @return the power ups
      */
-    public static List<PowerUp> getShortPower() {
+    public static List<PlayerPowerUp> getShortPower() {
     	return powers;
     }
 
@@ -196,7 +196,7 @@ public class Model {
      * Add a power up received in the game.
      * @param power the power up
      */
-    public static void addShortPowerUp(PowerUp power) {
+    public static void addShortPowerUp(PlayerPowerUp power) {
     	powers.add(power);
     }
 
@@ -204,7 +204,7 @@ public class Model {
      * Delete a specific power up received in the game.
      * @param power the power up
      */
-    public static void deleteShortPower(PowerUp power) {
+    public static void deleteShortPower(PlayerPowerUp power) {
         if(powers.contains(power)) {
             powers.remove(power);
         }

@@ -289,6 +289,9 @@ public class Bubble extends Circle implements Drawable, Movable {
         // Method called on Rope collision
         collisionActionMap.put(Rope.class, new RopeCollision());
 
+        // Method called on Rope collision
+        collisionActionMap.put(StayRope.class, new RopeCollision());
+
         return collisionActionMap;
     }
 

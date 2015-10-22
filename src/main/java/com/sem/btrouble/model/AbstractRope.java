@@ -13,10 +13,9 @@ import java.util.Map;
 
 /**
  * Represents a rope.
- * @author Martin
  *
  */
-public class Rope extends Rectangle implements Drawable, Movable {
+public abstract class AbstractRope extends Rectangle implements Drawable, Movable {
     private int speedY;
     private static final int INITIAL_ROPESPEED = 5;
     private Image sprite;
@@ -33,7 +32,7 @@ public class Rope extends Rectangle implements Drawable, Movable {
      *            should be a float representing the vertical position of the
      *            rope.
      */
-    public Rope(float xpos, float ypos) {
+    public AbstractRope(float xpos, float ypos) {
         super(xpos, ypos, 2f, 2f);
         this.speedY = INITIAL_ROPESPEED;
         collided = false;
@@ -48,7 +47,7 @@ public class Rope extends Rectangle implements Drawable, Movable {
      *              rope.
      * @param player Owner of the rope.
      */
-    public Rope(float xpos, float ypos, Player player) {
+    public AbstractRope(float xpos, float ypos, Player player) {
         super(xpos, ypos, 2f, 2f);
         this.speedY = INITIAL_ROPESPEED;
         collided = false;
@@ -65,8 +64,8 @@ public class Rope extends Rectangle implements Drawable, Movable {
      *         same as this Rope.
      */
     public boolean equals(Object other) {
-        if (other instanceof Rope) {
-            Rope that = (Rope) other;
+        if (other instanceof AbstractRope) {
+            AbstractRope that = (AbstractRope) other;
             return Math.abs(this.x - that.x) == 0 
                     && Math.abs(this.y - that.y) == 0 
                     && Math.abs(this.speedY - that.speedY) == 0;
@@ -113,9 +112,7 @@ public class Rope extends Rectangle implements Drawable, Movable {
      */
     public void setCollided(boolean collided) {
         this.collided = collided;
-        if(collided) {
-            player.decreaseRopeCount();
-        }
+        player.decreaseRopeCount();
     }
 
     /**

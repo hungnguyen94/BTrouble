@@ -1,4 +1,4 @@
-package com.sem.btrouble.Game;
+package com.sem.btrouble.game;
 
 import com.sem.btrouble.model.Bubble;
 import com.sem.btrouble.model.Player;

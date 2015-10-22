@@ -3,20 +3,19 @@ package com.sem.btrouble;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
+import com.sem.btrouble.model.PlayerPowerUp;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.sem.btrouble.model.PowerUp;
-
 /**
- * Class which test the PowerUp class.
+ * Class which test the PlayerPowerUp class.
  * 
  * @author Martin
  *
  */
 public abstract class PowerUpTest {
     
-    private PowerUp power;
+    private PlayerPowerUp power;
     
     /**
      * Set up the power up.
@@ -28,7 +27,7 @@ public abstract class PowerUpTest {
      * Set the power up object.
      * @param power the power up object
      */
-    public void setPower(PowerUp power) {
+    public void setPower(PlayerPowerUp power) {
         this.power = power;
     }
 

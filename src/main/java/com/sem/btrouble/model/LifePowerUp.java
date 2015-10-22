@@ -4,24 +4,21 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import java.util.ArrayList;
-
 /**
  * Representing the Power up for an extra life.
  * @author Martin
  *
  */
-@SuppressWarnings("serial")
-public class LifePowerUp extends PowerUp {
+public class LifePowerUp extends PlayerPowerUp implements Movable {
     
-	private Image playerIdle;
+	private Image lifePowerUpImage;
 	
 	/**
 	 * Construct the power up bought in the shop.
 	 */
 	public LifePowerUp() {
 		super();
-		activate();
+//		activate();
 	}
 	
 	/**
@@ -30,9 +27,20 @@ public class LifePowerUp extends PowerUp {
 	 * @param ypos y position
 	 */
     public LifePowerUp(float xpos, float ypos) {
-        super(xpos, ypos);
+        super(xpos, ypos, 1);
     }
-    
+
+    /**
+     * Apply the powerUp to the Player.
+     *
+     * @param player Player to apply the powerUp to.
+     */
+    @Override
+    public void activate(Player player) {
+        player.addLife();
+        setCollided(true);
+    }
+
     /**
      * Test if two object are equal of this instance.
      * @param other the object to compare with
@@ -52,19 +60,10 @@ public class LifePowerUp extends PowerUp {
     }
     
     /**
-     * Activate the power up.
-     */
-    public void activate() {
-        ArrayList<Player> players = Model.getPlayers();
-        if(players.get(0).getLives() < 5) {
-            players.get(0).addLife();
-        }
-    }
-    
-    /**
      * Reset the power up.
      */
     public void reset() {
+
     }
 
 
@@ -72,12 +71,13 @@ public class LifePowerUp extends PowerUp {
      * Draw the power up.
      * @param graphics The graphics
      */
+    @Override
     public void draw(Graphics graphics) {
         try {
-            if (playerIdle == null) {
-                playerIdle = new Image("Sprites/powerup_life.png");
+            if (lifePowerUpImage == null) {
+                lifePowerUpImage = new Image("Sprites/powerup_life.png");
             }
-            playerIdle.draw(getX(), getY(), 50, 100);
+            lifePowerUpImage.draw(getX(), getY(), 50, 100);
         } catch (SlickException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

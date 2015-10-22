@@ -1,7 +1,8 @@
 package com.sem.btrouble.controller;
 
+import com.sem.btrouble.model.PlayerPowerUp;
 import com.sem.btrouble.model.Bubble;
-import com.sem.btrouble.model.PowerUp;
+import com.sem.btrouble.model.GamePowerUp;
 import com.sem.btrouble.model.PowerUpGenerator;
 import org.newdawn.slick.Graphics;
 
@@ -10,11 +11,12 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @author Hung
- * Controller to controller the powerUps.
+ * Controller to control the powerUps.
  */
 public class PowerUpController extends ControllerDecorator implements Controller {
 
-    private List<PowerUp> powerUpList;
+    private List<PlayerPowerUp> playerPowerUpList;
+    private List<GamePowerUp> gamePowerUpList;
     private List<Bubble> bubbleList;
     private BubbleController controller;
 
@@ -26,8 +28,10 @@ public class PowerUpController extends ControllerDecorator implements Controller
     public PowerUpController(BubbleController controller) {
         super(controller);
         this.controller = controller;
-        this.powerUpList = new CopyOnWriteArrayList<>();
-        this.controller.addListReference(this.powerUpList);
+        this.playerPowerUpList = new CopyOnWriteArrayList<>();
+        this.gamePowerUpList = new CopyOnWriteArrayList<>();
+        this.controller.addListReference(this.playerPowerUpList);
+        this.controller.addListReference(this.gamePowerUpList);
         this.bubbleList = controller.getBubbleList();
     }
 
@@ -36,16 +40,16 @@ public class PowerUpController extends ControllerDecorator implements Controller
      * Drop a powerup in the level.
      * @param powerUp Add this powerup.
      */
-    public void addPowerUp(PowerUp powerUp) {
-        powerUpList.add(powerUp);
+    public void addPowerUp(PlayerPowerUp powerUp) {
+        playerPowerUpList.add(powerUp);
     }
 
     /**
      * Drop a powerup in the level.
      * @param powerUp Add this powerup.
      */
-    public void removePowerUp(PowerUp powerUp) {
-        powerUpList.remove(powerUp);
+    public void removePowerUp(PlayerPowerUp powerUp) {
+        playerPowerUpList.remove(powerUp);
     }
 
     /**
@@ -58,7 +62,10 @@ public class PowerUpController extends ControllerDecorator implements Controller
                 addPowerUp(PowerUpGenerator.generate(bubble.getX(), bubble.getY(), Math.random()));
             }
         }
-        for(PowerUp powerUp : powerUpList) {
+        for(PlayerPowerUp powerUp : playerPowerUpList) {
+            powerUp.move();
+        }
+        for(GamePowerUp powerUp : gamePowerUpList) {
             powerUp.move();
         }
         controller.update();
@@ -71,7 +78,7 @@ public class PowerUpController extends ControllerDecorator implements Controller
      */
     @Override
     public void draw(Graphics graphics) {
-        for(PowerUp powerUp : powerUpList) {
+        for(PlayerPowerUp powerUp : playerPowerUpList) {
             powerUp.draw(graphics);
         }
         controller.draw(graphics);

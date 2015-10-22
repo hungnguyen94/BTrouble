@@ -46,7 +46,7 @@ public class Level implements LevelSubject, Drawable {
         this.ultimateController = ropeController;
 
         this.ultimateController.addListReference(room.getCollidables());
-        this.ultimateController.addListReference(movables);
+        this.ultimateController.addListReference(players);
     }
 
     /**
@@ -58,7 +58,6 @@ public class Level implements LevelSubject, Drawable {
         players.add(player);
         player.setX(room.getSpawnPositionX());
         player.setY(room.getSpawnPositionY());
-        addMovable(player);
     }
 
     /**
@@ -115,7 +114,11 @@ public class Level implements LevelSubject, Drawable {
      */
     public synchronized void moveObjects() {
         ultimateController.update();
+        for(Player player : players) {
+            player.move();
+        }
         for(Movable movable : movables) {
+            System.out.println(movable);
             movable.move();
         }
         notifyObserver();
@@ -176,7 +179,7 @@ public class Level implements LevelSubject, Drawable {
                 obj.levelLost();
             }
         }
-        if(!room.hasBubbles()) {
+        if(bubbleController.getSize() <= 0) {
             for(LevelObserver obj: observersList) {
                 obj.levelWon();
             }

@@ -15,7 +15,7 @@ import java.util.ArrayList;
  *
  */
 @SuppressWarnings("serial")
-public class SlowPowerUp extends PowerUp implements Observer {
+public class SlowPowerUp extends GamePowerUp implements Observer {
     
     private boolean on;
 	private Image playerIdle;
@@ -34,8 +34,8 @@ public class SlowPowerUp extends PowerUp implements Observer {
      * @param xpos x position
      * @param ypos y position
      */
-    public SlowPowerUp(float xpos, float ypos) {
-        super(xpos, ypos);
+    public SlowPowerUp(float xpos, float ypos, int expirationTime) {
+        super(xpos, ypos, expirationTime);
         on = false;
     }
     

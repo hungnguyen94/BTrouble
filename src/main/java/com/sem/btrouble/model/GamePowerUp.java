@@ -8,23 +8,25 @@ import org.newdawn.slick.geom.Shape;
 
 import java.util.HashMap;
 import java.util.Map;
+
 /**
  * Superclass for all power ups.
  * @author Martin
  *
  */
-public abstract class PowerUp extends Rectangle implements Drawable, Movable {
-	
+public abstract class GamePowerUp extends Rectangle implements Drawable, Movable {
+
     private boolean falling;
     private boolean collided;
 
     private float velocityY;
     private float accelerationY;
+    private int expirationTime;
 
     /**
      * Construct power up bought in the store.
      */
-    public PowerUp() {
+    public GamePowerUp() {
         super(-50, -50, 50, 100);
     }
 
@@ -33,12 +35,13 @@ public abstract class PowerUp extends Rectangle implements Drawable, Movable {
      * @param xpos x position
      * @param ypos y position
      */
-    public PowerUp(float xpos, float ypos) {
+    public GamePowerUp(float xpos, float ypos, int expirationTime) {
         super(xpos, ypos, 50, 100);
         this.falling = true;
         this.velocityY = 2;
         this.accelerationY = .3f;
         this.collided = false;
+        this.expirationTime = expirationTime;
     }
     
     /**
@@ -127,6 +130,15 @@ public abstract class PowerUp extends Rectangle implements Drawable, Movable {
         }    
     }
 
+
+    /**
+     * Sets the collided status for this powerup.
+     * @param collided True if the powerUp is collided.
+     */
+    public void setCollided(boolean collided) {
+        this.collided = collided;
+    }
+
     /**
      * This method is to check if a collidable
      * should be removed from the level. If this method
@@ -166,8 +178,8 @@ public abstract class PowerUp extends Rectangle implements Drawable, Movable {
     private class FloorCollision implements CollisionAction {
         @Override
         public void onCollision(Collidable collider) {
-            PowerUp.this.setFalling(false);
-            PowerUp.this.setY(collider.getY() - getHeight());
+            GamePowerUp.this.setFalling(false);
+            GamePowerUp.this.setY(collider.getY() - getHeight());
         }
     }
 
@@ -177,8 +189,8 @@ public abstract class PowerUp extends Rectangle implements Drawable, Movable {
     private class PlayerCollision implements CollisionAction {
         @Override
         public void onCollision(Collidable collider) {
-//            PowerUp.this.activate();
-            PowerUp.this.collided = true;
+            GamePowerUp.this.activate();
+            GamePowerUp.this.collided = true;
         }
     }
 

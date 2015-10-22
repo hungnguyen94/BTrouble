@@ -15,7 +15,7 @@ public interface Controller extends Drawable {
     void update();
 
     /**
-     * Adds a reference to a list.
+     * Adds a reference to a list to the collisionHandler..
      * @param collidableCollection Collection of collidables.
      */
     void addListReference(Collection<? extends Collidable> collidableCollection);

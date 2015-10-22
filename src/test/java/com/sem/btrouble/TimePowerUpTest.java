@@ -1,24 +1,21 @@
 package com.sem.btrouble;
 
-import static org.junit.Assert.*;
-
-//import static org.junit.Assert.assertEquals;
-
-/**
- * Test the Time power up.
- * @author Martin
- */
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Before;
-import org.junit.Test;
-
 import com.sem.btrouble.event.BubbleEvent;
 import com.sem.btrouble.event.PlayerEvent;
 import com.sem.btrouble.model.TimePowerUp;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+//import static org.junit.Assert.assertEquals;
+/**
+ * Test the Time power up.
+ *
+ * @author Martin
+ */
 //import com.sem.btrouble.view.GameView;
-import com.sem.btrouble.view.GameView;
 
 public class TimePowerUpTest extends PowerUpTest {
 
@@ -30,7 +27,7 @@ public class TimePowerUpTest extends PowerUpTest {
     @Before
     public void setUp() {
         power = new TimePowerUp(1, 1);
-        setPower(power);
+//        setPower(power);
     }
     
     /**

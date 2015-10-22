@@ -4,6 +4,9 @@ import com.sem.btrouble.event.BubbleEvent;
 import com.sem.btrouble.event.Event;
 import com.sem.btrouble.observering.Observer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Represents a wallet.
  * 
@@ -13,12 +16,14 @@ import com.sem.btrouble.observering.Observer;
 public class Wallet implements Observer {
 
     private int value;
+    private List<PlayerPowerUp> powerUpList;
 
     /**
      * Construct a wallet with value zero.
      */
     public Wallet() {
-        value = 0;
+        this.value = 0;
+        this.powerUpList = new ArrayList<>();
     }
 
     /**
@@ -43,7 +48,36 @@ public class Wallet implements Observer {
             return false;
         }
     }
-    
+
+    /**
+     * Adds a powerUp to the wallet.
+     * @param powerUp This powerup will be added.
+     */
+    public void addPowerUp(PlayerPowerUp powerUp) {
+        powerUpList.add(powerUp);
+    }
+
+    /**
+     * removes a powerUp from the wallet.
+     * @param powerUp This powerup will be removed.
+     */
+    public void removePowerUp(PlayerPowerUp powerUp) {
+        powerUpList.remove(powerUp);
+    }
+
+    /**
+     * Check if the list contains a powerup.
+     * @param powerUp Powerup
+     * @return True if the wallet has the powerup.
+     */
+    public boolean containsPowerUp(Class<? extends PlayerPowerUp> powerUp) {
+        for(PlayerPowerUp playerPowerUp : powerUpList) {
+            if(playerPowerUp.getClass() == powerUp)
+                return true;
+        }
+        return false;
+    }
+
     /**
      * Set the value of the wallet.
      * @param value The value

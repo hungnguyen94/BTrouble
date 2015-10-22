@@ -1,24 +1,21 @@
 package com.sem.btrouble.view;
 
-import org.newdawn.slick.Input;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.TrueTypeFont;
+import com.sem.btrouble.model.LifePowerUp;
+import com.sem.btrouble.model.Model;
+import com.sem.btrouble.model.Player;
+import com.sem.btrouble.model.PlayerPowerUp;
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.gui.MouseOverArea;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.util.ResourceLoader;
-
-import com.sem.btrouble.model.LifePowerUp;
-import com.sem.btrouble.model.Model;
-import com.sem.btrouble.model.Player;
-import com.sem.btrouble.model.PowerUp;
-import com.sem.btrouble.model.SlowPowerUp;
-import com.sem.btrouble.model.TimePowerUp;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -29,7 +26,7 @@ import java.util.ArrayList;
 public class ShopView extends BasicGameState {
     private Image background;
     private TrueTypeFont font;
-    private PowerUp power;
+    private PlayerPowerUp power;
     private int receiptBubbles = 0;
     private int receiptTime = 0;
     private int receiptLife = 0;
@@ -88,14 +85,14 @@ public class ShopView extends BasicGameState {
             if (bubblesButton.isMouseOver() && sum >= 2500) {
                 int amount = (sum - 2500)/players.size();
                 giveValue(amount);
-                power = new SlowPowerUp();
+//                power = new SlowPowerUp();
 //                GameView.getController().registerObserver((Observer) power);
                 Model.addPowerUp(power);
                 receiptBubbles++;
             } else if (timeButton.isMouseOver() && sum >= 2500) {
                 int amount = (sum - 2500)/players.size();
                 giveValue(amount);
-                power = new TimePowerUp();
+//                power = new TimePowerUp();
                 Model.addPowerUp(power);
                 receiptTime++;
             } else if (lifeButton.isMouseOver() && sum >= 10000) {

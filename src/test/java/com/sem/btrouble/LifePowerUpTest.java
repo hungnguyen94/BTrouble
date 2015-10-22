@@ -1,10 +1,10 @@
 package com.sem.btrouble;
 
+import com.sem.btrouble.model.LifePowerUp;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.sem.btrouble.model.LifePowerUp;
 import com.sem.btrouble.model.Model;
 import com.sem.btrouble.model.Player;
 
@@ -43,7 +43,7 @@ public class LifePowerUpTest extends PowerUpTest {
      */
     @Test
     public void activateTest() {
-        power.activate();
+        power.activate(player);
         verify(player).addLife();
     }
     

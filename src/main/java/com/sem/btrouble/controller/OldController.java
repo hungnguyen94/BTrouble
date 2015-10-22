@@ -5,10 +5,10 @@ import com.sem.btrouble.event.ControllerEvent;
 import com.sem.btrouble.event.Event;
 import com.sem.btrouble.event.LevelEvent;
 import com.sem.btrouble.event.PlayerEvent;
+import com.sem.btrouble.model.PlayerPowerUp;
 import com.sem.btrouble.model.Bubble;
 import com.sem.btrouble.model.Model;
 import com.sem.btrouble.model.Player;
-import com.sem.btrouble.model.PowerUp;
 import com.sem.btrouble.model.Rope;
 import com.sem.btrouble.model.Timers;
 import com.sem.btrouble.observering.Observer;
@@ -107,9 +107,9 @@ public class OldController implements Subject {
             }
         }
 
-        List<PowerUp> powers = Model.getShortPower();
+        List<PlayerPowerUp> powers = Model.getShortPower();
         if (powers.size() > 0) {
-            for (PowerUp power : powers) {
+            for (PlayerPowerUp power : powers) {
                 if (collisionHandler.checkCollision(power)
                         && timeLeft >= getTimers().getLevelTimeLeft() + 30000) {
                     Model.deleteShortPower(power);
@@ -209,8 +209,8 @@ public class OldController implements Subject {
     private void restartRoom() {
         fireEvent(ControllerEvent.RESTARTROOM);
         Model.restartRoom();
-        List<PowerUp> powers = Model.getPowerUps();
-        for (PowerUp power: powers) {
+        List<PlayerPowerUp> powers = Model.getPowerUps();
+        for (PlayerPowerUp power: powers) {
             power.reset();
         }
         collisionHandler.addCollidable(Model.getCurrentRoom().getCollidables());

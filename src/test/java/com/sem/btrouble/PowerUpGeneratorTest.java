@@ -8,7 +8,7 @@
 //import org.junit.Test;
 //import org.junit.runner.RunWith;
 //
-//import com.sem.btrouble.model.LifePowerUp;
+//import com.sem.btrouble.model.LifePowerUpAbstract;
 //import com.sem.btrouble.model.Model;
 //import com.sem.btrouble.model.PowerUpGenerator;
 //import com.sem.btrouble.model.SlowPowerUp;
@@ -19,7 +19,7 @@
 //
 //    @Mock private TimePowerUp time;
 //    @Mock private SlowPowerUp slow;
-//    @Mock private LifePowerUp life;
+//    @Mock private LifePowerUpAbstract life;
 //
 //    @Before
 //    public void setUp() {
@@ -62,7 +62,7 @@
 //    @Test
 //    public void generateLifeTest() {
 //        Model.clearShortPower();
-//        assertEquals(PowerUpGenerator.generate(1, 1, 0.25), new LifePowerUp(1, 1));
+//        assertEquals(PowerUpGenerator.generate(1, 1, 0.25), new LifePowerUpAbstract(1, 1));
 //    }
 //
 //    @Test

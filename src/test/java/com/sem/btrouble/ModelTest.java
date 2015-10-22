@@ -1,8 +1,8 @@
 package com.sem.btrouble;
 
+import com.sem.btrouble.model.PlayerPowerUp;
 import com.sem.btrouble.model.Model;
 import com.sem.btrouble.model.Player;
-import com.sem.btrouble.model.PowerUp;
 import com.sem.btrouble.model.Room;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,7 +28,7 @@ public class ModelTest extends Model {
     @Mock
     private Player player;
     @Mock
-    private PowerUp power;
+    private PlayerPowerUp power;
 
     /**
      * Set up the model.
@@ -53,7 +53,7 @@ public class ModelTest extends Model {
      */
     @Test
     public void getPowerUpsTest() {
-        assertEquals(new ArrayList<PowerUp>(), Model.getPowerUps());
+        assertEquals(new ArrayList<PlayerPowerUp>(), Model.getPowerUps());
     }
     
     /**
@@ -62,7 +62,7 @@ public class ModelTest extends Model {
     @Test
     public void addPowerUpsTest() {
         Model.addPowerUp(power);
-        ArrayList<PowerUp> powers = new ArrayList<PowerUp>();
+        ArrayList<PlayerPowerUp> powers = new ArrayList<PlayerPowerUp>();
         powers.add(power);
         assertEquals(powers, Model.getPowerUps());
     }
@@ -73,10 +73,10 @@ public class ModelTest extends Model {
     @Test
     public void clearPowerUpsTest() {
         Model.addPowerUp(power);
-        ArrayList<PowerUp> powers = new ArrayList<PowerUp>();
+        ArrayList<PlayerPowerUp> powers = new ArrayList<PlayerPowerUp>();
         powers.add(power);
         Model.clearPowerUps();
-        assertEquals(new ArrayList<PowerUp>(), Model.getPowerUps());
+        assertEquals(new ArrayList<PlayerPowerUp>(), Model.getPowerUps());
     }
     
     /**
@@ -85,10 +85,10 @@ public class ModelTest extends Model {
     @Test
     public void clearShortPowerTest() {
         Model.addShortPowerUp(power);
-        ArrayList<PowerUp> powers = new ArrayList<PowerUp>();
+        ArrayList<PlayerPowerUp> powers = new ArrayList<PlayerPowerUp>();
         powers.add(power);
         Model.clearShortPower();
-        assertEquals(new ArrayList<PowerUp>(), Model.getShortPower());
+        assertEquals(new ArrayList<PlayerPowerUp>(), Model.getShortPower());
     }
 
     /**

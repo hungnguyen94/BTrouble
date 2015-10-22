@@ -1,11 +1,11 @@
 package com.sem.btrouble.view;
 
 import com.sem.btrouble.BTrouble;
-import com.sem.btrouble.controller.AbstractGame;
-import com.sem.btrouble.controller.MultiPlayerGame;
-import com.sem.btrouble.controller.MultiPlayerSurvivalGame;
-import com.sem.btrouble.controller.SinglePlayerGame;
-import com.sem.btrouble.controller.SinglePlayerSurvivalGame;
+import com.sem.btrouble.game.AbstractGame;
+import com.sem.btrouble.game.MultiPlayerGame;
+import com.sem.btrouble.game.MultiPlayerSurvivalGame;
+import com.sem.btrouble.game.SinglePlayerGame;
+import com.sem.btrouble.game.SinglePlayerSurvivalGame;
 import com.sem.btrouble.model.Drawable;
 import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Room;
