@@ -114,7 +114,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
                 <version>2.7</version>
-
                 <executions>
                     <execution>
                         <id>site</id>
@@ -141,8 +140,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
                     </instrumentation>
                 </configuration>
             </plugin>
-
-
 
         </plugins>
     </build>
@@ -187,14 +184,14 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
-                <version>2.6</version>
+                <version>2.7</version>
                 <configuration>
                     <formats>
                         <format>html</format>
                         <format>xml</format>
                     </formats>
                     <instrumentation>
-                        <ignoreTrivial>true</ignoreTrivial>
+                        <ignoreTrivial>false</ignoreTrivial>
                         <ignores>
                             <ignore>com.sem.btrouble.view</ignore>
                         </ignores>

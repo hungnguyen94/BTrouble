@@ -12,6 +12,8 @@ import com.sem.btrouble.view.GameState;
 import org.newdawn.slick.Graphics;
 
 import javax.swing.Timer;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,9 +65,12 @@ public abstract class AbstractGame implements LevelObserver {
      * AbstractGame is independent from the view, and can be run headless.
      */
     public void startLevel() {
-        Timer t1 = new Timer(100, (e) -> {
-            level.start();
-            System.out.println("LEVEL STARTED");
+        Timer t1 = new Timer(100, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                level.start();
+                System.out.println("LEVEL STARTED");
+            }
         });
         t1.setRepeats(false);
         t1.setInitialDelay(2000);

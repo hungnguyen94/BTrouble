@@ -1,8 +1,5 @@
 package com.sem.btrouble;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-
 import com.sem.btrouble.model.PlayerPowerUp;
 import org.junit.Before;
 import org.junit.Test;
@@ -46,45 +43,45 @@ public abstract class PowerUpTest {
     /**
      * Test the setFalling and isFalling method.
      */
-    @Test
-    public void setFallingTest() {
-        power.setFalling(false);
-        assertFalse(power.isFalling());
-    }
-    
-    /**
-     * Test the fall method.
-     */
-    @Test
-    public void fallTest() {
-        float firstY = power.getY();
-        float vy = power.getVelocityY();
-        float ay = power.getAccelerationY();
-        power.fall();
-        assertEquals(firstY + vy, power.getY(), 0);
-        assertEquals(vy + ay, power.getVelocityY(), 0);
-    }
-    
-    /**
-     * Test the move method with true falling.
-     */
-    @Test
-    public void moveTrueTest() {
-        float y = power.getY();
-        float vy = power.getVelocityY();
-        power.move();
-        assertEquals(y + vy, power.getY(), 0);
-    }
-    
-    /**
-     * Test the move method with false falling.
-     */
-    @Test
-    public void moveFalseTest() {
-        power.setFalling(false);
-        power.move();
-        assertEquals(0, power.getVelocityY(), 0);
-    }
+//    @Test
+//    public void setFallingTest() {
+//        power.setFalling(false);
+//        assertFalse(power.isFalling());
+//    }
+//
+//    /**
+//     * Test the fall method.
+//     */
+//    @Test
+//    public void fallTest() {
+//        float firstY = power.getY();
+//        float vy = power.getVelocityY();
+//        float ay = power.getAccelerationY();
+//        power.fall();
+//        assertEquals(firstY + vy, power.getY(), 0);
+//        assertEquals(vy + ay, power.getVelocityY(), 0);
+//    }
+//
+//    /**
+//     * Test the move method with true falling.
+//     */
+//    @Test
+//    public void moveTrueTest() {
+//        float y = power.getY();
+//        float vy = power.getVelocityY();
+//        power.move();
+//        assertEquals(y + vy, power.getY(), 0);
+//    }
+//
+//    /**
+//     * Test the move method with false falling.
+//     */
+//    @Test
+//    public void moveFalseTest() {
+//        power.setFalling(false);
+//        power.move();
+//        assertEquals(0, power.getVelocityY(), 0);
+//    }
     
     
 
