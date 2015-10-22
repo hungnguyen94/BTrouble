@@ -22,7 +22,7 @@ public class MultiPlayerSurvivalGame extends AbstractGame {
      */
     public MultiPlayerSurvivalGame(Room room) {
         super(room);
-
+        players = new ArrayList<>();
     }
 
     /**

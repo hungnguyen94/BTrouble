@@ -24,11 +24,9 @@ public class Level implements LevelSubject, Drawable {
     private List<Movable> movables;
     private List<LevelObserver> observersList;
     private boolean levelRunning;
-    private Controller ultimateController;
+    private Controller mainController;
     private BubbleController bubbleController;
-    private PowerUpController powerUpController;
     private RopeController ropeController;
-    private CollisionHandler collisionHandler;
 
     /**
      * Constructor for the level class with room parameter.
@@ -36,17 +34,15 @@ public class Level implements LevelSubject, Drawable {
      */
     public Level(Room room) {
         this.room = room;
-        this.players = new ArrayList<Player>();
+        this.players = new CopyOnWriteArrayList<>();
         this.observersList = new ArrayList<LevelObserver>();
         this.movables = new CopyOnWriteArrayList<>();
-        this.collisionHandler = new CollisionHandler();
-        this.bubbleController = new BubbleController(collisionHandler);
-        this.powerUpController = new PowerUpController(bubbleController);
-        this.ropeController = new RopeController(powerUpController);
-        this.ultimateController = ropeController;
+        this.bubbleController = new BubbleController(new CollisionHandler());
+        this.ropeController = new RopeController(new PowerUpController(bubbleController));
+        this.mainController = ropeController;
 
-        this.ultimateController.addListReference(room.getCollidables());
-        this.ultimateController.addListReference(players);
+        this.mainController.addListReference(room.getCollidables());
+        this.mainController.addListReference(players);
     }
 
     /**
@@ -113,7 +109,7 @@ public class Level implements LevelSubject, Drawable {
      * Calls the move method on all objects in the level.
      */
     public synchronized void moveObjects() {
-        ultimateController.update();
+        mainController.update();
         for(Player player : players) {
             player.move();
         }
@@ -200,7 +196,7 @@ public class Level implements LevelSubject, Drawable {
             }
         }
         room.draw(graphics);
-        ultimateController.draw(graphics);
+        mainController.draw(graphics);
         for(Player player : players) {
             player.draw(graphics);
         }
