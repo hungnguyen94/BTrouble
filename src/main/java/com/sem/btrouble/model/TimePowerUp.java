@@ -18,9 +18,9 @@ import java.util.Map;
  */
 @SuppressWarnings("serial")
 public class TimePowerUp extends GamePowerUp {
-    
+
 	private Image playerIdle;
-	
+
 	/**
 	 * Construct power up bought in the store.
 	 */
@@ -28,7 +28,7 @@ public class TimePowerUp extends GamePowerUp {
 		super();
 		activate();
 	}
-	
+
 	/**
 	 * Construct power up received in the game.
 	 * @param xpos x position
@@ -37,7 +37,7 @@ public class TimePowerUp extends GamePowerUp {
     public TimePowerUp(float xpos, float ypos) {
         super(xpos, ypos, 1);
     }
-    
+
     /**
      * Test if two object are equal of this instance.
      * @param other the object to compare with
@@ -46,7 +46,7 @@ public class TimePowerUp extends GamePowerUp {
     public boolean equals(Object other) {
         if(other instanceof TimePowerUp) {
             TimePowerUp that = (TimePowerUp) other;
-            return this.isFalling() == that.isFalling() 
+            return this.isFalling() == that.isFalling()
                     && Math.abs(this.x - that.x) == 0
                     && Math.abs(this.y - that.y) == 0
                     && Math.abs(this.getVelocityY() - that.getVelocityY()) == 0
@@ -55,7 +55,7 @@ public class TimePowerUp extends GamePowerUp {
             return false;
         }
     }
-    
+
     /**
      * Active power up bought in the store.
      * Active power up.
@@ -65,14 +65,14 @@ public class TimePowerUp extends GamePowerUp {
         timers.addAdditionalTime(50);
     }
 
-    
+
     /**
      * Reset the power up.
      */
     public void reset() {
         GameView.getController().getTimers().resetAdditionalTime();
     }
-    
+
     /**
      * Draw the power up.
      * @param graphics graphics handler.

@@ -15,7 +15,6 @@ import org.newdawn.slick.geom.Shape;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -54,8 +53,6 @@ public class Player extends Rectangle implements Drawable, Movable {
     private ArrayList<Rope> ropes;
     private ArrayList<Observer> observers;
 
-    private List<PowerUpType> powerUps;
-
     /**
      * Constructor for the Player class.
      *
@@ -75,15 +72,22 @@ public class Player extends Rectangle implements Drawable, Movable {
         leftBlocked = false;
         alive = true;
         falling = true;
-        powerUps = new ArrayList<>();
 
         this.observers = new ArrayList<Observer>();
         wallet = new Wallet();
         ropes = new ArrayList<Rope>();
     }
 
-    public void addPowerUp(PowerUpType type) {
-        powerUps.add(type);
+    /**
+     * Reset the player after a level,
+     * while still retaining powerups and stuff.
+     */
+    public void reset() {
+        velocityY = 2;
+        rightBlocked = false;
+        leftBlocked = false;
+        alive = true;
+        falling = true;
     }
 
     /**
@@ -513,6 +517,7 @@ public class Player extends Rectangle implements Drawable, Movable {
         @Override
         public void onCollision(Collidable collider) {
             setAlive(false);
+            loseLife();
         }
     }
 

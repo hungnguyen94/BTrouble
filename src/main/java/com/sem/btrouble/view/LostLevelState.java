@@ -1,9 +1,6 @@
 package com.sem.btrouble.view;
 
-import com.sem.btrouble.SlickApp;
-import com.sem.btrouble.model.Model;
-import com.sem.btrouble.model.Player;
-
+import com.sem.btrouble.BTrouble;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -13,17 +10,16 @@ import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.state.transition.FadeInTransition;
+import org.newdawn.slick.state.transition.BlobbyTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.util.ResourceLoader;
 
 import java.io.InputStream;
-import java.util.ArrayList;
 
 /**
  * Created by rubenwiersma on 22-09-15.
  */
-public class LostLevelView extends BasicGameState {
+public class LostLevelState extends BasicGameState {
     private Image background;
     private TrueTypeFont font;
 
@@ -40,7 +36,6 @@ public class LostLevelView extends BasicGameState {
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         // Set objects to draw
         background = new Image("Sprites/lostlevel1280x720.png");
-
         loadFont();
     }
 
@@ -59,7 +54,11 @@ public class LostLevelView extends BasicGameState {
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
         // Press enter
         if (gc.getInput().isKeyPressed(Input.KEY_RETURN)) {
-            sbg.enterState(1, new FadeOutTransition(), new FadeInTransition());
+            if(BTrouble.getMultiplayer()) {
+                sbg.enterState(2, new FadeOutTransition(), new BlobbyTransition());
+            } else {
+                sbg.enterState(1, new FadeOutTransition(), new BlobbyTransition());
+            }
         }
     }
 
@@ -79,36 +78,11 @@ public class LostLevelView extends BasicGameState {
             throws SlickException {
         graphics.setFont(font);
         background.draw(0f, 0f);
-        drawWallet(graphics);
 
         graphics.drawString("You died. Press enter to restart this Level", 350, 250);
         graphics.drawString("Press enter", 1000, 660);
 
         SpriteSheet livesImage = new SpriteSheet("Sprites/lives_spritesheet.jpg", 381, 171);
-    }
-
-    /**
-     * Draw the value of the wallet.
-     * @param graphics The graphics
-     */
-    public void drawWallet(Graphics graphics) {
-        ArrayList<Player> players = Model.getPlayers();
-        int sum = 0;
-
-        for (int i = 0; i < players.size(); i++) {
-            if (SlickApp.multiplayer() && SlickApp.versus()) {
-                graphics.drawString(
-                        "Wallet Player "
-                                + (i + 1)
-                                + " : "
-                                + Model.getWallet(players.get(i))
-                                        .getValue(), 300 + (i * 450), 450);
-            }
-            sum += players.get(i).getWallet().getValue();
-        }
-        if (!SlickApp.versus() || !SlickApp.multiplayer()) {
-            graphics.drawString("Wallet: " + sum, 500, 660);
-        }
     }
 
     /**

@@ -51,6 +51,7 @@ public class Level implements LevelSubject, Drawable {
      * @param player Player to be added.
      */
     public void addPlayer(Player player) {
+        player.reset();
         players.add(player);
         player.setX(room.getSpawnPositionX());
         player.setY(room.getSpawnPositionY());

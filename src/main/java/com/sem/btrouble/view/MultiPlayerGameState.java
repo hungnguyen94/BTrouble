@@ -2,8 +2,8 @@ package com.sem.btrouble.view;
 
 import com.sem.btrouble.BTrouble;
 import com.sem.btrouble.game.AbstractGame;
-import com.sem.btrouble.game.SinglePlayerGame;
-import com.sem.btrouble.game.SinglePlayerSurvivalGame;
+import com.sem.btrouble.game.MultiPlayerGame;
+import com.sem.btrouble.game.MultiPlayerSurvivalGame;
 import com.sem.btrouble.model.Drawable;
 import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Room;
@@ -22,6 +22,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.BlobbyTransition;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
+import org.newdawn.slick.state.transition.SelectTransition;
 import org.newdawn.slick.util.ResourceLoader;
 
 import java.io.InputStream;
@@ -31,7 +32,7 @@ import java.util.List;
 /**
  * Test state.
  */
-public class GameState extends BasicGameState implements LevelObserver {
+public class MultiPlayerGameState extends BasicGameState implements LevelObserver {
     private TrueTypeFont font;
     private List<Drawable> drawables;
     private Image background;
@@ -65,7 +66,6 @@ public class GameState extends BasicGameState implements LevelObserver {
         }
         drawables = new ArrayList<Drawable>();
         background = new Image("Sprites/background1280x720.png");
-        player = new Player(1f, 1f);
     }
 
     /**
@@ -74,13 +74,14 @@ public class GameState extends BasicGameState implements LevelObserver {
     private void newGame() {
         Room room = new Room();
         room.loadRoom();
-
         if(BTrouble.getSurvival()) {
-            game = new SinglePlayerSurvivalGame(room, this);
+            game = new MultiPlayerSurvivalGame(room, this);
         } else {
-            game = new SinglePlayerGame(room, this);
+            game = new MultiPlayerGame(room, this);
         }
-
+        secondPlayer = new Player(2f, 2f);
+        game.addPlayer(secondPlayer);
+        player = new Player(1f, 1f);
         game.addPlayer(player);
         game.startLevel();
     }
@@ -114,10 +115,30 @@ public class GameState extends BasicGameState implements LevelObserver {
                 game.fireRope(secondPlayer);
             }
         }
-        if (input.isKeyPressed(Input.KEY_ESCAPE)) {
-            sbg.enterState(0, new FadeOutTransition(), new FadeInTransition());
+        if(input.isKeyPressed(Input.KEY_ESCAPE)) {
+            sbg.enterState(0, new SelectTransition(), new SelectTransition());
         }
         game.updateGame();
+    }
+
+    /**
+     * Draw lives on screen.
+     * @param graphics Graphics handler.
+     */
+    public void drawLives(Graphics graphics) {
+        SpriteSheet livesImage = null;
+        graphics.setColor(Color.white);
+        try {
+            livesImage = new SpriteSheet("Sprites/lives_spritesheet.jpg", 381, 171);
+            graphics.setColor(Color.white);
+            graphics.drawString("Player 1: ", 190, 670);
+            livesImage.getSprite(player.getLives(), 0).draw(310, 670, (float) 0.286);
+            graphics.drawString("Player 2: ", 400, 670);
+            livesImage.getSprite(secondPlayer.getLives(), 0).
+                    draw(520, 670, (float) 0.286);
+        } catch(SlickException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -133,21 +154,6 @@ public class GameState extends BasicGameState implements LevelObserver {
         background.draw(0f, 0f);
         draw(graphics);
         drawLives(graphics);
-    }
-
-    /**
-     * Draw lives on screen.
-     * @param graphics Graphics handler.
-     */
-    public void drawLives(Graphics graphics) {
-        SpriteSheet livesImage = null;
-        graphics.setColor(Color.white);
-        try {
-            livesImage = new SpriteSheet("Sprites/lives_spritesheet.jpg", 381, 171);
-            livesImage.getSprite(player.getLives(), 0).draw(190, 670, (float) 0.286);
-        } catch(SlickException e) {
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -171,7 +177,7 @@ public class GameState extends BasicGameState implements LevelObserver {
 
     @Override
     public int getID() {
-        return 1;
+        return 2;
     }
 
     /**
@@ -179,7 +185,7 @@ public class GameState extends BasicGameState implements LevelObserver {
      */
     @Override
     public void levelWon() {
-        stateBasedGame.enterState(0, new FadeInTransition(Color.gray), new BlobbyTransition(Color.red));
+        stateBasedGame.enterState(0, new FadeOutTransition(Color.gray), new BlobbyTransition(Color.red));
     }
 
     /**

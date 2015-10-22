@@ -54,6 +54,7 @@ public class Wallet implements Observer {
      * @param powerUp This powerup will be added.
      */
     public void addPowerUp(PlayerPowerUp powerUp) {
+        removePowerUp(containsPowerUp(powerUp.getClass()));
         powerUpList.add(powerUp);
     }
 
@@ -70,12 +71,13 @@ public class Wallet implements Observer {
      * @param powerUp Powerup
      * @return True if the wallet has the powerup.
      */
-    public boolean containsPowerUp(Class<? extends PlayerPowerUp> powerUp) {
+    public PlayerPowerUp containsPowerUp(Class<? extends PlayerPowerUp> powerUp) {
         for(PlayerPowerUp playerPowerUp : powerUpList) {
-            if(playerPowerUp.getClass() == powerUp)
-                return true;
+            if(playerPowerUp.getClass() == powerUp) {
+                return playerPowerUp;
+            }
         }
-        return false;
+        return null;
     }
 
     /**

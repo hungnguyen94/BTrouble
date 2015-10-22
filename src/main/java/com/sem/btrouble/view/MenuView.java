@@ -1,6 +1,7 @@
 package com.sem.btrouble.view;
 
 import com.sem.btrouble.BTrouble;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -8,12 +9,15 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.gui.MouseOverArea;
+import org.newdawn.slick.openal.Audio;
+import org.newdawn.slick.openal.AudioLoader;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.util.ResourceLoader;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -26,6 +30,7 @@ public class MenuView extends BasicGameState {
     private MouseOverArea multiplayerButton;
     private MouseOverArea versusButton;
     private MouseOverArea survivalButton;
+    private Audio wavEffect;
 
     /**
      * Initialize method of the slick2d library.
@@ -43,6 +48,13 @@ public class MenuView extends BasicGameState {
         multiplayerButton = new MouseOverArea(gc, background, 500, 460, 250, 50);
         versusButton = new MouseOverArea(gc, background, 500, 510, 250, 50);
         survivalButton = new MouseOverArea(gc, background, 500, 560, 250, 50);
+        try {
+            wavEffect = AudioLoader.getAudio("WAV",
+                    ResourceLoader.getResourceAsStream("Bubble_Trouble_Theme.wav"));
+            wavEffect.playAsMusic(1.5f, 1.0f, true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         loadFont();
     }
 
@@ -61,7 +73,11 @@ public class MenuView extends BasicGameState {
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
         //Enter button
         if (gc.getInput().isKeyPressed(Input.KEY_RETURN)) {
-            sbg.enterState(1, new FadeOutTransition(), new FadeInTransition());
+            if(BTrouble.getMultiplayer()) {
+                sbg.enterState(2, new FadeOutTransition(), new FadeInTransition());
+            } else {
+                sbg.enterState(1, new FadeOutTransition(), new FadeInTransition());
+            }
         }
         //Settings
         if (gc.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
@@ -75,12 +91,11 @@ public class MenuView extends BasicGameState {
                 BTrouble.setSurvival(!BTrouble.getSurvival());
             }
         }
-
-//        if(!BTrouble.getAudioOn()) {
-//            wavEffect.stop();
-//        } else if(!wavEffect.isPlaying()) {
-//            wavEffect.playAsMusic(1.0f, 1.0f, true);
-//        }
+        if(wavEffect.isPlaying() && !BTrouble.getAudioOn()) {
+            wavEffect.stop();
+        } else if(!wavEffect.isPlaying()) {
+            wavEffect.playAsSoundEffect(1.4f, 1.f, true);
+        }
     }
 
     /**
@@ -100,7 +115,7 @@ public class MenuView extends BasicGameState {
         background.draw(0f, 0f);
 
         graphics.setFont(font);
-
+        graphics.setColor(Color.white);
         drawAudioButton(graphics);
         drawMultiplayerButton(graphics);
         drawVersusButton(graphics);
@@ -161,6 +176,11 @@ public class MenuView extends BasicGameState {
             survivalSetting = survivalSetting + "off";
         }
         graphics.drawString(survivalSetting, survivalButton.getX(), survivalButton.getY());
+    }
+
+    @Override
+    public void enter(GameContainer container, StateBasedGame game) throws SlickException {
+
     }
 
     /**

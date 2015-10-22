@@ -57,11 +57,11 @@ public class GameView extends BasicGameState implements Observer {
         controller = new OldController(gc);
         soundObserver = new SoundObserver();
         for(Player player: Model.getPlayers()) {
-            controller.registerObserver(player.getWallet());
+//            controller.registerObserver(player.getWallet());
         }
 
-        controller.registerObserver(soundObserver);
-        controller.registerObserver(this);
+//        controller.registerObserver(soundObserver);
+//        controller.registerObserver(this);
 
         timers = controller.getTimers();
         timers.restartTimer();
@@ -93,7 +93,7 @@ public class GameView extends BasicGameState implements Observer {
      */
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
         if (!timers.getCountdownRunning()) {
-            controller.update(delta);
+//            controller.update(delta);
         }
         if(!SlickApp.audioOn()) {
             wavEffect.stop();
@@ -156,7 +156,7 @@ public class GameView extends BasicGameState implements Observer {
                 break;
             default:
                 break;
-                
+
             }
         }
     }

@@ -30,7 +30,7 @@ public class View {
 
     /**
      * View constructor, sets up initial attributes and loads the font.
-     * 
+     *
      * @param gc
      *            GameContainer given by Slick2D
      * @param timers
@@ -58,7 +58,7 @@ public class View {
 
     /**
      * Draws all the elements to the screen.
-     * 
+     *
      * @param graphics
      *            Graphics object from Slick2D
      * @throws SlickException occurs when graphics are invalid
@@ -77,7 +77,7 @@ public class View {
 
     /**
      * Draws the background on the screen.
-     * 
+     *
      * @param graphics
      *            Graphics object from Slick2D
      * @throws SlickException occurs when graphics are invalid
@@ -87,11 +87,11 @@ public class View {
         String backgroundName = "Sprites/background1280x720.png";
         Image background = new Image(backgroundName);
         background.draw(0, 0);
-    } 
+    }
 
     /**
      * Draw the count down timer on screen.
-     * 
+     *
      * @param graphics
      *            Graphics object from Slick2D
      */
@@ -128,7 +128,7 @@ public class View {
 
     /**
      * Draw timer progress bar.
-     * 
+     *
      * @param graphics
      *            Graphics object from Slick2D
      */
@@ -180,7 +180,7 @@ public class View {
         int sum = 0;
         graphics.setColor(Color.white);
         for (int i = 0; i < players.size(); i++) {
-            String value = "Player " + (i + 1) + ": " 
+            String value = "Player " + (i + 1) + ": "
                    + Model.getWallet(Model.getPlayers().get(i)).getValue();
             if (SlickApp.multiplayer() && SlickApp.versus()) {
                 graphics.drawString(value, 900 + i * 190 - font.getWidth(value), 670);
@@ -191,7 +191,7 @@ public class View {
             String score = "" + sum;
             graphics.drawString(score, 1090 - font.getWidth(score), 670);
         }
-        
+
         //String score = "" + Model.getWallet(Model.getPlayers().get(0)).getValue();
         //graphics.drawString(score, 1090 - font.getWidth(score), 670);
     }

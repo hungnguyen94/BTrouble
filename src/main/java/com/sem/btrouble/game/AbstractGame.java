@@ -8,7 +8,6 @@ import com.sem.btrouble.model.Rope;
 import com.sem.btrouble.model.RopeFactory;
 import com.sem.btrouble.observering.Direction;
 import com.sem.btrouble.observering.LevelObserver;
-import com.sem.btrouble.view.GameState;
 import org.newdawn.slick.Graphics;
 
 import javax.swing.Timer;
@@ -22,7 +21,10 @@ import java.util.List;
  */
 public abstract class AbstractGame implements LevelObserver {
     private Level level;
-    private GameState view;
+    private LevelObserver view;
+
+    // Max time in seconds.
+    public static final int maxTime = 30;
 
     /**
      * Constructor for a game.
@@ -36,7 +38,7 @@ public abstract class AbstractGame implements LevelObserver {
      * @param room Room.
      * @param view View connected to this controller.
      */
-    public AbstractGame(Room room, GameState view) {
+    public AbstractGame(Room room, LevelObserver view) {
         this.view = view;
         loadLevel(room);
     }

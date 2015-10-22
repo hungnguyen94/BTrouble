@@ -1,13 +1,19 @@
 package com.sem.btrouble;
 
-import com.sem.btrouble.view.MenuView;
+import com.sem.btrouble.game.AbstractGame;
+import com.sem.btrouble.model.Player;
 import com.sem.btrouble.view.GameState;
+import com.sem.btrouble.view.LostLevelState;
+import com.sem.btrouble.view.MenuView;
+import com.sem.btrouble.view.MultiPlayerGameState;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author Hung
@@ -15,6 +21,9 @@ import java.util.HashMap;
 public class BTrouble extends StateBasedGame {
 
     private static HashMap<String, Boolean> preferences;
+    private AbstractGame game;
+    private List<Player> playerList;
+
     /**
      * Init the Slickapp.
      *
@@ -28,6 +37,8 @@ public class BTrouble extends StateBasedGame {
         preferences.put("multiplayer", false);
         preferences.put("versus", false);
         preferences.put("survival", false);
+        this.game = null;
+        this.playerList = new ArrayList<>();
     }
 
     public static void main(String[] args) {
@@ -49,6 +60,24 @@ public class BTrouble extends StateBasedGame {
     public void initStatesList(GameContainer gameContainer) throws SlickException {
         this.addState(new MenuView());
         this.addState(new GameState());
+        this.addState(new MultiPlayerGameState());
+        this.addState(new LostLevelState());
+    }
+
+    /**
+     * Getter for the game object.
+     * @return The game object.
+     */
+    public AbstractGame getGame() {
+        return game;
+    }
+
+    /**
+     * Setter for the game object.
+     * @param game The game object.
+     */
+    public void setGame(AbstractGame game) {
+        this.game = game;
     }
 
     /**

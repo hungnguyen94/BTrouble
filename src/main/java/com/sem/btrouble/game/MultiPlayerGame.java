@@ -3,7 +3,7 @@ package com.sem.btrouble.game;
 import com.sem.btrouble.model.Bubble;
 import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Room;
-import com.sem.btrouble.view.GameState;
+import com.sem.btrouble.observering.LevelObserver;
 import org.newdawn.slick.Graphics;
 
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ public class MultiPlayerGame extends AbstractGame {
      * @param room Room.
      * @param view View connected to this controller.
      */
-    public MultiPlayerGame(Room room, GameState view) {
+    public MultiPlayerGame(Room room, LevelObserver view) {
         super(room, view);
         players = new ArrayList<>();
     }
