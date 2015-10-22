@@ -14,7 +14,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * This is a end to end test
  */
-public class SinglePlayerEndToEndTest {
+public class SinglePlayerGameTest {
     AbstractGame game;
     Player player;
 

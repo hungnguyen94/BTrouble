@@ -17,12 +17,16 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
+import org.newdawn.slick.openal.Audio;
+import org.newdawn.slick.openal.AudioLoader;
+import org.newdawn.slick.openal.SoundStore;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.util.ResourceLoader;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +41,7 @@ public class GameState extends BasicGameState implements LevelObserver {
     private AbstractGame game;
     private Player player;
     private Player secondPlayer;
+    private Audio wavEffect;
 
     private StateBasedGame stateBasedGame;
 
@@ -62,6 +67,14 @@ public class GameState extends BasicGameState implements LevelObserver {
         }
         drawables = new ArrayList<Drawable>();
         background = new Image("Sprites/background1280x720.png");
+        try {
+            wavEffect = AudioLoader.getAudio("WAV",
+                    ResourceLoader.getResourceAsStream("Bubble_Trouble_Theme.wav"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        wavEffect.playAsSoundEffect(1.0f, 1.0f, true);
+        SoundStore.get().poll(0);
     }
 
     /**
