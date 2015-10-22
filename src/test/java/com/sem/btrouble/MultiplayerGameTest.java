@@ -14,7 +14,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * This is a end to end test
  */
-public class MultiplayerPlayerGameTest {
+public class MultiplayerGameTest {
     AbstractGame game;
     Player player1;
     Player player2;
@@ -38,7 +38,7 @@ public class MultiplayerPlayerGameTest {
     }
 
     @Test
-    public void singlePlayerEndToEndTest() {
+    public void multiPlayerGameTest() {
         game.updateGame();
         assertTrue(game.isLevelRunning());
         for(int i = 0; i < 10; i++) {
