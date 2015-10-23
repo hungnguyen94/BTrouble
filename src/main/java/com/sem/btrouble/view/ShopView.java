@@ -71,7 +71,7 @@ public class ShopView extends BasicGameState {
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
         // Press enter
         if (gc.getInput().isKeyPressed(Input.KEY_RETURN)) {
-            GameView.getController().getTimers().restartTimer();
+//            GameView.getController().getTimers().restartTimer();
             sbg.enterState(1, new FadeOutTransition(), new FadeInTransition());
         }
         int sum = 0;
