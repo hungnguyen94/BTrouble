@@ -2,6 +2,8 @@ package com.sem.btrouble.controller;
 
 import com.sem.btrouble.model.Bubble;
 import com.sem.btrouble.model.Drawable;
+import com.sem.btrouble.model.Model;
+
 import org.newdawn.slick.Graphics;
 
 import java.util.Collection;
@@ -25,6 +27,7 @@ public class BubbleController extends ControllerDecorator implements Drawable {
         super(controller);
         this.controller = controller;
         this.bubbleList = new CopyOnWriteArrayList<>();
+        bubbleList.addAll(Model.getCurrentRoom().getBubbles());
         this.controller.addListReference(this.bubbleList);
     }
 

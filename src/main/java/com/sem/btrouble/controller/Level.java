@@ -2,6 +2,7 @@ package com.sem.btrouble.controller;
 
 import com.sem.btrouble.model.Bubble;
 import com.sem.btrouble.model.Drawable;
+import com.sem.btrouble.model.Model;
 import com.sem.btrouble.model.Movable;
 import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Room;
@@ -142,7 +143,7 @@ public class Level implements LevelSubject, Drawable {
     public boolean isLevelRunning() {
         return levelRunning;
     }
-
+    
     /**
      * This method will lose the level.
      */
@@ -151,6 +152,8 @@ public class Level implements LevelSubject, Drawable {
         for(LevelObserver obj: observersList) {
             obj.levelLost();
         }
+        Model.restartRoom();
+        bubbleController = new BubbleController(new CollisionHandler());
     }
     /**
      * This method will win the level.
@@ -160,6 +163,8 @@ public class Level implements LevelSubject, Drawable {
         for(LevelObserver obj: observersList) {
             obj.levelWon();
         }
+        room = Model.getNextRoom();
+        bubbleController = new BubbleController(new CollisionHandler());
     }
 
     /**
