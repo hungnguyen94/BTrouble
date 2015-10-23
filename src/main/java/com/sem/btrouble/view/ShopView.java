@@ -45,7 +45,7 @@ public class ShopView extends BasicGameState {
      * @param sbg
      *            the reference to the StateBasedGame.
      * @throws SlickException
-     *             when the  game could not be initialized.
+     *             when the game could not be initialized.
      */
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         //Set objects to draw

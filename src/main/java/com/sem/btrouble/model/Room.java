@@ -81,28 +81,6 @@ public class Room implements Serializable, Drawable {
     }
 
     /**
-     * Create an exact copy of the current room with the same parameters and return. 
-     * @return - Return a deep copy of the current room.
-     */
-    public Room copyRoom() {
-        try {
-            ByteArrayOutputStream baOutput = new ByteArrayOutputStream();
-            ObjectOutputStream oOutput = new ObjectOutputStream(baOutput);
-            oOutput.writeObject(this);
-
-            ByteArrayInputStream baInput = new ByteArrayInputStream(baOutput.toByteArray());
-            ObjectInputStream oInput = new ObjectInputStream(baInput);
-            return (Room) oInput.readObject();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    /**
      * Checks whether the provided Object is the same as this Room.
      * 
      * @param other
@@ -232,46 +210,7 @@ public class Room implements Serializable, Drawable {
     public void setSpawnPositionY(int y) {
         this.spawnPositionY = y;
     }
-
-    /**
-     * Method to load a room with default hard coded data.
-     */
-    public void loadRoom() {
-        spawnPositionX = 1280 / 2;
-        spawnPositionY = 400;
-        walls.clear();
-        walls.add(new Wall(0, 0, 20, 720));
-        walls.add(new Wall(1260, 0, 20, 720));
-        floors.clear();
-        floors.add(new Floor(0, 720 - ((720 / 100) * 14),
-                1280, 10));
-        floors.add(new Floor(0, 0, 1280, 50));
-        bubbles.clear();
-        bubbles.add(new Bubble(2, 1280 / 2, 200));
-    }
-
-    /**
-     * Method to load a room with default hard coded data. Temp for test
-     */
-    public void loadRoom2() {
-        spawnPositionX = Model.getRoomWidth() / 4;
-        spawnPositionY = 400;
-        walls.clear();
-        walls.add(new Wall(0, 0, 20, Model.getRoomHeight()));
-        walls.add(new Wall(Model.getRoomWidth(), 0, 20, Model.getRoomHeight()));
-        floors.clear();
-        Floor fTemp = new Floor(0, Model.getRoomHeight() - ((Model.getRoomHeight() / 100) * 14),
-                Model.getRoomWidth(), 10);
-        floors.add(fTemp);
-        moveableBorders.add(fTemp);
-        floors.add(new Floor(0, 0, 1280, 50));
-        bubbles.clear();
-        bubbles.add(new Bubble(2, Model.getRoomWidth() / 5, 200));
-        bubbles.add(new Bubble(2, Model.getRoomWidth() - 100, 250));
-        bubbles.add(new Bubble(2, Model.getRoomWidth() - 200, 200));
-        bubbles.add(new Bubble(2, Model.getRoomWidth() - 300, 100));
-    }
-
+    
     /**
      * Draw the walls and floors.
      *
@@ -279,10 +218,6 @@ public class Room implements Serializable, Drawable {
      */
     @Override
     public void draw(Graphics graphics) {
-        graphics.setColor(Color.blue);
-//        for (Wall w : walls) {
-//            w.draw(graphics);
-//        }
         for (Floor f : floors) {
             f.draw(graphics);
         }
