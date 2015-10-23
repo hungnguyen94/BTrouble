@@ -88,6 +88,7 @@ public class Player extends Rectangle implements Drawable, Movable {
         leftBlocked = false;
         alive = true;
         falling = true;
+        currentRopesCounter = 0;
     }
 
     /**
@@ -119,7 +120,9 @@ public class Player extends Rectangle implements Drawable, Movable {
      * Decreases the counter of current fired rope.
      */
     public void decreaseRopeCount() {
-        currentRopesCounter--;
+        if(currentRopesCounter > 0) {
+            currentRopesCounter--;
+        }
     }
 
     /**
@@ -259,8 +262,9 @@ public class Player extends Rectangle implements Drawable, Movable {
      * Add a life to the player.
      */
     public void addLife() {
-        System.out.println("add lives: " + lives);
-        lives++;
+        if(lives < 5) {
+            lives++;
+        }
     }
 
     /**

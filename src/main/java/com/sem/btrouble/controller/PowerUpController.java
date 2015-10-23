@@ -3,7 +3,7 @@ package com.sem.btrouble.controller;
 import com.sem.btrouble.model.PlayerPowerUp;
 import com.sem.btrouble.model.Bubble;
 import com.sem.btrouble.model.GamePowerUp;
-import com.sem.btrouble.model.PowerUpGenerator;
+import com.sem.btrouble.model.PowerUpFactory;
 import org.newdawn.slick.Graphics;
 
 import java.util.List;
@@ -59,7 +59,10 @@ public class PowerUpController extends ControllerDecorator implements Controller
     public void update() {
         for(Bubble bubble : bubbleList) {
             if(bubble.getCollidedStatus()) {
-                addPowerUp(PowerUpGenerator.generate(bubble.getX(), bubble.getY(), Math.random()));
+                PlayerPowerUp playerPowerUp = PowerUpFactory.generate(bubble.getX(), bubble.getY(), Math.random());
+                if(playerPowerUp != null) {
+                    addPowerUp(playerPowerUp);
+                }
             }
         }
         for(PlayerPowerUp powerUp : playerPowerUpList) {

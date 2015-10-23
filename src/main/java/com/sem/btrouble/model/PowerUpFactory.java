@@ -7,11 +7,7 @@ import java.util.List;
  * @author Martin
  *
  */
-public final class PowerUpGenerator {
-    /**
-     * The constructor should not be called, as this is a utility class.
-     */
-	private PowerUpGenerator() {};
+public final class PowerUpFactory {
 
     /**
      * Generate a random power up.
@@ -21,22 +17,13 @@ public final class PowerUpGenerator {
      * @return the power up
      */
 	public static PlayerPowerUp generate(float x, float y, double random) {
-		PlayerPowerUp power = null;
-		int[] types = getTypes();
-		if (random > 0 && random < 0.1) {
-			if(types[0] == 0) {
-//				power = new TimePowerUp(x, y);
-			}
-		}
-		else if (random >= 0.1 && random < 0.2) {
-			if(types[1] == 0) {
-//				power = new SlowPowerUp(x, y);
-			}
-		}
-		else if (random >= 0.2 && random <= 0.3 && types[2] == 0) {
-		    power = new LifePowerUp(x, y);
-		}
-		return new StayRopePowerUp(x, y, 1000);
+        if((random -= 0.1f) < 0) {
+            return new StayRopePowerUp(x, y, 5000);
+        }
+        if((random -= 0.1f) < 0) {
+            return new LifePowerUp(x, y);
+        }
+        return null;
 	}
 	
 	/**
