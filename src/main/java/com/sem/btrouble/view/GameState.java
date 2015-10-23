@@ -156,6 +156,12 @@ public class GameState extends BasicGameState implements LevelObserver {
         graphics.drawString(String.valueOf(player.getWallet().getValue()), 1000, 660);
     }
 
+    /**
+     * This is run when this state is entered.
+     * @param container gamecontainer
+     * @param game statebasedgame
+     * @throws SlickException exception from slick2d
+     */
     @Override
     public void enter(GameContainer container, StateBasedGame game) throws SlickException {
         if(this.game == null || !this.game.isLevelRunning()) {
@@ -163,6 +169,10 @@ public class GameState extends BasicGameState implements LevelObserver {
         }
     }
 
+    /**
+     * Return the id of this state.
+     * @return state id
+     */
     @Override
     public int getID() {
         return 1;

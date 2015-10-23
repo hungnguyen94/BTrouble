@@ -179,6 +179,12 @@ public class MultiPlayerGameState extends BasicGameState implements LevelObserve
         graphics.drawString("Player 2: " + secondPlayer.getWallet().getValue(), 950, 685);
     }
 
+    /**
+     * This is run when this state is entered.
+     * @param container gamecontainer
+     * @param game statebasedgame
+     * @throws SlickException exception from slick2d
+     */
     @Override
     public void enter(GameContainer container, StateBasedGame game) throws SlickException {
         if(this.game == null || !this.game.isLevelRunning()) {
@@ -186,6 +192,10 @@ public class MultiPlayerGameState extends BasicGameState implements LevelObserve
         }
     }
 
+    /**
+     * Returns the id of this state.
+     * @return state id.
+     */
     @Override
     public int getID() {
         return 2;
