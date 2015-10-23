@@ -34,6 +34,15 @@ public class MultiPlayerGame extends AbstractGame {
     }
 
     /**
+     * Start the level.
+     */
+    @Override
+    public void startLevel() {
+        getLevelTimer().start();
+        getLevel().start();
+    }
+
+    /**
      * Code in this method is run in the game loop.
      */
     @Override
@@ -94,9 +103,9 @@ public class MultiPlayerGame extends AbstractGame {
     @Override
     public void levelLost() {
         getLevel().stop();
+        getLevelTimer().stop();
         if(anyPlayerHasLife()) {
             System.out.println("Level restart");
-            //startLevel();
         } else {
             // End game.
             System.out.println("Game has ended");

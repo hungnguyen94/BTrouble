@@ -140,7 +140,6 @@ public class View {
                 timerBar.getHeight());
         graphics.setColor(Color.lightGray);
         graphics.draw(timerBar);
-
     }
 
     /**

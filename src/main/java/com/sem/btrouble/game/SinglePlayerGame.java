@@ -4,7 +4,6 @@ import com.sem.btrouble.model.Bubble;
 import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Room;
 import com.sem.btrouble.observering.LevelObserver;
-import org.newdawn.slick.Graphics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +30,15 @@ public class SinglePlayerGame extends AbstractGame {
      */
     public SinglePlayerGame(Room room, LevelObserver view) {
         super(room, view);
+    }
+
+    /**
+     * Start the level.
+     */
+    @Override
+    public void startLevel() {
+        getLevelTimer().start();
+        getLevel().start();
     }
 
     /**
@@ -82,15 +90,12 @@ public class SinglePlayerGame extends AbstractGame {
     public void levelLost() {
         getLevel().stop();
         if(player.hasLives()) {
+            getLevelTimer().stop();
             System.out.println("Level restart");
-            //startLevel();
+            //startGame();
         } else {
             // End game.
             System.out.println("Game has ended");
         }
-    }
-
-    public void draw(Graphics graphics) {
-        getLevel().draw(graphics);
     }
 }

@@ -115,7 +115,7 @@ public class MultiPlayerSurvivalGame extends AbstractGame {
         getLevel().stop();
         if(anyPlayerHasLife()) {
             System.out.println("Level restart");
-            //startLevel();
+            //startGame();
         } else {
             // End game.
             System.out.println("Game has ended");

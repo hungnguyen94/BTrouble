@@ -144,6 +144,25 @@ public class Level implements LevelSubject, Drawable {
     }
 
     /**
+     * This method will lose the level.
+     */
+    public void loseLevel() {
+        stop();
+        for(LevelObserver obj: observersList) {
+            obj.levelLost();
+        }
+    }
+    /**
+     * This method will win the level.
+     */
+    public void winLevel() {
+        stop();
+        for(LevelObserver obj: observersList) {
+            obj.levelWon();
+        }
+    }
+
+    /**
      * Register an observer to the subject.
      *
      * @param observer Observer to be added.
@@ -172,14 +191,10 @@ public class Level implements LevelSubject, Drawable {
     @Override
     public void notifyObserver() {
         if(!playersAlive()) {
-            for(LevelObserver obj: observersList) {
-                obj.levelLost();
-            }
+            loseLevel();
         }
         if(bubbleController.getSize() <= 0) {
-            for(LevelObserver obj: observersList) {
-                obj.levelWon();
-            }
+            winLevel();
         }
     }
 

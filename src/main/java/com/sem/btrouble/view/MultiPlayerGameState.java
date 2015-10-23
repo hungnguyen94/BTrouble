@@ -83,7 +83,7 @@ public class MultiPlayerGameState extends BasicGameState implements LevelObserve
         game.addPlayer(secondPlayer);
         player = new Player(1f, 1f);
         game.addPlayer(player);
-        game.startLevel();
+        game.startGame();
     }
 
     /**

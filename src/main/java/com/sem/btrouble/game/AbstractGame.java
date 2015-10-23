@@ -8,6 +8,7 @@ import com.sem.btrouble.model.Rope;
 import com.sem.btrouble.model.RopeFactory;
 import com.sem.btrouble.observering.Direction;
 import com.sem.btrouble.observering.LevelObserver;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
 import javax.swing.Timer;
@@ -22,15 +23,19 @@ import java.util.List;
 public abstract class AbstractGame implements LevelObserver {
     private Level level;
     private LevelObserver view;
+    private Timer levelTimer;
 
     // Max time in seconds.
-    public static final int maxTime = 30;
+    public static final int MAX_GAME_DURATION = 3000;
+    private int currentTime;
 
     /**
      * Constructor for a game.
+     * @param room Room
      */
     public AbstractGame(Room room) {
         loadLevel(room);
+        currentTime = 0;
     }
 
     /**
@@ -41,13 +46,14 @@ public abstract class AbstractGame implements LevelObserver {
     public AbstractGame(Room room, LevelObserver view) {
         this.view = view;
         loadLevel(room);
+        currentTime = 0;
     }
 
     /**
      * Returns the level.
      * @return Returns the level.
      */
-    protected Level getLevel() {
+    public Level getLevel() {
         return level;
     }
 
@@ -63,14 +69,14 @@ public abstract class AbstractGame implements LevelObserver {
     }
 
     /**
-     * Start the level in a separate thread.
-     * AbstractGame is independent from the view, and can be run headless.
+     * Start the game.
      */
-    public void startLevel() {
+    public void startGame() {
+        levelTimer = new Timer(100, new LevelTimerActionListener());
         Timer t1 = new Timer(100, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                level.start();
+                startLevel();
                 System.out.println("LEVEL STARTED");
             }
         });
@@ -78,6 +84,13 @@ public abstract class AbstractGame implements LevelObserver {
         t1.setInitialDelay(2000);
         t1.start();
         spawnBubbles();
+    }
+
+    /**
+     * Starts the level.
+     */
+    public void startLevel() {
+        level.start();
     }
 
     /**
@@ -120,7 +133,10 @@ public abstract class AbstractGame implements LevelObserver {
         }
     }
 
-    // PlayerController?
+    /**
+     * This fires a rope.
+     * @param player Owner of the rope.
+     */
     public void fireRope(Player player) {
         if(player.canFireRope() && player.isAlive()) {
             Rope rope = RopeFactory.makeRope(player);
@@ -148,7 +164,54 @@ public abstract class AbstractGame implements LevelObserver {
         return level.isLevelRunning();
     }
 
+    /**
+     * Getter for leveltimer.
+     * @return leveltimer.
+     */
+    public Timer getLevelTimer() {
+        return levelTimer;
+    }
+
+    /**
+     * This draws the level.
+     * @param graphics graphics handler.
+     */
     public void draw(Graphics graphics) {
         level.draw(graphics);
+        drawTimer(graphics);
+    }
+
+    /**
+     * Draw timer progress bar.
+     *
+     * @param graphics
+     *            Graphics object from Slick2D
+     */
+    private void drawTimer(Graphics graphics) {
+        if(levelTimer.isRunning()) {
+            graphics.setColor(Color.darkGray);
+            graphics.fillRect(200, 634,
+                    (int) (880 * (MAX_GAME_DURATION - currentTime) / MAX_GAME_DURATION),
+                    20);
+        }
+    }
+
+    /**
+     * ActionListener for the levelTimer timer. Specifies what actions should be
+     * executed every timer cycle.
+     */
+    class LevelTimerActionListener implements ActionListener {
+        /**
+         * Perform action.
+         * @param event the event
+         */
+        public void actionPerformed(ActionEvent event) {
+            if(currentTime < MAX_GAME_DURATION) {
+                currentTime++;
+            } else {
+                level.loseLevel();
+                levelTimer.stop();
+            }
+        }
     }
 }

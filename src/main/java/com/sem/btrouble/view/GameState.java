@@ -82,7 +82,7 @@ public class GameState extends BasicGameState implements LevelObserver {
         }
 
         game.addPlayer(player);
-        game.startLevel();
+        game.startGame();
     }
 
     /**

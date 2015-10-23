@@ -26,7 +26,7 @@ public class SinglePlayerSurvivalTest {
         game = new SinglePlayerSurvivalGame(room);
         game.addPlayer(player);
         assertFalse(game.isLevelRunning());
-        game.startLevel();
+        game.startGame();
         try {
             Thread.sleep(3000);
         } catch(InterruptedException e) {

@@ -100,7 +100,7 @@ public class SinglePlayerSurvivalGame extends AbstractGame {
         getLevel().stop();
         if(player.hasLives()) {
             System.out.println("Level restart");
-            //startLevel();
+            //startGame();
         } else {
             // End game.
             System.out.println("Game has ended");

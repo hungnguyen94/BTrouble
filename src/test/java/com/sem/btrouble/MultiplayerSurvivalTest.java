@@ -29,7 +29,7 @@ public class MultiplayerSurvivalTest {
         game.addPlayer(player1);
         game.addPlayer(player2);
         assertFalse(game.isLevelRunning());
-        game.startLevel();
+        game.startGame();
         try {
             Thread.sleep(3000);
         } catch(InterruptedException e) {
