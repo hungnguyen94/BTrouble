@@ -1,5 +1,6 @@
 package com.sem.btrouble.model;
 
+import com.sem.btrouble.SlickApp;
 import com.sem.btrouble.controller.Collidable;
 
 import org.newdawn.slick.Color;
@@ -46,8 +47,8 @@ public class Room implements Serializable, Drawable {
         spawnPositionY = 0;
         try {
             setBackground(new Image("Sprites/background1280x720.png"));
-        } catch (SlickException e) {
-            e.printStackTrace();
+        } catch (RuntimeException | SlickException e) {
+            System.out.println("Images ignored.");
         }
     }
 
@@ -75,8 +76,8 @@ public class Room implements Serializable, Drawable {
         spawnPositionY = spawnY;
         try {
             setBackground(new Image("Sprites/" + backgroundLocation));
-        } catch (SlickException e) {
-            e.printStackTrace();
+        } catch (RuntimeException | SlickException e) {
+            System.out.println("Images ignored.");
         }
     }
 

@@ -31,6 +31,7 @@ public class SlickApp extends StateBasedGame implements Subject {
     public static final int DEFAULT_FRAMERATE = 60;
     private static Logger logger;
     private ArrayList<Observer> observers;
+    private static AppGameContainer gameContainer;
 
     /**
      * Init the Slickapp.
@@ -58,14 +59,13 @@ public class SlickApp extends StateBasedGame implements Subject {
      */
     public static void main(String[] args) {
         try {
-            AppGameContainer appgc;
-            appgc = new AppGameContainer(new SlickApp("Bubble Trouble"));
-            appgc.setDisplayMode(SCREEN_WIDTH, SCREEN_HEIGHT, false);
-            appgc.setShowFPS(false);
-            appgc.setVSync(true);
-            appgc.setTargetFrameRate(DEFAULT_FRAMERATE);
-            appgc.setAlwaysRender(true);
-            appgc.start();
+            gameContainer = new AppGameContainer(new SlickApp("Bubble Trouble"));
+            gameContainer.setDisplayMode(SCREEN_WIDTH, SCREEN_HEIGHT, false);
+            gameContainer.setShowFPS(false);
+            gameContainer.setVSync(true);
+            gameContainer.setTargetFrameRate(DEFAULT_FRAMERATE);
+            gameContainer.setAlwaysRender(true);
+            gameContainer.start();
         } catch (SlickException exception) {
             exception.printStackTrace();
         }
@@ -193,5 +193,9 @@ public class SlickApp extends StateBasedGame implements Subject {
     @Override
     public void removeObserver(Observer observer) {
         observers.remove(observer);
+    }
+
+    public static AppGameContainer getGameContainer() {
+        return gameContainer;
     }
 }

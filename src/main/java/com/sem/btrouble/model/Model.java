@@ -57,6 +57,14 @@ public class Model {
     public static Wallet getWallet(Player player) {
         return player.getWallet();
     }
+    
+    /**
+     * Get the DataLoader of the Model
+     * @return returns the DataLoader of the model.
+     */
+    public static DataLoader getDataLoader() {
+        return dataLoader;
+    }
 
     /**
      * Getter for timers.

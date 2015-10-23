@@ -13,7 +13,7 @@ import com.sem.btrouble.tools.DataLoader;
  * @author Martin
  *
  */
-public class FloorTest {
+public class FloorTest2 {
 
     private Floor floor = new Floor(1, 1, 1, 1);
 
@@ -33,6 +33,7 @@ public class FloorTest {
     public void moveLeftTest() {
         floor.moveLeft();
         assertEquals(0.9, floor.getX(), 0.01);
+        DataLoader dataloader = new DataLoader("test");
     }
 
     /**
