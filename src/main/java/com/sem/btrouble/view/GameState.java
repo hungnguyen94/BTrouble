@@ -4,6 +4,7 @@ import com.sem.btrouble.BTrouble;
 import com.sem.btrouble.game.AbstractGame;
 import com.sem.btrouble.game.SinglePlayerGame;
 import com.sem.btrouble.game.SinglePlayerSurvivalGame;
+import com.sem.btrouble.model.Model;
 import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Room;
 import com.sem.btrouble.observering.Direction;
@@ -30,10 +31,8 @@ import java.io.InputStream;
  */
 public class GameState extends BasicGameState implements LevelObserver {
     private TrueTypeFont font;
-    private Image background;
     private AbstractGame game;
     private Player player;
-    private GameContainer gameContainer;
     private StateBasedGame stateBasedGame;
 
     /**
@@ -45,7 +44,6 @@ public class GameState extends BasicGameState implements LevelObserver {
      */
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        this.gameContainer = gc;
         this.stateBasedGame = sbg;
         // load font from a .ttf file
         try {
@@ -57,16 +55,15 @@ public class GameState extends BasicGameState implements LevelObserver {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        background = new Image("Sprites/background1280x720.png");
         player = new Player(1f, 1f);
+        Model.init(gc.getScreenWidth(), gc.getScreenHeight());
     }
 
     /**
      * Loads a new game.
      */
     private void newGame() {
-        Room room = new Room();
-        room.loadRoom();
+        Room room = Model.getCurrentRoom();
 
         if(BTrouble.getSurvival()) {
             game = new SinglePlayerSurvivalGame(room, this);
@@ -113,7 +110,6 @@ public class GameState extends BasicGameState implements LevelObserver {
      */
     public void render(GameContainer gc, StateBasedGame sbg, Graphics graphics)
             throws SlickException {
-        background.draw(0f, 0f);
         draw(graphics);
         drawLives(graphics);
     }

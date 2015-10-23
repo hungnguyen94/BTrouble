@@ -1,6 +1,7 @@
 package com.sem.btrouble;
 
 import com.sem.btrouble.game.AbstractGame;
+import com.sem.btrouble.model.Model;
 import com.sem.btrouble.model.Player;
 import com.sem.btrouble.view.GameState;
 import com.sem.btrouble.view.LostLevelState;

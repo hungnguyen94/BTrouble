@@ -4,6 +4,8 @@ import com.sem.btrouble.controller.Collidable;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -28,6 +30,7 @@ public class Room implements Serializable, Drawable {
     private List<Wall> walls;
     private List<Floor> floors;
     private List<Bubble> bubbles;
+    private Image background;
 
     private List<Collidable> moveableBorders;
 
@@ -41,6 +44,11 @@ public class Room implements Serializable, Drawable {
         moveableBorders = new ArrayList<Collidable>();
         spawnPositionX = 0;
         spawnPositionY = 0;
+        try {
+            setBackground(new Image("Sprites/background1280x720.png"));
+        } catch (RuntimeException | SlickException e) {
+            System.out.println("Images ignored.");
+        }
     }
 
     /**
@@ -58,35 +66,55 @@ public class Room implements Serializable, Drawable {
      *            - spawn position on y-axis
      */
     public Room(List<Wall> walls, List<Floor> floors, List<Bubble> bubbles, int spawnX,
-            int spawnY) {
+        int spawnY, String background) {
         this.walls = walls;
         this.floors = floors;
         this.bubbles = bubbles;
         this.moveableBorders = new ArrayList<Collidable>();
         spawnPositionX = spawnX;
         spawnPositionY = spawnY;
+        try {
+            setBackground(new Image("Sprites/"+background));
+        } catch (RuntimeException | SlickException e) {
+            System.out.println("Images ignored.");
+        }
     }
 
     /**
-     * Create an exact copy of the current room with the same parameters and return. 
-     * @return - Return a deep copy of the current room.
+     * Returns the background of the room.
+     * 
+     * @return returns the background of the room.
      */
-    public Room copyRoom() {
-        try {
-            ByteArrayOutputStream baOutput = new ByteArrayOutputStream();
-            ObjectOutputStream oOutput = new ObjectOutputStream(baOutput);
-            oOutput.writeObject(this);
+    public Image getBackground() {
+        return background;
+    }
 
-            ByteArrayInputStream baInput = new ByteArrayInputStream(baOutput.toByteArray());
-            ObjectInputStream oInput = new ObjectInputStream(baInput);
-            return (Room) oInput.readObject();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        }
+    /**
+     * Returns the walls in the room.
+     * 
+     * @return returns the walls in the room
+     */
+    public List<Wall> getWalls() {
+        return walls;
+    }
+
+    /**
+     * Returns the floors in the room.
+     * 
+     * @return returns the floors in the room
+     */
+    public List<Floor> getFloors() {
+        return floors;
+    }
+
+    /**
+     * Sets the background of the room.
+     * 
+     * @param background
+     *            should be the background the room should have.
+     */
+    public void setBackground(Image background) {
+        this.background = background;
     }
 
     /**
@@ -106,9 +134,10 @@ public class Room implements Serializable, Drawable {
         }
         return false;
     }
-    
+
     /**
      * HashCode because of implemented equals method.
+     * 
      * @return hashCode
      */
     public int hashCode() {
@@ -125,8 +154,8 @@ public class Room implements Serializable, Drawable {
         ArrayList<Collidable> allCollidables = new ArrayList<Collidable>();
         allCollidables.addAll(walls);
         allCollidables.addAll(floors);
-//        allCollidables.addAll(bubbles);
-//        allCollidables.addAll(moveableBorders);
+        // allCollidables.addAll(bubbles);
+        // allCollidables.addAll(moveableBorders);
         return allCollidables;
     }
 
@@ -139,8 +168,8 @@ public class Room implements Serializable, Drawable {
         Collection<Collection<? extends Collidable>> allCollidables = new ArrayList<>();
         allCollidables.add(walls);
         allCollidables.add(floors);
-//        allCollidables.addAll(bubbles);
-//        allCollidables.addAll(moveableBorders);
+        // allCollidables.addAll(bubbles);
+        // allCollidables.addAll(moveableBorders);
         return allCollidables;
     }
 
@@ -217,69 +246,38 @@ public class Room implements Serializable, Drawable {
     public int getSpawnPositionY() {
         return spawnPositionY;
     }
-    
+
     /**
      * Set the position x.
-     * @param x position x
+     * 
+     * @param x
+     *            position x
      */
     public void setSpawnPositionX(int x) {
         this.spawnPositionX = x;
     }
-    
+
     /**
      * Set the position y.
-     * @param y position y
+     * 
+     * @param y
+     *            position y
      */
     public void setSpawnPositionY(int y) {
         this.spawnPositionY = y;
     }
 
     /**
-     * Method to load a room with default hard coded data.
-     */
-    public void loadRoom() {
-        spawnPositionX = 1280 / 2;
-        spawnPositionY = 400;
-        walls.clear();
-        walls.add(new Wall(0, 0, 20, 720));
-        walls.add(new Wall(1260, 0, 20, 720));
-        floors.clear();
-        floors.add(new Floor(0, 720 - ((720 / 100) * 14),
-                1280, 10));
-        floors.add(new Floor(0, 0, 1280, 50));
-        bubbles.clear();
-        bubbles.add(new Bubble(2, 1280 / 2, 200));
-    }
-
-    /**
-     * Method to load a room with default hard coded data. Temp for test
-     */
-    public void loadRoom2() {
-        spawnPositionX = Model.getRoomWidth() / 4;
-        spawnPositionY = 400;
-        walls.clear();
-        walls.add(new Wall(0, 0, 20, Model.getRoomHeight()));
-        walls.add(new Wall(Model.getRoomWidth(), 0, 20, Model.getRoomHeight()));
-        floors.clear();
-        Floor fTemp = new Floor(0, Model.getRoomHeight() - ((Model.getRoomHeight() / 100) * 14),
-                Model.getRoomWidth(), 10);
-        floors.add(fTemp);
-        moveableBorders.add(fTemp);
-        floors.add(new Floor(0, 0, 1280, 50));
-        bubbles.clear();
-        bubbles.add(new Bubble(2, Model.getRoomWidth() / 5, 200));
-        bubbles.add(new Bubble(2, Model.getRoomWidth() - 100, 250));
-        bubbles.add(new Bubble(2, Model.getRoomWidth() - 200, 200));
-        bubbles.add(new Bubble(2, Model.getRoomWidth() - 300, 100));
-    }
-
-    /**
      * Draw the walls and floors.
      *
-     * @param graphics The graphics
+     * @param graphics
+     *            The graphics
      */
     @Override
     public void draw(Graphics graphics) {
+        if(background != null){
+            background.draw(0f, 0f);
+        }
         graphics.setColor(Color.blue);
         for (Wall w : walls) {
             w.draw(graphics);
@@ -287,9 +285,13 @@ public class Room implements Serializable, Drawable {
         for (Floor f : floors) {
             f.draw(graphics);
         }
-//        for (Bubble b: bubbles) {
-//            b.draw(graphics);
-//        }
+         for (Bubble b: bubbles) {
+         b.draw(graphics);
+         }
+    }
+
+    public void addMovables(ArrayList<Floor> movableFloors) {
+        moveableBorders.addAll(movableFloors);
     }
 
 }

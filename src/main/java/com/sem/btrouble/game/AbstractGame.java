@@ -62,7 +62,6 @@ public abstract class AbstractGame implements LevelObserver {
      * @param room Room of the level that should be loaded.
      */
     public void loadLevel(Room room) {
-        room.loadRoom();
         this.level = new Level(room);
         level.registerObserver(this);
         level.registerObserver(view);
@@ -83,7 +82,6 @@ public abstract class AbstractGame implements LevelObserver {
         t1.setRepeats(false);
         t1.setInitialDelay(2000);
         t1.start();
-        spawnBubbles();
     }
 
     /**
@@ -142,18 +140,6 @@ public abstract class AbstractGame implements LevelObserver {
             Rope rope = RopeFactory.makeRope(player);
             level.addRope(rope);
         }
-    }
-
-    /**
-     * Spawns bubbles in the level.
-     */
-    public void spawnBubbles() {
-//        bubbleController.addBubble(new Bubble(3, 500, 200).split());
-        List<Bubble> bubbleList = new ArrayList<>();
-        bubbleList.add(new Bubble(3, 100, 250));
-        bubbleList.add(new Bubble(3, 300, 190));
-        bubbleList.add(new Bubble(3, 700, 150));
-        level.addBubble(bubbleList);
     }
 
     /**

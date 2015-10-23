@@ -4,19 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import com.sem.btrouble.tools.DataLoader;
+
 /**
  * Model contains all data of the game. Model is updated by the Controller and
  * used to draw the View. Model has been split into partial models such as
  * Objects and Players.
  */
 public class Model {
-
-    private static RoomIterator rooms;
+    
     private static ArrayList<Player> players;
     private static Room roomCurrent;
     private static int currentLevel;
     private static List<PlayerPowerUp> powers = new CopyOnWriteArrayList<PlayerPowerUp>();
     private static Timers timers;
+    private static DataLoader dataloader;
 
     private static int roomWidth;
     private static int roomHeight;
@@ -35,15 +37,10 @@ public class Model {
     public static void init(int width, int height) {
         roomWidth = width;
         roomHeight = height;
-        rooms = new RoomIterator();
         players = new ArrayList<Player>();
-        currentLevel = 1;
-        Room r = new Room();
-        Room r2 = new Room();
-        r.loadRoom();
-        r2.loadRoom2();
-        Model.addRoom(r);
-        Model.addRoom(r2);
+        currentLevel = 0;
+        dataloader = new DataLoader(DataLoader.STANDARD_LOCATION);
+        roomCurrent = dataloader.loadRoom(currentLevel);
         timers = new Timers(DELAY);
     }
 
@@ -65,25 +62,14 @@ public class Model {
     }
 
     /**
-     * Adds a room to the Model's room collection.
-     *
-     * @param room
-     *            should be the Room which is added to the Model's room
-     *            collection
-     */
-    public static void addRoom(Room room) {
-        rooms.add(room);
-    }
-
-    /**
      * Get the next room.
      *
      * @return returns the next room
      */
     public static Room getNextRoom() {
         currentLevel++;
-        if (rooms.hasNext()) {
-            return rooms.next();
+        if (dataloader.hasRoom(currentLevel)) {
+            return dataloader.loadRoom(currentLevel);
         } else {
             return null;
         }
@@ -147,7 +133,7 @@ public class Model {
      * but preserves the players and their scores.
      */
     public static void restartRoom() {
-        roomCurrent = rooms.roomRestart();
+        roomCurrent = dataloader.loadRoom(currentLevel);
         clearPowerUps();
         getTimers().restartTimer();
 

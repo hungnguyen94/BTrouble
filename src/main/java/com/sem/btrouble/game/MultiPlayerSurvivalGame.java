@@ -68,21 +68,7 @@ public class MultiPlayerSurvivalGame extends AbstractGame {
         }
         getLevel().addBubble(bubbleList);
     }
-
-
-    /**
-     * Spawns bubbles in the level.
-     */
-    @Override
-    public void spawnBubbles() {
-//        bubbleController.addBubble(new Bubble(3, 500, 200).split());
-        List<Bubble> bubbleList = new ArrayList<>();
-        bubbleList.add(new Bubble(2, 100, 250));
-        bubbleList.add(new Bubble(1, 300, 190));
-        bubbleList.add(new Bubble(1, 700, 150));
-        getLevel().addBubble(bubbleList);
-    }
-
+    
     /**
      * Returns true if theres a player with
      * a life left.
@@ -96,17 +82,7 @@ public class MultiPlayerSurvivalGame extends AbstractGame {
         }
         return false;
     }
-
-    /**
-     * This method is called when a level is won.
-     */
-    @Override
-    public void levelWon() {
-//        getLevel().stop();
-        spawnBubbles();
-        System.out.println("Level won");
-    }
-
+    
     /**
      * This method is called when a level is lost.
      */
@@ -115,7 +91,7 @@ public class MultiPlayerSurvivalGame extends AbstractGame {
         getLevel().stop();
         if(anyPlayerHasLife()) {
             System.out.println("Level restart");
-            //startGame();
+            getLevel().loseLevel();
         } else {
             // End game.
             System.out.println("Game has ended");
@@ -124,5 +100,10 @@ public class MultiPlayerSurvivalGame extends AbstractGame {
 
     public void draw(Graphics graphics) {
         getLevel().draw(graphics);
+    }
+
+    @Override
+    public void levelWon() {
+        System.out.println("Level won");
     }
 }

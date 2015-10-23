@@ -67,28 +67,12 @@ public class SinglePlayerSurvivalGame extends AbstractGame {
         }
         getLevel().addBubble(bubbleList);
     }
-
-
-    /**
-     * Spawns bubbles in the level.
-     */
-    @Override
-    public void spawnBubbles() {
-//        bubbleController.addBubble(new Bubble(3, 500, 200).split());
-        List<Bubble> bubbleList = new ArrayList<>();
-        bubbleList.add(new Bubble(3, 100, 250));
-        bubbleList.add(new Bubble(3, 300, 190));
-        bubbleList.add(new Bubble(3, 700, 150));
-        getLevel().addBubble(bubbleList);
-    }
-
+    
     /**
      * This method is called when a level is won.
      */
     @Override
     public void levelWon() {
-//        getLevel().stop();
-        spawnBubbles();
         System.out.println("Level won");
     }
 

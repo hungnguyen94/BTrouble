@@ -5,6 +5,7 @@ import com.sem.btrouble.game.AbstractGame;
 import com.sem.btrouble.game.MultiPlayerGame;
 import com.sem.btrouble.game.MultiPlayerSurvivalGame;
 import com.sem.btrouble.model.Drawable;
+import com.sem.btrouble.model.Model;
 import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Room;
 import com.sem.btrouble.observering.Direction;
@@ -72,8 +73,7 @@ public class MultiPlayerGameState extends BasicGameState implements LevelObserve
      * Loads a new game.
      */
     private void newGame() {
-        Room room = new Room();
-        room.loadRoom();
+        Room room = Model.getCurrentRoom();
         if(BTrouble.getSurvival()) {
             game = new MultiPlayerSurvivalGame(room, this);
         } else {
