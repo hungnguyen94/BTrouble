@@ -36,8 +36,6 @@ public class ModelTest extends Model {
     @Before
     public void setUp() {
         Model.init(1280, 720);
-        Model.getNextRoom();
-        Model.getNextRoom();
     }
 
     /**

@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import com.sem.btrouble.model.Floor;
+import com.sem.btrouble.tools.DataLoader;
 
 /**
  * Test the floor class.

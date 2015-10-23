@@ -100,7 +100,7 @@ public class Wall extends Rectangle implements Drawable, Collidable {
      */
     @Override
     public void draw(Graphics graphics) {
-        graphics.setColor(Color.black);
+        graphics.setColor(Color.blue);
         graphics.setLineWidth(2);
         graphics.draw(this);
         graphics.setLineWidth(1);
