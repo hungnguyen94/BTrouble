@@ -42,7 +42,7 @@ public class DataLoader {
         return room;
     }
 
-    private Room parseRoom(Node item) {
+    public Room parseRoom(Node item) {
         Room room = new Room();
         try {
             if (item.getNodeType() == Node.ELEMENT_NODE) {
@@ -68,7 +68,7 @@ public class DataLoader {
         return room;
     }
 
-    private ArrayList<Floor> parseMovableFloors(Element levelData) {
+    public ArrayList<Floor> parseMovableFloors(Element levelData) {
         NodeList floorData = levelData.getElementsByTagName("MovableFloor");
         ArrayList<Floor> floors = new ArrayList<Floor>();
         NamedNodeMap attributes;
@@ -86,7 +86,7 @@ public class DataLoader {
         return floors;
     }
 
-    private ArrayList<Wall> parseWalls(Element levelData) {
+    public ArrayList<Wall> parseWalls(Element levelData) {
         NodeList wallData = levelData.getElementsByTagName("Wall");
         ArrayList<Wall> walls = new ArrayList<Wall>();
         NamedNodeMap attributes;
@@ -103,7 +103,7 @@ public class DataLoader {
         return walls;
     }
 
-    private ArrayList<Floor> parseFloors(Element levelData) {
+    public ArrayList<Floor> parseFloors(Element levelData) {
         NodeList floorData = levelData.getElementsByTagName("Floor");
         ArrayList<Floor> floors = new ArrayList<Floor>();
         NamedNodeMap attributes;
@@ -121,7 +121,7 @@ public class DataLoader {
         return floors;
     }
 
-    private ArrayList<Bubble> parseBubbles(Element levelData) {
+    public ArrayList<Bubble> parseBubbles(Element levelData) {
         NodeList bubbleData = levelData.getElementsByTagName("Bubble");
         ArrayList<Bubble> bubbles = new ArrayList<Bubble>();
         NamedNodeMap attributes;

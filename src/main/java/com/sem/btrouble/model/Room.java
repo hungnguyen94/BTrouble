@@ -66,8 +66,8 @@ public class Room implements Serializable, Drawable {
      * @param spawnY
      *            - spawn position on y-axis
      */
-    public Room(List<Wall> walls, List<Floor> floors, List<Bubble> bubbles, int spawnX,
-            int spawnY, String backgroundLocation) {
+    public Room(List<Wall> walls, List<Floor> floors, List<Bubble> bubbles, int spawnX, int spawnY,
+            String backgroundLocation) {
         this.walls = walls;
         this.floors = floors;
         this.bubbles = bubbles;
@@ -79,6 +79,23 @@ public class Room implements Serializable, Drawable {
         } catch (RuntimeException | SlickException e) {
             System.out.println("Images ignored.");
         }
+    }
+
+    /**
+     * Returns the walls in the room.
+     * 
+     * @return returns the walls in the room
+     */
+    public List<Wall> getWalls() {
+        return walls;
+    }
+
+    /**
+     * Returns the floors in the room.
+     * @return returns the floors in the room
+     */
+    public List<Floor> getFloors() {
+        return floors;
     }
 
     /**
@@ -98,9 +115,10 @@ public class Room implements Serializable, Drawable {
         }
         return false;
     }
-    
+
     /**
      * HashCode because of implemented equals method.
+     * 
      * @return hashCode
      */
     public int hashCode() {
@@ -195,34 +213,39 @@ public class Room implements Serializable, Drawable {
     public int getSpawnPositionY() {
         return spawnPositionY;
     }
-    
+
     /**
      * Set the position x.
-     * @param x position x
+     * 
+     * @param x
+     *            position x
      */
     public void setSpawnPositionX(int x) {
         this.spawnPositionX = x;
     }
-    
+
     /**
      * Set the position y.
-     * @param y position y
+     * 
+     * @param y
+     *            position y
      */
     public void setSpawnPositionY(int y) {
         this.spawnPositionY = y;
     }
-    
+
     /**
      * Draw the walls and floors.
      *
-     * @param graphics The graphics
+     * @param graphics
+     *            The graphics
      */
     @Override
     public void draw(Graphics graphics) {
         for (Floor f : floors) {
             f.draw(graphics);
         }
-        for (Bubble b: bubbles) {
+        for (Bubble b : bubbles) {
             b.draw(graphics);
         }
     }
