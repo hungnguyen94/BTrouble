@@ -166,6 +166,17 @@ public class MultiPlayerGameState extends BasicGameState implements LevelObserve
 //            drawable.draw(graphics);
 //        }
         game.draw(graphics);
+        drawWallet(graphics);
+    }
+
+    /**
+     * Draws the wallet.
+     * @param graphics graphics
+     */
+    private void drawWallet(Graphics graphics) {
+        graphics.setColor(Color.white);
+        graphics.drawString("Player 1: " + player.getWallet().getValue(), 950, 670);
+        graphics.drawString("Player 2: " + secondPlayer.getWallet().getValue(), 950, 685);
     }
 
     @Override

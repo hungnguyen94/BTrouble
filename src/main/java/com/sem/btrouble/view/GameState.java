@@ -4,7 +4,6 @@ import com.sem.btrouble.BTrouble;
 import com.sem.btrouble.game.AbstractGame;
 import com.sem.btrouble.game.SinglePlayerGame;
 import com.sem.btrouble.game.SinglePlayerSurvivalGame;
-import com.sem.btrouble.model.Drawable;
 import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Room;
 import com.sem.btrouble.observering.Direction;
@@ -25,20 +24,15 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.util.ResourceLoader;
 
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Test state.
  */
 public class GameState extends BasicGameState implements LevelObserver {
     private TrueTypeFont font;
-    private List<Drawable> drawables;
     private Image background;
     private AbstractGame game;
     private Player player;
-    private Player secondPlayer;
-
     private GameContainer gameContainer;
     private StateBasedGame stateBasedGame;
 
@@ -63,7 +57,6 @@ public class GameState extends BasicGameState implements LevelObserver {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        drawables = new ArrayList<Drawable>();
         background = new Image("Sprites/background1280x720.png");
         player = new Player(1f, 1f);
     }
@@ -103,16 +96,6 @@ public class GameState extends BasicGameState implements LevelObserver {
         }
         if(input.isKeyPressed(Input.KEY_SPACE)) {
             game.fireRope(player);
-        }
-        if(BTrouble.getMultiplayer()) {
-            if (input.isKeyDown(Input.KEY_A)) {
-                game.movePlayer(secondPlayer, Direction.LEFT, delta);
-            } else if (input.isKeyDown(Input.KEY_D)) {
-                game.movePlayer(secondPlayer, Direction.RIGHT, delta);
-            }
-            if(input.isKeyPressed(Input.KEY_W)) {
-                game.fireRope(secondPlayer);
-            }
         }
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
             sbg.enterState(0, new FadeOutTransition(), new FadeInTransition());
@@ -160,6 +143,17 @@ public class GameState extends BasicGameState implements LevelObserver {
 //            drawable.draw(graphics);
 //        }
         game.draw(graphics);
+        drawWallet(graphics);
+    }
+
+    /**
+     * Draws the wallet.
+     * @param graphics graphics
+     */
+    private void drawWallet(Graphics graphics) {
+        graphics.setColor(Color.white);
+        graphics.setFont(font);
+        graphics.drawString(String.valueOf(player.getWallet().getValue()), 1000, 660);
     }
 
     @Override

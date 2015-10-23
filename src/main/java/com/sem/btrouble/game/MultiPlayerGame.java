@@ -68,7 +68,7 @@ public class MultiPlayerGame extends AbstractGame {
      */
     private boolean anyPlayerHasLife() {
         for(Player player : players) {
-            if(player.isAlive()) {
+            if(player.hasLives()) {
                 return true;
             }
         }
@@ -113,6 +113,6 @@ public class MultiPlayerGame extends AbstractGame {
     }
 
     public void draw(Graphics graphics) {
-        getLevel().draw(graphics);
+        super.draw(graphics);
     }
 }

@@ -73,6 +73,14 @@ public class Rope extends Rectangle implements Drawable, Movable {
         }
         return false;
     }
+
+    /**
+     * Getter for the player.
+     * @return player.
+     */
+    public Player getPlayer() {
+        return player;
+    }
     
     /**
      * HashCode because of implemented equals method.

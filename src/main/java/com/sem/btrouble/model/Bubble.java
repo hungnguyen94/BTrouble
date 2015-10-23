@@ -388,6 +388,7 @@ public class Bubble extends Circle implements Drawable, Movable {
             collided = true;
             Rope rope = (Rope) collider;
             rope.setCollided(true);
+            rope.getPlayer().getWallet().increaseValue(BUBBLE_SCORE);
         }
     }
 
