@@ -12,7 +12,7 @@ import com.sem.btrouble.tools.DataLoader;
  * Objects and Players.
  */
 public class Model {
-    
+
     private static ArrayList<Player> players;
     private static Room roomCurrent;
     private static int currentLevel;
@@ -46,15 +46,18 @@ public class Model {
 
     /**
      * Get the wallet of a player.
-     * @param player from who you want the wallet
+     * 
+     * @param player
+     *            from who you want the wallet
      * @return the wallet
      */
     public static Wallet getWallet(Player player) {
-         return player.getWallet();
+        return player.getWallet();
     }
 
     /**
      * Getter for timers.
+     * 
      * @return Timers object
      */
     public static Timers getTimers() {
@@ -95,7 +98,9 @@ public class Model {
 
     /**
      * Remove a player from the model.
-     * @param player Player to be removed
+     * 
+     * @param player
+     *            Player to be removed
      */
     public static void removePlayer(Player player) {
         players.remove(player);
@@ -149,6 +154,7 @@ public class Model {
 
     /**
      * Get all the power ups bought in the store.
+     * 
      * @return the power ups
      */
     public static List<PlayerPowerUp> getPowerUps() {
@@ -157,7 +163,9 @@ public class Model {
 
     /**
      * Add a store power up.
-     * @param power the power up
+     * 
+     * @param power
+     *            the power up
      */
     public static void addPowerUp(PlayerPowerUp power) {
         powers.add(power);
@@ -172,26 +180,31 @@ public class Model {
 
     /**
      * Get power ups received in the game.
+     * 
      * @return the power ups
      */
     public static List<PlayerPowerUp> getShortPower() {
-    	return powers;
+        return powers;
     }
 
     /**
      * Add a power up received in the game.
-     * @param power the power up
+     * 
+     * @param power
+     *            the power up
      */
     public static void addShortPowerUp(PlayerPowerUp power) {
-    	powers.add(power);
+        powers.add(power);
     }
 
     /**
      * Delete a specific power up received in the game.
-     * @param power the power up
+     * 
+     * @param power
+     *            the power up
      */
     public static void deleteShortPower(PlayerPowerUp power) {
-        if(powers.contains(power)) {
+        if (powers.contains(power)) {
             powers.remove(power);
         }
     }
@@ -200,7 +213,7 @@ public class Model {
      * Remove all power ups received in the game.
      */
     public static void clearShortPower() {
-    	clearPowerUps();
+        clearPowerUps();
     }
 
     /**
@@ -220,5 +233,9 @@ public class Model {
      */
     public static int getRoom_current() {
         return currentLevel;
+    }
+
+    public static DataLoader getDataLoader() {
+        return dataloader;
     }
 }

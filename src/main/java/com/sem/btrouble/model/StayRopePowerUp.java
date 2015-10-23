@@ -25,7 +25,7 @@ public class StayRopePowerUp extends PlayerPowerUp {
      * @param player Player to apply the powerUp to.
      */
     @Override
-    public void activate(Player player) {
+    public void activate(final Player player) {
         player.getWallet().addPowerUp(this);
         startExpirationTimer(new ActionListener() {
             @Override
