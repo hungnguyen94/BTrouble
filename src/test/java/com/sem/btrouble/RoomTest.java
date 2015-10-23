@@ -43,7 +43,7 @@ public class RoomTest {
         room = new Room();
         Model.init(1280, 720);
         Model.addPlayer(player);
-        Model.addRoom(room);
+//        Model.addRoom(room);
     }
 
     /**
@@ -72,7 +72,7 @@ public class RoomTest {
     @Test
     public void testGetBubbles() {
         assertTrue(room.getBubbles().isEmpty());
-        room.loadRoom();
+        room = Model.getNextRoom();
         assertFalse(room.getBubbles().isEmpty());
     }
 
@@ -149,15 +149,6 @@ public class RoomTest {
         Room room2 = new Room();
         room2.setSpawnPositionY(10);
         assertFalse(room.equals(room2));
-    }
-
-    /**
-     * Test the equals method with the copy method.
-     */
-    @Test
-    public void equalsTest() {
-        Room room2 = room.copyRoom();
-        assertTrue(room.equals(room2));
     }
 
     /**
