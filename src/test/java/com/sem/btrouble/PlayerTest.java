@@ -1,23 +1,21 @@
 package com.sem.btrouble;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertEquals;
-
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
-import static org.mockito.Mockito.verify;
-
-import java.util.ArrayList;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.newdawn.slick.SlickException;
-
 import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Rope;
 import com.sem.btrouble.model.Wallet;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
+import org.newdawn.slick.SlickException;
+
+import java.util.ArrayList;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.verify;
 
 /**
  * Class which tests the Player class.
@@ -123,22 +121,14 @@ public class PlayerTest {
     }
 
     /**
-     * Test the equals method with a false lives.
-     */
-    @Test
-    public void equalsFalseLivesTest() {
-        Player player2 = new Player(1, 1);
-        player2.addLife();
-        assertFalse(player.equals(player2));
-    }
-
-    /**
      * Test the addLife method.
      */
     @Test
     public void addLifeTest() {
+        player.loseLife();
+        assertEquals(4, player.getLives());
         player.addLife();
-        assertEquals(6, player.getLives());
+        assertEquals(5, player.getLives());
     }
 
     /**
