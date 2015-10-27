@@ -1,8 +1,7 @@
 package com.sem.btrouble.view;
 
-import java.io.InputStream;
-import java.util.ArrayList;
-
+import com.sem.btrouble.model.LifePowerUp;
+import com.sem.btrouble.model.PlayerPowerUp;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -16,9 +15,7 @@ import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.util.ResourceLoader;
 
-import com.sem.btrouble.model.LifePowerUp;
-import com.sem.btrouble.model.Player;
-import com.sem.btrouble.model.PlayerPowerUp;
+import java.io.InputStream;
 
 /**
  * Created by rubenwiersma on 22-09-15.
@@ -75,31 +72,31 @@ public class ShopView extends BasicGameState {
             sbg.enterState(1, new FadeOutTransition(), new FadeInTransition());
         }
         int sum = 0;
-        ArrayList<Player> players = Model.getPlayers();
-        for(Player player: players) {
-            sum += player.getWallet().getValue();
-        }
+//        ArrayList<Player> players = Model.getPlayers();
+//        for(Player player: players) {
+//            sum += player.getWallet().getValue();
+//        }
 
         // Buttons
         if (gc.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
             if (bubblesButton.isMouseOver() && sum >= 2500) {
-                int amount = (sum - 2500)/players.size();
-                giveValue(amount);
+//                int amount = (sum - 2500)/players.size();
+//                giveValue(amount);
 //                power = new SlowPowerUp();
 //                GameView.getController().registerObserver((Observer) power);
-                Model.addPowerUp(power);
+//                Model.addPowerUp(power);
                 receiptBubbles++;
             } else if (timeButton.isMouseOver() && sum >= 2500) {
-                int amount = (sum - 2500)/players.size();
-                giveValue(amount);
+//                int amount = (sum - 2500)/players.size();
+//                giveValue(amount);
 //                power = new TimePowerUp();
-                Model.addPowerUp(power);
+//                Model.addPowerUp(power);
                 receiptTime++;
             } else if (lifeButton.isMouseOver() && sum >= 10000) {
-                int amount = (sum - 10000)/players.size();
-                giveValue(amount);
+//                int amount = (sum - 10000)/players.size();
+//                giveValue(amount);
                 power = new LifePowerUp();
-                Model.addPowerUp(power);
+//                Model.addPowerUp(power);
                 receiptLife++;
             }
         }
@@ -110,10 +107,10 @@ public class ShopView extends BasicGameState {
      * @param value The value to be given
      */
     public void giveValue(int value) {
-        ArrayList<Player> players = Model.getPlayers();
-        for(Player player: players) {
-            player.getWallet().setValue(value);
-        }
+//        ArrayList<Player> players = Model.getPlayers();
+//        for(Player player: players) {
+//            player.getWallet().setValue(value);
+//        }
     }
 
     /**
@@ -134,10 +131,10 @@ public class ShopView extends BasicGameState {
         background.draw(0f, 0f);
 
         int sum = 0;
-        ArrayList<Player> players = Model.getPlayers();
-        for(Player player: players) {
-            sum += player.getWallet().getValue();
-        }
+//        ArrayList<Player> players = Model.getPlayers();
+//        for(Player player: players) {
+//            sum += player.getWallet().getValue();
+//        }
         graphics.drawString("" + sum, 70, 660);
         graphics.drawString("Press enter", 1000, 660);
         graphics.drawString("" + receiptBubbles, 1175, 520);

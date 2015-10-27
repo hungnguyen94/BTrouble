@@ -1,13 +1,10 @@
 package com.sem.btrouble;
 
 import com.sem.btrouble.model.LifePowerUp;
+import com.sem.btrouble.model.Player;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import com.sem.btrouble.model.Model;
-import com.sem.btrouble.model.Player;
-
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -32,8 +29,6 @@ public class LifePowerUpTest extends PowerUpTest {
      */
     @Before
     public void setUp() {
-        Model.init(1, 1);
-        Model.addPlayer(player);
         power = new LifePowerUp(1, 1);
         setPower(power);
     }

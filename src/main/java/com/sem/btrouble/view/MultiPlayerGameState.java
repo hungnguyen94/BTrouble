@@ -1,9 +1,15 @@
 package com.sem.btrouble.view;
 
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-
+import com.sem.btrouble.BTrouble;
+import com.sem.btrouble.game.AbstractGame;
+import com.sem.btrouble.game.MultiPlayerGame;
+import com.sem.btrouble.game.MultiPlayerSurvivalGame;
+import com.sem.btrouble.model.Drawable;
+import com.sem.btrouble.model.Player;
+import com.sem.btrouble.model.Room;
+import com.sem.btrouble.observering.Direction;
+import com.sem.btrouble.observering.LevelObserver;
+import com.sem.btrouble.tools.DataLoader;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -20,15 +26,8 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.state.transition.SelectTransition;
 import org.newdawn.slick.util.ResourceLoader;
 
-import com.sem.btrouble.BTrouble;
-import com.sem.btrouble.game.AbstractGame;
-import com.sem.btrouble.game.MultiPlayerGame;
-import com.sem.btrouble.game.MultiPlayerSurvivalGame;
-import com.sem.btrouble.model.Drawable;
-import com.sem.btrouble.model.Player;
-import com.sem.btrouble.model.Room;
-import com.sem.btrouble.observering.Direction;
-import com.sem.btrouble.observering.LevelObserver;
+import java.io.InputStream;
+import java.util.ArrayList;
 
 /**
  * Test state.
@@ -38,6 +37,8 @@ public class MultiPlayerGameState extends BasicGameState implements LevelObserve
     private AbstractGame game;
     private Player player;
     private Player secondPlayer;
+    private DataLoader dataloader;
+    private int currentLevel;
 
     private StateBasedGame stateBasedGame;
 
@@ -69,6 +70,8 @@ public class MultiPlayerGameState extends BasicGameState implements LevelObserve
      * Loads a new game.
      */
     private void newGame() {
+        Room room = dataloader.loadRoom(currentLevel);
+
         if(BTrouble.getSurvival()) {
             game = new MultiPlayerSurvivalGame(room, this);
         } else {

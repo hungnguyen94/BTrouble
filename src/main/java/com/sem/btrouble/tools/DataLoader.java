@@ -1,22 +1,19 @@
 package com.sem.btrouble.tools;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collection;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
+import com.sem.btrouble.model.Bubble;
+import com.sem.btrouble.model.Floor;
+import com.sem.btrouble.model.Room;
+import com.sem.btrouble.model.Wall;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.sem.btrouble.model.Bubble;
-import com.sem.btrouble.model.Floor;
-import com.sem.btrouble.model.Room;
-import com.sem.btrouble.model.Wall;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.File;
+import java.util.ArrayList;
 
 public class DataLoader {
     private File file;
@@ -55,11 +52,10 @@ public class DataLoader {
 
                 ArrayList<Wall> walls = parseWalls(levelData);
                 ArrayList<Floor> floors = parseFloors(levelData);
-                ArrayList<Bubble> bubbles = parseBubbles(levelData);
                 ArrayList<Floor> movableFloors = parseMovableFloors(levelData);
                 floors.addAll(movableFloors);
 
-                room = new Room(walls, floors, bubbles, spawnX, spawnY, background);
+                room = new Room(walls, floors, spawnX, spawnY, background);
                 room.addMovables(movableFloors);
             }
         } catch (Exception e) {
