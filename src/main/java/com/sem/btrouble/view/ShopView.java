@@ -1,9 +1,8 @@
 package com.sem.btrouble.view;
 
-import com.sem.btrouble.model.LifePowerUp;
-import com.sem.btrouble.model.Model;
-import com.sem.btrouble.model.Player;
-import com.sem.btrouble.model.PlayerPowerUp;
+import java.io.InputStream;
+import java.util.ArrayList;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -17,8 +16,9 @@ import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.util.ResourceLoader;
 
-import java.io.InputStream;
-import java.util.ArrayList;
+import com.sem.btrouble.model.LifePowerUp;
+import com.sem.btrouble.model.Player;
+import com.sem.btrouble.model.PlayerPowerUp;
 
 /**
  * Created by rubenwiersma on 22-09-15.

@@ -1,18 +1,10 @@
 package com.sem.btrouble.view;
 
-import com.sem.btrouble.BTrouble;
-import com.sem.btrouble.game.AbstractGame;
-import com.sem.btrouble.game.SinglePlayerGame;
-import com.sem.btrouble.game.SinglePlayerSurvivalGame;
-import com.sem.btrouble.model.Model;
-import com.sem.btrouble.model.Player;
-import com.sem.btrouble.model.Room;
-import com.sem.btrouble.observering.Direction;
-import com.sem.btrouble.observering.LevelObserver;
+import java.io.InputStream;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
@@ -24,7 +16,15 @@ import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.util.ResourceLoader;
 
-import java.io.InputStream;
+import com.sem.btrouble.BTrouble;
+import com.sem.btrouble.game.AbstractGame;
+import com.sem.btrouble.game.SinglePlayerGame;
+import com.sem.btrouble.game.SinglePlayerSurvivalGame;
+import com.sem.btrouble.model.Player;
+import com.sem.btrouble.model.Room;
+import com.sem.btrouble.observering.Direction;
+import com.sem.btrouble.observering.LevelObserver;
+import com.sem.btrouble.tools.DataLoader;
 
 /**
  * Test state.
@@ -34,6 +34,9 @@ public class GameState extends BasicGameState implements LevelObserver {
     private AbstractGame game;
     private Player player;
     private StateBasedGame stateBasedGame;
+    private DataLoader dataloader;
+    private int currentLevel;
+    
 
     /**
      * Initialize method of the slick2d library.
@@ -45,6 +48,8 @@ public class GameState extends BasicGameState implements LevelObserver {
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         this.stateBasedGame = sbg;
+        this.currentLevel = 0;
+        this.dataloader = new DataLoader(DataLoader.STANDARD_LOCATION); 
         // load font from a .ttf file
         try {
             InputStream inputStream = ResourceLoader.getResourceAsStream("Sprites/IndieFlower.ttf");
@@ -56,14 +61,13 @@ public class GameState extends BasicGameState implements LevelObserver {
             e.printStackTrace();
         }
         player = new Player(1f, 1f);
-        Model.init(gc.getScreenWidth(), gc.getScreenHeight());
     }
 
     /**
      * Loads a new game.
      */
     private void newGame() {
-        Room room = Model.getCurrentRoom();
+        Room room = dataloader.loadRoom(currentLevel);
 
         if(BTrouble.getSurvival()) {
             game = new SinglePlayerSurvivalGame(room, this);
@@ -135,9 +139,6 @@ public class GameState extends BasicGameState implements LevelObserver {
      * @param graphics Graphics object from Slick2D
      */
     public void draw(Graphics graphics) {
-//        for(Drawable drawable : drawables) {
-//            drawable.draw(graphics);
-//        }
         game.draw(graphics);
         drawWallet(graphics);
     }
@@ -180,6 +181,7 @@ public class GameState extends BasicGameState implements LevelObserver {
     @Override
     public void levelWon() {
         stateBasedGame.enterState(0, new FadeInTransition(Color.gray), new BlobbyTransition(Color.red));
+        currentLevel ++;
     }
 
     /**

@@ -1,20 +1,20 @@
 package com.sem.btrouble;
 
-import com.sem.btrouble.game.AbstractGame;
-import com.sem.btrouble.model.Model;
-import com.sem.btrouble.model.Player;
-import com.sem.btrouble.view.GameState;
-import com.sem.btrouble.view.LostLevelState;
-import com.sem.btrouble.view.MenuView;
-import com.sem.btrouble.view.MultiPlayerGameState;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import com.sem.btrouble.game.AbstractGame;
+import com.sem.btrouble.model.Player;
+import com.sem.btrouble.view.GameState;
+import com.sem.btrouble.view.LostLevelState;
+import com.sem.btrouble.view.MenuView;
+import com.sem.btrouble.view.MultiPlayerGameState;
 
 /**
  * @author Hung
@@ -36,7 +36,8 @@ public class BTrouble extends StateBasedGame {
         preferences = new HashMap<>();
         preferences.put("audio", true);
         preferences.put("multiplayer", false);
-        preferences.put("versus", false);
+        preferences.put("versus", 
+                false);
         preferences.put("survival", false);
         this.game = null;
         this.playerList = new ArrayList<>();

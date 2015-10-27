@@ -25,26 +25,4 @@ public final class PowerUpFactory {
         }
         return null;
 	}
-	
-	/**
-	 * Get the types that are already in the game.
-	 * @return array with types
-	 */
-	public static int[] getTypes() {
-		List<PlayerPowerUp> powers = Model.getShortPower();
-		int[] types = {0, 0, 0};
-		for(PlayerPowerUp power : powers) {
-//			if(power instanceof TimePowerUp) {
-//				types[0] = 1;
-//			}
-			if(power instanceof LifePowerUp) {
-				types[2] = 1;
-			}
-//			if(power instanceof SlowPowerUp) {
-//				types[1] = 1;
-//			}
-		}
-		return types;
-	}
-
 }

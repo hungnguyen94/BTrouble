@@ -1,15 +1,9 @@
 package com.sem.btrouble.view;
 
-import com.sem.btrouble.BTrouble;
-import com.sem.btrouble.game.AbstractGame;
-import com.sem.btrouble.game.MultiPlayerGame;
-import com.sem.btrouble.game.MultiPlayerSurvivalGame;
-import com.sem.btrouble.model.Drawable;
-import com.sem.btrouble.model.Model;
-import com.sem.btrouble.model.Player;
-import com.sem.btrouble.model.Room;
-import com.sem.btrouble.observering.Direction;
-import com.sem.btrouble.observering.LevelObserver;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -26,22 +20,25 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.state.transition.SelectTransition;
 import org.newdawn.slick.util.ResourceLoader;
 
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
+import com.sem.btrouble.BTrouble;
+import com.sem.btrouble.game.AbstractGame;
+import com.sem.btrouble.game.MultiPlayerGame;
+import com.sem.btrouble.game.MultiPlayerSurvivalGame;
+import com.sem.btrouble.model.Drawable;
+import com.sem.btrouble.model.Player;
+import com.sem.btrouble.model.Room;
+import com.sem.btrouble.observering.Direction;
+import com.sem.btrouble.observering.LevelObserver;
 
 /**
  * Test state.
  */
 public class MultiPlayerGameState extends BasicGameState implements LevelObserver {
-    private TrueTypeFont font;
-    private List<Drawable> drawables;
     private Image background;
     private AbstractGame game;
     private Player player;
     private Player secondPlayer;
 
-    private GameContainer gameContainer;
     private StateBasedGame stateBasedGame;
 
     /**
@@ -53,7 +50,6 @@ public class MultiPlayerGameState extends BasicGameState implements LevelObserve
      */
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        this.gameContainer = gc;
         this.stateBasedGame = sbg;
         // load font from a .ttf file
         try {
@@ -61,11 +57,11 @@ public class MultiPlayerGameState extends BasicGameState implements LevelObserve
             java.awt.Font awtFont = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT,
                     inputStream);
             awtFont = awtFont.deriveFont(24f); // set font size
-            font = new TrueTypeFont(awtFont, false);
+            new TrueTypeFont(awtFont, false);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        drawables = new ArrayList<Drawable>();
+        new ArrayList<Drawable>();
         background = new Image("Sprites/background1280x720.png");
     }
 
@@ -73,7 +69,6 @@ public class MultiPlayerGameState extends BasicGameState implements LevelObserve
      * Loads a new game.
      */
     private void newGame() {
-        Room room = Model.getCurrentRoom();
         if(BTrouble.getSurvival()) {
             game = new MultiPlayerSurvivalGame(room, this);
         } else {

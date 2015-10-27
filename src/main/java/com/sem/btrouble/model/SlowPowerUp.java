@@ -63,7 +63,7 @@ public class SlowPowerUp extends GamePowerUp implements Observer {
      */
     public void update(Event event) {
       if(event == BubbleEvent.COLLISION_ROPE && on){
-          slowBubbles(.3f);
+//          slowBubbles(.3f);
       }
     }
     
@@ -72,7 +72,7 @@ public class SlowPowerUp extends GamePowerUp implements Observer {
      */
     public void activate() {
         on = true;
-        slowBubbles(.3f);
+//        slowBubbles(.3f);
     }
     
     /**
@@ -90,17 +90,18 @@ public class SlowPowerUp extends GamePowerUp implements Observer {
         return on;
     }
     
-    /**
-     * Slow down the bubbles.
-     * @param speed speed of bubbles
-     */
-    public void slowBubbles(float speed) {
-      ArrayList<Bubble> bubbles = Model.getBubbles();
-      for (int i = 0; i < bubbles.size(); i++) {
-          bubbles.get(i).setAccelerationY(speed);
-      }
-    }
-    
+    // TODOs
+//    /**
+//     * Slow down the bubbles.
+//     * @param speed speed of bubbles
+//     */
+//    public void slowBubbles(float speed) {
+//      ArrayList<Bubble> bubbles = Model.getBubbles();
+//      for (int i = 0; i < bubbles.size(); i++) {
+//          bubbles.get(i).setAccelerationY(speed);
+//      }
+//    }
+//    
     /**
      * Draw the power up.
      * @param graphics The graphics

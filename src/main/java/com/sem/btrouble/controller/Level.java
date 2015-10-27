@@ -1,20 +1,20 @@
 package com.sem.btrouble.controller;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+
+import org.newdawn.slick.Graphics;
+
 import com.sem.btrouble.model.Bubble;
 import com.sem.btrouble.model.Drawable;
-import com.sem.btrouble.model.Model;
 import com.sem.btrouble.model.Movable;
 import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Room;
 import com.sem.btrouble.model.Rope;
 import com.sem.btrouble.observering.LevelObserver;
 import com.sem.btrouble.observering.LevelSubject;
-import org.newdawn.slick.Graphics;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Level class.
@@ -152,7 +152,6 @@ public class Level implements LevelSubject, Drawable {
         for(LevelObserver obj: observersList) {
             obj.levelLost();
         }
-        Model.restartRoom();
         bubbleController = new BubbleController(new CollisionHandler());
     }
     /**
@@ -163,7 +162,6 @@ public class Level implements LevelSubject, Drawable {
         for(LevelObserver obj: observersList) {
             obj.levelWon();
         }
-        room = Model.getNextRoom();
         bubbleController = new BubbleController(new CollisionHandler());
     }
 
