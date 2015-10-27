@@ -1,15 +1,8 @@
 package com.sem.btrouble.view;
 
-import com.sem.btrouble.BTrouble;
-import com.sem.btrouble.game.AbstractGame;
-import com.sem.btrouble.game.SinglePlayerGame;
-import com.sem.btrouble.game.SinglePlayerSurvivalGame;
-import com.sem.btrouble.model.Bubble;
-import com.sem.btrouble.model.Player;
-import com.sem.btrouble.model.Room;
-import com.sem.btrouble.observering.Direction;
-import com.sem.btrouble.observering.LevelObserver;
-import com.sem.btrouble.tools.DataLoader;
+import java.io.InputStream;
+import java.util.List;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -24,9 +17,16 @@ import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.util.ResourceLoader;
 
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
+import com.sem.btrouble.BTrouble;
+import com.sem.btrouble.game.AbstractGame;
+import com.sem.btrouble.game.SinglePlayerGame;
+import com.sem.btrouble.game.SinglePlayerSurvivalGame;
+import com.sem.btrouble.model.Bubble;
+import com.sem.btrouble.model.Player;
+import com.sem.btrouble.model.Room;
+import com.sem.btrouble.observering.Direction;
+import com.sem.btrouble.observering.LevelObserver;
+import com.sem.btrouble.tools.DataLoader;
 
 /**
  * Test state.
@@ -77,11 +77,7 @@ public class GameState extends BasicGameState implements LevelObserver {
             game = new SinglePlayerGame(room, this);
         }
 
-        List<Bubble> blist = new ArrayList<>();
-
-        blist.add(new Bubble(3, 100, 100));
-        blist.add(new Bubble(3, 200, 200));
-        blist.add(new Bubble(3, 500, 150));
+        List<Bubble> blist = dataloader.loadBubbles(currentLevel);
 
         game.spawnBubbles(blist);
         game.addPlayer(player);

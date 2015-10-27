@@ -9,10 +9,15 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 import java.io.File;
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 public class DataLoader {
@@ -28,39 +33,44 @@ public class DataLoader {
     public Room loadRoom(int index) {
         Room room = new Room();
         try {
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            Document data = builder.parse(file);
-            data.getDocumentElement().normalize();
-
-            room = parseRoom(data.getElementsByTagName("Level").item(index));
+            Element levelElement = loadFileData("Level", index);
+            room = parseRoom(levelElement);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return room;
     }
-
-    public Room parseRoom(Node item) {
-        Room room = new Room();
-        try {
-            if (item.getNodeType() == Node.ELEMENT_NODE) {
-                Element levelData = (Element) item;
-
-                NamedNodeMap attributes = levelData.getAttributes();
-                int spawnX = Integer.parseInt(attributes.getNamedItem("spawnX").getNodeValue());
-                int spawnY = Integer.parseInt(attributes.getNamedItem("spawnY").getNodeValue());
-                String background = attributes.getNamedItem("background").getNodeValue();
-
-                ArrayList<Wall> walls = parseWalls(levelData);
-                ArrayList<Floor> floors = parseFloors(levelData);
-                ArrayList<Floor> movableFloors = parseMovableFloors(levelData);
-                floors.addAll(movableFloors);
-
-                room = new Room(walls, floors, spawnX, spawnY, background);
-                room.addMovables(movableFloors);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+    
+    public Element loadFileData(String nodeName, int index) throws ParserConfigurationException, SAXException, IOException, ParseException{
+        Element res = null;
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        Document data = builder.parse(file);
+        data.getDocumentElement().normalize();
+        Node item = data.getElementsByTagName("Level").item(index);
+        if (item.getNodeType() == Node.ELEMENT_NODE) {
+            res = (Element) item;
+        } else {
+            throw new ParseException("Room node should be an element", -3);
         }
+        return res;
+    }
+
+    public Room parseRoom(Element levelData) {
+        Room room = new Room();
+        
+        NamedNodeMap attributes = levelData.getAttributes();
+        int spawnX = Integer.parseInt(attributes.getNamedItem("spawnX").getNodeValue());
+        int spawnY = Integer.parseInt(attributes.getNamedItem("spawnY").getNodeValue());
+        String background = attributes.getNamedItem("background").getNodeValue();
+
+        ArrayList<Wall> walls = parseWalls(levelData);
+        ArrayList<Floor> floors = parseFloors(levelData);
+        ArrayList<Floor> movableFloors = parseMovableFloors(levelData);
+        floors.addAll(movableFloors);
+
+        room = new Room(walls, floors, spawnX, spawnY, background);
+        room.addMovables(movableFloors);
+
         return room;
     }
 
@@ -128,6 +138,17 @@ public class DataLoader {
             float x = Float.parseFloat(attributes.getNamedItem("x").getNodeValue());
             float y = Float.parseFloat(attributes.getNamedItem("y").getNodeValue());
             bubbles.add(new Bubble(size, x, y));
+        }
+        return bubbles;
+    }
+    
+    public ArrayList<Bubble> loadBubbles(int index) {
+        ArrayList<Bubble> bubbles = new ArrayList<Bubble>();
+        try {
+            Element levelElement = loadFileData("Level", index);
+            bubbles = parseBubbles(levelElement);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return bubbles;
     }

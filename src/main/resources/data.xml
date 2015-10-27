@@ -1,4 +1,4 @@
-<LevelData>
+<GameData>
 
 <Level spawnX="300" spawnY="200" background="background1280x720.png">
 <Wall x="0" y="0" width="20" height="720"></Wall>
@@ -25,4 +25,4 @@
 <Bubble size="2" x="640" y="200"></Bubble> 
 </Level>
 
-</LevelData>
+</GameData>
