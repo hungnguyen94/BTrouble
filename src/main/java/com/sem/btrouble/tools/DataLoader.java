@@ -2,7 +2,6 @@ package com.sem.btrouble.tools;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -18,16 +17,31 @@ import com.sem.btrouble.model.Floor;
 import com.sem.btrouble.model.Room;
 import com.sem.btrouble.model.Wall;
 
+/**
+ * 
+ * @author Chris(tian)
+ * This class generates rooms according to the XML data.
+ *
+ */
 public class DataLoader {
     private File file;
     private DocumentBuilderFactory factory;
     public static final String STANDARD_LOCATION = "src/main/resources/data.xml";
 
+    /**
+     * Constructor for the Dataloader class.
+     * @param file This is the file that has to be imported.
+     */
     public DataLoader(String file) {
         this.file = new File(file);
         factory = DocumentBuilderFactory.newInstance();
     }
 
+    /**
+     * Parsers the room from the XML file.
+     * @param index The index'th room to be loaded.
+     * @return the room that has been parsed.
+     */
     public Room loadRoom(int index) {
         Room room = new Room();
         try {
@@ -42,6 +56,11 @@ public class DataLoader {
         return room;
     }
 
+    /**
+     * Read all the objects from the current node.
+     * @param item the node of the current room.
+     * @return return the parsed room.
+     */
     public Room parseRoom(Node item) {
         Room room = new Room();
         try {
@@ -68,6 +87,11 @@ public class DataLoader {
         return room;
     }
 
+    /**
+     * This function parses all the movable floors.
+     * @param levelData the data for the movable floors.
+     * @return a dataset of movable floors.
+     */
     public ArrayList<Floor> parseMovableFloors(Element levelData) {
         NodeList floorData = levelData.getElementsByTagName("MovableFloor");
         ArrayList<Floor> floors = new ArrayList<Floor>();
@@ -86,6 +110,11 @@ public class DataLoader {
         return floors;
     }
 
+    /**
+     * This functions parses all the walls in the data.
+     * @param levelData the data containing all the walls.
+     * @return a dataset of walls.
+     */
     public ArrayList<Wall> parseWalls(Element levelData) {
         NodeList wallData = levelData.getElementsByTagName("Wall");
         ArrayList<Wall> walls = new ArrayList<Wall>();
@@ -103,6 +132,11 @@ public class DataLoader {
         return walls;
     }
 
+    /**
+     * This functions parses all the floors from the data.
+     * @param levelData the data containing all the floors.
+     * @return a dataset containing all the floors.
+     */
     public ArrayList<Floor> parseFloors(Element levelData) {
         NodeList floorData = levelData.getElementsByTagName("Floor");
         ArrayList<Floor> floors = new ArrayList<Floor>();
@@ -121,6 +155,11 @@ public class DataLoader {
         return floors;
     }
 
+    /**
+     * This function parses all the bubbles from the data.
+     * @param levelData the data containing all the bubbles.
+     * @return a dataset of bubbles.
+     */
     public ArrayList<Bubble> parseBubbles(Element levelData) {
         NodeList bubbleData = levelData.getElementsByTagName("Bubble");
         ArrayList<Bubble> bubbles = new ArrayList<Bubble>();
@@ -136,6 +175,11 @@ public class DataLoader {
         return bubbles;
     }
 
+    /**
+     * This function checks if a certain level exists in the XML file.
+     * @param currentLevel level to check.
+     * @return true if it exists, if not false.
+     */
     public boolean hasRoom(int currentLevel) {
         boolean res = false;
 
