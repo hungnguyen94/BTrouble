@@ -2,6 +2,7 @@ package com.sem.btrouble.model;
 
 import com.sem.btrouble.controller.Collidable;
 import com.sem.btrouble.controller.CollisionAction;
+import com.sem.btrouble.observering.Direction;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
@@ -14,54 +15,93 @@ import java.util.Map;
  * Class representing a floor.
  */
 @SuppressWarnings("serial")
-public class Floor extends Rectangle implements Drawable, Collidable {
+public class Floor extends Rectangle implements Drawable, Collidable, Movable {
 
     private float speed;
-    private static final float DEFAULT_SPEED = 0.1f;
+    private Direction direction;
+    private static final float DEFAULT_SPEED = 0f;
 
     /**
      * Constructor for floor class.
-     * 
-     * @param x
-     *            - X position of the floor
-     * @param y
-     *            - Y position of the floor
-     * @param width
-     *            - width of the floor
-     * @param height
-     *            - height of the floor
+     *
+     * @param x X position of the floor
+     * @param y Y position of the floor
+     * @param width width of the floor
+     * @param height height of the floor
+     *
      */
     public Floor(float x, float y, float width, float height) {
         super(x, y, width, height);
-        speed = DEFAULT_SPEED;
+        this.speed = DEFAULT_SPEED;
+        this.direction = Direction.NONE;
+    }
+
+    /**
+     * Constructor for floor class with speed and direction.
+     *
+     * @param x X position of the floor
+     * @param y Y position of the floor
+     * @param width width of the floor
+     * @param height height of the floor
+     * @param speed speed of movement
+     * @param direction Direction of the movement
+     */
+    public Floor(float x, float y, float width, float height, float speed, Direction direction) {
+        super(x, y, width, height);
+        this.speed = speed;
+        this.direction = direction;
     }
 
     /**
      * Move the floor to the right.
      */
     public void moveRight() {
-        x += speed;
+        setCenterX(getCenterX() + speed);
     }
 
     /**
      * Move the floor to the left.
      */
     public void moveLeft() {
-        x -= speed;
+        setCenterX(getCenterX() - speed);
     }
 
     /**
      * Move the floor up.
      */
     public void moveUp() {
-        y -= speed;
+        setCenterY(getCenterY() - speed);
+        grow(0, speed);
     }
 
     /**
      * Move the floor down.
      */
     public void moveDown() {
-        y += speed;
+        setCenterY(getCenterY() + speed);
+        grow(0, speed);
+    }
+
+
+    /**
+     * This method should move the object.
+     */
+    @Override
+    public void move() {
+        switch(direction) {
+            case UP:
+                moveUp();
+                break;
+            case DOWN:
+                moveDown();
+                break;
+            case LEFT:
+                moveLeft();
+                break;
+            case RIGHT:
+                moveRight();
+                break;
+        }
     }
 
     /**
