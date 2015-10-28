@@ -1,6 +1,9 @@
 package com.sem.btrouble;
 
+import java.util.List;
+
 import com.sem.btrouble.model.Bubble;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -73,36 +76,6 @@ public class BubbleTest {
     @Test
     public void getVelocityY2Test() {
         assertEquals(2, bubble2.getVelocityY(), 0);
-    }
-
-    /**
-     * Test the collision between a bubble and the floor.
-     */
-    @Test
-    public void collideFloorTest() {
-        double vy = bubble1.getVelocityY();
-//        bubble1.bubbleEvent(BubbleEvent.COLLISION_FLOOR);
-        assertEquals(-vy, bubble1.getVelocityY(), 0);
-    }
-
-    /**
-     * Test the collision between a bubble and a wall.
-     */
-    @Test
-    public void collideWallTest() {
-        double vx = bubble1.getVelocityX();
-//        bubble1.bubbleEvent(BubbleEvent.COLLISION_WALL);
-//        assertEquals(-vx, bubble1.getVelocityX(), 0);
-    }
-
-    /**
-     * Tests a default collision.
-     */
-    @Test
-    public void collideDefault() {
-        Bubble bubble = bubble1;
-//        bubble1.bubbleEvent(BubbleEvent.COLLISION_WALL);
-        assertEquals(bubble, bubble1);
     }
 
     /**
@@ -266,6 +239,25 @@ public class BubbleTest {
         double y = bubble1.getCenterY() + bubble1.getVelocityY() + .4f;
         bubble1.move();
         assertEquals(y - 10, bubble1.getY(), 0.000001);
+    }
+    
+    @Test
+    public void splitZeroTest() {
+    	List<Bubble> list = bubble1.split();
+    	assertTrue(list.isEmpty());
+    }
+    
+    @Test
+    public void splitTest() {
+    	double velocityX = bubble2.getVelocityX();
+    	List<Bubble> list = bubble2.split();
+    	assertEquals(-Math.abs(bubble2.getAccelerationY()) * 30, bubble2.getVelocityY(), 0);
+    	assertEquals(Math.abs(velocityX), bubble2.getVelocityX(), 0);
+    	Bubble leftBubble = new Bubble(bubble2.getSize(), bubble2.getX() - 20, bubble2.getY(), 
+    			(float) -bubble2.getVelocityX(), (float) bubble2.getVelocityY());
+    	Bubble rightBubble = new Bubble(bubble2.getSize(), bubble2.getX() + 20, bubble2.getY(), 
+    			(float) bubble2.getVelocityX(), (float) bubble2.getVelocityY());
+    	assertTrue(list.contains(leftBubble) && list.contains(rightBubble));
     }
 
 }

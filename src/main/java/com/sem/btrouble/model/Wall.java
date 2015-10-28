@@ -99,6 +99,14 @@ public class Wall extends Rectangle implements Drawable, Collidable {
     }
 
     /**
+     * Get the speed of the wall.
+     * @return the speed
+     */
+    public int getSpeed() {
+    	return speed;
+    }
+    
+    /**
      * Change the direction of a wall.
      */
     public void changeDirection() {

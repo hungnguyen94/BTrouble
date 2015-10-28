@@ -124,6 +124,14 @@ public class Player extends Rectangle implements Drawable, Movable {
             currentRopesCounter--;
         }
     }
+    
+    /**
+     * Get the current amount of ropes.
+     * @return the amount of ropes
+     */
+    public int getRopeCount() {
+    	return currentRopesCounter;
+    }
 
     /**
      * Checks whether the provided Object is the same as this Player.

@@ -1,6 +1,11 @@
 package com.sem.btrouble;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import com.sem.btrouble.model.PlayerPowerUp;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -40,49 +45,54 @@ public abstract class PowerUpTest {
     @Test
     public abstract void resetTest();
     
-    /**
-     * Test the setFalling and isFalling method.
-     */
-//    @Test
-//    public void setFallingTest() {
-//        power.setFalling(false);
-//        assertFalse(power.isFalling());
-//    }
-//
-//    /**
-//     * Test the fall method.
-//     */
-//    @Test
-//    public void fallTest() {
-//        float firstY = power.getY();
-//        float vy = power.getVelocityY();
-//        float ay = power.getAccelerationY();
-//        power.fall();
-//        assertEquals(firstY + vy, power.getY(), 0);
-//        assertEquals(vy + ay, power.getVelocityY(), 0);
-//    }
-//
-//    /**
-//     * Test the move method with true falling.
-//     */
-//    @Test
-//    public void moveTrueTest() {
-//        float y = power.getY();
-//        float vy = power.getVelocityY();
-//        power.move();
-//        assertEquals(y + vy, power.getY(), 0);
-//    }
-//
-//    /**
-//     * Test the move method with false falling.
-//     */
-//    @Test
-//    public void moveFalseTest() {
-//        power.setFalling(false);
-//        power.move();
-//        assertEquals(0, power.getVelocityY(), 0);
-//    }
+    @Test
+    public void setVelocityYTest() {
+    	power.setVelocityY(10);
+    	assertEquals(10, power.getVelocityY(), 0);
+    }
     
+    @Test
+    public void setAccelerationYTest() {
+    	power.setAccelerationY(10);
+    	assertEquals(10, power.getAccelerationY(), 0);
+    }
     
+    @Test
+    public void setFallingTest() {
+    	power.setFalling(false);
+    	assertFalse(power.isFalling());
+    }
+    
+    @Test
+    public void setCollidedTest() {
+    	power.setCollided(true);
+    	assertTrue(power.getCollidedStatus());
+    }
+    
+    @Test
+    public void fallTest(){
+    	float y = power.getY();
+    	float velocityY = power.getVelocityY();
+    	power.fall();
+    	assertEquals(y + velocityY, power.getY(), 0);
+    	assertEquals(velocityY + power.getAccelerationY(), power.getVelocityY(), 0);
+    }
+    
+    @Test
+    public void moveFalseTest() {
+    	power.setFalling(false);
+    	power.move();
+    	assertEquals(0, power.getVelocityY(), 0);
+    }
+    
+    @Test
+    public void moveTrueTest() {
+    	float y = power.getY();
+    	float velocityY = power.getVelocityY();
+    	power.setFalling(true);
+    	power.move();
+    	assertEquals(y + velocityY, power.getY(), 0);
+    	assertEquals(velocityY + power.getAccelerationY(), power.getVelocityY(), 0);
+    }
 
 }
