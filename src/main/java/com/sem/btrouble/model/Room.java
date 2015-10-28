@@ -38,7 +38,7 @@ public class Room implements Serializable, Drawable {
         spawnPositionY = 0;
         try {
             setBackground(new Image("Sprites/background1280x720.png"));
-        } catch (RuntimeException | SlickException e) {
+        } catch (RuntimeException | SlickException | UnsatisfiedLinkError e) {
             System.out.println("Images ignored.");
         }
     }
@@ -64,7 +64,7 @@ public class Room implements Serializable, Drawable {
         spawnPositionY = spawnY;
         try {
             setBackground(new Image("Sprites/"+background));
-        } catch (RuntimeException | SlickException e) {
+        } catch (RuntimeException | SlickException | UnsatisfiedLinkError e) {
             System.out.println("Images ignored.");
         }
     }
@@ -160,6 +160,14 @@ public class Room implements Serializable, Drawable {
         // allCollidables.addAll(bubbles);
         // allCollidables.addAll(moveableBorders);
         return allCollidables;
+    }
+    
+    /**
+     * Get the borders which are moveable.
+     * @return the moveable borders
+     */
+    public List<Collidable> getMoveableBorders() {
+    	return this.moveableBorders;
     }
 
     /**
