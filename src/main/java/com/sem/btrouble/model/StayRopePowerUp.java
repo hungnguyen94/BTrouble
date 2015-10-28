@@ -17,6 +17,15 @@ public class StayRopePowerUp extends PlayerPowerUp {
     public StayRopePowerUp(float x, float y, int expirationTime) {
         super(x, y, expirationTime);
     }
+    
+    public boolean equals(Object other) {
+    	if(other instanceof StayRopePowerUp) {
+    		StayRopePowerUp that = (StayRopePowerUp) other;
+    		return this.getX() == that.getX() && this.getY() == that.getY();
+    	} else {
+    		return false;
+    	}
+    }
 
     /**
      * Apply the powerUp to the Player.
