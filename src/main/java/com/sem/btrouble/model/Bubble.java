@@ -133,6 +133,15 @@ public class Bubble extends Circle implements Drawable, Movable {
     }
 
     /**
+     * Returns the score given to the player
+     * when this bubble is hit.
+     * @return The score of this bubble.
+     */
+    public static int getBubbleScore() {
+        return BUBBLE_SCORE;
+    }
+
+    /**
      * Calculates the next location of the Bubble.
      */
     public void move() {
@@ -351,27 +360,22 @@ public class Bubble extends Circle implements Drawable, Movable {
     private class BubbleCollision implements CollisionAction {
         @Override
         public void onCollision(Collidable b) {
-            Bubble bubble = (Bubble) b;
-            switch(CollisionHandler.checkCollisionSideX(Bubble.this, bubble)) {
+            switch(CollisionHandler.checkCollisionSideX(Bubble.this, b)) {
                 case LEFT:
                     Bubble.this.bounceXLeft();
-                    bubble.bounceXRight();
                     break;
                 case RIGHT:
                     Bubble.this.bounceXRight();
-                    bubble.bounceXLeft();
                     break;
                 default:
                     break;
             }
-            switch(CollisionHandler.checkCollisionSideY(Bubble.this, bubble)) {
+            switch(CollisionHandler.checkCollisionSideY(Bubble.this, b)) {
                 case TOP:
                     Bubble.this.bounceYUp();
-                    bubble.bounceYDown();
                     break;
                 case BOTTOM:
                     Bubble.this.bounceYDown();
-                    bubble.bounceYUp();
                     break;
                 default:
                     break;
@@ -386,9 +390,6 @@ public class Bubble extends Circle implements Drawable, Movable {
         @Override
         public void onCollision(Collidable collider) {
             collided = true;
-            Rope rope = (Rope) collider;
-            rope.setCollided(true);
-            rope.getPlayer().getWallet().increaseValue(BUBBLE_SCORE);
         }
     }
 

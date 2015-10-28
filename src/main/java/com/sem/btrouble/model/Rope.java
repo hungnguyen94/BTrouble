@@ -184,6 +184,8 @@ public class Rope extends Rectangle implements Drawable, Movable {
             @Override
             public void onCollision(Collidable collider) {
                 setCollided(true);
+                Bubble bubble = (Bubble) collider;
+                player.getWallet().increaseValue(bubble.getBubbleScore());
             }
         });
 

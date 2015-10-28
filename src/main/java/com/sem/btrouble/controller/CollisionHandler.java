@@ -87,8 +87,6 @@ public class CollisionHandler implements Drawable, Controller {
      */
     public boolean checkCollision(Collidable self) {
         boolean collided = false;
-        // Removes all null references. It's an set, so duplicates aren't
-        // possible.
         collidables.remove(null);
 
         if (self == null) {
@@ -96,17 +94,16 @@ public class CollisionHandler implements Drawable, Controller {
         }
 
         for (Collidable collidee : collidables) {
-//            if (self != collidee && collisionCheckAABB(self, collidee)) {
             if (self != collidee && self.intersectsCollidable(collidee)) {
                 // If there is no corresponding CollisionAction for this collision, skip it.
                 CollisionAction selfAction = self.getCollideActions().get(collidee.getClass());
-//              CollisionAction collideeAction = collidee.getCollideActions().get(self.getClass());
+                CollisionAction collideeAction = collidee.getCollideActions().get(self.getClass());
                 if(selfAction != null) {
                     selfAction.onCollision(collidee);
                 }
-//                if(collideeAction != null) {
-//                    collideeAction.onCollision(self);
-//                }
+                if(collideeAction != null) {
+                    collideeAction.onCollision(self);
+                }
                 collided = true;
             }
         }
@@ -137,8 +134,6 @@ public class CollisionHandler implements Drawable, Controller {
      */
     public boolean checkCollision(Collection<? extends Collidable> colliders) {
         boolean collided = false;
-        // Removes all null references. It's an set, so duplicates aren't
-        // possible.
         collidables.remove(null);
 
         // Iterate over a shallow cloned set, since you can't change the set
