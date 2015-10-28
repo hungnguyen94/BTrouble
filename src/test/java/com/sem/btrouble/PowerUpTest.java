@@ -1,6 +1,7 @@
 package com.sem.btrouble;
 
 import com.sem.btrouble.model.PlayerPowerUp;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,6 +13,7 @@ import org.junit.Test;
  */
 public abstract class PowerUpTest {
     
+    @SuppressWarnings("unused")
     private PlayerPowerUp power;
     
     /**
