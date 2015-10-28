@@ -51,6 +51,7 @@ public class MultiPlayerGameState extends BasicGameState implements LevelObserve
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         this.stateBasedGame = sbg;
         this.currentLevel = 0;
+        this.dataloader = new DataLoader(DataLoader.STANDARD_LOCATION);
         // load font from a .ttf file
         try {
             InputStream inputStream = ResourceLoader.getResourceAsStream("Sprites/IndieFlower.ttf");
@@ -148,7 +149,6 @@ public class MultiPlayerGameState extends BasicGameState implements LevelObserve
      */
     public void render(GameContainer gc, StateBasedGame sbg, Graphics graphics)
             throws SlickException {
-        background.draw(0f, 0f);
         draw(graphics);
         drawLives(graphics);
     }
@@ -159,9 +159,6 @@ public class MultiPlayerGameState extends BasicGameState implements LevelObserve
      * @param graphics Graphics object from Slick2D
      */
     public void draw(Graphics graphics) {
-//        for(Drawable drawable : drawables) {
-//            drawable.draw(graphics);
-//        }
         game.draw(graphics);
         drawWallet(graphics);
     }
