@@ -90,7 +90,7 @@ public class BubbleTest {
      */
     @Test
     public void collideWallTest() {
-        double vx = bubble1.getVelocityX();
+        //double vx = bubble1.getVelocityX();
 //        bubble1.bubbleEvent(BubbleEvent.COLLISION_WALL);
 //        assertEquals(-vx, bubble1.getVelocityX(), 0);
     }
@@ -245,7 +245,8 @@ public class BubbleTest {
      */
     @Test
     public void toStringTest() {
-        assertEquals("Bubble{size=1, x=-9.0, y=-9.0, velocityX=3.0, velocityY=0.0, accelerationY=0.4}", bubble1.toString());
+        assertEquals("Bubble{size=1, x=-9.0, y=-9.0, velocityX=3.0, "
+            + "velocityY=0.0, accelerationY=0.4}", bubble1.toString());
     }
 
     /**

@@ -14,9 +14,7 @@ public class Timers {
     private int levelTimerCounter;
     private int countdownCounter;
     private int additionalTime;
-    // Max duration in seconds * 10
     public static final int LEVEL_MAX_DURATION = 500;
-    // Countdown delay before level starts in seconds * 10
     private static final int COUNTDOWN_MAX_DURATION = 30;
     private static final int TIMER_SPEED = 100;
 
@@ -48,7 +46,7 @@ public class Timers {
     }
 
     /**
-     * Restarts only the timer (not the game)
+     * Restarts only the timer (not the game).
      */
     public void survivalTimer() {
         levelTimerCounter = LEVEL_MAX_DURATION + additionalTime;

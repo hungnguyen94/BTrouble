@@ -2,10 +2,12 @@ package com.sem.btrouble.model;
 
 import com.sem.btrouble.controller.Collidable;
 import com.sem.btrouble.controller.CollisionAction;
+
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
 import javax.swing.Timer;
+
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +16,7 @@ import java.util.Map;
  * @author Martin
  *
  */
+@SuppressWarnings("serial")
 public abstract class PlayerPowerUp extends Rectangle implements Drawable, Movable {
 	
     private boolean falling;
@@ -22,7 +25,7 @@ public abstract class PlayerPowerUp extends Rectangle implements Drawable, Movab
     private float velocityY;
     private float accelerationY;
     private boolean expired;
-    protected int expirationTime;
+    private int expirationTime;
 
     /**
      * Construct power up bought in the store.
@@ -35,6 +38,7 @@ public abstract class PlayerPowerUp extends Rectangle implements Drawable, Movab
      * Construct power up received in the game.
      * @param xpos x position
      * @param ypos y position
+     * @param expirationTime the time needed to expire the powerup.
      */
     public PlayerPowerUp(float xpos, float ypos, int expirationTime) {
         super(xpos, ypos, 50, 100);
@@ -49,6 +53,7 @@ public abstract class PlayerPowerUp extends Rectangle implements Drawable, Movab
     /**
      * Starts the expiration timer.
      * If the actionListener is run, the powerup is expired.
+     * @param actionListener used to statr the expiration timer.
      */
     protected void startExpirationTimer(ActionListener actionListener) {
         Timer timer = new Timer(0, actionListener);

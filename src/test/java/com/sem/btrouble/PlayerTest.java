@@ -40,17 +40,26 @@ public class PlayerTest {
         player = new Player(1, 1);
     }
     
+    /**
+     * Test if the player can shoot ropes.
+     */
     @Test
     public void fireTrueTest() {
         assertTrue(player.fire(rope));
     }
     
+    /**
+     * Test if the player cannot shoot ropes after shooting one.
+     */
     @Test
     public void fireFalseTest() {
         player.fire(rope);
         assertFalse(player.fire(rope));
     }
     
+    /**
+     * Test if we can get the wallet of the player.
+     */
     @Test
     public void getWalletTest() {
         assertEquals(player.getWallet(), new Wallet());

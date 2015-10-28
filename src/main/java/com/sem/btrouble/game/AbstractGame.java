@@ -1,7 +1,6 @@
 package com.sem.btrouble.game;
 
 import com.sem.btrouble.controller.Level;
-import com.sem.btrouble.model.Bubble;
 import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Room;
 import com.sem.btrouble.model.Rope;
@@ -14,8 +13,6 @@ import org.newdawn.slick.Graphics;
 import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * AbstractGame class.
@@ -25,7 +22,6 @@ public abstract class AbstractGame implements LevelObserver {
     private LevelObserver view;
     private Timer levelTimer;
 
-    // Max time in seconds.
     public static final int MAX_GAME_DURATION = 3000;
     private int currentTime;
 
@@ -127,6 +123,8 @@ public abstract class AbstractGame implements LevelObserver {
                 case RIGHT:
                     player.moveRight(delta);
                     break;
+            default:
+              break;
             }
         }
     }

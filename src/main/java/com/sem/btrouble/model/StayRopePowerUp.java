@@ -10,10 +10,17 @@ import java.awt.event.ActionListener;
 /**
  * Powerup that makes the rope not disappear.
  */
+@SuppressWarnings("serial")
 public class StayRopePowerUp extends PlayerPowerUp {
 
     private Image lifePowerUpImage;
 
+    /**
+     * The constructor for the StayRopePowerUp.
+     * @param x the x position of the rope powerup.
+     * @param y the y position of the rope powerup.
+     * @param expirationTime the expiration time of the rope powerup.
+     */
     public StayRopePowerUp(float x, float y, int expirationTime) {
         super(x, y, expirationTime);
     }

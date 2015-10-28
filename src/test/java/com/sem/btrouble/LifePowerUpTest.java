@@ -67,16 +67,25 @@ public class LifePowerUpTest extends PowerUpTest {
 //        verify(player).addLife();
     }
     
+    /**
+     * Test the equals method (true).
+     */
     @Test
     public void equalsTrueTest() {
         assertTrue(power.equals(power));
     }
     
+    /**
+     * Test the equals method (false).
+     */
     @Test
     public void equalsOtherTest() {
         assertFalse(power.equals(new String("power")));
     }
     
+    /**
+     * Test the equals method with the falling attribute.
+     */
     @Test
     public void equalsFalseFallingTest() {
         LifePowerUp power2 = new LifePowerUp(1, 1);
@@ -84,18 +93,27 @@ public class LifePowerUpTest extends PowerUpTest {
         assertFalse(power.equals(power2));
     }
     
+    /**
+     * Test the equals method with the x attribute.
+     */
     @Test
     public void equalsFalseXTest() {
         LifePowerUp power2 = new LifePowerUp(2, 1);
         assertFalse(power.equals(power2));
     }
     
+    /**
+     * Test the equals method with the y attribute.
+     */
     @Test
     public void equalsFalseYTest() {
         LifePowerUp power2 = new LifePowerUp(1, 2);
         assertFalse(power.equals(power2));
     }
     
+    /**
+     * Test the equals method with the velocityY attribute.
+     */
     @Test
     public void equalsFalseVelocityYTest() {
         LifePowerUp power2 = new LifePowerUp(1, 1);
@@ -103,6 +121,9 @@ public class LifePowerUpTest extends PowerUpTest {
         assertFalse(power.equals(power2));
     }
     
+    /**
+     * Test the equals method with the accelerationY attribute.
+     */
     @Test
     public void equalsFalseAccelerationYTest() {
         LifePowerUp power2 = new LifePowerUp(1, 1);

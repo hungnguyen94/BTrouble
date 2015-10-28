@@ -35,6 +35,11 @@ public class Wallet implements Observer {
         return value;
     }
 
+    @Override
+    public int hashCode() {
+      return 1;
+    }
+    
     /**
      * Checks to see whether this Wallet equals another Object.
      * @param other the other object to check against.

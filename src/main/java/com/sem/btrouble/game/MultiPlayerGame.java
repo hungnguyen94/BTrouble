@@ -1,6 +1,5 @@
 package com.sem.btrouble.game;
 
-import com.sem.btrouble.model.Bubble;
 import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Room;
 import com.sem.btrouble.observering.LevelObserver;
@@ -17,6 +16,7 @@ public class MultiPlayerGame extends AbstractGame {
 
     /**
      * Constructor for a game.
+     * @param room the room used for the MultiPlayerGame.
      */
     public MultiPlayerGame(Room room) {
         super(room);
@@ -99,6 +99,10 @@ public class MultiPlayerGame extends AbstractGame {
         }
     }
 
+    /**
+     * Draw the MultiPlayerGame.
+     * @param graphics to be used to draw the game.
+     */
     public void draw(Graphics graphics) {
         super.draw(graphics);
     }

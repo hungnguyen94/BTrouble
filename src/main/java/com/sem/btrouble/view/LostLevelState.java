@@ -6,7 +6,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -81,8 +80,6 @@ public class LostLevelState extends BasicGameState {
 
         graphics.drawString("You died. Press enter to restart this Level", 350, 250);
         graphics.drawString("Press enter", 1000, 660);
-
-        SpriteSheet livesImage = new SpriteSheet("Sprites/lives_spritesheet.jpg", 381, 171);
     }
 
     /**

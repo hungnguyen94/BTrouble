@@ -33,10 +33,16 @@ public class SlowPowerUp extends GamePowerUp implements Observer {
      * Construct power up received in the game.
      * @param xpos x position
      * @param ypos y position
+     * @param expirationTime after which the powerup expires.
      */
     public SlowPowerUp(float xpos, float ypos, int expirationTime) {
         super(xpos, ypos, expirationTime);
         on = false;
+    }
+    
+    @Override
+    public int hashCode() {
+      return 1;
     }
     
     /**

@@ -12,7 +12,6 @@ import com.sem.btrouble.observering.LevelObserver;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
@@ -179,7 +178,8 @@ public class GameState extends BasicGameState implements LevelObserver {
      */
     @Override
     public void levelWon() {
-        stateBasedGame.enterState(0, new FadeInTransition(Color.gray), new BlobbyTransition(Color.red));
+        stateBasedGame.enterState(0, new FadeInTransition(Color.gray), 
+            new BlobbyTransition(Color.red));
     }
 
     /**
@@ -187,6 +187,7 @@ public class GameState extends BasicGameState implements LevelObserver {
      */
     @Override
     public void levelLost() {
-        stateBasedGame.enterState(4, new FadeOutTransition(Color.white), new FadeInTransition(Color.black));
+        stateBasedGame.enterState(4, new FadeOutTransition(Color.white), 
+            new FadeInTransition(Color.black));
     }
 }

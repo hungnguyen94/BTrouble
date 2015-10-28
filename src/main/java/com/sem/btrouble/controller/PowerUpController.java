@@ -59,7 +59,8 @@ public class PowerUpController extends ControllerDecorator implements Controller
     public void update() {
         for(Bubble bubble : bubbleList) {
             if(bubble.getCollidedStatus()) {
-                PlayerPowerUp playerPowerUp = PowerUpFactory.generate(bubble.getX(), bubble.getY(), Math.random());
+                PlayerPowerUp playerPowerUp = PowerUpFactory.generate(bubble.getX(), 
+                    bubble.getY(), Math.random());
                 if(playerPowerUp != null) {
                     addPowerUp(playerPowerUp);
                 }

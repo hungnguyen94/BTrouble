@@ -2,7 +2,6 @@ package com.sem.btrouble.tools;
 
 import java.io.IOException;
 
-import com.sem.btrouble.model.Player;
 import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.openal.AudioLoader;
 import org.newdawn.slick.openal.SoundStore;

@@ -24,7 +24,7 @@ import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
 
 /**
- * Test for the CollisionHandler
+ * Test for the CollisionHandler.
  */
 @RunWith(MockitoJUnitRunner.class)
 public class CollisionHandlerTest {

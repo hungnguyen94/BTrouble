@@ -1,12 +1,12 @@
 package com.sem.btrouble;
 
 import com.sem.btrouble.game.AbstractGame;
-import com.sem.btrouble.model.Model;
 import com.sem.btrouble.model.Player;
 import com.sem.btrouble.view.GameState;
 import com.sem.btrouble.view.LostLevelState;
 import com.sem.btrouble.view.MenuView;
 import com.sem.btrouble.view.MultiPlayerGameState;
+
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
@@ -23,6 +23,7 @@ public class BTrouble extends StateBasedGame {
 
     private static HashMap<String, Boolean> preferences;
     private AbstractGame game;
+    @SuppressWarnings("unused")
     private List<Player> playerList;
 
     /**
@@ -42,6 +43,10 @@ public class BTrouble extends StateBasedGame {
         this.playerList = new ArrayList<>();
     }
 
+    /**
+     * This is the main of the Bubble Trouble project.
+     * @param args array of arguments needed for the main.
+     */
     public static void main(String[] args) {
         try {
             AppGameContainer appgc;

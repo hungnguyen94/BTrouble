@@ -7,11 +7,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -64,6 +59,8 @@ public class Room implements Serializable, Drawable {
      *            - spawn position on x-axis
      * @param spawnY
      *            - spawn position on y-axis
+     * @param background
+     *            - the backgroundname of the room.
      */
     public Room(List<Wall> walls, List<Floor> floors, List<Bubble> bubbles, int spawnX,
         int spawnY, String background) {
@@ -290,6 +287,10 @@ public class Room implements Serializable, Drawable {
          }
     }
 
+    /**
+     * Add a daataset of movables to the movable borders.
+     * @param movableFloors the dataset to be added.
+     */
     public void addMovables(ArrayList<Floor> movableFloors) {
         moveableBorders.addAll(movableFloors);
     }

@@ -10,6 +10,7 @@ import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Room;
 import com.sem.btrouble.observering.Direction;
 import com.sem.btrouble.observering.LevelObserver;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -34,13 +35,16 @@ import java.util.List;
  * Test state.
  */
 public class MultiPlayerGameState extends BasicGameState implements LevelObserver {
+    @SuppressWarnings("unused")
     private TrueTypeFont font;
+    @SuppressWarnings("unused")
     private List<Drawable> drawables;
     private Image background;
     private AbstractGame game;
     private Player player;
     private Player secondPlayer;
 
+    @SuppressWarnings("unused")
     private GameContainer gameContainer;
     private StateBasedGame stateBasedGame;
 
@@ -206,7 +210,8 @@ public class MultiPlayerGameState extends BasicGameState implements LevelObserve
      */
     @Override
     public void levelWon() {
-        stateBasedGame.enterState(0, new FadeOutTransition(Color.gray), new BlobbyTransition(Color.red));
+        stateBasedGame.enterState(0, new FadeOutTransition(Color.gray), 
+            new BlobbyTransition(Color.red));
     }
 
     /**
@@ -214,6 +219,7 @@ public class MultiPlayerGameState extends BasicGameState implements LevelObserve
      */
     @Override
     public void levelLost() {
-        stateBasedGame.enterState(4, new FadeOutTransition(Color.white), new FadeInTransition(Color.black));
+        stateBasedGame.enterState(4, new FadeOutTransition(Color.white), 
+            new FadeInTransition(Color.black));
     }
 }

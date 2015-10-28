@@ -2,6 +2,7 @@ package com.sem.btrouble.model;
 
 import com.sem.btrouble.controller.Collidable;
 import com.sem.btrouble.controller.CollisionAction;
+
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -16,6 +17,7 @@ import java.util.Map;
  * @author Martin
  *
  */
+@SuppressWarnings("serial")
 public class Rope extends Rectangle implements Drawable, Movable {
     private int speedY;
     private static final int INITIAL_ROPESPEED = 5;
