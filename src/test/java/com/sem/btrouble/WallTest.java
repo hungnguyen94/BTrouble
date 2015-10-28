@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 /**
  * Test for the wall class.
@@ -56,6 +57,25 @@ public class WallTest {
     public void moveDownTest() {
         wall.moveDown();
         assertEquals(-1f, wall.getY(), 0);
+    }
+    
+    @Test
+    public void getCollidedStatusTest() {
+    	assertFalse(wall.getCollidedStatus());
+    }
+    
+    @Test
+    public void moveXTest() {
+    	float x = wall.getX();
+    	wall.moveX();
+    	assertEquals(x + 1, wall.getX(), 0);
+    }
+    
+    @Test
+    public void changeDirectionTest() {
+    	int speed = wall.getSpeed();
+    	wall.changeDirection();
+    	assertEquals(-speed, wall.getSpeed());
     }
 
 }

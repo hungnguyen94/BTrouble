@@ -1,13 +1,12 @@
 package com.sem.btrouble.controller;
 
+import com.sem.btrouble.model.Bubble;
+import com.sem.btrouble.model.Drawable;
+import org.newdawn.slick.Graphics;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-
-import org.newdawn.slick.Graphics;
-
-import com.sem.btrouble.model.Bubble;
-import com.sem.btrouble.model.Drawable;
 
 /**
  * This class handles all the logic for the bubbles.
@@ -33,7 +32,7 @@ public class BubbleController extends ControllerDecorator implements Drawable {
      * Returns the size of the bubbleList.
      * @return size of the bubbleList.
      */
-    public int getSize() {
+    public int getBubblesAmount() {
         return bubbleList.size();
     }
 

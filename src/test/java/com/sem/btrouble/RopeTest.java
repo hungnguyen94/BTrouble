@@ -1,10 +1,15 @@
 package com.sem.btrouble;
 
+import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Rope;
+
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.newdawn.slick.SlickException;
-
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
+import static org.mockito.Mockito.verify;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -15,9 +20,12 @@ import static org.junit.Assert.assertTrue;
  * @author Martin
  *
  */
+@RunWith(MockitoJUnitRunner.class)
 public class RopeTest {
 
+	@Mock private Player player;
     private Rope rope;
+    private Rope rope2;
 
     /**
      * Set up the rope object.
@@ -28,6 +36,24 @@ public class RopeTest {
     @Before
     public void setUp() throws SlickException {
         rope = new Rope(1, 1);
+        rope2 = new Rope(1, 1, player);
+    }
+    
+    @Test
+    public void getPlayerTest() {
+    	assertEquals(player, rope2.getPlayer());
+    }
+    
+    @Test
+    public void setCollidedFalseTest() {
+    	rope2.setCollided(false);
+    	assertFalse(rope2.isCollided());
+    }
+    
+    @Test
+    public void setCollidedTrueTest() {
+    	rope2.setCollided(true);
+    	verify(player).decreaseRopeCount();
     }
 
     /**
@@ -85,19 +111,19 @@ public class RopeTest {
      * Test the effect of the move method on y.
      */
     @Test
-    public void moveYTest() {
+    public void moveTrueTest() {
         float y = rope.getY();
         rope.move();
         assertEquals((y - 15), rope.getY(), 0);
     }
-
-    /**
-     * Test the effect of the move method on dy.
-     */
+    
     @Test
-    public void moveDistanceYTest() {
-//        rope.move();
-//        assertEquals(0, rope.getSpeedY());
+    public void moveFalse() {
+    	Rope compare = rope2;
+    	rope2.setCollided(true);
+    	assertTrue(rope2.getCollidedStatus());
+    	rope2.move();
+    	assertTrue(rope2.equals(compare));
     }
 
     /**
