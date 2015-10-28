@@ -87,7 +87,6 @@ public class Rope extends Rectangle implements Drawable, Movable {
      * @return hashCode
      */
     public int hashCode() {
-        assert false : "hashCode not designed";
         return 42; // any arbitrary constant will do
     }
 

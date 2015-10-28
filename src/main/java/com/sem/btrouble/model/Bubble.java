@@ -94,20 +94,20 @@ public class Bubble extends Circle implements Drawable, Movable {
     /**
      * Returns the velocity of the bubble in x direction.
      * 
-     * @return returns a double representing the velocity of the bubble in x
+     * @return returns a float representing the velocity of the bubble in x
      *         direction.
      */
-    public double getVelocityX() {
+    public float getVelocityX() {
         return velocityX;
     }
 
     /**
      * Returns the velocity of the bubble in y direction.
      * 
-     * @return returns a double representing the velocity of the bubble in y
+     * @return returns a float representing the velocity of the bubble in y
      *         direction.
      */
-    public double getVelocityY() {
+    public float getVelocityY() {
         return velocityY;
     }
 
@@ -199,7 +199,6 @@ public class Bubble extends Circle implements Drawable, Movable {
 
     @Override
     public int hashCode() {
-        assert false : "hashcode not designed";
         return arbitraryconstant;
     }
 
@@ -330,6 +329,7 @@ public class Bubble extends Circle implements Drawable, Movable {
                     bounceXRight();
                     break;
                 default:
+                    bounceX();
                     break;
             }
         }
@@ -346,9 +346,10 @@ public class Bubble extends Circle implements Drawable, Movable {
                     bounceYFloor();
                     break;
                 case BOTTOM:
-                    bounceY();
+                    bounceYDown();
                     break;
                 default:
+                    bounceY();
                     break;
             }
         }
@@ -362,20 +363,20 @@ public class Bubble extends Circle implements Drawable, Movable {
         public void onCollision(Collidable b) {
             switch(CollisionHandler.checkCollisionSideX(Bubble.this, b)) {
                 case LEFT:
-                    Bubble.this.bounceXLeft();
+                    bounceXLeft();
                     break;
                 case RIGHT:
-                    Bubble.this.bounceXRight();
+                    bounceXRight();
                     break;
                 default:
                     break;
             }
             switch(CollisionHandler.checkCollisionSideY(Bubble.this, b)) {
                 case TOP:
-                    Bubble.this.bounceYUp();
+                    bounceYUp();
                     break;
                 case BOTTOM:
-                    Bubble.this.bounceYDown();
+                    bounceYDown();
                     break;
                 default:
                     break;
