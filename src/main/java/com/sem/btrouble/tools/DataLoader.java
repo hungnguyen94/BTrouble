@@ -14,11 +14,11 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DataLoader {
     private File file;
@@ -42,10 +42,14 @@ public class DataLoader {
     }
     
     public Element loadFileData(String nodeName, int index) throws ParserConfigurationException, SAXException, IOException, ParseException{
+        if(!hasRoom(index)) {
+            index = 0;
+        }
         Element res = null;
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document data = builder.parse(file);
         data.getDocumentElement().normalize();
+
         Node item = data.getElementsByTagName("Level").item(index);
         if (item.getNodeType() == Node.ELEMENT_NODE) {
             res = (Element) item;
@@ -142,8 +146,11 @@ public class DataLoader {
         return bubbles;
     }
     
-    public ArrayList<Bubble> loadBubbles(int index) {
-        ArrayList<Bubble> bubbles = new ArrayList<Bubble>();
+    public List<Bubble> loadBubbles(int index) {
+        if(!hasRoom(index)) {
+            index = 0;
+        }
+        List<Bubble> bubbles = new ArrayList<Bubble>();
         try {
             Element levelElement = loadFileData("Level", index);
             bubbles = parseBubbles(levelElement);
@@ -155,7 +162,6 @@ public class DataLoader {
 
     public boolean hasRoom(int currentLevel) {
         boolean res = false;
-
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document data = builder.parse(file);

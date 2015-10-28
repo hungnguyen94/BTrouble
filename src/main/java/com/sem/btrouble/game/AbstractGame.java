@@ -25,7 +25,7 @@ public abstract class AbstractGame implements LevelObserver {
     private Timer levelTimer;
 
     // Max time in seconds.
-    public static final int MAX_GAME_DURATION = 3000;
+    public static final int MAX_GAME_DURATION = 600;
     private int currentTime;
 
     /**

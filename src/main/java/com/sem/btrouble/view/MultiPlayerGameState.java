@@ -4,7 +4,6 @@ import com.sem.btrouble.BTrouble;
 import com.sem.btrouble.game.AbstractGame;
 import com.sem.btrouble.game.MultiPlayerGame;
 import com.sem.btrouble.game.MultiPlayerSurvivalGame;
-import com.sem.btrouble.model.Drawable;
 import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Room;
 import com.sem.btrouble.observering.Direction;
@@ -27,7 +26,6 @@ import org.newdawn.slick.state.transition.SelectTransition;
 import org.newdawn.slick.util.ResourceLoader;
 
 import java.io.InputStream;
-import java.util.ArrayList;
 
 /**
  * Test state.
@@ -52,6 +50,7 @@ public class MultiPlayerGameState extends BasicGameState implements LevelObserve
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         this.stateBasedGame = sbg;
+        this.currentLevel = 0;
         // load font from a .ttf file
         try {
             InputStream inputStream = ResourceLoader.getResourceAsStream("Sprites/IndieFlower.ttf");
@@ -62,8 +61,7 @@ public class MultiPlayerGameState extends BasicGameState implements LevelObserve
         } catch (Exception e) {
             e.printStackTrace();
         }
-        new ArrayList<Drawable>();
-        background = new Image("Sprites/background1280x720.png");
+//        background = new Image("Sprites/background1280x720.png");
     }
 
     /**
@@ -81,6 +79,7 @@ public class MultiPlayerGameState extends BasicGameState implements LevelObserve
         game.addPlayer(secondPlayer);
         player = new Player(1f, 1f);
         game.addPlayer(player);
+        game.spawnBubbles(dataloader.loadBubbles(currentLevel));
         game.startGame();
     }
 
@@ -130,9 +129,9 @@ public class MultiPlayerGameState extends BasicGameState implements LevelObserve
             livesImage = new SpriteSheet("Sprites/lives_spritesheet.jpg", 381, 171);
             graphics.setColor(Color.white);
             graphics.drawString("Player 1: ", 190, 670);
-            livesImage.getSprite(player.getLives(), 0).draw(310, 670, (float) 0.286);
+            livesImage.getSprite(Math.max(player.getLives(), 0), 0).draw(310, 670, (float) 0.286);
             graphics.drawString("Player 2: ", 400, 670);
-            livesImage.getSprite(secondPlayer.getLives(), 0).
+            livesImage.getSprite(Math.max(secondPlayer.getLives(), 0), 0).
                     draw(520, 670, (float) 0.286);
         } catch(SlickException e) {
             e.printStackTrace();
@@ -205,6 +204,7 @@ public class MultiPlayerGameState extends BasicGameState implements LevelObserve
     @Override
     public void levelWon() {
         stateBasedGame.enterState(0, new FadeOutTransition(Color.gray), new BlobbyTransition(Color.red));
+        currentLevel++;
     }
 
     /**
