@@ -11,6 +11,7 @@ import java.util.Map;
  * @author Martin
  *
  */
+@SuppressWarnings("serial")
 public class StayRope extends Rope {
 
     private boolean moveFlag;

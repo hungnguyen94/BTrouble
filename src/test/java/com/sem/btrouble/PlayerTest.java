@@ -40,28 +40,43 @@ public class PlayerTest {
         player = new Player(1, 1);
     }
     
+    /**
+     * Test if the player can shoot ropes.
+     */
     @Test
     public void fireTrueTest() {
         assertTrue(player.fire(rope));
     }
     
+    /**
+     * Test if the player cannot shoot ropes after shooting one.
+     */
     @Test
     public void fireFalseTest() {
         player.fire(rope);
         assertFalse(player.fire(rope));
     }
     
+    /**
+     * Test if we can get the wallet of the player.
+     */
     @Test
     public void getWalletTest() {
         assertEquals(player.getWallet(), new Wallet());
     }
     
+    /**
+     * Test if we can set right blocked.
+     */
     @Test
     public void setRightBlockTest() {
         player.setRightBlock(false);
         assertFalse(player.getRightBlocked());
     }
     
+    /**
+     * Test if we can set left blocked.
+     */
     @Test
     public void setLeftBlockTest() {
         player.setLeftBlock(false);
@@ -76,6 +91,9 @@ public class PlayerTest {
         assertTrue(player.equals(player));
     }
     
+    /**
+     * Test the equals method with the attribute velocityY.
+     */
     @Test
     public void equalsFalseVelocityYTest() {
         Player player2 = new Player(1, 1);
@@ -83,6 +101,9 @@ public class PlayerTest {
         assertFalse(player.equals(player2));
     }
     
+    /**
+     * Test the equals method with the attribute facingLeft.
+     */
     @Test
     public void equalsFalseFacingTest() {
         Player player2 = new Player(1, 1);
@@ -90,6 +111,9 @@ public class PlayerTest {
         assertFalse(player.equals(player2));
     }
 
+    /**
+     * Test the equals method with the attribute idle.
+     */
     @Test
     public void equalsFalseIdleTest() {
         Player player2 = new Player(1, 1);
@@ -105,6 +129,9 @@ public class PlayerTest {
         assertFalse(player.equals(new Player(2, 1)));
     }
     
+    /**
+     * Test the equals method with the attribute fire.
+     */
     @Test
     public void equalsFalseRopeTest() {
         Player player2 = new Player(1, 1);
@@ -318,6 +345,9 @@ public class PlayerTest {
         assertEquals(player1, player);
     }
     
+    /**
+     * Test if the player can move ropes.
+     */
     @Test
     public void moveRopesTest() {
         player.fire(rope);

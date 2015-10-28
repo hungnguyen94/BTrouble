@@ -4,6 +4,7 @@ import com.sem.btrouble.controller.Collidable;
 import com.sem.btrouble.controller.CollisionAction;
 import com.sem.btrouble.controller.CollisionHandler;
 import com.sem.btrouble.observering.Observer;
+
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -51,6 +52,7 @@ public class Player extends Rectangle implements Drawable, Movable {
     private int maxAmountRopes;
 
     private ArrayList<Rope> ropes;
+    @SuppressWarnings("unused")
     private ArrayList<Observer> observers;
 
     /**

@@ -2,6 +2,7 @@ package com.sem.btrouble.model;
 
 import com.sem.btrouble.controller.Collidable;
 import com.sem.btrouble.controller.CollisionAction;
+
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
@@ -14,6 +15,7 @@ import java.util.Map;
  * @author Martin
  *
  */
+@SuppressWarnings("serial")
 public abstract class GamePowerUp extends Rectangle implements Drawable, Movable {
 
     private boolean falling;
@@ -21,6 +23,7 @@ public abstract class GamePowerUp extends Rectangle implements Drawable, Movable
 
     private float velocityY;
     private float accelerationY;
+    @SuppressWarnings("unused")
     private int expirationTime;
 
     /**
@@ -34,6 +37,7 @@ public abstract class GamePowerUp extends Rectangle implements Drawable, Movable
      * Construct power up received in the game.
      * @param xpos x position
      * @param ypos y position
+     * @param expirationTime amount of time when the powerup expires.
      */
     public GamePowerUp(float xpos, float ypos, int expirationTime) {
         super(xpos, ypos, 50, 100);

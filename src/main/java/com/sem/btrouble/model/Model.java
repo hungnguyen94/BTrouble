@@ -11,7 +11,7 @@ import com.sem.btrouble.tools.DataLoader;
  * used to draw the View. Model has been split into partial models such as
  * Objects and Players.
  */
-public class Model {
+public abstract class Model {
 
     private static ArrayList<Player> players;
     private static Room roomCurrent;
@@ -235,6 +235,10 @@ public class Model {
         return currentLevel;
     }
 
+    /**
+     * Return the dataloader of the model.
+     * @return the dataloader.
+     */
     public static DataLoader getDataLoader() {
         return dataloader;
     }

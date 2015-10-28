@@ -18,22 +18,23 @@ import static org.junit.Assert.assertTrue;
  * Created by hung on 16-10-15.
  */
 public class PlayerCollisionTests {
-    CollisionHandler collisionHandler;
+    private CollisionHandler collisionHandler;
 
 //    @Mock
-    Player player;
+    private Player player;
     @Mock
-    Bubble bubble;
+    private Bubble bubble;
     @Spy
-    Floor floor;
+    private Floor floor;
     @Spy
-    Wall wall;
+    private Wall wall;
 
-    private static final float CENTER_X = 9f;
-    private static final float CENTER_Y = 11f;
     private static final float HEIGHT = 14f;
     private static final float WIDTH = 15f;
 
+    /**
+     * Initialize the CollisionHandler and the Player.
+     */
     @Before
     public void setUp() {
         collisionHandler = new CollisionHandler();
@@ -41,6 +42,10 @@ public class PlayerCollisionTests {
         collisionHandler.addCollidable(player);
     }
 
+    /**
+     * 
+     * Test if the player collides with a bubble.
+     */
     @Test
     public void playerBubbleCollision() {
         assertTrue(player.isAlive());
@@ -48,7 +53,9 @@ public class PlayerCollisionTests {
         assertFalse(player.isAlive());
     }
 
-
+    /**
+     * Test if a player collides with the floor.
+     */
     @Test
     public void playerFloorCollision() {
         floor = Mockito.spy(new Floor(0, 0, HEIGHT, WIDTH));
@@ -60,6 +67,9 @@ public class PlayerCollisionTests {
         assertTrue(player.getCenterY() == newCenter);
     }
 
+    /**
+     * Test if a player collides with the wall on the right.
+     */
     @Test
     public void playerWallCollisionRight() {
         wall = Mockito.spy(new Wall(-10, 10, HEIGHT, WIDTH));
@@ -71,6 +81,9 @@ public class PlayerCollisionTests {
         assertTrue(player.getCenterX() == newCenterX);
     }
 
+    /**
+     * Test if the player collides with a wall on the left.
+     */
     @Test
     public void playerWallCollisionLeft() {
         wall = Mockito.spy(new Wall(100, 10, HEIGHT, WIDTH));

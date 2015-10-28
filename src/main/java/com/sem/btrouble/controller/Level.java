@@ -76,7 +76,7 @@ public class Level implements LevelSubject, Drawable {
 
     /**
      * Adds a movable object to the level.
-     * @param movable
+     * @param movable the Movable object to be added.
      */
     public void addMovable(Movable movable) {
         movables.add(movable);
@@ -84,12 +84,16 @@ public class Level implements LevelSubject, Drawable {
 
     /**
      * Remove a movable object from the level.
-     * @param movable
+     * @param movable the movable object to be removed.
      */
     public void removeMovable(Movable movable) {
         movables.remove(movable);
     }
 
+    /**
+     * Add a rope to the level.
+     * @param rope the rope to be added.
+     */
     public void addRope(Rope rope) {
         ropeController.addRope(rope);
     }

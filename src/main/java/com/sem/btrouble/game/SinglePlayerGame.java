@@ -1,12 +1,8 @@
 package com.sem.btrouble.game;
 
-import com.sem.btrouble.model.Bubble;
 import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Room;
 import com.sem.btrouble.observering.LevelObserver;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * AbstractGame class.

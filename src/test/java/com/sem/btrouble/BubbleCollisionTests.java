@@ -11,29 +11,33 @@ import org.mockito.Spy;
 import static org.junit.Assert.assertTrue;
 
 /**
- * @Author Hung
+ * @author Hung
  */
 public class BubbleCollisionTests {
 
 //    @Mock
-    Bubble bubble;
+    private Bubble bubble;
     @Spy
-    Floor floor;
+    private Floor floor;
     @Spy
-    Wall wall;
+    private Wall wall;
 
-    private static final float X = 0;
-    private static final float Y = 0;
     private static final float CENTER_X = 9f;
     private static final float CENTER_Y = 11f;
     private static final float HEIGHT = 14f;
     private static final float WIDTH = 15f;
 
+    /**
+     * Setup a bubble at the specified location.
+     */
     @Before
     public void setUp() {
         bubble = new Bubble(10, CENTER_X, CENTER_Y);
     }
 
+    /**
+     * Test if the bubble collides with the right wall.
+     */
     @Test
     public void bubbleWallCollisionRight() {
         wall = Mockito.spy(new Wall(100, 100, WIDTH, HEIGHT));
@@ -41,6 +45,9 @@ public class BubbleCollisionTests {
         assertTrue(bubble.getVelocityX() < 0);
     }
 
+    /**
+     * Test if the bubble collides with the left wall.
+     */
     @Test
     public void bubbleWallCollisionLeft() {
         wall = Mockito.spy(new Wall(-100, -100, WIDTH, HEIGHT));
@@ -48,7 +55,9 @@ public class BubbleCollisionTests {
         assertTrue(bubble.getVelocityX() > 0);
     }
 
-
+    /**
+     * Test if the bubble collides with the floor.
+     */
     @Test
     public void bubbleFloorCollision() {
         floor = Mockito.spy(new Floor(0, -100, HEIGHT, WIDTH));
@@ -58,6 +67,9 @@ public class BubbleCollisionTests {
         assertTrue(bubble.getVelocityY() < 0);
     }
 
+    /**
+     * Test if the bubble collides with the ceiling.
+     */
     @Test
     public void bubbleCeilingCollision() {
         floor = Mockito.spy(new Floor(0, 100, HEIGHT, WIDTH));
@@ -68,6 +80,9 @@ public class BubbleCollisionTests {
         assertTrue(bubble.getVelocityY() < 0);
     }
 
+    /**
+     * Test if the bubble collides with a bubble on the left.
+     */
     @Test
     public void bubbleBubbleLeftCollision() {
         Bubble otherBubble = new Bubble(10, CENTER_X + 10, CENTER_Y);
@@ -76,6 +91,9 @@ public class BubbleCollisionTests {
         assertTrue(otherBubble.getVelocityX() > 0);
     }
 
+    /**
+     * Test if the bubble collides with a bubble on the right.
+     */
     @Test
     public void bubbleBubbleRightCollision() {
         Bubble otherBubble = new Bubble(10, CENTER_X - 10, CENTER_Y);
@@ -84,6 +102,9 @@ public class BubbleCollisionTests {
         assertTrue(otherBubble.getVelocityX() < 0);
     }
 
+    /**
+     * Test if the bubble collides with a bubble on the top.
+     */
     @Test
     public void bubbleBubbleTopCollision() {
         Bubble otherBubble = new Bubble(10, CENTER_X, CENTER_Y - 10);
@@ -94,6 +115,9 @@ public class BubbleCollisionTests {
         assertTrue(otherBubble.getVelocityY() < 0);
     }
 
+    /**
+     * Test if the bubble collidedes with a bubble on the bottom.
+     */
     @Test
     public void bubbleBubbleBottomCollision() {
         Bubble otherBubble = new Bubble(10, CENTER_X, CENTER_Y + 10);

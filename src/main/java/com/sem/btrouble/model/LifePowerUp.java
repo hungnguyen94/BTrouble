@@ -9,6 +9,7 @@ import org.newdawn.slick.SlickException;
  * @author Martin
  *
  */
+@SuppressWarnings("serial")
 public class LifePowerUp extends PlayerPowerUp implements Movable {
     
 	private Image lifePowerUpImage;
@@ -40,6 +41,11 @@ public class LifePowerUp extends PlayerPowerUp implements Movable {
         player.addLife();
         setCollided(true);
     }
+ 
+    @Override
+    public int hashCode() {
+      return 0;
+    }
 
     /**
      * Test if two object are equal of this instance.
@@ -58,7 +64,7 @@ public class LifePowerUp extends PlayerPowerUp implements Movable {
             return false;
         }
     }
-    
+
     /**
      * Reset the power up.
      */
