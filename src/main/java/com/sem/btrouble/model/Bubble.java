@@ -18,7 +18,7 @@ import java.util.Map;
  *
  */
 @SuppressWarnings("serial")
-public class Bubble extends Circle implements Drawable, Movable {
+public class Bubble extends Circle implements Drawable, Collidable, Movable {
     // gravity
     private static final float GRAVITY = .4f;
     // starting speed in horizontal direction
@@ -284,7 +284,7 @@ public class Bubble extends Circle implements Drawable, Movable {
     @Override
     public Map<Class<? extends Collidable>, CollisionAction> getCollideActions() {
         Map<Class<? extends Collidable>, CollisionAction> collisionActionMap =
-                new HashMap<Class<? extends Collidable>, CollisionAction>();
+                new HashMap<>();
         // Method called on Wall collision
         collisionActionMap.put(Wall.class, new WallCollision());
 

@@ -70,16 +70,16 @@ public class Floor extends Rectangle implements Drawable, Collidable, Movable {
      * Move the floor up.
      */
     public void moveUp() {
-        setCenterY(getCenterY() - speed);
         grow(0, speed);
+        setCenterY(getCenterY() - speed);
     }
 
     /**
      * Move the floor down.
      */
     public void moveDown() {
-        setCenterY(getCenterY() + speed);
         grow(0, speed);
+        setCenterY(getCenterY() + speed);
     }
 
 

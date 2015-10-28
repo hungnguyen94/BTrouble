@@ -2,6 +2,8 @@ package com.sem.btrouble.model;
 
 import com.sem.btrouble.controller.Collidable;
 import com.sem.btrouble.controller.CollisionAction;
+import com.sem.btrouble.controller.CollisionHandler;
+import com.sem.btrouble.controller.CollisionSide;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -16,7 +18,7 @@ import java.util.Map;
  * @author Martin
  *
  */
-public class Rope extends Rectangle implements Drawable, Movable {
+public class Rope extends Rectangle implements Drawable, Collidable, Movable {
     private int speedY;
     private static final int INITIAL_ROPESPEED = 5;
     private Image sprite;
@@ -166,7 +168,9 @@ public class Rope extends Rectangle implements Drawable, Movable {
         collisionActionMap.put(Floor.class, new CollisionAction() {
             @Override
             public void onCollision(Collidable collider) {
-                setCollided(true);
+                if(CollisionHandler.checkCollisionSideY(Rope.this, collider) == CollisionSide.BOTTOM) {
+                    setCollided(true);
+                }
             }
         });
 

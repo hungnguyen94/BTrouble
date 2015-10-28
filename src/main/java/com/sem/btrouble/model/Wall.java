@@ -83,8 +83,8 @@ public class Wall extends Rectangle implements Drawable, Collidable, Movable {
      * Move the wall to the right.
      */
     public void moveRight() {
-        setCenterX(getCenterX() + speed);
         grow(speed, 0);
+        setCenterX(getCenterX() + speed);
     }
 
     /**

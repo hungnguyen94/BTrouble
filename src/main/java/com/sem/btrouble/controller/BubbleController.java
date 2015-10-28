@@ -1,7 +1,6 @@
 package com.sem.btrouble.controller;
 
 import com.sem.btrouble.model.Bubble;
-import com.sem.btrouble.model.Drawable;
 import org.newdawn.slick.Graphics;
 
 import java.util.Collection;
@@ -12,7 +11,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * This class handles all the logic for the bubbles.
  * @author Hung
  */
-public class BubbleController extends ControllerDecorator implements Drawable {
+public class BubbleController extends ControllerDecorator {
 
     private List<Bubble> bubbleList;
     private Controller controller;
@@ -85,7 +84,6 @@ public class BubbleController extends ControllerDecorator implements Drawable {
         }
         controller.update();
     }
-
 
     /**
      * Draw the object.

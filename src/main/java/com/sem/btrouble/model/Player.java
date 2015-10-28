@@ -22,7 +22,7 @@ import java.util.Map;
  *
  */
 @SuppressWarnings("serial")
-public class Player extends Rectangle implements Drawable, Movable {
+public class Player extends Rectangle implements Drawable, Collidable, Movable {
     private int lives;
     private int score;
 

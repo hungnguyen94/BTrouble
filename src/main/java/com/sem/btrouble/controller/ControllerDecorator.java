@@ -1,20 +1,26 @@
 package com.sem.btrouble.controller;
 
+import com.sem.btrouble.model.Drawable;
+
 import java.util.Collection;
+import java.util.LinkedList;
 
 /**
  * @author Hung
+ * Decorator for the controller.
  */
 abstract class ControllerDecorator implements Controller {
 
     private Controller controller;
+    private Collection<Collection<? extends Drawable>> drawableLists;
 
     /**
      * Constructor for the controller decorator.
      * @param controller controller to be decorated.
      */
-    ControllerDecorator(Controller controller) {
+    public ControllerDecorator(Controller controller) {
         this.controller = controller;
+        this.drawableLists = new LinkedList<>();
     }
 
     /**
