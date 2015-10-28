@@ -3,7 +3,6 @@ package com.sem.btrouble.game;
 import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Room;
 import com.sem.btrouble.observering.LevelObserver;
-import org.newdawn.slick.Graphics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,9 +96,5 @@ public class MultiPlayerGame extends AbstractGame {
             // End game.
             System.out.println("Game has ended");
         }
-    }
-
-    public void draw(Graphics graphics) {
-        super.draw(graphics);
     }
 }
