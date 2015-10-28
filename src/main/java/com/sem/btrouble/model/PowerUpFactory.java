@@ -1,7 +1,5 @@
 package com.sem.btrouble.model;
 
-import java.util.List;
-
 /**
  * Class which generates a random power up.
  * @author Martin
