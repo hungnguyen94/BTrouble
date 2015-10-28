@@ -1,6 +1,5 @@
 package com.sem.btrouble.game;
 
-import com.sem.btrouble.model.Bubble;
 import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Room;
 import com.sem.btrouble.observering.LevelObserver;
@@ -81,6 +80,7 @@ public class MultiPlayerGame extends AbstractGame {
     @Override
     public void levelWon() {
         getLevel().stop();
+        getLevelTimer().stop();
         System.out.println("Level won");
     }
 
