@@ -48,6 +48,14 @@ public class Wallet implements Observer {
             return false;
         }
     }
+    
+    /**
+     * Get power ups of the wallet.
+     * @return the power ups.
+     */
+    public List<PlayerPowerUp> getPowerUps() {
+    	return this.powerUpList;
+    }
 
     /**
      * Adds a powerUp to the wallet.
