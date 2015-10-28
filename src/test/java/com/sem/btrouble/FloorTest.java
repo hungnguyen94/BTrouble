@@ -1,6 +1,7 @@
 package com.sem.btrouble;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import org.junit.Test;
 
@@ -23,6 +24,11 @@ public class FloorTest {
     public void moveRightTest() {
         floor.moveRight();
         assertEquals(1.1, floor.getX(), 0.01);
+    }
+    
+    @Test
+    public void getCollidedStatusTest() {
+    	assertFalse(floor.getCollidedStatus());
     }
 
     /**

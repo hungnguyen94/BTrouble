@@ -61,6 +61,9 @@ public class MultiPlayerSurvivalGame extends AbstractGame {
         getLevel().addPlayer(player);
     }
 
+    /**
+     * Spawn random bubbles.
+     */
     private void spawnRandomBubbles() {
         List<Bubble> bubbleList = new ArrayList<>();
         for(int i = 0; i < Math.random()*5; i++) {

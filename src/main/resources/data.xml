@@ -1,4 +1,4 @@
-<LevelData>
+<GameData>
 
 <Level spawnX="300" spawnY="200" background="background1280x720.png">
 <Wall x="0" y="0" width="20" height="720"></Wall>
@@ -17,4 +17,12 @@
 <Bubble size="2" x="640" y="200"></Bubble> 
 </Level>
 
-</LevelData>
+<Level spawnX="300" spawnY="200" background="background1280x720.png">
+<Wall x="0" y="0" width="20" height="720"></Wall>
+<Wall x="1260" y="0" width="20" height="720"></Wall>
+<MovableFloor x="0" y="612" width="1280" height="14"></MovableFloor>
+<Floor x="0" y="-50" width="1280" height="50"></Floor>
+<Bubble size="2" x="640" y="200"></Bubble> 
+</Level>
+
+</GameData>

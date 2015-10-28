@@ -1,8 +1,10 @@
 package com.sem.btrouble;
 
+import com.sem.btrouble.controller.Collidable;
 import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Rope;
 import com.sem.btrouble.model.Wallet;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,11 +13,13 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.newdawn.slick.SlickException;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * Class which tests the Player class.
@@ -38,6 +42,47 @@ public class PlayerTest {
     @Before
     public void setUp() throws SlickException {
         player = new Player(1, 1);
+    }
+    
+    @Test
+    public void resetTest() {
+    	player.reset();
+    	assertEquals(2, player.getVelocityY(), 0);
+    	assertFalse(player.getRightBlocked());
+    	assertFalse(player.getLeftBlocked());
+    	assertTrue(player.isAlive());
+    	assertTrue(player.isFalling());
+    	assertEquals(0, player.getRopeCount());
+    }
+    
+    @Test
+    public void canFireRopeTrueTest() {
+    	assertTrue(player.canFireRope());
+    }
+    
+    @Test
+    public void canFireRopeFalseTest() {
+    	player.increaseRopeCount();
+    	assertFalse(player.canFireRope());
+    }
+    
+    @Test
+    public void increaseRopeCountTest() {
+    	player.increaseRopeCount();
+    	assertEquals(1, player.getRopeCount());
+    }
+    
+    @Test
+    public void decreaseRopeCountTrueTest() {
+    	player.increaseRopeCount();
+    	player.decreaseRopeCount();
+    	assertEquals(0, player.getRopeCount());
+    }
+    
+    @Test
+    public void decreaseRopeCountFalseTest() {
+    	player.decreaseRopeCount();
+    	assertEquals(0, player.getRopeCount());
     }
     
     @Test
@@ -124,11 +169,17 @@ public class PlayerTest {
      * Test the addLife method.
      */
     @Test
-    public void addLifeTest() {
+    public void addLifeTrueTest() {
         player.loseLife();
         assertEquals(4, player.getLives());
         player.addLife();
         assertEquals(5, player.getLives());
+    }
+    
+    @Test
+    public void addLifeFalseTest() {
+    	player.addLife();
+    	assertEquals(5, player.getLives());
     }
 
     /**
@@ -139,6 +190,18 @@ public class PlayerTest {
         player.loseLife();
         assertEquals(4, player.getLives());
     }
+    
+    @Test
+    public void getCollidedStatusTrueTest() {
+    	player.setAlive(false);
+    	assertTrue(player.getCollidedStatus());
+    }
+    
+    @Test
+    public void getCollidedStatusFalseTest() {
+    	player.setAlive(true);
+    	assertFalse(player.getCollidedStatus());
+    }
 
     /**
      * Test the hasLives method with outcome true.
@@ -146,6 +209,23 @@ public class PlayerTest {
     @Test
     public void hasLivesTrueTest() {
         assertTrue(player.hasLives());
+    }
+    
+    @Test
+    public void removeCollidedRopeFalseTest() {
+    	when(rope.isCollided()).thenReturn(false);
+    	player.fire(rope);
+    	Collection<Collidable> list = player.removeCollidedRopes();
+    	assertTrue(list.isEmpty());
+    }
+    
+    
+    @Test
+    public void removeCollidedRopeTrueTest() {
+    	when(rope.isCollided()).thenReturn(true);
+    	player.fire(rope);
+    	Collection<Collidable> list = player.removeCollidedRopes();
+    	assertTrue(list.contains(rope));
     }
 
     /**
@@ -204,6 +284,13 @@ public class PlayerTest {
         Player player2 = new Player(1, 1);
         player2.setLeftBlock(true);
         assertFalse(player.equals(player2));
+    }
+    
+    @Test
+    public void equalsFalseLivesTest() {
+    	Player player2 = new Player(1, 1);
+    	player2.loseLife();
+    	assertFalse(player.equals(player2));
     }
 
     /**
@@ -324,11 +411,6 @@ public class PlayerTest {
         player.moveRopes();
         verify(rope).move();
     }
-    
-//    @Test
-//    public void hashCodeTest() {
-//        assertEquals(player.hashCode(), 42);
-//    }
 
     /**
      * Test the move method with isFalling false.

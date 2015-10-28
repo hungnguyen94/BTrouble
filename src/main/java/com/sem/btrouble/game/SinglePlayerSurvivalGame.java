@@ -19,6 +19,7 @@ public class SinglePlayerSurvivalGame extends AbstractGame {
 
     /**
      * Constructor for a game.
+     * @param room Room to be loaded.
      */
     public SinglePlayerSurvivalGame(Room room) {
         super(room);
@@ -60,6 +61,9 @@ public class SinglePlayerSurvivalGame extends AbstractGame {
         getLevel().addPlayer(player);
     }
 
+    /**
+     * Spawn random bubbles.
+     */
     private void spawnRandomBubbles() {
         List<Bubble> bubbleList = new ArrayList<>();
         for(int i = 0; i < Math.random()*5; i++) {

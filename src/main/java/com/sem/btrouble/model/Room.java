@@ -1,17 +1,11 @@
 package com.sem.btrouble.model;
 
 import com.sem.btrouble.controller.Collidable;
-
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -29,7 +23,6 @@ public class Room implements Serializable, Drawable {
 
     private List<Wall> walls;
     private List<Floor> floors;
-    private List<Bubble> bubbles;
     private Image background;
 
     private List<Collidable> moveableBorders;
@@ -40,7 +33,6 @@ public class Room implements Serializable, Drawable {
     public Room() {
         walls = new ArrayList<Wall>();
         floors = new ArrayList<Floor>();
-        bubbles = new ArrayList<Bubble>();
         moveableBorders = new ArrayList<Collidable>();
         spawnPositionX = 0;
         spawnPositionY = 0;
@@ -58,18 +50,15 @@ public class Room implements Serializable, Drawable {
      *            - list of walls
      * @param floors
      *            - list of floors
-     * @param bubbles
-     *            - list of bubbles
      * @param spawnX
      *            - spawn position on x-axis
      * @param spawnY
      *            - spawn position on y-axis
      */
-    public Room(List<Wall> walls, List<Floor> floors, List<Bubble> bubbles, int spawnX,
+    public Room(List<Wall> walls, List<Floor> floors, int spawnX,
         int spawnY, String background) {
         this.walls = walls;
         this.floors = floors;
-        this.bubbles = bubbles;
         this.moveableBorders = new ArrayList<Collidable>();
         spawnPositionX = spawnX;
         spawnPositionY = spawnY;
@@ -129,7 +118,7 @@ public class Room implements Serializable, Drawable {
     public boolean equals(Object other) {
         if (other instanceof Room) {
             Room that = (Room) other;
-            return (this.bubbles.equals(that.bubbles) && this.spawnPositionX == that.spawnPositionX
+            return (this.spawnPositionX == that.spawnPositionX
                     && this.spawnPositionY == that.spawnPositionY);
         }
         return false;
@@ -174,50 +163,9 @@ public class Room implements Serializable, Drawable {
     }
 
     /**
-     * Returns the collection of bubbles within this Room.
-     * 
-     * @return returns the collection of bubbles within this Room.
-     */
-    public Collection<Bubble> getBubbles() {
-        return bubbles;
-    }
-
-    /**
-     * Add a bubble object to the room.
-     * 
-     * @param b
-     *            - bubble to be added
-     */
-    public void addBubble(Bubble b) {
-        bubbles.add(b);
-    }
-
-    /**
-     * Remove a bubble object from the room.
-     * 
-     * @param b
-     *            - bubble to be removed
-     */
-    public void removeBubble(Bubble b) {
-        bubbles.remove(b);
-    }
-
-    /**
-     * Check is the room has bubbles.
-     * 
-     * @return - true if the value has bubbles
-     */
-    public boolean hasBubbles() {
-        return !bubbles.isEmpty();
-    }
-
-    /**
      * Move all the bubbles in the room.
      */
-    public void moveBubbles() {
-        for (Bubble b : bubbles) {
-            b.move();
-        }
+    public void move() {
         if (!moveableBorders.isEmpty()) {
             for (Collidable f : moveableBorders) {
                 if (f instanceof Floor) {
@@ -285,9 +233,6 @@ public class Room implements Serializable, Drawable {
         for (Floor f : floors) {
             f.draw(graphics);
         }
-         for (Bubble b: bubbles) {
-         b.draw(graphics);
-         }
     }
 
     public void addMovables(ArrayList<Floor> movableFloors) {

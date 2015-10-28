@@ -78,7 +78,7 @@ public class SinglePlayerGame extends AbstractGame {
         if(player.hasLives()) {
             getLevelTimer().stop();
             System.out.println("Level restart");
-            //startGame();
+            // startGame();
         } else {
             // End game.
             System.out.println("Game has ended");

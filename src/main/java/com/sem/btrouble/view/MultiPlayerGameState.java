@@ -4,12 +4,11 @@ import com.sem.btrouble.BTrouble;
 import com.sem.btrouble.game.AbstractGame;
 import com.sem.btrouble.game.MultiPlayerGame;
 import com.sem.btrouble.game.MultiPlayerSurvivalGame;
-import com.sem.btrouble.model.Drawable;
-import com.sem.btrouble.model.Model;
 import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Room;
 import com.sem.btrouble.observering.Direction;
 import com.sem.btrouble.observering.LevelObserver;
+import com.sem.btrouble.tools.DataLoader;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -27,21 +26,18 @@ import org.newdawn.slick.state.transition.SelectTransition;
 import org.newdawn.slick.util.ResourceLoader;
 
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Test state.
  */
 public class MultiPlayerGameState extends BasicGameState implements LevelObserver {
-    private TrueTypeFont font;
-    private List<Drawable> drawables;
     private Image background;
     private AbstractGame game;
     private Player player;
     private Player secondPlayer;
+    private DataLoader dataloader;
+    private int currentLevel;
 
-    private GameContainer gameContainer;
     private StateBasedGame stateBasedGame;
 
     /**
@@ -53,27 +49,27 @@ public class MultiPlayerGameState extends BasicGameState implements LevelObserve
      */
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        this.gameContainer = gc;
         this.stateBasedGame = sbg;
+        this.currentLevel = 0;
         // load font from a .ttf file
         try {
             InputStream inputStream = ResourceLoader.getResourceAsStream("Sprites/IndieFlower.ttf");
             java.awt.Font awtFont = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT,
                     inputStream);
             awtFont = awtFont.deriveFont(24f); // set font size
-            font = new TrueTypeFont(awtFont, false);
+            new TrueTypeFont(awtFont, false);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        drawables = new ArrayList<Drawable>();
-        background = new Image("Sprites/background1280x720.png");
+//        background = new Image("Sprites/background1280x720.png");
     }
 
     /**
      * Loads a new game.
      */
     private void newGame() {
-        Room room = Model.getCurrentRoom();
+        Room room = dataloader.loadRoom(currentLevel);
+
         if(BTrouble.getSurvival()) {
             game = new MultiPlayerSurvivalGame(room, this);
         } else {
@@ -83,6 +79,7 @@ public class MultiPlayerGameState extends BasicGameState implements LevelObserve
         game.addPlayer(secondPlayer);
         player = new Player(1f, 1f);
         game.addPlayer(player);
+        game.spawnBubbles(dataloader.loadBubbles(currentLevel));
         game.startGame();
     }
 
@@ -132,9 +129,9 @@ public class MultiPlayerGameState extends BasicGameState implements LevelObserve
             livesImage = new SpriteSheet("Sprites/lives_spritesheet.jpg", 381, 171);
             graphics.setColor(Color.white);
             graphics.drawString("Player 1: ", 190, 670);
-            livesImage.getSprite(player.getLives(), 0).draw(310, 670, (float) 0.286);
+            livesImage.getSprite(Math.max(player.getLives(), 0), 0).draw(310, 670, (float) 0.286);
             graphics.drawString("Player 2: ", 400, 670);
-            livesImage.getSprite(secondPlayer.getLives(), 0).
+            livesImage.getSprite(Math.max(secondPlayer.getLives(), 0), 0).
                     draw(520, 670, (float) 0.286);
         } catch(SlickException e) {
             e.printStackTrace();
@@ -207,6 +204,7 @@ public class MultiPlayerGameState extends BasicGameState implements LevelObserve
     @Override
     public void levelWon() {
         stateBasedGame.enterState(0, new FadeOutTransition(Color.gray), new BlobbyTransition(Color.red));
+        currentLevel++;
     }
 
     /**

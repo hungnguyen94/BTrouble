@@ -14,7 +14,6 @@ import org.newdawn.slick.Graphics;
 import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,7 +25,7 @@ public abstract class AbstractGame implements LevelObserver {
     private Timer levelTimer;
 
     // Max time in seconds.
-    public static final int MAX_GAME_DURATION = 3000;
+    public static final int MAX_GAME_DURATION = 600;
     private int currentTime;
 
     /**
@@ -129,6 +128,14 @@ public abstract class AbstractGame implements LevelObserver {
                     break;
             }
         }
+    }
+
+    /**
+     * Spawns bubbles in the game.
+     * @param bubbles bubbles
+     */
+    public void spawnBubbles(List<Bubble> bubbles) {
+        level.addBubble(bubbles);
     }
 
     /**

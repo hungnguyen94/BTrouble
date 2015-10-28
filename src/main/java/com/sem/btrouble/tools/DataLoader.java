@@ -1,21 +1,24 @@
 package com.sem.btrouble.tools;
 
-import java.io.File;
-import java.util.ArrayList;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
+import com.sem.btrouble.model.Bubble;
+import com.sem.btrouble.model.Floor;
+import com.sem.btrouble.model.Room;
+import com.sem.btrouble.model.Wall;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
-import com.sem.btrouble.model.Bubble;
-import com.sem.btrouble.model.Floor;
-import com.sem.btrouble.model.Room;
-import com.sem.btrouble.model.Wall;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.File;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 
@@ -45,15 +48,29 @@ public class DataLoader {
     public Room loadRoom(int index) {
         Room room = new Room();
         try {
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            Document data = builder.parse(file);
-            data.getDocumentElement().normalize();
-
-            room = parseRoom(data.getElementsByTagName("Level").item(index));
+            Element levelElement = loadFileData("Level", index);
+            room = parseRoom(levelElement);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return room;
+    }
+
+    public Element loadFileData(String nodeName, int index) throws ParserConfigurationException, SAXException, IOException, ParseException {
+        if(!hasRoom(index)) {
+            index = 0;
+        }
+        Element res = null;
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        Document data = builder.parse(file);
+        data.getDocumentElement().normalize();
+        Node item = data.getElementsByTagName("Level").item(index);
+        if (item.getNodeType() == Node.ELEMENT_NODE) {
+            res = (Element) item;
+        } else {
+            throw new ParseException("Room node should be an element", -3);
+        }
+        return res;
     }
 
     /**
@@ -74,11 +91,10 @@ public class DataLoader {
 
                 ArrayList<Wall> walls = parseWalls(levelData);
                 ArrayList<Floor> floors = parseFloors(levelData);
-                ArrayList<Bubble> bubbles = parseBubbles(levelData);
                 ArrayList<Floor> movableFloors = parseMovableFloors(levelData);
                 floors.addAll(movableFloors);
 
-                room = new Room(walls, floors, bubbles, spawnX, spawnY, background);
+                room = new Room(walls, floors, spawnX, spawnY, background);
                 room.addMovables(movableFloors);
             }
         } catch (Exception e) {
@@ -171,6 +187,25 @@ public class DataLoader {
             float x = Float.parseFloat(attributes.getNamedItem("x").getNodeValue());
             float y = Float.parseFloat(attributes.getNamedItem("y").getNodeValue());
             bubbles.add(new Bubble(size, x, y));
+        }
+        return bubbles;
+    }
+    /**
+     * This function parses the bubbles from a 
+     * specific level. 
+     * @param index Index of the level.
+     * @return A list containing bubbles.
+     */
+    public List<Bubble> loadBubbles(int index) {
+        if(!hasRoom(index)) {
+            index = 0;
+        }
+        List<Bubble> bubbles = new ArrayList<Bubble>();
+        try {
+            Element levelElement = loadFileData("Level", index);
+            bubbles = parseBubbles(levelElement);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return bubbles;
     }

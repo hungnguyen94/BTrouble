@@ -1,20 +1,24 @@
-/*package com.sem.btrouble;
+package com.sem.btrouble;
 
 import com.sem.btrouble.game.AbstractGame;
 import com.sem.btrouble.game.MultiPlayerGame;
-import com.sem.btrouble.model.Model;
+import com.sem.btrouble.model.Bubble;
 import com.sem.btrouble.model.Player;
 import com.sem.btrouble.model.Room;
 import com.sem.btrouble.observering.Direction;
+import com.sem.btrouble.tools.DataLoader;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-*//**
+/**
  * This is a end to end test
- *//*
+ */
 public class MultiplayerGameTest {
     AbstractGame game;
     Player player1;
@@ -22,14 +26,18 @@ public class MultiplayerGameTest {
 
     @Before
     public void setUp() {
-        Model.init(100, 100);
-        Room room = new Room();
-        room = Model.getDataLoader().loadRoom(Model.getRoom_current());
+        DataLoader dt = new DataLoader(DataLoader.STANDARD_LOCATION);
+        Room room = dt.loadRoom(1);
         player1 = new Player(0f, 0f);
         player2 = new Player(1f, 1f);
         game = new MultiPlayerGame(room);
         game.addPlayer(player1);
         game.addPlayer(player2);
+
+        List<Bubble> bubbleList = new ArrayList<>();
+        bubbleList.add(new Bubble(3, 500, 200));
+        game.spawnBubbles(bubbleList);
+
         assertFalse(game.isLevelRunning());
         game.startGame();
         try {
@@ -67,4 +75,3 @@ public class MultiplayerGameTest {
 
     }
 }
-*/
