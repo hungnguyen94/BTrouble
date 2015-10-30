@@ -3,6 +3,7 @@ package com.sem.btrouble.model;
 import com.sem.btrouble.event.BubbleEvent;
 import com.sem.btrouble.event.Event;
 import com.sem.btrouble.observering.Observer;
+
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -40,11 +41,20 @@ public class SlowPowerUp extends GamePowerUp implements Observer {
         on = false;
     }
     
+    
+    
     @Override
     public int hashCode() {
-      return 1;
+      final int prime = 31;
+      int result = 1;
+      int temp = 0;
+      if (playerIdle != null) {
+        temp = playerIdle.hashCode();
+      }
+      result = prime * result + temp;
+      return result;
     }
-    
+
     /**
      * Test if two object are equal of this instance.
      * @param other the object to compare with
@@ -62,7 +72,7 @@ public class SlowPowerUp extends GamePowerUp implements Observer {
             return false;
         }
     }
-    
+
     /**
      * Update the speed of the bubbles.
      * @param event the event that happens to the bubble

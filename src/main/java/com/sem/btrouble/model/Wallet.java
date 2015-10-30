@@ -34,12 +34,22 @@ public class Wallet implements Observer {
     public int getValue() {
         return value;
     }
+    
+
 
     @Override
     public int hashCode() {
-      return 1;
+      final int prime = 31;
+      int result = 1;
+      int temp = 0;
+      if (powerUpList != null) {
+        temp = powerUpList.hashCode();
+      }
+      result = prime * result + temp;
+      result = prime * result + value;
+      return result;
     }
-    
+
     /**
      * Checks to see whether this Wallet equals another Object.
      * @param other the other object to check against.
