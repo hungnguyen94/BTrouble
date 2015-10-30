@@ -1,9 +1,6 @@
 package com.sem.btrouble.controller;
 
-import com.sem.btrouble.model.Bubble;
-import com.sem.btrouble.model.Player;
-import com.sem.btrouble.model.Room;
-import com.sem.btrouble.model.Rope;
+import com.sem.btrouble.model.*;
 import com.sem.btrouble.observering.LevelObserver;
 import com.sem.btrouble.observering.LevelSubject;
 import org.newdawn.slick.Graphics;
@@ -52,6 +49,7 @@ public class Level implements LevelSubject {
         players.add(player);
         player.setX(room.getSpawnPositionX());
         player.setY(room.getSpawnPositionY());
+        PlayerInfo.getInstance().setPlayers(players);
     }
 
     /**

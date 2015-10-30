@@ -40,6 +40,24 @@ public class StayRope extends Rope {
             super.move();
         }
     }
+    
+    /**
+     * Set the moveFlag.
+     * @param moveFlag the MoveFlag
+     */
+    public void setMoveFlag(boolean moveFlag) {
+    	this.moveFlag = moveFlag;
+    }
+    
+    public boolean equals(Object other) {
+    	if(other instanceof StayRope) {
+    		StayRope that = (StayRope) other;
+    		return this.getX() == that.getX() && this.getY() == that.getY()
+    				&& this.getPlayer().equals(that.getPlayer());
+    	} else {
+    		return false;
+    	}
+    }
 
     /**
      * Every collidable should return a Map with all CollisionActions
