@@ -31,6 +31,10 @@ abstract class ControllerDecorator implements Controller {
         this.controller = controller;
     }
 
+    /**
+     * Get the controller.
+     * @return the controller
+     */
     public Controller getController() {
         return controller;
     }

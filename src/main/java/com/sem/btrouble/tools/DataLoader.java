@@ -57,7 +57,18 @@ public class DataLoader {
         return room;
     }
 
-    public Element loadFileData(String nodeName, int index) throws ParserConfigurationException, SAXException, IOException, ParseException {
+    /**
+     * Load the data from a file.
+     * @param nodeName the name of the file
+     * @param index the index to start
+     * @return the data in an element
+     * @throws ParserConfigurationException when it can't be parsed
+     * @throws SAXException when something went wrong
+     * @throws IOException when the file can't be read
+     * @throws ParseException when it can't be parsed
+     */
+    public Element loadFileData(String nodeName, int index) 
+            throws ParserConfigurationException, SAXException, IOException, ParseException {
         if(!hasRoom(index)) {
             index = 0;
         }
@@ -123,7 +134,8 @@ public class DataLoader {
             float width = Float.parseFloat(attributes.getNamedItem("width").getNodeValue());
             float height = Float.parseFloat(attributes.getNamedItem("height").getNodeValue());
             float speed = Float.parseFloat(attributes.getNamedItem("speed").getNodeValue());
-            Direction direction = Direction.stringToDirection(attributes.getNamedItem("direction").getNodeValue());
+            Direction direction = Direction.
+                    stringToDirection(attributes.getNamedItem("direction").getNodeValue());
 
             floors.add(new Floor(x, y, width, height, speed, direction));
         }

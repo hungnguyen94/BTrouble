@@ -15,6 +15,7 @@ public class MultiPlayerGame extends AbstractGame {
 
     /**
      * Constructor for a game.
+     * @param room The room to play
      */
     public MultiPlayerGame(Room room) {
         super(room);

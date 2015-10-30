@@ -135,6 +135,8 @@ public class Wall extends Rectangle implements Drawable, Collidable, Movable {
             case RIGHT:
                 moveRight();
                 break;
+            default:
+                break;
         }
     }
 

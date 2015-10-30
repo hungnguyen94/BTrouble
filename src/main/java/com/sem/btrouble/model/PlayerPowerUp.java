@@ -60,6 +60,7 @@ public abstract class PlayerPowerUp extends Rectangle implements Drawable, Colli
     /**
      * Starts the expiration timer.
      * If the actionListener is run, the powerup is expired.
+     * @param actionListener Observer
      */
     protected void startExpirationTimer(ActionListener actionListener) {
         Timer timer = new Timer(0, actionListener);

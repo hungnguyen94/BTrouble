@@ -50,6 +50,15 @@ public class Wallet implements Observer {
     }
     
     /**
+     * HashCode because of implemented equals method.
+     * 
+     * @return hashCode
+     */
+    public int hashCode() {
+        return 42; // any arbitrary constant will do
+    }
+    
+    /**
      * Get power ups of the wallet.
      * @return the power ups.
      */

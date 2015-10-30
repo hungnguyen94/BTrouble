@@ -19,6 +19,8 @@ public class BorderController extends ControllerDecorator {
      * Constructor for the controller decorator.
      *
      * @param controller controller to be decorated.
+     * @param wallList The list of walls
+     * @param floorList The list of floors
      */
     public BorderController(Controller controller, List<Wall> wallList, List<Floor> floorList) {
         super(controller);

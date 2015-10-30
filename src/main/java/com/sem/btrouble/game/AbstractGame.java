@@ -126,6 +126,8 @@ public abstract class AbstractGame implements LevelObserver {
                 case RIGHT:
                     player.moveRight(delta);
                     break;
+                default:
+                    break;
             }
         }
     }

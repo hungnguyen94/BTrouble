@@ -15,12 +15,15 @@ public final class PowerUpFactory {
      * @return the power up
      */
 	public static PlayerPowerUp generate(float x, float y, double random) {
+	    PlayerPowerUp power = null;
         if((random -= 0.2f) < 0) {
-            return new StayRopePowerUp(x, y, 5000);
+            power = new StayRopePowerUp(x, y, 5000);
+            return power;
         }
         if((random -= 0.2f) < 0) {
-            return new LifePowerUp(x, y);
+            power = new LifePowerUp(x, y);
+            return power;
         }
-        return null;
+        return power;
 	}
 }

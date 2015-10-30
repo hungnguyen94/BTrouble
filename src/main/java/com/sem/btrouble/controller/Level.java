@@ -1,6 +1,10 @@
 package com.sem.btrouble.controller;
 
-import com.sem.btrouble.model.*;
+import com.sem.btrouble.model.Room;
+import com.sem.btrouble.model.Player;
+import com.sem.btrouble.model.PlayerInfo;
+import com.sem.btrouble.model.Bubble;
+import com.sem.btrouble.model.Rope;
 import com.sem.btrouble.observering.LevelObserver;
 import com.sem.btrouble.observering.LevelSubject;
 import org.newdawn.slick.Graphics;
@@ -33,7 +37,8 @@ public class Level implements LevelSubject {
 
         this.bubbleController = new BubbleController(new CollisionHandler());
         this.ropeController = new RopeController(new PowerUpController(bubbleController));
-        this.mainController = new BorderController(ropeController, room.getMoveableWalls(), room.getMoveableFloors());
+        this.mainController = new BorderController(ropeController, 
+                room.getMoveableWalls(), room.getMoveableFloors());
 
         this.mainController.addListReference(room.getCollidablesList());
         this.mainController.addListReference(players);

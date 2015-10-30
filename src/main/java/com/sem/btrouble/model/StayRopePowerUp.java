@@ -16,6 +16,7 @@ public class StayRopePowerUp extends PlayerPowerUp {
 
     /**
      * Construct the power up bought in the shop.
+     * @param expirationTime expiration time for the powerup
      */
     public StayRopePowerUp(int expirationTime) {
         super(expirationTime);
@@ -31,6 +32,11 @@ public class StayRopePowerUp extends PlayerPowerUp {
         super(x, y, expirationTime);
     }
     
+    /**
+     * Compares to stayRopePowerUp objects.
+     * @param other the object to compare with
+     * @return a boolean
+     */
     public boolean equals(Object other) {
     	if(other instanceof StayRopePowerUp) {
     		StayRopePowerUp that = (StayRopePowerUp) other;
@@ -38,6 +44,15 @@ public class StayRopePowerUp extends PlayerPowerUp {
     	} else {
     		return false;
     	}
+    }
+    
+    /**
+     * HashCode because of implemented equals method.
+     * 
+     * @return hashCode
+     */
+    public int hashCode() {
+        return 42; // any arbitrary constant will do
     }
 
     /**

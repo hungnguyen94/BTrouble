@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.sem.btrouble.view.*;
+import com.sem.btrouble.view.GameState;
+import com.sem.btrouble.view.LostLevelState;
+import com.sem.btrouble.view.MenuView;
+import com.sem.btrouble.view.MultiPlayerGameState;
+import com.sem.btrouble.view.ShopView;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
@@ -40,6 +44,10 @@ public class BTrouble extends StateBasedGame {
         this.playerList = new ArrayList<>();
     }
 
+    /**
+     * Starts the Bubble Trouble game.
+     * @param args standard
+     */
     public static void main(String[] args) {
         try {
             AppGameContainer appgc;

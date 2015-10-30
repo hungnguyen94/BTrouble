@@ -49,6 +49,11 @@ public class StayRope extends Rope {
     	this.moveFlag = moveFlag;
     }
     
+    /**
+     * Compares two stayRope objects.
+     * @param other the object to compare with
+     * @return a boolean
+     */
     public boolean equals(Object other) {
     	if(other instanceof StayRope) {
     		StayRope that = (StayRope) other;
@@ -57,6 +62,15 @@ public class StayRope extends Rope {
     	} else {
     		return false;
     	}
+    }
+    
+    /**
+     * HashCode because of implemented equals method.
+     * 
+     * @return hashCode
+     */
+    public int hashCode() {
+        return 42; // any arbitrary constant will do
     }
 
     /**
@@ -74,7 +88,8 @@ public class StayRope extends Rope {
         collisionActionMap.put(Floor.class, new CollisionAction() {
             @Override
             public void onCollision(Collidable collider) {
-                if(CollisionHandler.checkCollisionSideY(StayRope.this, collider) == CollisionSide.BOTTOM) {
+                if(CollisionHandler.
+                        checkCollisionSideY(StayRope.this, collider) == CollisionSide.BOTTOM) {
                     StayRope.this.moveFlag = false;
                 }
             }

@@ -192,7 +192,8 @@ public class MultiPlayerGameState extends BasicGameState implements LevelObserve
      */
     @Override
     public void levelWon() {
-        stateBasedGame.enterState(0, new FadeOutTransition(Color.gray), new BlobbyTransition(Color.red));
+        stateBasedGame.enterState(0, new FadeOutTransition(Color.gray), 
+                new BlobbyTransition(Color.red));
         currentLevel++;
     }
 
@@ -201,7 +202,8 @@ public class MultiPlayerGameState extends BasicGameState implements LevelObserve
      */
     @Override
     public void levelLost() {
-        stateBasedGame.enterState(4, new FadeOutTransition(Color.white), new FadeInTransition(Color.black));
+        stateBasedGame.enterState(4, new FadeOutTransition(Color.white), 
+                new FadeInTransition(Color.black));
     }
 
     /**

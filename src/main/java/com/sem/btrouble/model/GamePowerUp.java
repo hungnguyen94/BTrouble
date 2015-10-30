@@ -34,6 +34,7 @@ public abstract class GamePowerUp extends Rectangle implements Drawable, Collida
      * Construct power up received in the game.
      * @param xpos x position
      * @param ypos y position
+     * @param expirationTime the time to expiration
      */
     public GamePowerUp(float xpos, float ypos, int expirationTime) {
         super(xpos, ypos, 50, 100);

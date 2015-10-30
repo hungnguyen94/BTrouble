@@ -1,6 +1,10 @@
 package com.sem.btrouble.view;
 
-import com.sem.btrouble.model.*;
+import com.sem.btrouble.model.PlayerPowerUp;
+import com.sem.btrouble.model.Player;
+import com.sem.btrouble.model.PlayerInfo;
+import com.sem.btrouble.model.StayRopePowerUp;
+import com.sem.btrouble.model.LifePowerUp;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;

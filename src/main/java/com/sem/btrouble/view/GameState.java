@@ -173,8 +173,9 @@ public class GameState extends BasicGameState implements LevelObserver {
      */
     @Override
     public void levelWon() {
-        stateBasedGame.enterState(3, new FadeInTransition(Color.gray), new BlobbyTransition(Color.red));
-        currentLevel ++;
+        stateBasedGame.enterState(3, new FadeInTransition(Color.gray), 
+                new BlobbyTransition(Color.red));
+        currentLevel++;
     }
 
     /**
@@ -182,7 +183,8 @@ public class GameState extends BasicGameState implements LevelObserver {
      */
     @Override
     public void levelLost() {
-        stateBasedGame.enterState(4, new FadeOutTransition(Color.white), new FadeInTransition(Color.black));
+        stateBasedGame.enterState(4, new FadeOutTransition(Color.white), 
+                new FadeInTransition(Color.black));
     }
 
     /**

@@ -168,7 +168,8 @@ public class Rope extends Rectangle implements Drawable, Collidable, Movable {
         collisionActionMap.put(Floor.class, new CollisionAction() {
             @Override
             public void onCollision(Collidable collider) {
-                if(CollisionHandler.checkCollisionSideY(Rope.this, collider) == CollisionSide.BOTTOM) {
+                if(CollisionHandler.
+                        checkCollisionSideY(Rope.this, collider) == CollisionSide.BOTTOM) {
                     setCollided(true);
                 }
             }

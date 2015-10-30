@@ -59,6 +59,15 @@ public class LifePowerUp extends PlayerPowerUp implements Movable {
     }
     
     /**
+     * HashCode because of implemented equals method.
+     * 
+     * @return hashCode
+     */
+    public int hashCode() {
+        return 42; // any arbitrary constant will do
+    }
+    
+    /**
      * Reset the power up.
      */
     public void reset() {

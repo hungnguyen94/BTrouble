@@ -19,6 +19,7 @@ public class MultiPlayerSurvivalGame extends AbstractGame {
 
     /**
      * Constructor for a game.
+     * @param room The room to play
      */
     public MultiPlayerSurvivalGame(Room room) {
         super(room);
@@ -67,7 +68,7 @@ public class MultiPlayerSurvivalGame extends AbstractGame {
     private void spawnRandomBubbles() {
         List<Bubble> bubbleList = new ArrayList<>();
         for(int i = 0; i < Math.random()*5; i++) {
-            bubbleList.add(new Bubble((int)(Math.random()*3), (float)(Math.random()*720), 250));
+            bubbleList.add(new Bubble((int) (Math.random()*3), (float) (Math.random()*720), 250));
         }
         getLevel().addBubble(bubbleList);
     }
@@ -101,6 +102,10 @@ public class MultiPlayerSurvivalGame extends AbstractGame {
         }
     }
 
+    /**
+     * Draw the graphics.
+     * @param graphics the graphics
+     */
     public void draw(Graphics graphics) {
         getLevel().draw(graphics);
     }
