@@ -83,21 +83,18 @@ public class ShopView extends BasicGameState {
             if (bubblesButton.isMouseOver() && sum >= 2500) {
                 int amount = (sum - 2500)/players.size();
                 giveValue(amount);
-//                power = new SlowPowerUp();
-//                GameView.getController().registerObserver((Observer) power);
-//                Model.addPowerUp(power);
                 receiptBubbles++;
             } else if (timeButton.isMouseOver() && sum >= 2500) {
                 int amount = (sum - 2500)/players.size();
                 giveValue(amount);
-//                power = new TimePowerUp();
-//                Model.addPowerUp(power);
                 receiptTime++;
             } else if (lifeButton.isMouseOver() && sum >= 10000) {
                 int amount = (sum - 10000)/players.size();
                 giveValue(amount);
-//                power = new LifePowerUp();
-//                Model.addPowerUp(power);
+                PlayerPowerUp powerup = new LifePowerUp();
+                for(Player player: players) {
+                    powerup.activate(player);
+                }
                 receiptLife++;
             }
         }
