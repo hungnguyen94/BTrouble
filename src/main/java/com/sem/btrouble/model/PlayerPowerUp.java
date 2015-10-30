@@ -37,7 +37,7 @@ public abstract class PlayerPowerUp extends Rectangle implements Drawable, Movab
      * @param ypos y position
      */
     public PlayerPowerUp(float xpos, float ypos, int expirationTime) {
-        super(xpos, ypos, 50, 100);
+        super(xpos, ypos, 40, 100);
         this.falling = true;
         this.expired = false;
         this.velocityY = 2;

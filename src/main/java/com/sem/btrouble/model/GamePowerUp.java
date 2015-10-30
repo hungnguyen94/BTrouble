@@ -16,13 +16,12 @@ import java.util.Map;
  */
 public abstract class GamePowerUp extends Rectangle implements Drawable, Movable {
 
+    private static final long serialVersionUID = 1L;
     private boolean falling;
     private boolean collided;
 
     private float velocityY;
     private float accelerationY;
-    private int expirationTime;
-
     /**
      * Construct power up bought in the store.
      */
@@ -41,7 +40,6 @@ public abstract class GamePowerUp extends Rectangle implements Drawable, Movable
         this.velocityY = 2;
         this.accelerationY = .3f;
         this.collided = false;
-        this.expirationTime = expirationTime;
     }
     
     /**

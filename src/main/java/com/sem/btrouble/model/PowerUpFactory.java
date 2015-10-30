@@ -6,7 +6,9 @@ package com.sem.btrouble.model;
  *
  */
 public final class PowerUpFactory {
-
+    
+    public static final float POWERUP_PROBABILITY = .5f;
+    
     /**
      * Generate a random power up.
      * @param x x position
@@ -15,10 +17,10 @@ public final class PowerUpFactory {
      * @return the power up
      */
 	public static PlayerPowerUp generate(float x, float y, double random) {
-        if((random -= 0.1f) < 0) {
+        if((random -= POWERUP_PROBABILITY) < 0) {
             return new StayRopePowerUp(x, y, 5000);
         }
-        if((random -= 0.1f) < 0) {
+        if((random -= POWERUP_PROBABILITY) < 0) {
             return new LifePowerUp(x, y);
         }
         return null;

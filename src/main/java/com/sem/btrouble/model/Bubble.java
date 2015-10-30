@@ -17,24 +17,18 @@ import java.util.Map;
  * Bubble is a model, which represents the bubbles in the game.
  *
  */
-@SuppressWarnings("serial")
 public class Bubble extends Circle implements Drawable, Movable {
-    // gravity
+
+    private static final long serialVersionUID = 1L;
     private static final float GRAVITY = .4f;
-    // starting speed in horizontal direction
     private static final float INITIAL_HORIZONTAL_SPEED = 3f;
-    // factor of acceleration that the bubbles go up with when hit with a rope
     private static final int HIT_SPEED_FACTOR = 30;
-    // Score that is given to the player when this bubble is hit.
     private static final int BUBBLE_SCORE = 1000;
-    // actual size of a level one bubble in the game in pixels.
     private static final float GAME_SIZE = 10f;
 
     private int size;
-    // speed (pixels / step)
     private float velocityX;
     private float velocityY;
-    // acceleration (pixels / step^2)
     private float accelerationY;
 
     private boolean collided;
@@ -163,10 +157,8 @@ public class Bubble extends Circle implements Drawable, Movable {
         setRadius(size * GAME_SIZE);
         List<Bubble> bubbleList = new ArrayList<>();
         if(size > 0) {
-            // give upward speed
             velocityY = -Math.abs(accelerationY) * HIT_SPEED_FACTOR;
             velocityX = Math.abs(velocityX);
-            // add an extra bubble to the game
             Bubble leftBubble = new Bubble(size, x-20, y, -velocityX, velocityY);
             Bubble rightBubble = new Bubble(size, x+20, y, velocityX, velocityY);
             bubbleList.add(leftBubble);

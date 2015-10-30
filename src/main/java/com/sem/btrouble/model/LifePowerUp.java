@@ -11,14 +11,14 @@ import org.newdawn.slick.SlickException;
  */
 public class LifePowerUp extends PlayerPowerUp implements Movable {
     
-	private Image lifePowerUpImage;
+    private static final long serialVersionUID = 1L;
+    private Image lifePowerUpImage;
 	
 	/**
 	 * Construct the power up bought in the shop.
 	 */
 	public LifePowerUp() {
 		super();
-//		activate();
 	}
 	
 	/**
@@ -79,7 +79,6 @@ public class LifePowerUp extends PlayerPowerUp implements Movable {
             }
             lifePowerUpImage.draw(getX(), getY(), 50, 100);
         } catch (SlickException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }      
     }

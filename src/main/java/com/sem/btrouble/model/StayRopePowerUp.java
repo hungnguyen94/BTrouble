@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
  */
 public class StayRopePowerUp extends PlayerPowerUp {
 
+    private static final long serialVersionUID = 1L;
     private Image lifePowerUpImage;
 
     public StayRopePowerUp(float x, float y, int expirationTime) {
@@ -61,11 +62,10 @@ public class StayRopePowerUp extends PlayerPowerUp {
     public void draw(Graphics graphics) {
         try {
             if (lifePowerUpImage == null) {
-                lifePowerUpImage = new Image("Sprites/powerup_life.png");
+                lifePowerUpImage = new Image("Sprites/powerup_rope.png");
             }
-            lifePowerUpImage.draw(getX(), getY(), 50, 100);
+            lifePowerUpImage.draw(getX(), getY(), 40, 100);
         } catch (SlickException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
