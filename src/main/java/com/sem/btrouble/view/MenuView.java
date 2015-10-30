@@ -71,7 +71,6 @@ public class MenuView extends BasicGameState {
      *             when the controller could not be updated
      */
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-        //Enter button
         if (gc.getInput().isKeyPressed(Input.KEY_RETURN)) {
             if(BTrouble.getMultiplayer()) {
                 sbg.enterState(2, new FadeOutTransition(), new FadeInTransition());
@@ -79,7 +78,7 @@ public class MenuView extends BasicGameState {
                 sbg.enterState(1, new FadeOutTransition(), new FadeInTransition());
             }
         }
-        //Settings
+
         if (gc.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
             if(audioButton.isMouseOver()) {
                 BTrouble.setAudio(!BTrouble.getAudioOn());
@@ -195,13 +194,12 @@ public class MenuView extends BasicGameState {
      * Loads the game font into a TrueTypeFont object to be used by the setFont method.
      */
     private void loadFont() {
-        // load font from a .ttf file
         try {
             InputStream inputStream = ResourceLoader.getResourceAsStream("Sprites/IndieFlower.ttf");
 
             java.awt.Font awtFont = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT,
                     inputStream);
-            awtFont = awtFont.deriveFont(24f); // set font size
+            awtFont = awtFont.deriveFont(24f);
             font = new TrueTypeFont(awtFont, false);
 
         } catch (Exception e) {

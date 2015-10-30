@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.sem.btrouble.view.*;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
@@ -11,10 +12,6 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import com.sem.btrouble.game.AbstractGame;
 import com.sem.btrouble.model.Player;
-import com.sem.btrouble.view.GameState;
-import com.sem.btrouble.view.LostLevelState;
-import com.sem.btrouble.view.MenuView;
-import com.sem.btrouble.view.MultiPlayerGameState;
 
 /**
  * @author Hung
@@ -63,6 +60,7 @@ public class BTrouble extends StateBasedGame {
         this.addState(new MenuView());
         this.addState(new GameState());
         this.addState(new MultiPlayerGameState());
+        this.addState(new ShopView());
         this.addState(new LostLevelState());
     }
 

@@ -34,7 +34,6 @@ public class LostLevelState extends BasicGameState {
      *             when the game could not be initialized.
      */
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        // Set objects to draw
         background = new Image("Sprites/lostlevel1280x720.png");
         loadFont();
     }
@@ -52,7 +51,6 @@ public class LostLevelState extends BasicGameState {
      *             when the controller could not be updated
      */
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-        // Press enter
         if (gc.getInput().isKeyPressed(Input.KEY_RETURN)) {
             if(BTrouble.getMultiplayer()) {
                 sbg.enterState(2, new FadeOutTransition(), new BlobbyTransition());
@@ -90,14 +88,13 @@ public class LostLevelState extends BasicGameState {
      * method.
      */
     private void loadFont() {
-        // load font from a .ttf file
         try {
             InputStream inputStream = ResourceLoader
                     .getResourceAsStream("Sprites/IndieFlower.ttf");
 
             java.awt.Font awtFont = java.awt.Font.createFont(
                     java.awt.Font.TRUETYPE_FONT, inputStream);
-            awtFont = awtFont.deriveFont(24f); // set font size
+            awtFont = awtFont.deriveFont(24f);
             font = new TrueTypeFont(awtFont, false);
 
         } catch (Exception e) {

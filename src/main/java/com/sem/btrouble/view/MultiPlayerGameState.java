@@ -31,6 +31,7 @@ import java.io.InputStream;
  * Test state.
  */
 public class MultiPlayerGameState extends BasicGameState implements LevelObserver {
+    private TrueTypeFont font;
     private Image background;
     private AbstractGame game;
     private Player player;
@@ -52,17 +53,8 @@ public class MultiPlayerGameState extends BasicGameState implements LevelObserve
         this.stateBasedGame = sbg;
         this.currentLevel = 0;
         this.dataloader = new DataLoader(DataLoader.STANDARD_LOCATION);
-        // load font from a .ttf file
-        try {
-            InputStream inputStream = ResourceLoader.getResourceAsStream("Sprites/IndieFlower.ttf");
-            java.awt.Font awtFont = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT,
-                    inputStream);
-            awtFont = awtFont.deriveFont(24f); // set font size
-            new TrueTypeFont(awtFont, false);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-//        background = new Image("Sprites/background1280x720.png");
+
+        loadFont();
     }
 
     /**
@@ -210,5 +202,22 @@ public class MultiPlayerGameState extends BasicGameState implements LevelObserve
     @Override
     public void levelLost() {
         stateBasedGame.enterState(4, new FadeOutTransition(Color.white), new FadeInTransition(Color.black));
+    }
+
+    /**
+     * Loads the game font into a TrueTypeFont object to be used by the setFont method.
+     */
+    private void loadFont() {
+        try {
+            InputStream inputStream = ResourceLoader.getResourceAsStream("Sprites/IndieFlower.ttf");
+
+            java.awt.Font awtFont = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT,
+                    inputStream);
+            awtFont = awtFont.deriveFont(24f);
+            font = new TrueTypeFont(awtFont, false);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
