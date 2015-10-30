@@ -412,7 +412,6 @@ public class Player extends Rectangle implements Drawable, Collidable, Movable {
         } else {
             velocityY = 0;
         }
-//        idle = true;
     }
 
     /**

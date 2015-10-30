@@ -1,5 +1,7 @@
 package com.sem.btrouble.model;
 
+import java.util.concurrent.CopyOnWriteArrayList;
+
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -9,7 +11,7 @@ import org.newdawn.slick.SlickException;
  * @author Martin
  *
  */
-public class LifePowerUp extends PlayerPowerUp implements Movable {
+public class SlowBubblesPowerUp extends BubblePowerUp implements Movable {
     
     private static final long serialVersionUID = 1L;
     private Image lifePowerUpImage;
@@ -17,7 +19,7 @@ public class LifePowerUp extends PlayerPowerUp implements Movable {
 	/**
 	 * Construct the power up bought in the shop.
 	 */
-	public LifePowerUp() {
+	public SlowBubblesPowerUp() {
 		super();
 	}
 	
@@ -26,19 +28,8 @@ public class LifePowerUp extends PlayerPowerUp implements Movable {
 	 * @param xpos x position
 	 * @param ypos y position
 	 */
-    public LifePowerUp(float xpos, float ypos) {
-        super(xpos, ypos);
-    }
-
-    /**
-     * Apply the powerUp to the Player.
-     *
-     * @param player Player to apply the powerUp to.
-     */
-    @Override
-    public void activate(Player player) {
-        player.addLife();
-        setCollided(true);
+    public SlowBubblesPowerUp(float xpos, float ypos, CopyOnWriteArrayList<Bubble> bubbleList) {
+        super(xpos, ypos, bubbleList);
     }
 
     /**
@@ -47,8 +38,8 @@ public class LifePowerUp extends PlayerPowerUp implements Movable {
      * @return a boolean
      */
     public boolean equals(Object other) {
-        if(other instanceof LifePowerUp) {
-            LifePowerUp that = (LifePowerUp) other;
+        if(other instanceof SlowBubblesPowerUp) {
+            SlowBubblesPowerUp that = (SlowBubblesPowerUp) other;
             return this.isFalling() == that.isFalling() 
                     && Math.abs(this.x - that.x) == 0
                     && Math.abs(this.y - that.y) == 0
@@ -60,21 +51,11 @@ public class LifePowerUp extends PlayerPowerUp implements Movable {
     }
     
     /**
-     * HashCode because of implemented equals method.
-     * 
-     * @return hashCode
-     */
-    public int hashCode() {
-        return 42; // any arbitrary constant will do
-    }
-    
-    /**
      * Reset the power up.
      */
     public void reset() {
 
     }
-
 
     /**
      * Draw the power up.
@@ -84,11 +65,19 @@ public class LifePowerUp extends PlayerPowerUp implements Movable {
     public void draw(Graphics graphics) {
         try {
             if (lifePowerUpImage == null) {
-                lifePowerUpImage = new Image("Sprites/powerup_life.png");
+                lifePowerUpImage = new Image("Sprites/powerup_slow.png");
             }
             lifePowerUpImage.draw(getX(), getY(), 40, 100);
         } catch (SlickException e) {
             e.printStackTrace();
         }      
     }
+
+    public void activate(final Player collider, CopyOnWriteArrayList<Bubble> bubbles){
+        collider.getWallet().addPowerUp(this);
+        for(Bubble bubble: bubbles){
+            bubble.slowBubble();
+        }
+    }
+
 }

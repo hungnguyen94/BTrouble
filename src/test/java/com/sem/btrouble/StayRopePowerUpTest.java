@@ -13,25 +13,25 @@ public class StayRopePowerUpTest extends PowerUpTest {
 	
 	@Before
 	public void setUp() {
-		power = new StayRopePowerUp(1, 1, 10);
+		power = new StayRopePowerUp(1, 1);
 		setPower(power);
 	}
 	
 	@Test
 	public void equalsTrueTest() {
-		StayRopePowerUp compare = new StayRopePowerUp(1, 1, 10);
+		StayRopePowerUp compare = new StayRopePowerUp(1, 1);
 		assertTrue(compare.equals(power));
 	}
 	
 	@Test
 	public void equalsFalseXTest() {
-		StayRopePowerUp compare = new StayRopePowerUp(2, 1, 10);
+		StayRopePowerUp compare = new StayRopePowerUp(2, 1);
 		assertFalse(compare.equals(power));
 	}
 	
 	@Test
 	public void equalsFalseYTest() {
-		StayRopePowerUp compare = new StayRopePowerUp(1, 2, 10);
+		StayRopePowerUp compare = new StayRopePowerUp(1, 2);
 		assertFalse(compare.equals(power));
 	}
 	

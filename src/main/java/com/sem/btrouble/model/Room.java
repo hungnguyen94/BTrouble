@@ -226,9 +226,6 @@ public class Room implements Drawable {
             background.draw(0f, 0f);
         }
         graphics.setColor(Color.blue);
-        for (Wall w : walls) {
-            w.draw(graphics);
-        }
         for (Floor f : floors) {
             f.draw(graphics);
         }
