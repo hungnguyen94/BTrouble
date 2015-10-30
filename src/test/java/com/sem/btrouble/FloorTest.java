@@ -1,11 +1,12 @@
 package com.sem.btrouble;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-
+import com.sem.btrouble.model.Floor;
+import com.sem.btrouble.observering.Direction;
+import org.junit.Before;
 import org.junit.Test;
 
-import com.sem.btrouble.model.Floor;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 /**
  * Test the floor class.
@@ -15,7 +16,12 @@ import com.sem.btrouble.model.Floor;
  */
 public class FloorTest {
 
-    private Floor floor = new Floor(1, 1, 1, 1);
+    private Floor floor;
+
+    @Before
+    public void setUp() {
+        floor = new Floor(1, 1, 1, 1, 0.1f, Direction.NONE);
+    }
 
     /**
      * Test the moveRight method.
@@ -46,7 +52,7 @@ public class FloorTest {
     @Test
     public void moveUpTest() {
         floor.moveUp();
-        assertEquals(0.9, floor.getY(), 0.01);
+        assertEquals(0.8f, floor.getY(), 0.01);
     }
 
     /**
@@ -55,7 +61,7 @@ public class FloorTest {
     @Test
     public void moveDownTest() {
         floor.moveDown();
-        assertEquals(1.1, floor.getY(), 0.01);
+        assertEquals(1.0f, floor.getY(), 0.01);
     }
 
 }

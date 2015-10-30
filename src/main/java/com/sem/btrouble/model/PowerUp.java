@@ -12,7 +12,13 @@ import org.newdawn.slick.geom.Shape;
 import com.sem.btrouble.controller.Collidable;
 import com.sem.btrouble.controller.CollisionAction;
 
-public abstract class PowerUp extends Rectangle implements Drawable, Movable {
+/**
+ * Superclass for all power ups.
+ * 
+ * @author Martin
+ *
+ */
+public abstract class PowerUp extends Rectangle implements Drawable, Movable, Collidable {
 
     private static final long serialVersionUID = 1L;
 
@@ -158,7 +164,6 @@ public abstract class PowerUp extends Rectangle implements Drawable, Movable {
      */
     @Override
     public abstract Map<Class<? extends Collidable>, CollisionAction> getCollideActions();
-    
 
     /**
      * Returns the expired status of the PowerUp.

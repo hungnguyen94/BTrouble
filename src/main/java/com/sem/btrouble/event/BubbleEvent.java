@@ -6,5 +6,5 @@ package com.sem.btrouble.event;
  * the controller.
  */
 public enum BubbleEvent implements Event {
-    COLLISION_FLOOR, COLLISION_WALL, COLLISION_ROPE, COLLISION_CEILING;
+    COLLISION_ROPE
 }

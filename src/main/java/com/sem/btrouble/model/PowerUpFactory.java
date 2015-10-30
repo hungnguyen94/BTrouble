@@ -25,10 +25,10 @@ public final class PowerUpFactory {
      * @return the power up
      */
 	public static PowerUp generate(float x, float y, double random) {
-        if((random -= POWERUP_PROBABILITY) < 0) {
+        if((random -= 0.2f) < 0) {
             return new StayRopePowerUp(x, y);
         }
-        if((random -= POWERUP_PROBABILITY) < 0) {
+        if((random -= 0.2f) < 0) {
             return new LifePowerUp(x, y);
         }
         if((random -= POWERUP_PROBABILITY) < 0) {

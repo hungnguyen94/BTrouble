@@ -1,6 +1,5 @@
 package com.sem.btrouble.controller;
 
-import com.sem.btrouble.model.Drawable;
 import com.sem.btrouble.model.Rope;
 import org.newdawn.slick.Graphics;
 
@@ -8,9 +7,10 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
+ * Controller for the ropes.
  * @author Hung
  */
-public class RopeController extends ControllerDecorator implements Drawable {
+public class RopeController extends ControllerDecorator {
 
     private List<Rope> ropesList;
     private Controller controller;
@@ -47,6 +47,11 @@ public class RopeController extends ControllerDecorator implements Drawable {
         controller.update();
     }
 
+    /**
+     * Draw the object.
+     *
+     * @param graphics The graphics
+     */
     @Override
     public void draw(Graphics graphics) {
         for(Rope rope : ropesList) {

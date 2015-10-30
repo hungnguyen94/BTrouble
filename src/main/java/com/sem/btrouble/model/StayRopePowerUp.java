@@ -15,9 +15,21 @@ import org.newdawn.slick.SlickException;
 public class StayRopePowerUp extends PlayerPowerUp {
 
     private static final long serialVersionUID = 1L;
-    private static final int expirationTime = 10000;
+    private static final int expirationTime = 5000;
     private Image lifePowerUpImage;
 
+    /**
+     * Construct the power up bought in the shop.
+     */
+    public StayRopePowerUp(int expirationTime) {
+        super(expirationTime);
+    }
+
+    /**
+     * Creates a new StayRopePowerUp object.
+     * @param x the x location where it will spawn
+     * @param y the y location where it will spawn
+     */
     public StayRopePowerUp(float x, float y) {
         super(x, y);
     }

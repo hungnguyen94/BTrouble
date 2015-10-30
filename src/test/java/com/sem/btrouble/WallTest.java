@@ -2,6 +2,7 @@ package com.sem.btrouble;
 
 import com.sem.btrouble.model.Wall;
 
+import com.sem.btrouble.observering.Direction;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,7 +21,7 @@ public class WallTest {
      */
     @Before
     public void setUp() {
-        wall = new Wall(0, 0, 10, 11);
+        wall = new Wall(0, 0, 10, 11, 1f, Direction.NONE);
     }
 
     /**
@@ -29,7 +30,7 @@ public class WallTest {
     @Test
     public void moveRightTest() {
         wall.moveRight();
-        assertEquals(1f, wall.getX(), 0);
+        assertEquals(0f, wall.getX(), 0);
     }
 
     /**
@@ -38,7 +39,7 @@ public class WallTest {
     @Test
     public void moveLeftTest() {
         wall.moveLeft();
-        assertEquals(-1f, wall.getX(), 0);
+        assertEquals(-2f, wall.getX(), 0);
     }
 
     /**
@@ -47,7 +48,7 @@ public class WallTest {
     @Test
     public void moveUpTest() {
         wall.moveUp();
-        assertEquals(1f, wall.getY(), 0);
+        assertEquals(-1f, wall.getY(), 0);
     }
 
     /**
@@ -56,26 +57,11 @@ public class WallTest {
     @Test
     public void moveDownTest() {
         wall.moveDown();
-        assertEquals(-1f, wall.getY(), 0);
+        assertEquals(1f, wall.getY(), 0);
     }
     
     @Test
     public void getCollidedStatusTest() {
     	assertFalse(wall.getCollidedStatus());
     }
-    
-    @Test
-    public void moveXTest() {
-    	float x = wall.getX();
-    	wall.moveX();
-    	assertEquals(x + 1, wall.getX(), 0);
-    }
-    
-    @Test
-    public void changeDirectionTest() {
-    	int speed = wall.getSpeed();
-    	wall.changeDirection();
-    	assertEquals(-speed, wall.getSpeed());
-    }
-
 }

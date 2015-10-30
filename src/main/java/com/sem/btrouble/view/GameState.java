@@ -49,16 +49,9 @@ public class GameState extends BasicGameState implements LevelObserver {
         this.stateBasedGame = sbg;
         this.currentLevel = 0;
         this.dataloader = new DataLoader(DataLoader.STANDARD_LOCATION); 
-        // load font from a .ttf file
-        try {
-            InputStream inputStream = ResourceLoader.getResourceAsStream("Sprites/IndieFlower.ttf");
-            java.awt.Font awtFont = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT,
-                    inputStream);
-            awtFont = awtFont.deriveFont(24f); // set font size
-            font = new TrueTypeFont(awtFont, false);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+        loadFont();
+
         player = new Player(1f, 1f);
     }
 
@@ -180,7 +173,7 @@ public class GameState extends BasicGameState implements LevelObserver {
      */
     @Override
     public void levelWon() {
-        stateBasedGame.enterState(0, new FadeInTransition(Color.gray), new BlobbyTransition(Color.red));
+        stateBasedGame.enterState(3, new FadeInTransition(Color.gray), new BlobbyTransition(Color.red));
         currentLevel ++;
     }
 
@@ -190,5 +183,22 @@ public class GameState extends BasicGameState implements LevelObserver {
     @Override
     public void levelLost() {
         stateBasedGame.enterState(4, new FadeOutTransition(Color.white), new FadeInTransition(Color.black));
+    }
+
+    /**
+     * Loads the game font into a TrueTypeFont object to be used by the setFont method.
+     */
+    private void loadFont() {
+        try {
+            InputStream inputStream = ResourceLoader.getResourceAsStream("Sprites/IndieFlower.ttf");
+
+            java.awt.Font awtFont = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT,
+                    inputStream);
+            awtFont = awtFont.deriveFont(24f);
+            font = new TrueTypeFont(awtFont, false);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

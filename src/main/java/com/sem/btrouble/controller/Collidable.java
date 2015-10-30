@@ -1,12 +1,14 @@
 package com.sem.btrouble.controller;
 
+import com.sem.btrouble.model.Drawable;
+
 import java.util.Map;
 
 /**
  * All classes that are collidable
  * must implement this class.
  */
-public interface Collidable {
+public interface Collidable extends Drawable {
 
     /**
      * Every collidable should return a Map with all CollisionActions

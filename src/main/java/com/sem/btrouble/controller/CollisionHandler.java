@@ -1,11 +1,11 @@
 package com.sem.btrouble.controller;
 
 import com.sem.btrouble.model.Drawable;
-import org.newdawn.slick.Graphics;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.HashSet;
+import java.util.Iterator;
 
 /**
  * Class to handle collisions.
@@ -19,7 +19,7 @@ public class CollisionHandler implements Drawable, Controller {
      * Use set to prevent duplicates.
      */
     public CollisionHandler() {
-        collidables = new CopyOnWriteArraySet<Collidable>();
+        collidables = new HashSet<>();
         collidableListsReference = new ArrayList<>();
     }
 
@@ -115,7 +115,9 @@ public class CollisionHandler implements Drawable, Controller {
      */
     public void checkAllCollisions() {
         for(Collection<? extends Collidable> collidableList : collidableListsReference) {
-            for(Collidable collidable : collidableList) {
+            Iterator<? extends Collidable> collidableIterator = collidableList.iterator();
+            while(collidableIterator.hasNext()) {
+                Collidable collidable = collidableIterator.next();
                 if(collidable.getCollidedStatus()) {
                     collidableList.remove(collidable);
                     collidables.remove(collidable);
@@ -136,11 +138,10 @@ public class CollisionHandler implements Drawable, Controller {
         boolean collided = false;
         collidables.remove(null);
 
-        // Iterate over a shallow cloned set, since you can't change the set
-        // while iterating.
-        Collection<Collidable> collidersClone = new CopyOnWriteArraySet<Collidable>(colliders);
-        for (Collidable self : collidersClone) {
-            if (checkCollision(self)) {
+        Iterator<Collidable> collidablesIterator = collidables.iterator();
+        while(collidablesIterator.hasNext()) {
+            Collidable self = collidablesIterator.next();
+            if(checkCollision(self)) {
                 collided = true;
             }
         }
@@ -190,16 +191,16 @@ public class CollisionHandler implements Drawable, Controller {
      * @param graphics Graphics handler
      */
     @Override
-    public void draw(Graphics graphics) {
+    public void draw(org.newdawn.slick.Graphics graphics) {
 
 //        for(Collidable collidable : collidables) {
-//            graphics.setColor(Color.red);
+//            graphics.setColor(org.newdawn.slick.Color.red);
 //            graphics.drawRect(collidable.getX(), collidable.getY(),
 ////                    Math.abs(collidable.getCenterX() - collidable.getX()),
-////                    Math.abs(collidable.getCenterY() - collidable.gCenteretY())
+////                    Math.abs(collidable.getCenterY() - collidable.getY())
 //                    collidable.getWidth(), collidable.getHeight()
 //            );
-//            graphics.setColor(Color.green);
+//            graphics.setColor(org.newdawn.slick.Color.green);
 //            graphics.drawRect(collidable.getCenterX()+1 - (collidable.getWidth()/2),
 //                    collidable.getCenterY()+1 - (collidable.getHeight()/2),
 //                    collidable.getWidth(), collidable.getHeight()

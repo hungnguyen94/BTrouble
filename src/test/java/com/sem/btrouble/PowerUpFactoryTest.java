@@ -17,7 +17,7 @@ public class PowerUpFactoryTest {
 	
 	@Test
 	public void lifePowerTest() {
-		assertEquals(PowerUpFactory.generate(1, 1, 0.15), new LifePowerUp(1, 1));
+		assertEquals(PowerUpFactory.generate(1, 1, 0.39), new LifePowerUp(1, 1));
 	}
 	
 	@Test

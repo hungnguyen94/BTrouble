@@ -22,7 +22,7 @@ import java.util.Map;
  *
  */
 @SuppressWarnings("serial")
-public class Player extends Rectangle implements Drawable, Movable {
+public class Player extends Rectangle implements Drawable, Collidable, Movable {
     private int lives;
     private int score;
 
@@ -161,7 +161,6 @@ public class Player extends Rectangle implements Drawable, Movable {
      * @return hashCode
      */
     public int hashCode() {
-        assert false : "hashCode not designed";
         return 42; // any arbitrary constant will do
     }
 

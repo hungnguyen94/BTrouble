@@ -2,6 +2,8 @@ package com.sem.btrouble.model;
 
 import com.sem.btrouble.controller.Collidable;
 import com.sem.btrouble.controller.CollisionAction;
+import com.sem.btrouble.controller.CollisionHandler;
+import com.sem.btrouble.controller.CollisionSide;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -72,7 +74,9 @@ public class StayRope extends Rope {
         collisionActionMap.put(Floor.class, new CollisionAction() {
             @Override
             public void onCollision(Collidable collider) {
-                StayRope.this.moveFlag = false;
+                if(CollisionHandler.checkCollisionSideY(StayRope.this, collider) == CollisionSide.BOTTOM) {
+                    StayRope.this.moveFlag = false;
+                }
             }
         });
 

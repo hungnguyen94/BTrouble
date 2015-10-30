@@ -13,7 +13,7 @@ import com.sem.btrouble.model.PowerUpFactory;
  * @author Hung
  * Controller to control the powerUps.
  */
-public class PowerUpController extends ControllerDecorator implements Controller {
+public class PowerUpController extends ControllerDecorator {
 
     private List<PowerUp> powerUpList;
     private List<Bubble> bubbleList;

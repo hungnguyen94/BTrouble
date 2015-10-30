@@ -14,6 +14,7 @@ import com.sem.btrouble.controller.CollisionAction;
  * @author Martin
  *
  */
+
 public abstract class PlayerPowerUp extends PowerUp implements Drawable, Movable {
 	
     private static final long serialVersionUID = 1L;
@@ -27,9 +28,19 @@ public abstract class PlayerPowerUp extends PowerUp implements Drawable, Movable
     }
 
     /**
+     * Construct power up with expiration bought in the store.
+     * @param expirationTime the expiration time for the powerup
+     */
+    public PlayerPowerUp(int expirationTime) {
+        super(-50, -50);
+        this.expired = false;
+    }
+
+    /**
      * Construct power up received in the game.
      * @param xpos x position
      * @param ypos y position
+     * @param expirationTime the expiration time for the powerup
      */
     public PlayerPowerUp(float xpos, float ypos) {
         super(xpos, ypos);

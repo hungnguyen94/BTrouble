@@ -2,6 +2,7 @@ package com.sem.btrouble.model;
 
 import com.sem.btrouble.controller.Collidable;
 import com.sem.btrouble.controller.CollisionAction;
+import com.sem.btrouble.observering.Direction;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
@@ -14,25 +15,40 @@ import java.util.Map;
  * Class representing a wall.
  */
 @SuppressWarnings("serial")
-public class Wall extends Rectangle implements Drawable, Collidable {
+public class Wall extends Rectangle implements Drawable, Collidable, Movable {
 
-    private int speed;
+    private float speed;
+    private Direction direction;
+    private static final float DEFAULT_SPEED = 0f;
 
     /**
      * Constructor for wall class.
-     * 
-     * @param x
-     *            - X position of the wall
-     * @param y
-     *            - Y position of the wall
-     * @param width
-     *            - width of the wall
-     * @param height
-     *            - height of the wall
+     *
+     * @param x X position of the wall
+     * @param y Y position of the wall
+     * @param width width of the wall
+     * @param height height of the wall
      */
     public Wall(float x, float y, float width, float height) {
         super(x, y, width, height);
-        speed = 1;
+        this.speed = DEFAULT_SPEED;
+        this.direction = Direction.NONE;
+    }
+
+    /**
+     * Constructor for wall class.
+     *
+     * @param x X position of the wall
+     * @param y Y position of the wall
+     * @param width width of the wall
+     * @param height height of the wall
+     * @param speed speed of movement
+     * @param direction Direction of the movement
+     */
+    public Wall(float x, float y, float width, float height, float speed, Direction direction) {
+        super(x, y, width, height);
+        this.speed = speed;
+        this.direction = direction;
     }
 
     /**
@@ -64,53 +80,62 @@ public class Wall extends Rectangle implements Drawable, Collidable {
     }
 
     /**
-     * Move the wall X.
-     */
-    public void moveX() {
-        x += speed;
-    }
-
-    /**
-     * Move the floor to the right.
+     * Move the wall to the right.
      */
     public void moveRight() {
-        x += speed;
+        grow(speed, 0);
+        setCenterX(getCenterX() + speed);
     }
 
     /**
-     * Move the floor to the left.
+     * Move the wall to the left.
      */
     public void moveLeft() {
-        x -= speed;
+        setCenterX(getCenterX() - speed);
+        grow(speed, 0);
     }
 
     /**
      * Move the wall up.
      */
     public void moveUp() {
-        y += speed;
+        setCenterY(getCenterY() - speed);
     }
 
     /**
      * Move the wall down.
      */
     public void moveDown() {
-        y -= speed;
+        setCenterY(getCenterY() + speed);
     }
 
     /**
      * Get the speed of the wall.
      * @return the speed
      */
-    public int getSpeed() {
+    public float getSpeed() {
     	return speed;
     }
-    
+
     /**
-     * Change the direction of a wall.
+     * This method should move the object.
      */
-    public void changeDirection() {
-        speed = -speed;
+    @Override
+    public void move() {
+        switch(direction) {
+            case UP:
+                moveUp();
+                break;
+            case DOWN:
+                moveDown();
+                break;
+            case LEFT:
+                moveLeft();
+                break;
+            case RIGHT:
+                moveRight();
+                break;
+        }
     }
 
     /**
@@ -121,9 +146,7 @@ public class Wall extends Rectangle implements Drawable, Collidable {
     @Override
     public void draw(Graphics graphics) {
         graphics.setColor(Color.black);
-        graphics.setLineWidth(2);
-        graphics.draw(this);
-        graphics.setLineWidth(1);
+        graphics.fillRect(getX(), getY(), getWidth(), getHeight());
     }
 
     /**
