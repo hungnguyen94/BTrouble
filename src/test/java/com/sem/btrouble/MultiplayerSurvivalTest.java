@@ -31,13 +31,13 @@ public class MultiplayerSurvivalTest {
         player1 = new Player(0f, 0f);
         player2 = new Player(1f, 1f);
         game = new MultiPlayerSurvivalGame(room);
+        game.addPlayer(player1);
+        game.addPlayer(player2);
 
         List<Bubble> bubbleList = new ArrayList<>();
         bubbleList.add(new Bubble(3, 500, 200));
         game.spawnBubbles(bubbleList);
 
-        game.addPlayer(player1);
-        game.addPlayer(player2);
         assertFalse(game.isLevelRunning());
         game.startGame();
         try {
