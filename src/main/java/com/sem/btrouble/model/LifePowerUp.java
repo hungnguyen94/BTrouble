@@ -18,7 +18,6 @@ public class LifePowerUp extends PlayerPowerUp implements Movable {
 	 */
 	public LifePowerUp() {
 		super();
-//		activate();
 	}
 	
 	/**

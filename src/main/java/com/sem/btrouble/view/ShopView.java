@@ -1,10 +1,6 @@
 package com.sem.btrouble.view;
 
-import com.sem.btrouble.BTrouble;
-import com.sem.btrouble.model.LifePowerUp;
-import com.sem.btrouble.model.Player;
-import com.sem.btrouble.model.PlayerInfo;
-import com.sem.btrouble.model.PlayerPowerUp;
+import com.sem.btrouble.model.*;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -19,7 +15,6 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.util.ResourceLoader;
 
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,7 +27,7 @@ public class ShopView extends BasicGameState {
     private int receiptBubbles = 0;
     private int receiptTime = 0;
     private int receiptLife = 0;
-    private MouseOverArea bubblesButton;
+    private MouseOverArea ropeButton;
     private MouseOverArea timeButton;
     private MouseOverArea lifeButton;
 
@@ -49,7 +44,7 @@ public class ShopView extends BasicGameState {
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         background = new Image("Sprites/store1280x720.png");
 
-        bubblesButton = new MouseOverArea(gc, new Image("Sprites/bubbles_button.jpg"), 170, 80);
+        ropeButton = new MouseOverArea(gc, new Image("Sprites/bubbles_button.jpg"), 170, 80);
         timeButton = new MouseOverArea(gc, new Image("Sprites/time_button.jpg"), 187, 230);
         lifeButton = new MouseOverArea(gc, new Image("Sprites/life_button.jpg"), 154, 391);
 
@@ -80,9 +75,13 @@ public class ShopView extends BasicGameState {
         }
 
         if (gc.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
-            if (bubblesButton.isMouseOver() && sum >= 2500) {
+            if (ropeButton.isMouseOver() && sum >= 2500) {
                 int amount = (sum - 2500)/players.size();
                 giveValue(amount);
+                PlayerPowerUp powerup = new StayRopePowerUp(10000);
+                for(Player player: players) {
+                    powerup.activate(player);
+                }
                 receiptBubbles++;
             } else if (timeButton.isMouseOver() && sum >= 2500) {
                 int amount = (sum - 2500)/players.size();
