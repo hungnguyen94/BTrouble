@@ -21,7 +21,6 @@ public abstract class GamePowerUp extends Rectangle implements Drawable, Collida
 
     private float velocityY;
     private float accelerationY;
-    private int expirationTime;
 
     /**
      * Construct power up bought in the store.
@@ -42,7 +41,6 @@ public abstract class GamePowerUp extends Rectangle implements Drawable, Collida
         this.velocityY = 2;
         this.accelerationY = .3f;
         this.collided = false;
-        this.expirationTime = expirationTime;
     }
     
     /**

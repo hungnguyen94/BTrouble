@@ -3,7 +3,6 @@ package com.sem.btrouble.model;
 import com.sem.btrouble.controller.Collidable;
 import com.sem.btrouble.controller.CollisionAction;
 import com.sem.btrouble.controller.CollisionHandler;
-import com.sem.btrouble.observering.Observer;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -51,7 +50,6 @@ public class Player extends Rectangle implements Drawable, Collidable, Movable {
     private int maxAmountRopes;
 
     private ArrayList<Rope> ropes;
-    private ArrayList<Observer> observers;
 
     /**
      * Constructor for the Player class.
@@ -73,7 +71,6 @@ public class Player extends Rectangle implements Drawable, Collidable, Movable {
         alive = true;
         falling = true;
 
-        this.observers = new ArrayList<Observer>();
         wallet = new Wallet();
         ropes = new ArrayList<Rope>();
     }
