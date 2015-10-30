@@ -22,37 +22,39 @@ public class SoundObserver implements Observer {
     private Audio wavEffect;
 
     /**
-     * The update method for audio.
-     * When an event is triggered, the audio is updated.
-     * @param event the event that is triggered
+     * The update method for audio. When an event is triggered, the audio is
+     * updated.
+     * 
+     * @param event
+     *            the event that is triggered
      */
     public void update(ControllerEvent event) {
         try {
             switch (event) {
-            case GAMELOST:
-                wavEffect = AudioLoader.getAudio("WAV",
-                        ResourceLoader.getResourceAsStream("fail-trombone-02.wav"));
+                case GAMELOST:
+                    wavEffect = AudioLoader.getAudio("WAV", ResourceLoader
+                            .getResourceAsStream("fail-trombone-02.wav"));
 
-                wavEffect.playAsSoundEffect(1.0f, 1.0f, false);
-                SoundStore.get().poll(0);
-                break;
-            case GAMEWON:
-                wavEffect = AudioLoader.getAudio("WAV",
-                        ResourceLoader.getResourceAsStream("Winning-sound-effect.wav"));
+                    wavEffect.playAsSoundEffect(1.0f, 1.0f, false);
+                    SoundStore.get().poll(0);
+                    break;
+                case GAMEWON:
+                    wavEffect = AudioLoader.getAudio("WAV", ResourceLoader
+                            .getResourceAsStream("Winning-sound-effect.wav"));
 
-                wavEffect.playAsSoundEffect(1.0f, 1.0f, false);
-                SoundStore.get().poll(0);
-                break;
-            case NEXTROOM:
-            case RESTARTROOM:
-                wavEffect = AudioLoader.getAudio("WAV",
-                        ResourceLoader.getResourceAsStream("soundscrate-17-woosh2.wav"));
+                    wavEffect.playAsSoundEffect(1.0f, 1.0f, false);
+                    SoundStore.get().poll(0);
+                    break;
+                case NEXTROOM:
+                case RESTARTROOM:
+                    wavEffect = AudioLoader.getAudio("WAV", ResourceLoader
+                            .getResourceAsStream("soundscrate-17-woosh2.wav"));
 
-                wavEffect.playAsSoundEffect(1.0f, 1.0f, false);
-                SoundStore.get().poll(0);
-                break;
-            default:
-                break;
+                    wavEffect.playAsSoundEffect(1.0f, 1.0f, false);
+                    SoundStore.get().poll(0);
+                    break;
+                default:
+                    break;
 
             }
         } catch (IOException e) {
@@ -63,15 +65,15 @@ public class SoundObserver implements Observer {
     /**
      * Update the sounds.
      * 
-     * @param event the event
+     * @param event
+     *            the event
      */
     public void update(PlayerEvent event) {
-        if (event instanceof PlayerEvent) {
-            switch ((PlayerEvent) event) {
+        switch ((PlayerEvent) event) {
             case SHOOT:
                 try {
-                    wavEffect = AudioLoader.getAudio("WAV",
-                            ResourceLoader.getResourceAsStream("soundscrate-17-woosh2.wav"));
+                    wavEffect = AudioLoader.getAudio("WAV", ResourceLoader
+                            .getResourceAsStream("soundscrate-17-woosh2.wav"));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -80,7 +82,6 @@ public class SoundObserver implements Observer {
                 break;
             default:
                 break;
-            }
         }
     }
 
@@ -88,7 +89,7 @@ public class SoundObserver implements Observer {
     public void update(Event event) {
         if (event instanceof PlayerEvent) {
             update((PlayerEvent) event);
-        } else if(event instanceof ControllerEvent) {
+        } else if (event instanceof ControllerEvent) {
             update((ControllerEvent) event);
         }
     }

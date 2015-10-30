@@ -19,8 +19,7 @@ public final class PowerUpFactory {
         if((random -= 0.2f) < 0) {
             power = new StayRopePowerUp(x, y, 5000);
             return power;
-        }
-        if((random -= 0.2f) < 0) {
+        } else if((random -= 0.2f) < 0) {
             power = new LifePowerUp(x, y);
             return power;
         }

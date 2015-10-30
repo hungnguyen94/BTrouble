@@ -27,7 +27,6 @@ import java.util.List;
 public class ShopView extends BasicGameState {
     private Image background;
     private TrueTypeFont font;
-    private PlayerPowerUp power;
     private int receiptBubbles = 0;
     private int receiptTime = 0;
     private int receiptLife = 0;

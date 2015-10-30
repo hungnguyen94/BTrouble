@@ -12,7 +12,6 @@ import com.sem.btrouble.tools.DataLoader;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
@@ -32,7 +31,6 @@ import java.io.InputStream;
  */
 public class MultiPlayerGameState extends BasicGameState implements LevelObserver {
     private TrueTypeFont font;
-    private Image background;
     private AbstractGame game;
     private Player player;
     private Player secondPlayer;

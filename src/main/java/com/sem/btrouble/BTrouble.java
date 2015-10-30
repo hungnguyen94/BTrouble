@@ -1,8 +1,6 @@
 package com.sem.btrouble;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import com.sem.btrouble.view.GameState;
 import com.sem.btrouble.view.LostLevelState;
@@ -15,7 +13,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.sem.btrouble.game.AbstractGame;
-import com.sem.btrouble.model.Player;
 
 /**
  * @author Hung
@@ -24,7 +21,6 @@ public class BTrouble extends StateBasedGame {
 
     private static HashMap<String, Boolean> preferences;
     private AbstractGame game;
-    private List<Player> playerList;
 
     /**
      * Init the Slickapp.
@@ -41,7 +37,6 @@ public class BTrouble extends StateBasedGame {
                 false);
         preferences.put("survival", false);
         this.game = null;
-        this.playerList = new ArrayList<>();
     }
 
     /**
