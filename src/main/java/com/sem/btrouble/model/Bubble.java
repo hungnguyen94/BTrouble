@@ -29,11 +29,10 @@ public class Bubble extends Circle implements Drawable, Movable {
     private int size;
     private float velocityX;
     private float velocityY;
+
     private float accelerationY;
 
     private boolean collided;
-
-
 
     /**
      * Bubble class, containing all the data about the bubble.
@@ -106,6 +105,13 @@ public class Bubble extends Circle implements Drawable, Movable {
     }
 
     /**
+     * Slows the bubble down.
+     */
+    public void slowBubble() {
+        this.accelerationY = (float) (this.getAccelerationY() * .9);
+    }
+
+    /**
      * Sets the acceleration of the bubble in y direction.
      * 
      * @param accelerationY
@@ -127,8 +133,8 @@ public class Bubble extends Circle implements Drawable, Movable {
     }
 
     /**
-     * Returns the score given to the player
-     * when this bubble is hit.
+     * Returns the score given to the player when this bubble is hit.
+     * 
      * @return The score of this bubble.
      */
     public static int getBubbleScore() {
@@ -139,7 +145,7 @@ public class Bubble extends Circle implements Drawable, Movable {
      * Calculates the next location of the Bubble.
      */
     public void move() {
-        if(!collided) {
+        if (!collided) {
             this.velocityY += accelerationY;
             float newX = getCenterX() + velocityX;
             float newY = getCenterY() + velocityY;
@@ -150,17 +156,18 @@ public class Bubble extends Circle implements Drawable, Movable {
 
     /**
      * Splits the bubble in two with a smaller size of each.
+     * 
      * @return List of the splitted bubble.
      */
     public List<Bubble> split() {
         size--;
         setRadius(size * GAME_SIZE);
         List<Bubble> bubbleList = new ArrayList<>();
-        if(size > 0) {
+        if (size > 0) {
             velocityY = -Math.abs(accelerationY) * HIT_SPEED_FACTOR;
             velocityX = Math.abs(velocityX);
-            Bubble leftBubble = new Bubble(size, x-20, y, -velocityX, velocityY);
-            Bubble rightBubble = new Bubble(size, x+20, y, velocityX, velocityY);
+            Bubble leftBubble = new Bubble(size, x - 20, y, -velocityX, velocityY);
+            Bubble rightBubble = new Bubble(size, x + 20, y, velocityX, velocityY);
             bubbleList.add(leftBubble);
             bubbleList.add(rightBubble);
         }
@@ -179,7 +186,7 @@ public class Bubble extends Circle implements Drawable, Movable {
     public boolean equals(Object other) {
         if (other instanceof Bubble) {
             Bubble that = (Bubble) other;
-            return this.size == that.size && Math.abs(this.x - that.x) == 0 
+            return this.size == that.size && Math.abs(this.x - that.x) == 0
                     && Math.abs(this.y - that.y) == 0
                     && Math.abs(this.velocityX - that.velocityX) == 0
                     && Math.abs(this.velocityY - that.velocityY) == 0;
@@ -221,7 +228,7 @@ public class Bubble extends Circle implements Drawable, Movable {
      * Bounce to right direction on collision.
      *
      */
-    public void bounceXRight(){
+    public void bounceXRight() {
         velocityX = Math.abs(velocityX);
     }
 
@@ -250,18 +257,19 @@ public class Bubble extends Circle implements Drawable, Movable {
 
     @Override
     public String toString() {
-        return "Bubble{" + "size=" + size + ", x=" + x + ", y=" + y
-                + ", velocityX=" + velocityX + ", velocityY=" + velocityY
-                + ", accelerationY=" + accelerationY + '}';
+        return "Bubble{" + "size=" + size + ", x=" + x + ", y=" + y + ", velocityX=" + velocityX
+                + ", velocityY=" + velocityY + ", accelerationY=" + accelerationY + '}';
     }
 
     /**
      * Draws the object.
-     * @param graphics the graphics
+     * 
+     * @param graphics
+     *            the graphics
      */
     @Override
     public void draw(Graphics graphics) {
-        if(!collided) {
+        if (!collided) {
             graphics.setColor(Color.black);
             graphics.fill(this);
             graphics.draw(this);
@@ -269,15 +277,15 @@ public class Bubble extends Circle implements Drawable, Movable {
     }
 
     /**
-     * Every collidable should return a Map with all CollisionActions
-     * that collidable should process. To prevent class checking, simply
-     * use the class as the key, and a CollisionAction instance as value.
+     * Every collidable should return a Map with all CollisionActions that
+     * collidable should process. To prevent class checking, simply use the
+     * class as the key, and a CollisionAction instance as value.
+     * 
      * @return A map of all actions this collidable can do on a collision.
      */
     @Override
     public Map<Class<? extends Collidable>, CollisionAction> getCollideActions() {
-        Map<Class<? extends Collidable>, CollisionAction> collisionActionMap =
-                new HashMap<Class<? extends Collidable>, CollisionAction>();
+        Map<Class<? extends Collidable>, CollisionAction> collisionActionMap = new HashMap<Class<? extends Collidable>, CollisionAction>();
         // Method called on Wall collision
         collisionActionMap.put(Wall.class, new WallCollision());
 
@@ -297,9 +305,8 @@ public class Bubble extends Circle implements Drawable, Movable {
     }
 
     /**
-     * This method is to check if a collidable
-     * should be removed from the level. If this method
-     * returns true, it will be removed.
+     * This method is to check if a collidable should be removed from the level.
+     * If this method returns true, it will be removed.
      *
      * @return True if object should be removed.
      */
@@ -314,15 +321,15 @@ public class Bubble extends Circle implements Drawable, Movable {
     private class WallCollision implements CollisionAction {
         @Override
         public void onCollision(Collidable wall) {
-            switch(CollisionHandler.checkCollisionSideX(Bubble.this, wall)) {
-                case LEFT:
-                    bounceXLeft();
-                    break;
-                case RIGHT:
-                    bounceXRight();
-                    break;
-                default:
-                    break;
+            switch (CollisionHandler.checkCollisionSideX(Bubble.this, wall)) {
+            case LEFT:
+                bounceXLeft();
+                break;
+            case RIGHT:
+                bounceXRight();
+                break;
+            default:
+                break;
             }
         }
     }
@@ -333,15 +340,15 @@ public class Bubble extends Circle implements Drawable, Movable {
     private class FloorCollision implements CollisionAction {
         @Override
         public void onCollision(Collidable floor) {
-            switch(CollisionHandler.checkCollisionSideY(Bubble.this, floor)) {
-                case TOP:
-                    bounceYFloor();
-                    break;
-                case BOTTOM:
-                    bounceY();
-                    break;
-                default:
-                    break;
+            switch (CollisionHandler.checkCollisionSideY(Bubble.this, floor)) {
+            case TOP:
+                bounceYFloor();
+                break;
+            case BOTTOM:
+                bounceY();
+                break;
+            default:
+                break;
             }
         }
     }
@@ -352,25 +359,25 @@ public class Bubble extends Circle implements Drawable, Movable {
     private class BubbleCollision implements CollisionAction {
         @Override
         public void onCollision(Collidable b) {
-            switch(CollisionHandler.checkCollisionSideX(Bubble.this, b)) {
-                case LEFT:
-                    Bubble.this.bounceXLeft();
-                    break;
-                case RIGHT:
-                    Bubble.this.bounceXRight();
-                    break;
-                default:
-                    break;
+            switch (CollisionHandler.checkCollisionSideX(Bubble.this, b)) {
+            case LEFT:
+                Bubble.this.bounceXLeft();
+                break;
+            case RIGHT:
+                Bubble.this.bounceXRight();
+                break;
+            default:
+                break;
             }
-            switch(CollisionHandler.checkCollisionSideY(Bubble.this, b)) {
-                case TOP:
-                    Bubble.this.bounceYUp();
-                    break;
-                case BOTTOM:
-                    Bubble.this.bounceYDown();
-                    break;
-                default:
-                    break;
+            switch (CollisionHandler.checkCollisionSideY(Bubble.this, b)) {
+            case TOP:
+                Bubble.this.bounceYUp();
+                break;
+            case BOTTOM:
+                Bubble.this.bounceYDown();
+                break;
+            default:
+                break;
             }
         }
     }
@@ -387,7 +394,9 @@ public class Bubble extends Circle implements Drawable, Movable {
 
     /**
      * Checks for intersection with another Collidable.
-     * @param collidable Check if this collidable intersects with that collidable.
+     * 
+     * @param collidable
+     *            Check if this collidable intersects with that collidable.
      * @return True if this object intersects with collidable.
      */
     @Override

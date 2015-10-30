@@ -143,8 +143,6 @@ public class Room implements Serializable, Drawable {
         ArrayList<Collidable> allCollidables = new ArrayList<Collidable>();
         allCollidables.addAll(walls);
         allCollidables.addAll(floors);
-        // allCollidables.addAll(bubbles);
-        // allCollidables.addAll(moveableBorders);
         return allCollidables;
     }
 
@@ -157,8 +155,6 @@ public class Room implements Serializable, Drawable {
         Collection<Collection<? extends Collidable>> allCollidables = new ArrayList<>();
         allCollidables.add(walls);
         allCollidables.add(floors);
-        // allCollidables.addAll(bubbles);
-        // allCollidables.addAll(moveableBorders);
         return allCollidables;
     }
     
@@ -235,9 +231,6 @@ public class Room implements Serializable, Drawable {
             background.draw(0f, 0f);
         }
         graphics.setColor(Color.blue);
-        for (Wall w : walls) {
-            w.draw(graphics);
-        }
         for (Floor f : floors) {
             f.draw(graphics);
         }
