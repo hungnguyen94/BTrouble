@@ -4,6 +4,7 @@ import com.sem.btrouble.model.Bubble;
 import com.sem.btrouble.model.Floor;
 import com.sem.btrouble.model.Room;
 import com.sem.btrouble.model.Wall;
+import com.sem.btrouble.observering.Direction;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -91,11 +92,12 @@ public class DataLoader {
 
                 ArrayList<Wall> walls = parseWalls(levelData);
                 ArrayList<Floor> floors = parseFloors(levelData);
+                ArrayList<Wall> movableWalls = parseMovableWalls(levelData);
                 ArrayList<Floor> movableFloors = parseMovableFloors(levelData);
-                floors.addAll(movableFloors);
 
                 room = new Room(walls, floors, spawnX, spawnY, background);
-                room.addMovables(movableFloors);
+                room.addMovableFloors(movableFloors);
+                room.addMovableWalls(movableWalls);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -120,10 +122,38 @@ public class DataLoader {
             float y = Float.parseFloat(attributes.getNamedItem("y").getNodeValue());
             float width = Float.parseFloat(attributes.getNamedItem("width").getNodeValue());
             float height = Float.parseFloat(attributes.getNamedItem("height").getNodeValue());
+            float speed = Float.parseFloat(attributes.getNamedItem("speed").getNodeValue());
+            Direction direction = Direction.stringToDirection(attributes.getNamedItem("direction").getNodeValue());
 
-            floors.add(new Floor(x, y, width, height));
+            floors.add(new Floor(x, y, width, height, speed, direction));
         }
         return floors;
+    }
+
+    /**
+     * This function parses all the movable walls.
+     * @param levelData the data for the movable walls.
+     * @return a dataset of movable walls.
+     */
+    public ArrayList<Wall> parseMovableWalls(Element levelData) {
+        NodeList wallData = levelData.getElementsByTagName("MovableWall");
+        ArrayList<Wall> walls = new ArrayList<>();
+        NamedNodeMap attributes;
+
+        for (int i = 0; i < wallData.getLength(); i++) {
+            attributes = wallData.item(i).getAttributes();
+
+            float x = Float.parseFloat(attributes.getNamedItem("x").getNodeValue());
+            float y = Float.parseFloat(attributes.getNamedItem("y").getNodeValue());
+            float width = Float.parseFloat(attributes.getNamedItem("width").getNodeValue());
+            float height = Float.parseFloat(attributes.getNamedItem("height").getNodeValue());
+            float speed = Float.parseFloat(attributes.getNamedItem("speed").getNodeValue());
+            Direction direction = Direction.stringToDirection(
+                    attributes.getNamedItem("direction").getNodeValue());
+
+            walls.add(new Wall(x, y, width, height, speed, direction));
+        }
+        return walls;
     }
 
     /**

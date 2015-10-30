@@ -1,7 +1,6 @@
 package com.sem.btrouble.view;
 
-import com.sem.btrouble.model.LifePowerUp;
-import com.sem.btrouble.model.PlayerPowerUp;
+import com.sem.btrouble.model.*;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -16,6 +15,7 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.util.ResourceLoader;
 
 import java.io.InputStream;
+import java.util.List;
 
 /**
  * Created by rubenwiersma on 22-09-15.
@@ -27,7 +27,7 @@ public class ShopView extends BasicGameState {
     private int receiptBubbles = 0;
     private int receiptTime = 0;
     private int receiptLife = 0;
-    private MouseOverArea bubblesButton;
+    private MouseOverArea ropeButton;
     private MouseOverArea timeButton;
     private MouseOverArea lifeButton;
 
@@ -42,11 +42,9 @@ public class ShopView extends BasicGameState {
      *             when the game could not be initialized.
      */
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        //Set objects to draw
         background = new Image("Sprites/store1280x720.png");
 
-        //Buttons
-        bubblesButton = new MouseOverArea(gc, new Image("Sprites/bubbles_button.jpg"), 170, 80);
+        ropeButton = new MouseOverArea(gc, new Image("Sprites/bubbles_button.jpg"), 170, 80);
         timeButton = new MouseOverArea(gc, new Image("Sprites/time_button.jpg"), 187, 230);
         lifeButton = new MouseOverArea(gc, new Image("Sprites/life_button.jpg"), 154, 391);
 
@@ -66,37 +64,36 @@ public class ShopView extends BasicGameState {
      *             when the controller could not be updated
      */
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-        // Press enter
         if (gc.getInput().isKeyPressed(Input.KEY_RETURN)) {
-//            GameView.getController().getTimers().restartTimer();
             sbg.enterState(1, new FadeOutTransition(), new FadeInTransition());
         }
-        int sum = 0;
-//        ArrayList<Player> players = Model.getPlayers();
-//        for(Player player: players) {
-//            sum += player.getWallet().getValue();
-//        }
 
-        // Buttons
+        int sum = 0;
+        List<Player> players = PlayerInfo.getInstance().getPlayers();
+        for(Player player: players) {
+            sum += player.getWallet().getValue();
+        }
+
         if (gc.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
-            if (bubblesButton.isMouseOver() && sum >= 2500) {
-//                int amount = (sum - 2500)/players.size();
-//                giveValue(amount);
-//                power = new SlowPowerUp();
-//                GameView.getController().registerObserver((Observer) power);
-//                Model.addPowerUp(power);
+            if (ropeButton.isMouseOver() && sum >= 2500) {
+                int amount = (sum - 2500)/players.size();
+                giveValue(amount);
+                PlayerPowerUp powerup = new StayRopePowerUp(10000);
+                for(Player player: players) {
+                    powerup.activate(player);
+                }
                 receiptBubbles++;
             } else if (timeButton.isMouseOver() && sum >= 2500) {
-//                int amount = (sum - 2500)/players.size();
-//                giveValue(amount);
-//                power = new TimePowerUp();
-//                Model.addPowerUp(power);
+                int amount = (sum - 2500)/players.size();
+                giveValue(amount);
                 receiptTime++;
             } else if (lifeButton.isMouseOver() && sum >= 10000) {
-//                int amount = (sum - 10000)/players.size();
-//                giveValue(amount);
-                power = new LifePowerUp();
-//                Model.addPowerUp(power);
+                int amount = (sum - 10000)/players.size();
+                giveValue(amount);
+                PlayerPowerUp powerup = new LifePowerUp();
+                for(Player player: players) {
+                    powerup.activate(player);
+                }
                 receiptLife++;
             }
         }
@@ -107,10 +104,10 @@ public class ShopView extends BasicGameState {
      * @param value The value to be given
      */
     public void giveValue(int value) {
-//        ArrayList<Player> players = Model.getPlayers();
-//        for(Player player: players) {
-//            player.getWallet().setValue(value);
-//        }
+        List<Player> players = PlayerInfo.getInstance().getPlayers();
+        for(Player player: players) {
+            player.getWallet().setValue(value);
+        }
     }
 
     /**
@@ -131,10 +128,10 @@ public class ShopView extends BasicGameState {
         background.draw(0f, 0f);
 
         int sum = 0;
-//        ArrayList<Player> players = Model.getPlayers();
-//        for(Player player: players) {
-//            sum += player.getWallet().getValue();
-//        }
+        List<Player> players = PlayerInfo.getInstance().getPlayers();
+        for(Player player: players) {
+            sum += player.getWallet().getValue();
+        }
         graphics.drawString("" + sum, 70, 660);
         graphics.drawString("Press enter", 1000, 660);
         graphics.drawString("" + receiptBubbles, 1175, 520);
@@ -146,13 +143,12 @@ public class ShopView extends BasicGameState {
      * Loads the game font into a TrueTypeFont object to be used by the setFont method.
      */
     private void loadFont() {
-        // load font from a .ttf file
         try {
             InputStream inputStream = ResourceLoader.getResourceAsStream("Sprites/IndieFlower.ttf");
 
             java.awt.Font awtFont = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT,
                     inputStream);
-            awtFont = awtFont.deriveFont(24f); // set font size
+            awtFont = awtFont.deriveFont(24f);
             font = new TrueTypeFont(awtFont, false);
 
         } catch (Exception e) {
@@ -165,6 +161,6 @@ public class ShopView extends BasicGameState {
      * @return the id
      */
     public int getID() {
-        return 2;
+        return 3;
     }
 }

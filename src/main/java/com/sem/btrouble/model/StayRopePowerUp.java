@@ -14,6 +14,19 @@ public class StayRopePowerUp extends PlayerPowerUp {
 
     private Image lifePowerUpImage;
 
+    /**
+     * Construct the power up bought in the shop.
+     */
+    public StayRopePowerUp(int expirationTime) {
+        super(expirationTime);
+    }
+
+    /**
+     * Creates a new StayRopePowerUp object.
+     * @param x the x location where it will spawn
+     * @param y the y location where it will spawn
+     * @param expirationTime expiration time for the powerup
+     */
     public StayRopePowerUp(float x, float y, int expirationTime) {
         super(x, y, expirationTime);
     }

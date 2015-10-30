@@ -14,7 +14,7 @@ import java.util.Map;
  * @author Martin
  *
  */
-public abstract class GamePowerUp extends Rectangle implements Drawable, Movable {
+public abstract class GamePowerUp extends Rectangle implements Drawable, Collidable, Movable {
 
     private boolean falling;
     private boolean collided;

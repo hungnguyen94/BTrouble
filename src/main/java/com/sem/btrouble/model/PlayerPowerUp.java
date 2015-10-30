@@ -14,7 +14,7 @@ import java.util.Map;
  * @author Martin
  *
  */
-public abstract class PlayerPowerUp extends Rectangle implements Drawable, Movable {
+public abstract class PlayerPowerUp extends Rectangle implements Drawable, Collidable, Movable {
 	
     private boolean falling;
     private boolean collided;
@@ -32,9 +32,20 @@ public abstract class PlayerPowerUp extends Rectangle implements Drawable, Movab
     }
 
     /**
+     * Construct power up with expiration bought in the store.
+     * @param expirationTime the expiration time for the powerup
+     */
+    public PlayerPowerUp(int expirationTime) {
+        super(-50, -50, 50, 100);
+        this.expired = false;
+        this.expirationTime = expirationTime;
+    }
+
+    /**
      * Construct power up received in the game.
      * @param xpos x position
      * @param ypos y position
+     * @param expirationTime the expiration time for the powerup
      */
     public PlayerPowerUp(float xpos, float ypos, int expirationTime) {
         super(xpos, ypos, 50, 100);

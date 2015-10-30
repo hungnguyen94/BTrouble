@@ -1,22 +1,22 @@
 package com.sem.btrouble;
 
-import static org.junit.Assert.*;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
+import com.sem.btrouble.controller.Collidable;
+import com.sem.btrouble.model.Floor;
+import com.sem.btrouble.model.Room;
+import com.sem.btrouble.model.Wall;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import static org.mockito.Mockito.verify;
 
-import com.sem.btrouble.controller.Collidable;
-import com.sem.btrouble.model.Floor;
-import com.sem.btrouble.model.Room;
-import com.sem.btrouble.model.Wall;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(MockitoJUnitRunner.class)
 public class RoomTest {
@@ -83,45 +83,26 @@ public class RoomTest {
 	}
 	
 	@Test
-	public void getCollidablesTest() {
-		Collection<Collidable> list = room.getCollidables();
-		Collection<Collidable> compare = new ArrayList<Collidable>();
-		compare.add(wall);
-		compare.add(floor);
-		assertTrue(compare.equals(list));
-	}
-	
-	@Test
 	public void getCollidablesListTest() {
-		Collection<Collection<? extends Collidable>> list = new ArrayList<Collection<? extends Collidable>>();
-		list.add(walls);
-		list.add(floors);
-		assertEquals(list, room.getCollidablesLists());
-	}
-	
-	@Test
-	public void addMovablesTest() {
-		ArrayList<Floor> floors = new ArrayList<Floor>();
-		floors.add(floor);
-		room.addMovables(floors);
-		assertEquals(floors, room.getMoveableBorders());
-	}
-	
-	@Test
-	public void moveFalseTest() {
-		Room room2 = room;
-		room.move();
-		assertTrue(room.equals(room2));
-	}
-	
-	@Test
-	public void moveTrueTrueTest() {
-		ArrayList<Floor> floors = new ArrayList<Floor>();
-		floors.add(floor);
-		room.addMovables(floors);
-		room.move();
-		verify(floor).grow(0f, 0.1f);
-		verify(floor).setY(630f - floor.getHeight());
+		Collection<Collidable> list = new ArrayList<>();
+		list.addAll(walls);
+		list.addAll(floors);
+		assertEquals(list, room.getCollidablesList());
 	}
 
+	@Test
+	public void addMovableFloorTest() {
+		ArrayList<Floor> floors = new ArrayList<Floor>();
+		floors.add(floor);
+		room.addMovableFloors(floors);
+		assertEquals(floors, room.getMoveableFloors());
+	}
+
+	@Test
+	public void addMovableWallTest() {
+		ArrayList<Wall> walls = new ArrayList<>();
+		walls.add(wall);
+		room.addMovableWalls(walls);
+		assertEquals(walls, room.getMoveableWalls());
+	}
 }

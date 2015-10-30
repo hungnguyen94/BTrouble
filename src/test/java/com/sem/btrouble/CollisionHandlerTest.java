@@ -49,6 +49,12 @@ public class CollisionHandlerTest {
         collisionHandler = new CollisionHandler();
         assertNotNull(collisionHandler);
     }
+    
+    @Test
+    public void checkCollisionNull() {
+    	Collidable self = null;
+    	assertEquals(false, collisionHandler.checkCollision(self));
+    }
 
     /**
      * Test the collision between a player and a bubble.

@@ -51,27 +51,30 @@ public class BubbleCollisionTests {
 
     @Test
     public void bubbleFloorCollision() {
-        floor = Mockito.spy(new Floor(0, -100, HEIGHT, WIDTH));
+        floor = Mockito.spy(new Floor(0, 1000, WIDTH, HEIGHT));
         bubble.move();
-        assertTrue(bubble.getVelocityY() >= 0);
+        assertTrue(bubble.getVelocityY() > 0);
         bubble.getCollideActions().get(Floor.class).onCollision(floor);
+        bubble.move();
         assertTrue(bubble.getVelocityY() < 0);
     }
 
     @Test
     public void bubbleCeilingCollision() {
-        floor = Mockito.spy(new Floor(0, 100, HEIGHT, WIDTH));
+        floor = Mockito.spy(new Floor(0, -1000, HEIGHT, WIDTH));
         bubble.move();
         bubble.bounceYFloor();
         bubble.move();
-        bubble.getCollideActions().get(Floor.class).onCollision(floor);
         assertTrue(bubble.getVelocityY() < 0);
+        bubble.getCollideActions().get(Floor.class).onCollision(floor);
+        assertTrue(bubble.getVelocityY() > 0);
     }
 
     @Test
     public void bubbleBubbleLeftCollision() {
         Bubble otherBubble = new Bubble(10, CENTER_X + 10, CENTER_Y);
         bubble.getCollideActions().get(Bubble.class).onCollision(otherBubble);
+        otherBubble.getCollideActions().get(Bubble.class).onCollision(bubble);
         assertTrue(bubble.getVelocityX() < 0);
         assertTrue(otherBubble.getVelocityX() > 0);
     }
@@ -80,6 +83,7 @@ public class BubbleCollisionTests {
     public void bubbleBubbleRightCollision() {
         Bubble otherBubble = new Bubble(10, CENTER_X - 10, CENTER_Y);
         bubble.getCollideActions().get(Bubble.class).onCollision(otherBubble);
+        otherBubble.getCollideActions().get(Bubble.class).onCollision(bubble);
         assertTrue(bubble.getVelocityX() > 0);
         assertTrue(otherBubble.getVelocityX() < 0);
     }
@@ -90,6 +94,7 @@ public class BubbleCollisionTests {
         bubble.move();
         otherBubble.move();
         bubble.getCollideActions().get(Bubble.class).onCollision(otherBubble);
+        otherBubble.getCollideActions().get(Bubble.class).onCollision(bubble);
         assertTrue(bubble.getVelocityY() > 0);
         assertTrue(otherBubble.getVelocityY() < 0);
     }
@@ -100,6 +105,7 @@ public class BubbleCollisionTests {
         bubble.move();
         otherBubble.move();
         bubble.getCollideActions().get(Bubble.class).onCollision(otherBubble);
+        otherBubble.getCollideActions().get(Bubble.class).onCollision(bubble);
         assertTrue(bubble.getVelocityY() < 0);
         assertTrue(otherBubble.getVelocityY() > 0);
     }

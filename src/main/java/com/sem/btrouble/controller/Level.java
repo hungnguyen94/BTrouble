@@ -1,11 +1,6 @@
 package com.sem.btrouble.controller;
 
-import com.sem.btrouble.model.Bubble;
-import com.sem.btrouble.model.Drawable;
-import com.sem.btrouble.model.Movable;
-import com.sem.btrouble.model.Player;
-import com.sem.btrouble.model.Room;
-import com.sem.btrouble.model.Rope;
+import com.sem.btrouble.model.*;
 import com.sem.btrouble.observering.LevelObserver;
 import com.sem.btrouble.observering.LevelSubject;
 import org.newdawn.slick.Graphics;
@@ -18,10 +13,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 /**
  * Level class.
  */
-public class Level implements LevelSubject, Drawable {
+public class Level implements LevelSubject {
     private Room room;
     private List<Player> players;
-    private List<Movable> movables;
     private List<LevelObserver> observersList;
     private boolean levelRunning;
     private Controller mainController;
@@ -35,13 +29,13 @@ public class Level implements LevelSubject, Drawable {
     public Level(Room room) {
         this.room = room;
         this.players = new CopyOnWriteArrayList<>();
-        this.observersList = new ArrayList<LevelObserver>();
-        this.movables = new CopyOnWriteArrayList<>();
+        this.observersList = new ArrayList<>();
+
         this.bubbleController = new BubbleController(new CollisionHandler());
         this.ropeController = new RopeController(new PowerUpController(bubbleController));
-        this.mainController = ropeController;
+        this.mainController = new BorderController(ropeController, room.getMoveableWalls(), room.getMoveableFloors());
 
-        this.mainController.addListReference(room.getCollidables());
+        this.mainController.addListReference(room.getCollidablesList());
         this.mainController.addListReference(players);
     }
 
@@ -55,14 +49,7 @@ public class Level implements LevelSubject, Drawable {
         players.add(player);
         player.setX(room.getSpawnPositionX());
         player.setY(room.getSpawnPositionY());
-    }
-
-    /**
-     * This method adds a bubble to the list.
-     * @param bubble This bubble will be added.
-     */
-    public void addBubble(Bubble bubble) {
-        bubbleController.addBubble(bubble);
+        PlayerInfo.getInstance().setPlayers(players);
     }
 
     /**
@@ -74,21 +61,9 @@ public class Level implements LevelSubject, Drawable {
     }
 
     /**
-     * Adds a movable object to the level.
-     * @param movable
+     * Adds a rope to the ropeController.
+     * @param rope rope that is added.
      */
-    public void addMovable(Movable movable) {
-        movables.add(movable);
-    }
-
-    /**
-     * Remove a movable object from the level.
-     * @param movable
-     */
-    public void removeMovable(Movable movable) {
-        movables.remove(movable);
-    }
-
     public void addRope(Rope rope) {
         ropeController.addRope(rope);
     }
@@ -113,10 +88,6 @@ public class Level implements LevelSubject, Drawable {
         mainController.update();
         for(Player player : players) {
             player.move();
-        }
-        for(Movable movable : movables) {
-            System.out.println(movable);
-            movable.move();
         }
         notifyObserver();
     }
@@ -203,14 +174,7 @@ public class Level implements LevelSubject, Drawable {
      *
      * @param graphics The graphics
      */
-    @Override
     public void draw(Graphics graphics) {
-        for(Movable movable : movables) {
-            if(movable instanceof Drawable) {
-                Drawable tempremovethis = (Drawable) movable;
-                tempremovethis.draw(graphics);
-            }
-        }
         room.draw(graphics);
         mainController.draw(graphics);
         for(Player player : players) {

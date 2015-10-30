@@ -1,8 +1,8 @@
 package com.sem.btrouble.controller;
 
-import com.sem.btrouble.model.PlayerPowerUp;
 import com.sem.btrouble.model.Bubble;
 import com.sem.btrouble.model.GamePowerUp;
+import com.sem.btrouble.model.PlayerPowerUp;
 import com.sem.btrouble.model.PowerUpFactory;
 import org.newdawn.slick.Graphics;
 
@@ -13,7 +13,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * @author Hung
  * Controller to control the powerUps.
  */
-public class PowerUpController extends ControllerDecorator implements Controller {
+public class PowerUpController extends ControllerDecorator {
 
     private List<PlayerPowerUp> playerPowerUpList;
     private List<GamePowerUp> gamePowerUpList;
@@ -82,6 +82,9 @@ public class PowerUpController extends ControllerDecorator implements Controller
     @Override
     public void draw(Graphics graphics) {
         for(PlayerPowerUp powerUp : playerPowerUpList) {
+            powerUp.draw(graphics);
+        }
+        for(GamePowerUp powerUp : gamePowerUpList) {
             powerUp.draw(graphics);
         }
         controller.draw(graphics);

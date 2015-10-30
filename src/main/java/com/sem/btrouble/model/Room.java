@@ -6,7 +6,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -17,7 +16,7 @@ import java.util.List;
  *
  */
 @SuppressWarnings("serial")
-public class Room implements Serializable, Drawable {
+public class Room implements Drawable {
     private int spawnPositionX;
     private int spawnPositionY;
 
@@ -25,15 +24,17 @@ public class Room implements Serializable, Drawable {
     private List<Floor> floors;
     private Image background;
 
-    private List<Collidable> moveableBorders;
+    private List<Wall> moveableWalls;
+    private List<Floor> moveableFloors;
 
     /**
      * Initializes the room with empty objects.
      */
     public Room() {
-        walls = new ArrayList<Wall>();
-        floors = new ArrayList<Floor>();
-        moveableBorders = new ArrayList<Collidable>();
+        walls = new ArrayList<>();
+        floors = new ArrayList<>();
+        moveableWalls = new ArrayList<>();
+        moveableFloors = new ArrayList<>();
         spawnPositionX = 0;
         spawnPositionY = 0;
         try {
@@ -46,22 +47,19 @@ public class Room implements Serializable, Drawable {
     /**
      * Initializes the room with given objects.
      * 
-     * @param walls
-     *            - list of walls
-     * @param floors
-     *            - list of floors
-     * @param spawnX
-     *            - spawn position on x-axis
-     * @param spawnY
-     *            - spawn position on y-axis
+     * @param walls list of walls
+     * @param floors list of floors
+     * @param spawnX spawn position on x-axis
+     * @param spawnY spawn position on y-axis
+     * @param background background image file location
      */
-    public Room(List<Wall> walls, List<Floor> floors, int spawnX,
-        int spawnY, String background) {
+    public Room(List<Wall> walls, List<Floor> floors, int spawnX, int spawnY, String background) {
         this.walls = walls;
         this.floors = floors;
-        this.moveableBorders = new ArrayList<Collidable>();
-        spawnPositionX = spawnX;
-        spawnPositionY = spawnY;
+        this.moveableWalls = new ArrayList<>();
+        this.moveableFloors = new ArrayList<>();
+        this.spawnPositionX = spawnX;
+        this.spawnPositionY = spawnY;
         try {
             setBackground(new Image("Sprites/"+background));
         } catch (RuntimeException | SlickException | UnsatisfiedLinkError e) {
@@ -94,6 +92,38 @@ public class Room implements Serializable, Drawable {
      */
     public List<Floor> getFloors() {
         return floors;
+    }
+
+    /**
+     * Get the borders which are moveable.
+     * @return the moveable borders
+     */
+    public List<Wall> getMoveableWalls() {
+        return moveableWalls;
+    }
+
+    /**
+     * Adds movable walls to the room.
+     * @param movableWalls movable walls
+     */
+    public void addMovableWalls(Collection<Wall> movableWalls) {
+        moveableWalls.addAll(movableWalls);
+    }
+
+    /**
+     * Get the borders which are moveable.
+     * @return the moveable floors
+     */
+    public List<Floor> getMoveableFloors() {
+        return moveableFloors;
+    }
+
+    /**
+     * Adds movable Floors to the room.
+     * @param movableFloors movable floors
+     */
+    public void addMovableFloors(Collection<Floor> movableFloors) {
+        moveableFloors.addAll(movableFloors);
     }
 
     /**
@@ -139,50 +169,11 @@ public class Room implements Serializable, Drawable {
      *
      * @return - all collidable objects in a room
      */
-    public Collection<Collidable> getCollidables() {
-        ArrayList<Collidable> allCollidables = new ArrayList<Collidable>();
+    public Collection<Collidable> getCollidablesList() {
+        Collection<Collidable> allCollidables = new ArrayList<>();
         allCollidables.addAll(walls);
         allCollidables.addAll(floors);
-        // allCollidables.addAll(bubbles);
-        // allCollidables.addAll(moveableBorders);
         return allCollidables;
-    }
-
-    /**
-     * Return all collidable objects in a room.
-     *
-     * @return - all collidable objects in a room
-     */
-    public Collection<Collection<? extends Collidable>> getCollidablesLists() {
-        Collection<Collection<? extends Collidable>> allCollidables = new ArrayList<>();
-        allCollidables.add(walls);
-        allCollidables.add(floors);
-        // allCollidables.addAll(bubbles);
-        // allCollidables.addAll(moveableBorders);
-        return allCollidables;
-    }
-    
-    /**
-     * Get the borders which are moveable.
-     * @return the moveable borders
-     */
-    public List<Collidable> getMoveableBorders() {
-    	return this.moveableBorders;
-    }
-
-    /**
-     * Move all the bubbles in the room.
-     */
-    public void move() {
-        if (!moveableBorders.isEmpty()) {
-            for (Collidable f : moveableBorders) {
-                if (f instanceof Floor) {
-                    Floor that = (Floor) f;
-                    that.grow(0f, 0.1f);
-                    that.setY(630f - that.getHeight());
-                }
-            }
-        }
     }
 
     /**
@@ -242,9 +233,4 @@ public class Room implements Serializable, Drawable {
             f.draw(graphics);
         }
     }
-
-    public void addMovables(ArrayList<Floor> movableFloors) {
-        moveableBorders.addAll(movableFloors);
-    }
-
 }
