@@ -12,7 +12,7 @@ public class PowerUpFactoryTest {
 
 	@Test
 	public void stayPowerTest() {
-		assertEquals(PowerUpFactory.generate(1, 1, 0.05), new StayRopePowerUp(1, 1, 5000));
+		assertEquals(PowerUpFactory.generate(1, 1, 0.05), new StayRopePowerUp(1, 1));
 	}
 	
 	@Test
@@ -22,7 +22,7 @@ public class PowerUpFactoryTest {
 	
 	@Test
 	public void nullPowerTest() {
-		assertEquals(PowerUpFactory.generate(1, 1, 0.25), null);
+		assertEquals(PowerUpFactory.generate(1, 1, 1000), null);
 	}
 
 }

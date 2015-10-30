@@ -5,16 +5,16 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.sem.btrouble.model.GamePowerUp;
+import com.sem.btrouble.model.PowerUp;
 
 public abstract class GamePowerUpTest {
 
-	private GamePowerUp power;
+	private PowerUp power;
 	
 	@Before
 	public abstract void setUp();
 	
-	public void setObject(GamePowerUp power) {
+	public void setObject(PowerUp power) {
 		this.power = power;
 	}
 	
