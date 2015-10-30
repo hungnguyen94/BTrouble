@@ -16,7 +16,7 @@ import java.util.List;
 public class Wallet implements Observer {
 
     private int value;
-    private List<PlayerPowerUp> powerUpList;
+    private List<PowerUp> powerUpList;
 
     /**
      * Construct a wallet with value zero.
@@ -53,24 +53,24 @@ public class Wallet implements Observer {
      * Get power ups of the wallet.
      * @return the power ups.
      */
-    public List<PlayerPowerUp> getPowerUps() {
+    public List<PowerUp> getPowerUps() {
     	return this.powerUpList;
     }
 
     /**
      * Adds a powerUp to the wallet.
-     * @param powerUp This powerup will be added.
+     * @param bubblePowerUp This powerup will be added.
      */
-    public void addPowerUp(PlayerPowerUp powerUp) {
-        removePowerUp(containsPowerUp(powerUp.getClass()));
-        powerUpList.add(powerUp);
+    public void addPowerUp(PowerUp bubblePowerUp) {
+        removePowerUp(containsPowerUp(bubblePowerUp.getClass()));
+        powerUpList.add(bubblePowerUp);
     }
 
     /**
      * removes a powerUp from the wallet.
      * @param powerUp This powerup will be removed.
      */
-    public void removePowerUp(PlayerPowerUp powerUp) {
+    public void removePowerUp(PowerUp powerUp) {
         powerUpList.remove(powerUp);
     }
 
@@ -79,8 +79,8 @@ public class Wallet implements Observer {
      * @param powerUp Powerup
      * @return True if the wallet has the powerup.
      */
-    public PlayerPowerUp containsPowerUp(Class<? extends PlayerPowerUp> powerUp) {
-        for(PlayerPowerUp playerPowerUp : powerUpList) {
+    public PowerUp containsPowerUp(Class<? extends PowerUp> powerUp) {
+        for(PowerUp playerPowerUp : powerUpList) {
             if(playerPowerUp.getClass() == powerUp) {
                 return playerPowerUp;
             }
