@@ -416,7 +416,6 @@ public class Player extends Rectangle implements Drawable, Movable {
         } else {
             velocityY = 0;
         }
-//        idle = true;
     }
 
     /**

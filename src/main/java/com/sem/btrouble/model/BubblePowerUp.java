@@ -1,27 +1,24 @@
 package com.sem.btrouble.model;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.newdawn.slick.geom.Shape;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.sem.btrouble.controller.Collidable;
 import com.sem.btrouble.controller.CollisionAction;
 /**
  * Superclass for all power ups.
- * @author Martin
  *
  */
-public abstract class PlayerPowerUp extends PowerUp implements Drawable, Movable {
+public abstract class BubblePowerUp extends PowerUp implements Drawable, Movable {
 	
     private static final long serialVersionUID = 1L;
+    protected CopyOnWriteArrayList<Bubble> bubbles;
     
     /**
      * Construct power up bought in the store.
      */
-    public PlayerPowerUp() {
+    public BubblePowerUp() {
         super(-50, -50);
         
     }
@@ -31,8 +28,17 @@ public abstract class PlayerPowerUp extends PowerUp implements Drawable, Movable
      * @param xpos x position
      * @param ypos y position
      */
-    public PlayerPowerUp(float xpos, float ypos) {
+    public BubblePowerUp(float xpos, float ypos, CopyOnWriteArrayList<Bubble> bubbleList) {
         super(xpos, ypos);
+        this.bubbles = bubbleList;
+    }
+
+    /**
+     * Returns the expired status of the PowerUp.
+     * @return True if this powerup is expired.
+     */
+    public boolean isExpired() {
+        return expired;
     }
     
     /**
@@ -41,7 +47,7 @@ public abstract class PlayerPowerUp extends PowerUp implements Drawable, Movable
      * powerup when it runs out.
      * @param player Player to apply the powerUp to.
      */
-    public abstract void activate(final Player player);
+    public abstract void activate(final Player player, CopyOnWriteArrayList<Bubble> bubbles);
     
     /**
      * Sets the collided status for this powerup.
@@ -88,19 +94,9 @@ public abstract class PlayerPowerUp extends PowerUp implements Drawable, Movable
     private class PlayerCollision implements CollisionAction {
         @Override
         public void onCollision(Collidable collider) {
-            PlayerPowerUp.this.activate((Player) collider);
-            PlayerPowerUp.this.collided = true;
+            BubblePowerUp.this.activate((Player) collider, bubbles);
+            BubblePowerUp.this.collided = true;
         }
     }
 
-    /**
-     * Checks for intersection with another Collidable.
-     *
-     * @param collidable Check if this collidable intersects with that collidable.
-     * @return True if this object intersects with collidable.
-     */
-    @Override
-    public boolean intersectsCollidable(Collidable collidable) {
-        return intersects((Shape) collidable);
-    }
 }
